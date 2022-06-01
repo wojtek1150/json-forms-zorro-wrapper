@@ -1,5 +1,7 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { IconDefinition } from '@ant-design/icons-angular';
+import { CheckCircleFill } from '@ant-design/icons-angular/icons';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,6 +13,11 @@ import { JsonFormsZorroModule } from './zorro-wrapper/module';
 import { FormsModule } from '@angular/forms';
 import { en_US, NZ_I18N } from 'ng-zorro-antd/i18n';
 import { JsonFormsAngularMaterialModule } from '@jsonforms/angular-material';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzAlertModule } from 'ng-zorro-antd/alert';
+
+const icons: IconDefinition[] = [CheckCircleFill];
 
 @NgModule({
   declarations: [
@@ -26,6 +33,9 @@ import { JsonFormsAngularMaterialModule } from '@jsonforms/angular-material';
     JsonFormsZorroModule,
     FormsModule,
     JsonFormsAngularMaterialModule,
+    NzButtonModule,
+    NzIconModule.forRoot(icons),
+    NzAlertModule,
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },

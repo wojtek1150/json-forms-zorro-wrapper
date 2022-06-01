@@ -1,5 +1,13 @@
 <h1>NgZorro Examples</h1>
-Data: {{ formData | json }}
+
+<nz-alert
+  nzType="info"
+  nzDescription="For now, preview does not contain every field described in schema"
+  nzShowIcon
+></nz-alert>
+
+
+<hr/>
 
 <jsonforms
   [schema]="schema"
@@ -8,3 +16,9 @@ Data: {{ formData | json }}
   [(data)]="formData"
   (dataChange)="log($event)"
 ></jsonforms>
+
+<hr/>
+<h2>Form Data</h2>
+<pre>
+  {{ formData | json }}
+</pre>

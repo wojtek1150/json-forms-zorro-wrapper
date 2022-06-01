@@ -1,8 +1,24 @@
-<nz-tabset>
-  <nz-tab nzTitle="Custom">
+<nz-tabset nzTabPosition="left">
+  <nz-tab [nzTitle]="titleTemplate">
+    <ng-template #titleTemplate>
+      <i nz-icon nzType="check-circle"></i>
+      DEMO
+    </ng-template>
+
     <app-json-forms-custom></app-json-forms-custom>
   </nz-tab>
-  <nz-tab nzTitle="JsonForm samples">
+  <nz-tab nzTitle="HTML">
+    <pre><code>{{demo.html}}</code></pre>
 
+    Import render from <code>{{demo.htmlNote}}</code>
+  </nz-tab>
+  <nz-tab nzTitle="Schema">
+    <pre><code>{{demo.schema}}</code></pre>
+  </nz-tab>
+  <nz-tab nzTitle="UI Schema">
+    <pre><code>{{demo.uischema}}</code></pre>
+  </nz-tab>
+  <nz-tab nzTitle="Form Data">
+    <pre><code>{{demo.formdata}}</code></pre>
   </nz-tab>
 </nz-tabset>

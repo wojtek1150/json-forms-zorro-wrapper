@@ -1,4 +1,9 @@
 :host {
   padding: 3vw;
   display: block;
+
+  ::ng-deep jsonforms {
+    margin: 30px 0 30px -16px;
+    display: block;
+  }
 }

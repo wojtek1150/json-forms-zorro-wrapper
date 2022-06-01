@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { schema } from './schema';
 import { uischema } from './uischema';
 import { ngZorroRenderers } from '../zorro-wrapper';
+import { formData } from './formdata';
 
 @Component({
   selector: 'app-json-forms-custom',
@@ -10,18 +11,8 @@ import { ngZorroRenderers } from '../zorro-wrapper';
 export class JsonFormsCustomComponent {
   schema = schema;
   uischema = uischema;
+  formData = formData;
   renderers = ngZorroRenderers;
-
-  formData = {
-    name: '',
-    vegetarian: false,
-    birthDate: '2022-06-01',
-    personalData: {
-      age: 34
-    },
-    postalCode: '12345',
-    nationality: 'DE'
-  };
 
   log($event: any) {
     console.log('LOG', '======', $event, '======');
