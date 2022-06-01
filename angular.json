@@ -20,7 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "deployUrl": "/json-forms-zorro-wrapper/",
+            "baseHref": "/json-forms-zorro-wrapper/",
             "allowedCommonJsDependencies": [
               "lodash",
               "ajv",
