@@ -3,18 +3,21 @@ import { schema } from './schema';
 import { uischema } from './uischema';
 import { ngZorroRenderers } from '../zorro-wrapper';
 import { formData } from './formdata';
+import { JsonFormsRendererRegistryEntry, JsonSchema, UISchemaElement } from '@jsonforms/core';
 
 @Component({
   selector: 'app-json-forms-custom',
   templateUrl: './json-forms-custom.component.html',
 })
 export class JsonFormsCustomComponent {
-  schema = schema;
-  uischema = uischema;
+  schema: JsonSchema = schema;
+  uischema: UISchemaElement = uischema;
+  renderers: JsonFormsRendererRegistryEntry[] = ngZorroRenderers;
   formData = formData;
-  renderers = ngZorroRenderers;
 
   log($event: any) {
-    console.log('LOG', '======', $event, '======');
+    console.log('======');
+    console.log($event);
+    console.log('======');
   }
 }

@@ -33,7 +33,7 @@ export class HorizontalLayoutRenderer extends LayoutRenderer<HorizontalLayout> {
   }
 }
 
-export const horizontalLayoutTester: RankedTester = rankWith(
+export const HorizontalLayoutTester: RankedTester = rankWith(
   1,
   uiTypeIs('HorizontalLayout')
 );

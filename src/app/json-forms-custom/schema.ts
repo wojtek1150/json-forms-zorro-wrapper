@@ -1,33 +1,40 @@
-export const schema = {
-  'type': 'object',
-  'properties': {
-    'name': {
-      'type': 'string',
-      'minLength': 3,
-      'maxLength': 10,
-      'description': 'Please enter your name'
+import { JsonSchema } from '@jsonforms/core';
+
+export const schema: JsonSchema = {
+  type: 'object',
+  properties: {
+    name: {
+      type: 'string'
     },
-    'vegetarian': {
-      'type': 'boolean'
+    vegetarian: {
+      type: 'boolean'
     },
-    'birthDate': {
-      'type': 'string',
-      'format': 'date'
+    birthDate: {
+      type: 'string',
+      format: 'date'
     },
-    'nationality': {
-      'type': 'string',
-      'enum': [
-        'DE',
-        'IT',
-        'JP',
-        'US',
-        'RU',
-        'Other'
+    personalData: {
+      type: 'object',
+      properties: {
+        age: {
+          type: 'integer'
+        }
+      },
+      additionalProperties: true,
+      required: [
+        'age'
       ]
     },
+    postalCode: {
+      type: 'string'
+    }
   },
-  'required': [
+  additionalProperties: true,
+  required: [
     'name',
-    'birthDate'
+    'vegetarian',
+    'birthDate',
+    'personalData',
+    'postalCode'
   ]
 };

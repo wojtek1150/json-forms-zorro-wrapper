@@ -1,3 +1,11 @@
+<h1>NgZorro Examples</h1>
+
+<nz-alert
+  nzType="info"
+  nzDescription="For now, preview does not contain every field described in schema"
+  nzShowIcon
+></nz-alert>
+
 <nz-tabset nzTabPosition="left">
   <nz-tab [nzTitle]="titleTemplate">
     <ng-template #titleTemplate>
@@ -9,8 +17,7 @@
   </nz-tab>
   <nz-tab nzTitle="HTML">
     <pre><code>{{demo.html}}</code></pre>
-
-    Import render from <code>{{demo.htmlNote}}</code>
+    <code>{{demo.htmlNote}}</code>
   </nz-tab>
   <nz-tab nzTitle="Schema">
     <pre><code>{{demo.schema}}</code></pre>

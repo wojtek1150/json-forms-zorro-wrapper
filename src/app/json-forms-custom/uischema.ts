@@ -1,15 +1,25 @@
 export const uischema = {
-  'type': 'HorizontalLayout',
-  'elements': [
+  type: 'VerticalLayout',
+  elements: [
     {
-      'type': 'Control',
-      'label': 'Name',
-      'scope': '#/properties/name'
+      type: 'Control',
+      scope: '#/properties/name'
     },
     {
-      'type': 'Control',
-      'label': 'Birth Date',
-      'scope': '#/properties/birthDate',
+      type: 'Control',
+      scope: '#/properties/vegetarian'
+    },
+    {
+      type: 'Control',
+      scope: '#/properties/birthDate'
+    },
+    {
+      type: 'Control',
+      scope: '#/properties/personalData'
+    },
+    {
+      type: 'Control',
+      scope: '#/properties/postalCode'
     }
   ]
 };

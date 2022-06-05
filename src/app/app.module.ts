@@ -12,8 +12,6 @@ import { JsonFormsCustomComponent } from './json-forms-custom/json-forms-custom.
 import { JsonFormsZorroModule } from './zorro-wrapper/module';
 import { FormsModule } from '@angular/forms';
 import { en_US, NZ_I18N } from 'ng-zorro-antd/i18n';
-import { JsonFormsAngularMaterialModule } from '@jsonforms/angular-material';
-import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
 
@@ -32,8 +30,6 @@ const icons: IconDefinition[] = [CheckCircleFill];
     BrowserAnimationsModule,
     JsonFormsZorroModule,
     FormsModule,
-    JsonFormsAngularMaterialModule,
-    NzButtonModule,
     NzIconModule.forRoot(icons),
     NzAlertModule,
   ],
