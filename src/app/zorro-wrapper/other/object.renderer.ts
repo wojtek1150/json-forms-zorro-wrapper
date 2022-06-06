@@ -7,14 +7,12 @@ import { ControlWithDetailProps, findUISchema, GroupLayout, isObjectControl, Ran
 @Component({
   selector: 'ObjectRenderer',
   template: `
-    <nz-card>
-      <jsonforms-outlet
-        [uischema]="detailUiSchema"
-        [schema]="scopedSchema"
-        [path]="propsPath"
-      >
-      </jsonforms-outlet>
-    </nz-card>
+    <jsonforms-outlet
+      [uischema]="detailUiSchema"
+      [schema]="scopedSchema"
+      [path]="propsPath"
+    >
+    </jsonforms-outlet>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })

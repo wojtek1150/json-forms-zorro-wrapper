@@ -3,7 +3,15 @@ export const uischema = {
   elements: [
     {
       type: 'Control',
-      scope: '#/properties/name'
+      scope: '#/properties/name',
+    },
+    {
+      type: 'Control',
+      scope: '#/properties/bio',
+      options: {
+        multi: true,
+        minRows: 3,
+      }
     },
     {
       type: 'Control',
@@ -11,15 +19,26 @@ export const uischema = {
     },
     {
       type: 'Control',
-      scope: '#/properties/birthDate'
-    },
-    {
-      type: 'Control',
       scope: '#/properties/personalData'
     },
     {
       type: 'Control',
-      scope: '#/properties/postalCode'
+      scope: '#/properties/toggle',
+      label: 'Boolean as Toggle',
+      options: {
+        toggle: true
+      }
+    },
+    {
+      type: 'Control',
+      scope: '#/properties/slider',
+      options: {
+        slider: true
+      }
+    },
+    {
+      type: 'Control',
+      scope: '#/properties/enum'
     }
   ]
 };

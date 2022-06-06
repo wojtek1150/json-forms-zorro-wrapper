@@ -1,52 +1,48 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { JsonFormsAngularService, JsonFormsControl } from '@jsonforms/angular';
-import { isStringControl, RankedTester, rankWith } from '@jsonforms/core';
+import { isMultiLineControl, RankedTester, rankWith } from '@jsonforms/core';
+import { AutoSizeType } from 'ng-zorro-antd/input/autosize.directive';
 
 @Component({
-  selector: 'TextControlRenderer',
+  selector: 'TextAreaRenderer',
   template: `
     <nz-form-item>
       <nz-form-label *ngIf="description" [nzFor]="id">{{description}}</nz-form-label>
       <nz-form-control nzHasFeedback [nzErrorTip]="error" [nzValidateStatus]="form.status | nzValidationStatus">
-        <input
+        <textarea
           nz-input
           [id]="id"
           [formControl]="form"
           [placeholder]="label"
-          [type]="type"
+          [nzAutosize]="autosize"
           (input)="onChange($event)"
-        >
+        ></textarea>
       </nz-form-control>
     </nz-form-item>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TextControlRenderer extends JsonFormsControl {
+export class TextAreaRenderer extends JsonFormsControl {
+  autosize: string | boolean | AutoSizeType;
+
   constructor(jsonformsService: JsonFormsAngularService) {
     super(jsonformsService);
   }
 
   override getEventValue = (event: any) => event.target.value;
 
-  get type(): string {
-    if (this.uischema.options && this.uischema.options['format']) {
-      return this.uischema.options['format'];
+  override mapAdditionalProps() {
+    if (this.uischema) {
+      const rows = {
+        minRows: this.uischema.options['minRows'],
+        maxRows: this.uischema.options['maxRows'],
+      };
+      this.autosize = this.uischema.options['minRows'] || this.uischema.options['maxRows'] ? rows : true;
     }
-    if (this.scopedSchema && this.scopedSchema.format) {
-      switch (this.scopedSchema.format) {
-        case 'email':
-          return 'email';
-        case 'tel':
-          return 'tel';
-        default:
-          return 'text';
-      }
-    }
-    return 'text';
-  };
+  }
 }
 
-export const TextControlRendererTester: RankedTester = rankWith(
-  1,
-  isStringControl
+export const TextAreaRendererTester: RankedTester = rankWith(
+  2,
+  isMultiLineControl
 );

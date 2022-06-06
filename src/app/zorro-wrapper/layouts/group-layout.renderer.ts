@@ -12,6 +12,11 @@ import { JsonFormsAngularService } from '@jsonforms/angular';
       </div>
     </nz-card>
   `,
+  styles: [`
+    nz-card {
+      margin-bottom: 16px;
+    }
+  `],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GroupLayoutRenderer extends LayoutRenderer<GroupLayout> {
@@ -19,4 +24,5 @@ export class GroupLayoutRenderer extends LayoutRenderer<GroupLayout> {
     super(jsonFormsService, changeDetectionRef);
   }
 }
+
 export const GroupLayoutTester: RankedTester = rankWith(1, uiTypeIs('Group'));

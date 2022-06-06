@@ -7,12 +7,13 @@ import { DatePipe } from '@angular/common';
   selector: 'DateControlRenderer',
   template: `
     <nz-form-item>
-      <nz-form-label *ngIf="shouldShowUnfocusedDescription()" [nzFor]="id">{{description}}</nz-form-label>
+      <nz-form-label *ngIf="description" [nzFor]="id">{{description}}</nz-form-label>
       <nz-form-control nzHasFeedback [nzErrorTip]="error" [nzValidateStatus]="form.status | nzValidationStatus">
         <nz-date-picker
           [id]="id"
           [formControl]="form"
           [nzFormat]="dateFormat"
+          [nzDisabled]="!isEnabled()"
           (ngModelChange)="onChange($event)"
         ></nz-date-picker>
       </nz-form-control>

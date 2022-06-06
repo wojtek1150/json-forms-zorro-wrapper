@@ -19,6 +19,13 @@ import { NzCardModule } from 'ng-zorro-antd/card';
 import { CategorizationTabLayoutRenderer } from './layouts/categorization-layout.renderer';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { ObjectControlRenderer } from './other/object.renderer';
+import { ToggleControlRenderer } from './controls/toggle.renderer';
+import { NzSwitchModule } from 'ng-zorro-antd/switch';
+import { RangeControlRenderer } from './controls/range.renderer';
+import { NzSliderModule } from 'ng-zorro-antd/slider';
+import { TextAreaRenderer } from './controls/textarea.renderer';
+import { SelectControlRenderer } from './controls/select.renderer';
+import { NzSelectModule } from 'ng-zorro-antd/select';
 
 const modules = [
   CommonModule,
@@ -31,10 +38,14 @@ const modules = [
 ];
 
 const controls = [
+  SelectControlRenderer,
   BooleanControlRenderer,
   TextControlRenderer,
   DateControlRenderer,
   NumberControlRenderer,
+  RangeControlRenderer,
+  ToggleControlRenderer,
+  TextAreaRenderer,
   CategorizationTabLayoutRenderer,
   GroupLayoutRenderer,
   HorizontalLayoutRenderer,
@@ -43,7 +54,7 @@ const controls = [
 ];
 
 @NgModule({
-  imports: [...modules, NzInputNumberModule, NzCardModule, NzTabsModule],
+  imports: [...modules, NzInputNumberModule, NzCardModule, NzTabsModule, NzSwitchModule, NzSliderModule, NzSelectModule],
   declarations: [
     ...controls,
     NzValidationStatusPipe

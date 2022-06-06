@@ -1,18 +1,21 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { JsonFormsAngularService, JsonFormsControl } from '@jsonforms/angular';
-import { Actions, isIntegerControl, isNumberControl, or, RankedTester, rankWith } from '@jsonforms/core';
+import { Actions, isIntegerControl, isNumberControl, or, RankedTester, rankWith, StatePropsOfControl } from '@jsonforms/core';
 
 @Component({
   selector: 'NumberControlRenderer',
   template: `
     <nz-form-item>
-      <nz-form-label *ngIf="shouldShowUnfocusedDescription()" [nzFor]="id">{{description}}</nz-form-label>
+      <nz-form-label *ngIf="description" [nzFor]="id">{{description}}</nz-form-label>
       <nz-form-control nzHasFeedback [nzErrorTip]="error" [nzValidateStatus]="form.status | nzValidationStatus">
         <nz-input-number
           [id]="id"
           [formControl]="form"
           [nzMin]="min"
           [nzMax]="max"
+          [nzStep]="stepper"
+          [nzPlaceHolder]="label"
+          [nzDisabled]="!isEnabled()"
           (ngModelChange)="onChange($event)"
         ></nz-input-number>
       </nz-form-control>
@@ -24,10 +27,7 @@ export class NumberControlRenderer extends JsonFormsControl {
   oldValue: string;
   min: number;
   max: number;
-  multipleOf: number;
-  locale: string;
-  numberFormat: Intl.NumberFormat;
-  decimalSeparator: string;
+  stepper: number;
 
   selectedValue: number;
 
@@ -44,6 +44,17 @@ export class NumberControlRenderer extends JsonFormsControl {
         Actions.update(this.propsPath, () => ev)
       );
       this.triggerValidation();
+    }
+  }
+
+  override mapAdditionalProps(props: StatePropsOfControl) {
+    if (this.scopedSchema) {
+      const defaultStep = isNumberControl(this.uischema, this.rootSchema, this.rootSchema)
+        ? 0.1
+        : 1;
+      this.min = this.scopedSchema.minimum;
+      this.max = this.scopedSchema.maximum;
+      this.stepper = this.scopedSchema.multipleOf || defaultStep;
     }
   }
 }
