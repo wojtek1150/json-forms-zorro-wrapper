@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { schema } from './schema';
 import { uischema } from './uischema';
-import { ngZorroRenderers } from '../zorro-wrapper';
 import { formData } from './formdata';
 import { JsonFormsRendererRegistryEntry, JsonSchema, UISchemaElement } from '@jsonforms/core';
+import { ngZorroRenderers } from '@wojtek1150/jsonforms-zorro-wrapper';
 
 @Component({
   selector: 'app-json-forms-custom',

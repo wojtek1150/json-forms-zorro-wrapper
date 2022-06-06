@@ -17,11 +17,19 @@
     "moduleResolution": "node",
     "importHelpers": true,
     "target": "es2017",
+    "allowSyntheticDefaultImports": true,
+    "rootDir": ".",
     "module": "es2020",
     "lib": [
       "es2020",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@wojtek1150/jsonforms-zorro-wrapper": [
+        "dist/jsonforms-zorro-wrapper/*",
+        "dist/jsonforms-zorro-wrapper"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { JsonFormsAngularService, JsonFormsControl } from '@jsonforms/angular';
 import { Actions, and, isBooleanControl, optionIs, RankedTester, rankWith } from '@jsonforms/core';
 
@@ -20,10 +20,9 @@ import { Actions, and, isBooleanControl, optionIs, RankedTester, rankWith } from
       align-items: center;
       cursor: pointer;
       display: flex;
-
-      span {
-        padding-left: 8px;
-      }
+    }
+    .switch span {
+      padding-left: 8px;
     }
   `],
   changeDetection: ChangeDetectionStrategy.OnPush

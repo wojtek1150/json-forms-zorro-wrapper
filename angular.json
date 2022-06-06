@@ -113,6 +113,26 @@
           }
         }
       }
+    },
+    "jsonforms-zorro-wrapper": {
+      "projectType": "library",
+      "root": "packages/jsonforms-zorro-wrapper",
+      "sourceRoot": "packages/jsonforms-zorro-wrapper",
+      "prefix": "",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "packages/jsonforms-zorro-wrapper/tsconfig.lib.json",
+            "project": "packages/jsonforms-zorro-wrapper/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "packages/jsonforms-zorro-wrapper/tsconfig.lib.prod.json"
+            }
+          }
+        }
+      }
     }
   },
   "defaultProject": "json-forms"

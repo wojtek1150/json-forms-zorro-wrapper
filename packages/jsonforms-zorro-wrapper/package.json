@@ -1,0 +1,21 @@
+{
+  "name": "@wojtek1150/jsonforms-zorro-wrapper",
+  "author": "Wojciech Parys",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wojtek1150/json-forms-zorro-wrapper",
+    "directory": "packages/wojciech/jsonforms-zorro-wrapper"
+  },
+  "description": "Ng Zorro wrapper for Json Forms library",
+  "keywords": ["jsonforms", "ngzorro", "angular"],
+  "peerDependencies": {
+    "@angular/animations": "^13.1.3",
+    "@angular/common": "^13.1.3",
+    "@angular/forms": "^13.1.3",
+    "@angular/core": "^13.1.3",
+    "@angular/platform-browser": "^13.1.3",
+    "ng-zorro-antd": "^13.1.1",
+    "lodash-es": "^4.17.21"
+  }
+}

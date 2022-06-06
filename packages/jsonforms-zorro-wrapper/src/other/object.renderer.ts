@@ -1,8 +1,7 @@
-import isEmpty from 'lodash/isEmpty';
-import startCase from 'lodash/startCase';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { JsonFormsAngularService, JsonFormsControlWithDetail } from '@jsonforms/angular';
 import { ControlWithDetailProps, findUISchema, GroupLayout, isObjectControl, RankedTester, rankWith, setReadonly, UISchemaElement } from '@jsonforms/core';
+import { isEmpty, startCase } from 'lodash-es';
 
 @Component({
   selector: 'ObjectRenderer',
