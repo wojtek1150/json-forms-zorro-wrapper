@@ -1,11 +1,5 @@
 <h1>NgZorro Examples</h1>
 
-<nz-alert
-  nzType="info"
-  nzDescription="For now, preview does not contain every field described in schema"
-  nzShowIcon
-></nz-alert>
-
 <nz-tabset nzTabPosition="left">
   <nz-tab [nzTitle]="titleTemplate">
     <ng-template #titleTemplate>
@@ -27,5 +21,178 @@
   </nz-tab>
   <nz-tab nzTitle="Form Data">
     <pre><code>{{demo.formdata}}</code></pre>
+  </nz-tab>
+  <nz-tab nzTitle="Renderer sets">
+    <nz-table nzTemplateMode>
+      <thead>
+      <tr>
+        <th>JSON Schema</th>
+        <th>Renderer</th>
+        <th>Implementation</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td rowspan="2">boolean</td>
+        <td>Checkbox</td>
+        <td class="green"></td>
+      </tr>
+      <tr>
+        <td>Toggle</td>
+        <td class="green"></td>
+      </tr>
+
+      <tr>
+        <td rowspan="2">integer</td>
+        <td>Number</td>
+        <td class="green"></td>
+      </tr>
+      <tr>
+        <td>Text</td>
+        <td class="green"></td>
+      </tr>
+
+      <tr>
+        <td rowspan="2">string</td>
+        <td>Text</td>
+        <td class="green"></td>
+      </tr>
+      <tr>
+        <td>Textarea</td>
+        <td class="green"></td>
+      </tr>
+
+      <tr>
+        <td rowspan="2">enum</td>
+        <td>Dropdown</td>
+        <td class="green"></td>
+      </tr>
+      <tr>
+        <td>Autocomplete</td>
+        <td></td>
+      </tr>
+
+      <tr>
+        <td rowspan="2">oneOf (const / title)</td>
+        <td>Dropdown</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Autocomplete</td>
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Date format</td>
+        <td>Date field</td>
+        <td class="green"></td>
+      </tr>
+
+      <tr>
+        <td>Time format</td>
+        <td>Time field</td>
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Datetime format</td>
+        <td>Datetime field</td>
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Object</td>
+        <td>Vertical gid</td>
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Object</td>
+        <td>Vertical gid</td>
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Object</td>
+        <td>Vertical gid</td>
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Array of primitives</td>
+        <td>List</td>
+        <td></td>
+      </tr>
+
+      <tr>
+        <td rowspan="3">Array of objects</td>
+        <td>Table</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>List</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>List with detail</td>
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Array of Objects</td>
+        <td>Multiple choice</td>
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>oneOf</td>
+        <td>Tabs</td>
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>allOf</td>
+        <td>Tabs</td>
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>anyOf</td>
+        <td>Tabs</td>
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Vertical Layout</td>
+        <td>Vertical Grid</td>
+        <td class="green"></td>
+      </tr>
+
+      <tr>
+        <td>Horizontal Layout</td>
+        <td>Horizontal Grid</td>
+        <td class="green"></td>
+      </tr>
+
+      <tr>
+        <td>Categorization</td>
+        <td>Tabs</td>
+        <td class="green"></td>
+      </tr>
+
+      <tr>
+        <td>Group</td>
+        <td>Group</td>
+        <td class="green"></td>
+      </tr>
+
+      <tr>
+        <td>Label</td>
+        <td>Label</td>
+        <td class="green"></td>
+      </tr>
+
+      </tbody>
+    </nz-table>
   </nz-tab>
 </nz-tabset>

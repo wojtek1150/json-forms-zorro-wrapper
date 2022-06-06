@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 import { en_US, NZ_I18N } from 'ng-zorro-antd/i18n';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
+import { NzTableModule } from 'ng-zorro-antd/table';
 
 const icons: IconDefinition[] = [CheckCircleFill];
 
@@ -32,6 +33,7 @@ const icons: IconDefinition[] = [CheckCircleFill];
     FormsModule,
     NzIconModule.forRoot(icons),
     NzAlertModule,
+    NzTableModule,
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },
