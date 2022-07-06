@@ -28,6 +28,7 @@ import { SelectControlRenderer } from './controls/select.renderer';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { StepperLayoutRenderer } from './layouts/stepper-layout.renderer';
 import { NzStepsModule } from 'ng-zorro-antd/steps';
+import { CardGroupLayoutRenderer } from './layouts/card-group-layout.renderer';
 
 const modules = [
   CommonModule,
@@ -54,6 +55,7 @@ const controls = [
   VerticalLayoutRenderer,
   ObjectControlRenderer,
   StepperLayoutRenderer,
+  CardGroupLayoutRenderer,
 ];
 
 @NgModule({

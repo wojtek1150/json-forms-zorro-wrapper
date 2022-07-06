@@ -15,6 +15,7 @@ import { RangeControlRenderer, RangeControlRendererTester } from './controls/ran
 import { TextAreaRenderer, TextAreaRendererTester } from './controls/textarea.renderer';
 import { SelectControlRenderer, SelectControlTester } from './controls/select.renderer';
 import { StepperLayoutRenderer, StepperTester } from './layouts/stepper-layout.renderer';
+import { CardGroupLayoutRenderer, CardGroupLayoutTester } from './layouts/card-group-layout.renderer';
 
 export const ngZorroRenderers: {
   tester: RankedTester;
@@ -32,6 +33,7 @@ export const ngZorroRenderers: {
   // layouts
   { tester: CategorizationTester, renderer: CategorizationTabLayoutRenderer },
   { tester: StepperTester, renderer: StepperLayoutRenderer },
+  { tester: CardGroupLayoutTester, renderer: CardGroupLayoutRenderer },
   { tester: GroupLayoutTester, renderer: GroupLayoutRenderer },
   { tester: HorizontalLayoutTester, renderer: HorizontalLayoutRenderer },
   { tester: VerticalLayoutTester, renderer: VerticalLayoutRenderer },

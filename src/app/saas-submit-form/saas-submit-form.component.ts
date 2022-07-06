@@ -3,7 +3,7 @@ import { JsonFormsRendererRegistryEntry, JsonSchema, UISchemaElement } from '@js
 import { ngZorroRenderers } from '@wojtek1150/jsonforms-zorro-wrapper';
 import { formData } from './formdata';
 import { schema } from './schema';
-import { uischema } from './uischema';
+import { uiSchema } from './uischema';
 
 @Component({
   selector: 'app-saas-submit-form',
@@ -14,7 +14,7 @@ export class SaasSubmitFormComponent {
   renderers: JsonFormsRendererRegistryEntry[] = ngZorroRenderers;
 
   schema: JsonSchema = schema;
-  uischema: UISchemaElement = uischema;
+  uischema: UISchemaElement = uiSchema;
   formData = formData;
 
   log($event: any) {

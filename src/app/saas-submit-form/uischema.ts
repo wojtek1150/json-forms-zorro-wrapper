@@ -1,46 +1,58 @@
-export const uischema = {
-  type: "Categorization",
+export const uiSchema = {
+  type: 'Categorization',
   elements: [
     {
-      type: "Category",
-      label: "General Info",
+      type: 'Category',
+      label: 'General Info',
       elements: [
         {
-          type: "Control",
-          placeholder: "Aaa",
-          scope: "#/properties/firstName"
+          type: 'Group',
+          label: 'Address',
+          description: 'Some lorem ipsum',
+          elements: [
+            {
+              type: 'Control',
+              placeholder: 'Aaa',
+              scope: '#/properties/firstName',
+            },
+            {
+              type: 'Control',
+              scope: '#/properties/lastName',
+            },
+            {
+              type: 'Control',
+              scope: '#/properties/email',
+            },
+            {
+              type: 'Control',
+              scope: '#/properties/city',
+            },
+            {
+              type: 'Control',
+              scope: '#/properties/date',
+            },
+          ],
         },
         {
-          type: "Control",
-          scope: "#/properties/lastName"
+          type: 'CardGroup',
+          label: 'Social',
+          elements: [],
         },
-        {
-          type: "Control",
-          scope: "#/properties/email"
-        },
-        {
-          type: 'Control',
-          scope: '#/properties/city'
-        },
-        {
-          type: 'Control',
-          scope: '#/properties/date'
-        },
-      ]
+      ],
     },
     {
-      type: "Category",
-      label: "About You",
+      type: 'Category',
+      label: 'About You',
       elements: [
         {
           type: 'Control',
-          scope: '#/properties/bio'
+          scope: '#/properties/bio',
         },
       ],
     },
   ],
   options: {
-    variant: "stepper",
-    showNavButtons: false
-  }
-}
+    variant: 'stepper',
+    showNavButtons: false,
+  },
+};

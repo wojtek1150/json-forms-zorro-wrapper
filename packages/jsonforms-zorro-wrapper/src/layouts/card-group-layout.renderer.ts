@@ -4,15 +4,13 @@ import { LayoutRenderer } from './layout.renderer';
 import { JsonFormsAngularService } from '@jsonforms/angular';
 
 @Component({
-  selector: 'GroupLayoutRenderer',
+  selector: 'CardGroupLayoutRenderer',
   template: `
-    <div>
-      <h1>{{uischema.label}}</h1>
-      <p>{{uischema['description']}}</p>
+    <nz-card [nzTitle]="uischema.label">
       <div *ngFor="let props of renderProps; trackBy: trackElement" class="control-wrapper">
         <jsonforms-outlet [renderProps]="props"></jsonforms-outlet>
       </div>
-    </div>
+    </nz-card>
   `,
   styles: [`
     nz-card {
@@ -21,10 +19,10 @@ import { JsonFormsAngularService } from '@jsonforms/angular';
   `],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class GroupLayoutRenderer extends LayoutRenderer<GroupLayout> {
+export class CardGroupLayoutRenderer extends LayoutRenderer<GroupLayout> {
   constructor(jsonFormsService: JsonFormsAngularService, changeDetectionRef: ChangeDetectorRef) {
     super(jsonFormsService, changeDetectionRef);
   }
 }
 
-export const GroupLayoutTester: RankedTester = rankWith(1, uiTypeIs('Group'));
+export const CardGroupLayoutTester: RankedTester = rankWith(1, uiTypeIs('CardGroup'));
