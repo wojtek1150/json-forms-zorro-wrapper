@@ -14,6 +14,7 @@ import { ToggleControlRenderer, ToggleControlRendererTester } from './controls/t
 import { RangeControlRenderer, RangeControlRendererTester } from './controls/range.renderer';
 import { TextAreaRenderer, TextAreaRendererTester } from './controls/textarea.renderer';
 import { SelectControlRenderer, SelectControlTester } from './controls/select.renderer';
+import { StepperLayoutRenderer, StepperTester } from './layouts/stepper-layout.renderer';
 
 export const ngZorroRenderers: {
   tester: RankedTester;
@@ -30,6 +31,7 @@ export const ngZorroRenderers: {
   { tester: ToggleControlRendererTester, renderer: ToggleControlRenderer },
   // layouts
   { tester: CategorizationTester, renderer: CategorizationTabLayoutRenderer },
+  { tester: StepperTester, renderer: StepperLayoutRenderer },
   { tester: GroupLayoutTester, renderer: GroupLayoutRenderer },
   { tester: HorizontalLayoutTester, renderer: HorizontalLayoutRenderer },
   { tester: VerticalLayoutTester, renderer: VerticalLayoutRenderer },

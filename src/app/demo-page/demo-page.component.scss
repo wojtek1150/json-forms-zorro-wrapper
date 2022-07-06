@@ -1,0 +1,16 @@
+:host {
+  display: block;
+
+  ::ng-deep jsonforms {
+    margin: 30px 0 30px -16px;
+    display: block;
+  }
+}
+
+nz-tabset {
+  margin-top: 25px;
+}
+
+.green {
+  background: #7bc97b !important;
+}

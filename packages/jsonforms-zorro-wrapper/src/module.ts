@@ -26,6 +26,8 @@ import { NzSliderModule } from 'ng-zorro-antd/slider';
 import { TextAreaRenderer } from './controls/textarea.renderer';
 import { SelectControlRenderer } from './controls/select.renderer';
 import { NzSelectModule } from 'ng-zorro-antd/select';
+import { StepperLayoutRenderer } from './layouts/stepper-layout.renderer';
+import { NzStepsModule } from 'ng-zorro-antd/steps';
 
 const modules = [
   CommonModule,
@@ -51,10 +53,11 @@ const controls = [
   HorizontalLayoutRenderer,
   VerticalLayoutRenderer,
   ObjectControlRenderer,
+  StepperLayoutRenderer,
 ];
 
 @NgModule({
-  imports: [...modules, NzInputNumberModule, NzCardModule, NzTabsModule, NzSwitchModule, NzSliderModule, NzSelectModule],
+  imports: [...modules, NzInputNumberModule, NzCardModule, NzTabsModule, NzSwitchModule, NzSliderModule, NzSelectModule, NzStepsModule],
   declarations: [
     ...controls,
     NzValidationStatusPipe

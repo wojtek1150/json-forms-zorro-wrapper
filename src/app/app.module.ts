@@ -15,13 +15,17 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { JsonFormsZorroModule } from '@wojtek1150/jsonforms-zorro-wrapper';
+import { SaasSubmitFormComponent } from './saas-submit-form/saas-submit-form.component';
+import { DemoPageComponent } from './demo-page/demo-page.component';
 
 const icons: IconDefinition[] = [CheckCircleFill];
 
 @NgModule({
   declarations: [
     AppComponent,
-    JsonFormsCustomComponent
+    JsonFormsCustomComponent,
+    SaasSubmitFormComponent,
+    DemoPageComponent
   ],
   imports: [
     BrowserModule,

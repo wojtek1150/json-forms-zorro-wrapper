@@ -1,27 +1,41 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { JsonFormsAngularService, JsonFormsControl } from '@jsonforms/angular';
 import { isStringControl, RankedTester, rankWith } from '@jsonforms/core';
+import { ZorroControlElement } from '../other/uischema';
 
 @Component({
   selector: 'TextControlRenderer',
   template: `
     <nz-form-item>
-      <nz-form-label *ngIf="description" [nzFor]="id">{{description}}</nz-form-label>
+      <nz-form-label *ngIf="label" [nzFor]="id">{{label}}</nz-form-label>
+      <div class="description">{{description}}</div>
       <nz-form-control nzHasFeedback [nzErrorTip]="error" [nzValidateStatus]="form.status | nzValidationStatus">
         <input
           nz-input
           [id]="id"
           [formControl]="form"
-          [placeholder]="label"
+          [placeholder]="placeholder"
           [type]="type"
           (input)="onChange($event)"
         >
       </nz-form-control>
     </nz-form-item>
   `,
+  styles: [`
+    nz-form-item {
+      display: block;
+    }
+
+    .description {
+      font-size: 0.75em;
+      margin: 0.25em 0 0.5em;
+    }
+  `],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TextControlRenderer extends JsonFormsControl {
+export class TextControlRenderer extends JsonFormsControl implements OnInit {
+  placeholder: string = null;
+
   constructor(jsonformsService: JsonFormsAngularService) {
     super(jsonformsService);
   }
@@ -44,6 +58,11 @@ export class TextControlRenderer extends JsonFormsControl {
     }
     return 'text';
   };
+
+  override ngOnInit() {
+    super.ngOnInit();
+    this.placeholder = (this.uischema as ZorroControlElement).placeholder ?? this.label;
+  }
 }
 
 export const TextControlRendererTester: RankedTester = rankWith(
