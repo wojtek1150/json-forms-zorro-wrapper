@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { JsonFormsAngularService, JsonFormsControl } from '@jsonforms/angular';
 import { isStringControl, RankedTester, rankWith } from '@jsonforms/core';
 import { ZorroControlElement } from '../other/uischema';
@@ -33,7 +33,7 @@ import { ZorroControlElement } from '../other/uischema';
   `],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TextControlRenderer extends JsonFormsControl implements OnInit {
+export class TextControlRenderer extends JsonFormsControl {
   placeholder: string = null;
 
   constructor(jsonformsService: JsonFormsAngularService) {
@@ -59,8 +59,7 @@ export class TextControlRenderer extends JsonFormsControl implements OnInit {
     return 'text';
   };
 
-  override ngOnInit() {
-    super.ngOnInit();
+  override mapAdditionalProps() {
     this.placeholder = (this.uischema as ZorroControlElement).placeholder ?? this.label;
   }
 }
