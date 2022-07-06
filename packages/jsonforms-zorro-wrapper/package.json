@@ -1,11 +1,15 @@
 {
   "name": "@wojtek1150/jsonforms-zorro-wrapper",
   "author": "Wojciech Parys",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "repository": {
     "type": "git",
     "url": "https://github.com/wojtek1150/json-forms-zorro-wrapper",
     "directory": "packages/wojciech/jsonforms-zorro-wrapper"
+  },
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
   },
   "description": "Ng Zorro wrapper for Json Forms library",
   "keywords": ["jsonforms", "ngzorro", "angular"],
