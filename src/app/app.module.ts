@@ -6,7 +6,6 @@ import { CheckCircleFill } from '@ant-design/icons-angular/icons';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
-import { JsonFormsModule } from '@jsonforms/angular';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { JsonFormsCustomComponent } from './json-forms-custom/json-forms-custom.component';
 import { FormsModule } from '@angular/forms';
@@ -30,7 +29,6 @@ const icons: IconDefinition[] = [CheckCircleFill];
   imports: [
     BrowserModule,
     AppRoutingModule,
-    JsonFormsModule,
     NzTabsModule,
     BrowserAnimationsModule,
     JsonFormsZorroModule,
