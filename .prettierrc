@@ -1,0 +1,15 @@
+{
+  "singleQuote": true,
+  "bracketSpacing": true,
+  "printWidth": 150,
+  "arrowParens": "avoid",
+  "overrides": [
+    {
+      "files": ["**/*.html"],
+      "options": {
+        "singleQuote": false,
+        "bracketSameLine": true
+      }
+    }
+  ]
+}

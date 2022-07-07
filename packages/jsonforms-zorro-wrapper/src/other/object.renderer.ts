@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { JsonFormsAngularService, JsonFormsControlWithDetail } from '@jsonforms/angular';
+import { JsonFormsAngularService, JsonFormsControlWithDetail } from '../jsonForms';
 import { ControlWithDetailProps, findUISchema, GroupLayout, isObjectControl, RankedTester, rankWith, setReadonly, UISchemaElement } from '@jsonforms/core';
 import { isEmpty, startCase } from 'lodash-es';
 

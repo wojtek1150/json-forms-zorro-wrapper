@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { JsonFormsAngularService, JsonFormsControl } from '@jsonforms/angular';
+import { JsonFormsAngularService, JsonFormsControl } from '../jsonForms';
 import { Actions, isEnumControl, RankedTester, rankWith } from '@jsonforms/core';
 
 @Component({
   selector: 'SelectControlRenderer',
   template: `
-    <nz-form-item>
+    <nz-form-item *ngIf="scopedSchema">
       <nz-form-label *ngIf="description" [nzFor]="id">{{description}}</nz-form-label>
       <nz-form-control nzHasFeedback [nzErrorTip]="error" [nzValidateStatus]="form.status | nzValidationStatus">
         <nz-select

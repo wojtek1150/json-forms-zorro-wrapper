@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { HorizontalLayout, RankedTester, rankWith, uiTypeIs } from '@jsonforms/core';
 import { LayoutRenderer } from './layout.renderer';
-import { JsonFormsAngularService } from '@jsonforms/angular';
+import { JsonFormsAngularService } from '../jsonForms';
 
 @Component({
   selector: 'HorizontalLayoutRenderer',

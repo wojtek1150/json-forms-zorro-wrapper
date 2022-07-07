@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { JsonFormsAngularService, JsonFormsControl } from '@jsonforms/angular';
+import { JsonFormsAngularService, JsonFormsControl } from '../jsonForms';
 import { Actions, and, isBooleanControl, optionIs, RankedTester, rankWith } from '@jsonforms/core';
 
 @Component({

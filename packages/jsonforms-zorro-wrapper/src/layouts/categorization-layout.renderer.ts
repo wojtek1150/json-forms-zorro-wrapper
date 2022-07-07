@@ -1,6 +1,6 @@
 import { and, Categorization, categorizationHasCategory, RankedTester, rankWith, uiTypeIs } from '@jsonforms/core';
 import { Component } from '@angular/core';
-import { JsonFormsBaseRenderer } from '@jsonforms/angular';
+import { JsonFormsBaseRenderer } from '../jsonForms';
 
 @Component({
   selector: 'jsonforms-categorization-layout',

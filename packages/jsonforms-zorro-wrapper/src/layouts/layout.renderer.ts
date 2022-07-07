@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Directive, OnDestroy, OnInit } from '@angular/core';
-import { JsonFormsAngularService, JsonFormsBaseRenderer } from '@jsonforms/angular';
+import { JsonFormsAngularService, JsonFormsBaseRenderer } from '../jsonForms';
 import { JsonFormsState, Layout, mapStateToLayoutProps, OwnPropsOfRenderer, UISchemaElement } from '@jsonforms/core';
 import { Subscription } from 'rxjs';
 

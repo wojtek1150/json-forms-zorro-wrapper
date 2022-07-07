@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { RankedTester, rankWith, uiTypeIs, VerticalLayout } from '@jsonforms/core';
 import { LayoutRenderer } from './layout.renderer';
-import { JsonFormsAngularService } from '@jsonforms/angular';
+import { JsonFormsAngularService } from '../jsonForms';
 
 @Component({
   selector: 'VerticalLayoutRenderer',

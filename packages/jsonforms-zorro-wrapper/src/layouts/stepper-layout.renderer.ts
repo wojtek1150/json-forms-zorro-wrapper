@@ -1,6 +1,6 @@
 import { and, Categorization, categorizationHasCategory, JsonFormsState, mapStateToLayoutProps, optionIs, RankedTester, rankWith, uiTypeIs } from '@jsonforms/core';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { JsonFormsAngularService, JsonFormsBaseRenderer } from '@jsonforms/angular';
+import { JsonFormsAngularService, JsonFormsBaseRenderer } from '../jsonForms';
 import { Subscription } from 'rxjs';
 
 @Component({

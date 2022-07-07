@@ -17,21 +17,15 @@ export const schema: JsonSchema = {
     },
     city: {
       type: 'string',
-      enum: [
-        'Kraków',
-        'Wien',
-        'London',
-        'San Francisco',
-        'Venice',
-        'Other'
-      ]
+      enum: ['Kraków', 'Wien', 'London', 'San Francisco', 'Venice', 'Other'],
     },
     date: {
       type: 'string',
-      format: 'date'
+      format: 'date',
     },
     bio: {
       type: 'string',
     },
-  }
+  },
+  required: ['firstName', 'lastName', 'email', 'city', 'bio'],
 };

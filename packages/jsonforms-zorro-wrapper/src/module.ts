@@ -1,5 +1,4 @@
 import { CommonModule, DatePipe } from '@angular/common';
-import { JsonFormsModule } from '@jsonforms/angular';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TextControlRenderer } from './controls/text.renderer';
@@ -29,6 +28,7 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { StepperLayoutRenderer } from './layouts/stepper-layout.renderer';
 import { NzStepsModule } from 'ng-zorro-antd/steps';
 import { CardGroupLayoutRenderer } from './layouts/card-group-layout.renderer';
+import { JsonFormsModule } from './jsonForms';
 
 const modules = [
   CommonModule,

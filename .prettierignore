@@ -1,0 +1,11 @@
+# Add files here to ignore them from prettier formatting
+
+.angular
+.npm
+/coverage
+/dist
+/reports
+/tmp
+*.scss
+*.less
+*.yml
