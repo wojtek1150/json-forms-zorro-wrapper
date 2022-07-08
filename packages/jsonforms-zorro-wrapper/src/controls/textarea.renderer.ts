@@ -7,32 +7,27 @@ import { ZorroControlElement } from '../other/uischema';
 @Component({
   selector: 'TextAreaRenderer',
   template: `
-    <nz-form-item>
-      <nz-form-label *ngIf="label" [nzFor]="id">{{label}}</nz-form-label>
-      <div class="description">{{uischema['description']}}</div>
+    <nz-form-item [class]="'formItem' + id">
+      <nz-form-label *ngIf="label" [nzFor]="id">{{ label }}</nz-form-label>
+      <div class="description">{{ uischema['description'] }}</div>
       <nz-form-control nzHasFeedback [nzErrorTip]="error" [nzValidateStatus]="form.status | nzValidationStatus">
-        <textarea
-          nz-input
-          [id]="id"
-          [formControl]="form"
-          [placeholder]="placeholder"
-          [nzAutosize]="autosize"
-          (input)="onChange($event)"
-        ></textarea>
+        <textarea nz-input [id]="id" [formControl]="form" [placeholder]="placeholder" [nzAutosize]="autosize" (input)="onChange($event)"></textarea>
       </nz-form-control>
     </nz-form-item>
   `,
-  styles: [`
-    nz-form-item {
-      display: block;
-    }
+  styles: [
+    `
+      nz-form-item {
+        display: block;
+      }
 
-    .description {
-      font-size: 0.75em;
-      margin: 0.25em 0 0.5em;
-    }
-  `],
-  changeDetection: ChangeDetectionStrategy.OnPush
+      .description {
+        font-size: 0.75em;
+        margin: 0.25em 0 0.5em;
+      }
+    `,
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TextAreaRenderer extends JsonFormsControl {
   autosize: string | boolean | AutoSizeType;
@@ -56,7 +51,4 @@ export class TextAreaRenderer extends JsonFormsControl {
   }
 }
 
-export const TextAreaRendererTester: RankedTester = rankWith(
-  2,
-  isMultiLineControl
-);
+export const TextAreaRendererTester: RankedTester = rankWith(2, isMultiLineControl);

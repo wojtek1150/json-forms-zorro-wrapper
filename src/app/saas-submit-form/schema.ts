@@ -26,6 +26,10 @@ export const schema: JsonSchema = {
     bio: {
       type: 'string',
     },
+    participant_gdg: {
+      type: 'string',
+      enum: ['Past', 'Active', 'N/A'],
+    },
   },
   required: ['firstName', 'lastName', 'email', 'city', 'bio'],
 };

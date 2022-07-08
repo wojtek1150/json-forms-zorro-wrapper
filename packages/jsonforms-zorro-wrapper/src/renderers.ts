@@ -16,6 +16,8 @@ import { TextAreaRenderer, TextAreaRendererTester } from './controls/textarea.re
 import { SelectControlRenderer, SelectControlTester } from './controls/select.renderer';
 import { StepperLayoutRenderer, StepperTester } from './layouts/stepper-layout.renderer';
 import { CardGroupLayoutRenderer, CardGroupLayoutTester } from './layouts/card-group-layout.renderer';
+import { RadioControlRenderer, RadioControlRendererTester } from './controls/radio.renderer';
+import { RadioButtonControlRenderer, RadioButtonControlRendererTester } from './controls/radio-button.renderer';
 
 export const ngZorroRenderers: {
   tester: RankedTester;
@@ -27,6 +29,8 @@ export const ngZorroRenderers: {
   { tester: DateControlRendererTester, renderer: DateControlRenderer },
   { tester: NumberControlRendererTester, renderer: NumberControlRenderer },
   { tester: RangeControlRendererTester, renderer: RangeControlRenderer },
+  { tester: RadioControlRendererTester, renderer: RadioControlRenderer },
+  { tester: RadioButtonControlRendererTester, renderer: RadioButtonControlRenderer },
   { tester: TextControlRendererTester, renderer: TextControlRenderer },
   { tester: TextAreaRendererTester, renderer: TextAreaRenderer },
   { tester: ToggleControlRendererTester, renderer: ToggleControlRenderer },

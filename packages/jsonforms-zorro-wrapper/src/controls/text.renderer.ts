@@ -6,32 +6,27 @@ import { ZorroControlElement } from '../other/uischema';
 @Component({
   selector: 'TextControlRenderer',
   template: `
-    <nz-form-item>
-      <nz-form-label *ngIf="label" [nzFor]="id">{{label}}</nz-form-label>
-      <div class="description">{{description}}</div>
+    <nz-form-item [class]="'formItem' + id">
+      <nz-form-label *ngIf="label" [nzFor]="id">{{ label }}</nz-form-label>
+      <div class="description">{{ description }}</div>
       <nz-form-control nzHasFeedback [nzErrorTip]="error" [nzValidateStatus]="form.status | nzValidationStatus">
-        <input
-          nz-input
-          [id]="id"
-          [formControl]="form"
-          [placeholder]="placeholder"
-          [type]="type"
-          (input)="onChange($event)"
-        >
+        <input nz-input [id]="id" [formControl]="form" [placeholder]="placeholder" [type]="type" (input)="onChange($event)" />
       </nz-form-control>
     </nz-form-item>
   `,
-  styles: [`
-    nz-form-item {
-      display: block;
-    }
+  styles: [
+    `
+      nz-form-item {
+        display: block;
+      }
 
-    .description {
-      font-size: 0.75em;
-      margin: 0.25em 0 0.5em;
-    }
-  `],
-  changeDetection: ChangeDetectionStrategy.OnPush
+      .description {
+        font-size: 0.75em;
+        margin: 0.25em 0 0.5em;
+      }
+    `,
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TextControlRenderer extends JsonFormsControl {
   placeholder: string = null;
@@ -57,14 +52,11 @@ export class TextControlRenderer extends JsonFormsControl {
       }
     }
     return 'text';
-  };
+  }
 
   override mapAdditionalProps() {
     this.placeholder = (this.uischema as ZorroControlElement).placeholder ?? this.label;
   }
 }
 
-export const TextControlRendererTester: RankedTester = rankWith(
-  1,
-  isStringControl
-);
+export const TextControlRendererTester: RankedTester = rankWith(1, isStringControl);

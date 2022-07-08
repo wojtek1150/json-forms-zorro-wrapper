@@ -29,16 +29,11 @@ import { StepperLayoutRenderer } from './layouts/stepper-layout.renderer';
 import { NzStepsModule } from 'ng-zorro-antd/steps';
 import { CardGroupLayoutRenderer } from './layouts/card-group-layout.renderer';
 import { JsonFormsModule } from './jsonForms';
+import { RadioControlRenderer } from './controls/radio.renderer';
+import { NzRadioModule } from 'ng-zorro-antd/radio';
+import { RadioButtonControlRenderer } from './controls/radio-button.renderer';
 
-const modules = [
-  CommonModule,
-  JsonFormsModule,
-  ReactiveFormsModule,
-  NzFormModule,
-  NzInputModule,
-  NzDatePickerModule,
-  NzCheckboxModule,
-];
+const modules = [CommonModule, JsonFormsModule, ReactiveFormsModule, NzFormModule, NzInputModule, NzDatePickerModule, NzCheckboxModule];
 
 const controls = [
   SelectControlRenderer,
@@ -56,17 +51,26 @@ const controls = [
   ObjectControlRenderer,
   StepperLayoutRenderer,
   CardGroupLayoutRenderer,
+  RadioControlRenderer,
+  RadioButtonControlRenderer,
 ];
 
 @NgModule({
-  imports: [...modules, NzInputNumberModule, NzCardModule, NzTabsModule, NzSwitchModule, NzSliderModule, NzSelectModule, NzStepsModule],
-  declarations: [
-    ...controls,
-    NzValidationStatusPipe
+  imports: [
+    ...modules,
+    NzInputNumberModule,
+    NzCardModule,
+    NzTabsModule,
+    NzSwitchModule,
+    NzSliderModule,
+    NzSelectModule,
+    NzStepsModule,
+    NzRadioModule,
   ],
+  declarations: [...controls, NzValidationStatusPipe],
   entryComponents: [...controls],
   exports: [...modules],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  providers: [DatePipe]
+  providers: [DatePipe],
 })
 export class JsonFormsZorroModule {}

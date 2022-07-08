@@ -1,22 +1,22 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { JsonFormsAngularService, JsonFormsControl } from '../jsonForms';
-import { Actions, isEnumControl, RankedTester, rankWith } from '@jsonforms/core';
+import { Actions, and, isEnumControl, optionIs, RankedTester, rankWith } from '@jsonforms/core';
 
 @Component({
-  selector: 'SelectControlRenderer',
+  selector: 'RadioControlRenderer',
   template: `
     <nz-form-item *ngIf="scopedSchema" [class]="'formItem' + id">
       <nz-form-label *ngIf="description" [nzFor]="id">{{ description }}</nz-form-label>
       <nz-form-control nzHasFeedback [nzErrorTip]="error" [nzValidateStatus]="form.status | nzValidationStatus">
-        <nz-select nzShowSearch nzAllowClear [id]="id" [formControl]="form" [nzPlaceHolder]="label" (ngModelChange)="onChange($event)">
-          <nz-option *ngFor="let option of scopedSchema.enum" [nzLabel]="option" [nzValue]="option"></nz-option>
-        </nz-select>
+        <nz-radio-group [id]="id" [formControl]="form" (ngModelChange)="onChange($event)">
+          <label nz-radio *ngFor="let option of scopedSchema.enum" [nzValue]="option">{{ option }}</label>
+        </nz-radio-group>
       </nz-form-control>
     </nz-form-item>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SelectControlRenderer extends JsonFormsControl {
+export class RadioControlRenderer extends JsonFormsControl {
   private selectedValue: string;
 
   constructor(jsonformsService: JsonFormsAngularService) {
@@ -34,4 +34,4 @@ export class SelectControlRenderer extends JsonFormsControl {
   }
 }
 
-export const SelectControlTester: RankedTester = rankWith(2, isEnumControl);
+export const RadioControlRendererTester: RankedTester = rankWith(20, and(isEnumControl, optionIs('format', 'radio')));

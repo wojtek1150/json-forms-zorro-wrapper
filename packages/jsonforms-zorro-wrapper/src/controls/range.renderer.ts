@@ -5,21 +5,14 @@ import { isRangeControl, RankedTester, rankWith } from '@jsonforms/core';
 @Component({
   selector: 'RangeControlRenderer',
   template: `
-    <nz-form-item>
-      <nz-form-label *ngIf="label" [nzFor]="id">{{label}}</nz-form-label>
+    <nz-form-item [class]="'formItem' + id">
+      <nz-form-label *ngIf="label" [nzFor]="id">{{ label }}</nz-form-label>
       <nz-form-control>
-        <nz-slider
-          [id]="id"
-          [formControl]="form"
-          [nzDisabled]="!isEnabled()"
-          [nzMin]="min"
-          [nzMax]="max"
-          [nzStep]="multipleOf"
-        ></nz-slider>
+        <nz-slider [id]="id" [formControl]="form" [nzDisabled]="!isEnabled()" [nzMin]="min" [nzMax]="max" [nzStep]="multipleOf"></nz-slider>
       </nz-form-control>
     </nz-form-item>
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RangeControlRenderer extends JsonFormsControl {
   min: number;
@@ -42,7 +35,4 @@ export class RangeControlRenderer extends JsonFormsControl {
   }
 }
 
-export const RangeControlRendererTester: RankedTester = rankWith(
-  4,
-  isRangeControl
-);
+export const RangeControlRendererTester: RankedTester = rankWith(4, isRangeControl);

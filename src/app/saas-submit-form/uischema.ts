@@ -46,20 +46,36 @@ export const uiSchema = {
         {
           type: 'Group',
           label: 'Bio',
+          additionalClasses: ['aaa'],
           description:
             'This is your opportunity to make your application personal and expand upon what makes you YOU.\n' +
-            'We love to hear about what you do, what you\'re passionate about, and why you\'re interested in the program. Take your time with these questions.',
+            "We love to hear about what you do, what you're passionate about, and why you're interested in the program. Take your time with these questions.",
           elements: [
             {
               type: 'Control',
               scope: '#/properties/bio',
-              label: 'Please provide a short bio that describes who you are, what you do and what you\'re passionate about',
+              label: "Please provide a short bio that describes who you are, what you do and what you're passionate about",
               placeholder: 'Textarea placeholder',
-              description: 'Minimum 75 words or 2 minute video. You may choose to write this in your native language. You may also choose to write in the first ("I") or third ("She") person',
+              description:
+                'Minimum 75 words or 2 minute video. You may choose to write this in your native language. You may also choose to write in the first ("I") or third ("She") person',
               options: {
                 multi: true,
                 minRows: 3,
-              }
+              },
+            },
+          ],
+        },
+        {
+          type: 'Group',
+          description: 'Are you an active or past participant in any of these other Google developer community programs?',
+          elements: [
+            {
+              type: 'Control',
+              label: 'Google Developer Groups (GDG)',
+              scope: '#/properties/participant_gdg',
+              options: {
+                format: 'radio-button',
+              },
             },
           ],
         },

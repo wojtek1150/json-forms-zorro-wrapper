@@ -5,8 +5,8 @@ import { Actions, isIntegerControl, isNumberControl, or, RankedTester, rankWith,
 @Component({
   selector: 'NumberControlRenderer',
   template: `
-    <nz-form-item>
-      <nz-form-label *ngIf="description" [nzFor]="id">{{description}}</nz-form-label>
+    <nz-form-item [class]="'formItem' + id">
+      <nz-form-label *ngIf="description" [nzFor]="id">{{ description }}</nz-form-label>
       <nz-form-control nzHasFeedback [nzErrorTip]="error" [nzValidateStatus]="form.status | nzValidationStatus">
         <nz-input-number
           [id]="id"
@@ -21,7 +21,7 @@ import { Actions, isIntegerControl, isNumberControl, or, RankedTester, rankWith,
       </nz-form-control>
     </nz-form-item>
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NumberControlRenderer extends JsonFormsControl {
   oldValue: string;
@@ -40,18 +40,14 @@ export class NumberControlRenderer extends JsonFormsControl {
   override onChange(ev: number) {
     if (this.selectedValue !== ev) {
       this.selectedValue = ev;
-      this.jsonFormsService.updateCore(
-        Actions.update(this.propsPath, () => ev)
-      );
+      this.jsonFormsService.updateCore(Actions.update(this.propsPath, () => ev));
       this.triggerValidation();
     }
   }
 
   override mapAdditionalProps(props: StatePropsOfControl) {
     if (this.scopedSchema) {
-      const defaultStep = isNumberControl(this.uischema, this.rootSchema, this.rootSchema)
-        ? 0.1
-        : 1;
+      const defaultStep = isNumberControl(this.uischema, this.rootSchema, this.rootSchema) ? 0.1 : 1;
       this.min = this.scopedSchema.minimum;
       this.max = this.scopedSchema.maximum;
       this.stepper = this.scopedSchema.multipleOf || defaultStep;
@@ -59,7 +55,4 @@ export class NumberControlRenderer extends JsonFormsControl {
   }
 }
 
-export const NumberControlRendererTester: RankedTester = rankWith(
-  2,
-  or(isNumberControl, isIntegerControl)
-);
+export const NumberControlRendererTester: RankedTester = rankWith(2, or(isNumberControl, isIntegerControl));

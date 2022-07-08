@@ -6,8 +6,8 @@ import { DatePipe } from '@angular/common';
 @Component({
   selector: 'DateControlRenderer',
   template: `
-    <nz-form-item>
-      <nz-form-label *ngIf="description" [nzFor]="id">{{description}}</nz-form-label>
+    <nz-form-item [class]="'formItem' + id">
+      <nz-form-label *ngIf="description" [nzFor]="id">{{ description }}</nz-form-label>
       <nz-form-control nzHasFeedback [nzErrorTip]="error" [nzValidateStatus]="form.status | nzValidationStatus">
         <nz-date-picker
           [id]="id"
@@ -19,21 +19,20 @@ import { DatePipe } from '@angular/common';
       </nz-form-control>
     </nz-form-item>
   `,
-  styles: [`
-    nz-date-picker {
-      width: 100%;
-    }
-  `],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styles: [
+    `
+      nz-date-picker {
+        width: 100%;
+      }
+    `,
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DateControlRenderer extends JsonFormsControl {
   readonly dateFormat = 'yyyy-MM-dd';
   selectedDate: string = null;
 
-  constructor(
-    jsonformsService: JsonFormsAngularService,
-    private datePipe: DatePipe,
-  ) {
+  constructor(jsonformsService: JsonFormsAngularService, private datePipe: DatePipe) {
     super(jsonformsService);
   }
 
@@ -43,15 +42,10 @@ export class DateControlRenderer extends JsonFormsControl {
     const formattedDate = this.datePipe.transform(ev, this.dateFormat);
     if (this.selectedDate !== formattedDate) {
       this.selectedDate = formattedDate;
-      this.jsonFormsService.updateCore(
-        Actions.update(this.propsPath, () => formattedDate)
-      );
+      this.jsonFormsService.updateCore(Actions.update(this.propsPath, () => formattedDate));
       this.triggerValidation();
     }
   }
 }
 
-export const DateControlRendererTester: RankedTester = rankWith(
-  2,
-  isDateControl
-);
+export const DateControlRendererTester: RankedTester = rankWith(2, isDateControl);
