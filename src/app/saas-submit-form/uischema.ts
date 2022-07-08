@@ -35,7 +35,20 @@ export const uiSchema = {
         {
           type: 'Group',
           label: 'Social',
-          elements: [],
+          elements: [
+            {
+              type: 'Control',
+              scope: '#/properties/social/properties/linkedin',
+              label: 'LinkedIn',
+              labelIcon: 'linkedin',
+            },
+            {
+              type: 'Control',
+              scope: '#/properties/social/properties/twitter',
+              label: 'Twitter',
+              labelIcon: 'twitter',
+            },
+          ],
         },
       ],
     },
@@ -46,7 +59,6 @@ export const uiSchema = {
         {
           type: 'Group',
           label: 'Bio',
-          additionalClasses: ['aaa'],
           description:
             'This is your opportunity to make your application personal and expand upon what makes you YOU.\n' +
             "We love to hear about what you do, what you're passionate about, and why you're interested in the program. Take your time with these questions.",
@@ -54,8 +66,9 @@ export const uiSchema = {
             {
               type: 'Control',
               scope: '#/properties/bio',
+              additionalClasses: ['bio'],
               label: "Please provide a short bio that describes who you are, what you do and what you're passionate about",
-              placeholder: 'Textarea placeholder',
+              placeholder: 'Test',
               description:
                 'Minimum 75 words or 2 minute video. You may choose to write this in your native language. You may also choose to write in the first ("I") or third ("She") person',
               options: {
@@ -67,12 +80,29 @@ export const uiSchema = {
         },
         {
           type: 'Group',
+          additionalClasses: ['participant'],
           description: 'Are you an active or past participant in any of these other Google developer community programs?',
           elements: [
             {
               type: 'Control',
               label: 'Google Developer Groups (GDG)',
               scope: '#/properties/participant_gdg',
+              options: {
+                format: 'radio-button',
+              },
+            },
+            {
+              type: 'Control',
+              label: 'Google Developer Student Clubs (GDSC)',
+              scope: '#/properties/participant_gdsc',
+              options: {
+                format: 'radio-button',
+              },
+            },
+            {
+              type: 'Control',
+              label: 'Google Developer Experts (GDE)',
+              scope: '#/properties/participant_gde',
               options: {
                 format: 'radio-button',
               },
@@ -84,7 +114,27 @@ export const uiSchema = {
     {
       type: 'Category',
       label: 'Community Impact',
-      elements: [],
+      elements: [
+        {
+          type: 'Control',
+          label:
+            'Please confirm that you are able to actively participate as an Ambassador by either organizing or speaking at an event, creating content or mentoring others in the community in addition to engaging with the WTM program and development opportunities (10+ hours / quarter)',
+          scope: '#/properties/active_participation',
+          options: {
+            format: 'radio',
+          },
+        },
+        {
+          type: 'Control',
+          label: 'What role do you play as a leader in your community?',
+          scope: '#/properties/role',
+        },
+        {
+          type: 'Control',
+          label: 'One of',
+          scope: '#/properties/organize',
+        },
+      ],
     },
     {
       type: 'Category',

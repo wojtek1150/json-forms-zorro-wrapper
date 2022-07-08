@@ -4,7 +4,6 @@ import { ngZorroRenderers } from '@wojtek1150/jsonforms-zorro-wrapper';
 import { formData } from './formdata';
 import { schema } from './schema';
 import { uiSchema } from './uischema';
-import { JsonFormsAngularService } from '../../../packages/jsonforms-zorro-wrapper/src/jsonForms';
 
 @Component({
   selector: 'app-saas-submit-form',
@@ -18,15 +17,9 @@ export class SaasSubmitFormComponent {
   uischema: UISchemaElement = uiSchema;
   formData = formData;
 
-  constructor(private formService: JsonFormsAngularService) {}
-
   log($event: any) {
     console.log('======');
     console.log($event);
     console.log('======');
-  }
-
-  do() {
-    console.log(this.formService.getState());
   }
 }

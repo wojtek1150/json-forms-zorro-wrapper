@@ -6,4 +6,7 @@
   (dataChange)="log($event)"
 ></jsonforms>
 
-<button (click)="do()">CLICK</button>
+<nz-divider></nz-divider>
+<pre>
+  {{formData |json}}
+</pre>

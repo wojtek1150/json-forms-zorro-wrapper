@@ -18,6 +18,7 @@ import { StepperLayoutRenderer, StepperTester } from './layouts/stepper-layout.r
 import { CardGroupLayoutRenderer, CardGroupLayoutTester } from './layouts/card-group-layout.renderer';
 import { RadioControlRenderer, RadioControlRendererTester } from './controls/radio.renderer';
 import { RadioButtonControlRenderer, RadioButtonControlRendererTester } from './controls/radio-button.renderer';
+import { CheckboxGroupControlRenderer, CheckboxGroupControlRendererTester } from './complex/enum-array.renderer';
 
 export const ngZorroRenderers: {
   tester: RankedTester;
@@ -34,6 +35,8 @@ export const ngZorroRenderers: {
   { tester: TextControlRendererTester, renderer: TextControlRenderer },
   { tester: TextAreaRendererTester, renderer: TextAreaRenderer },
   { tester: ToggleControlRendererTester, renderer: ToggleControlRenderer },
+  // complex controls
+  { tester: CheckboxGroupControlRendererTester, renderer: CheckboxGroupControlRenderer },
   // layouts
   { tester: CategorizationTester, renderer: CategorizationTabLayoutRenderer },
   { tester: StepperTester, renderer: StepperLayoutRenderer },

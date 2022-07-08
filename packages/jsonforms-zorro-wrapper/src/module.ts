@@ -33,6 +33,7 @@ import { RadioControlRenderer } from './controls/radio.renderer';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { RadioButtonControlRenderer } from './controls/radio-button.renderer';
 import { NzIconModule } from 'ng-zorro-antd/icon';
+import { CheckboxGroupControlRenderer } from './complex/enum-array.renderer';
 
 const modules = [CommonModule, JsonFormsModule, ReactiveFormsModule, NzFormModule, NzInputModule, NzDatePickerModule, NzCheckboxModule];
 
@@ -54,6 +55,7 @@ const controls = [
   CardGroupLayoutRenderer,
   RadioControlRenderer,
   RadioButtonControlRenderer,
+  CheckboxGroupControlRenderer,
 ];
 
 @NgModule({

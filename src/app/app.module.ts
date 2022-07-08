@@ -16,16 +16,13 @@ import { NzTableModule } from 'ng-zorro-antd/table';
 import { JsonFormsZorroModule } from '@wojtek1150/jsonforms-zorro-wrapper';
 import { SaasSubmitFormComponent } from './saas-submit-form/saas-submit-form.component';
 import { DemoPageComponent } from './demo-page/demo-page.component';
+import { HttpClientModule } from '@angular/common/http';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
 
 const icons: IconDefinition[] = [CheckCircleFill];
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    JsonFormsCustomComponent,
-    SaasSubmitFormComponent,
-    DemoPageComponent
-  ],
+  declarations: [AppComponent, JsonFormsCustomComponent, SaasSubmitFormComponent, DemoPageComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -33,14 +30,14 @@ const icons: IconDefinition[] = [CheckCircleFill];
     BrowserAnimationsModule,
     JsonFormsZorroModule,
     FormsModule,
+    HttpClientModule,
     NzIconModule.forRoot(icons),
     NzAlertModule,
     NzTableModule,
+    NzDividerModule,
   ],
-  providers: [
-    { provide: NZ_I18N, useValue: en_US },
-  ],
+  providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule {}
