@@ -36,7 +36,8 @@ export class TextAreaRenderer extends JsonFormsControl {
 
   override getEventValue = (event: any) => event.target.value;
 
-  override mapAdditionalProps() {
+  override mapAdditionalProps(props) {
+    super.mapAdditionalProps(props);
     if (this.uischema) {
       const rows = {
         minRows: this.uischema.options['minRows'],
