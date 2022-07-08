@@ -7,6 +7,10 @@ export class JsonFormsBaseRenderer<T extends UISchemaElement> {
   @Input() schema: JsonSchema;
   @Input() path: string;
 
+  get additionalClasses(): string {
+    return this.uischema['additionalClasses']?.join(' ') || '';
+  }
+
   protected getOwnProps(): OwnPropsOfRenderer {
     return {
       uischema: this.uischema,

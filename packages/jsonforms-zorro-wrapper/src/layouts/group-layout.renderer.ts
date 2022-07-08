@@ -6,7 +6,7 @@ import { JsonFormsAngularService } from '../jsonForms';
 @Component({
   selector: 'GroupLayoutRenderer',
   template: `
-    <div [class]="classList">
+    <div [class]="additionalClasses">
       <h2>{{ uischema.label }}</h2>
       <p>{{ uischema['description'] }}</p>
       <div *ngFor="let props of renderProps; trackBy: trackElement" class="control-wrapper">
@@ -26,10 +26,6 @@ import { JsonFormsAngularService } from '../jsonForms';
 export class GroupLayoutRenderer extends LayoutRenderer<GroupLayout> {
   constructor(jsonFormsService: JsonFormsAngularService, changeDetectionRef: ChangeDetectorRef) {
     super(jsonFormsService, changeDetectionRef);
-  }
-
-  get classList(): string {
-    return this.uischema['additionalClasses']?.join(' ') || '';
   }
 }
 

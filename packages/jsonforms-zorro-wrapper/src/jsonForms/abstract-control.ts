@@ -6,6 +6,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { JsonFormsBaseRenderer } from './base.renderer';
 import { JsonFormsAngularService } from './jsonforms.service';
 import { merge } from 'lodash-es';
+import { ZorroControlElement } from '../other/uischema';
 
 @Directive({})
 export abstract class JsonFormsAbstractControl<Props extends StatePropsOfControl>
@@ -20,6 +21,7 @@ export abstract class JsonFormsAbstractControl<Props extends StatePropsOfControl
   subject = new Subject();
   data: any;
   label: string;
+  placeholder: string;
   description: string;
   error: string | null;
   scopedSchema: JsonSchema;
@@ -40,6 +42,10 @@ export abstract class JsonFormsAbstractControl<Props extends StatePropsOfControl
         validators: this.validator.bind(this),
       }
     );
+  }
+
+  get labelIcon(): string | undefined {
+    return this.uischema['labelIcon'];
   }
 
   getEventValue = (event: any) => event.value;
@@ -85,6 +91,7 @@ export abstract class JsonFormsAbstractControl<Props extends StatePropsOfControl
 
   // @ts-ignore
   mapAdditionalProps(props: Props) {
+    this.placeholder = (this.uischema as ZorroControlElement).placeholder ?? this.label;
     // do nothing by default
   }
 

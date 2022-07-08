@@ -5,8 +5,9 @@ import { Actions, isIntegerControl, isNumberControl, or, RankedTester, rankWith,
 @Component({
   selector: 'NumberControlRenderer',
   template: `
-    <nz-form-item [class]="'formItem' + id">
-      <nz-form-label *ngIf="description" [nzFor]="id">{{ description }}</nz-form-label>
+    <nz-form-item [class]="additionalClasses">
+      <nz-form-label *ngIf="label" [nzFor]="id"><i *ngIf="labelIcon" nz-icon [nzType]="labelIcon" nzTheme="outline"></i> {{ label }}</nz-form-label>
+      <div class="description">{{ description }}</div>
       <nz-form-control nzHasFeedback [nzErrorTip]="error" [nzValidateStatus]="form.status | nzValidationStatus">
         <nz-input-number
           [id]="id"
@@ -14,13 +15,24 @@ import { Actions, isIntegerControl, isNumberControl, or, RankedTester, rankWith,
           [nzMin]="min"
           [nzMax]="max"
           [nzStep]="stepper"
-          [nzPlaceHolder]="label"
+          [nzPlaceHolder]="placeholder"
           [nzDisabled]="!isEnabled()"
           (ngModelChange)="onChange($event)"
         ></nz-input-number>
       </nz-form-control>
     </nz-form-item>
   `,
+  styles: [
+    `
+      nz-form-item {
+        display: block;
+      }
+      .description {
+        font-size: 0.75em;
+        margin: 0.25em 0 0.5em;
+      }
+    `,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NumberControlRenderer extends JsonFormsControl {

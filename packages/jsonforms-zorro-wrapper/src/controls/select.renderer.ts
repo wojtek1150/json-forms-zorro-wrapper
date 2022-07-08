@@ -5,15 +5,27 @@ import { Actions, isEnumControl, RankedTester, rankWith } from '@jsonforms/core'
 @Component({
   selector: 'SelectControlRenderer',
   template: `
-    <nz-form-item *ngIf="scopedSchema" [class]="'formItem' + id">
-      <nz-form-label *ngIf="description" [nzFor]="id">{{ description }}</nz-form-label>
+    <nz-form-item *ngIf="scopedSchema" [class]="additionalClasses">
+      <nz-form-label *ngIf="label" [nzFor]="id"><i *ngIf="labelIcon" nz-icon [nzType]="labelIcon" nzTheme="outline"></i> {{ label }}</nz-form-label>
+      <div class="description">{{ uischema['description'] }}</div>
       <nz-form-control nzHasFeedback [nzErrorTip]="error" [nzValidateStatus]="form.status | nzValidationStatus">
-        <nz-select nzShowSearch nzAllowClear [id]="id" [formControl]="form" [nzPlaceHolder]="label" (ngModelChange)="onChange($event)">
+        <nz-select nzShowSearch nzAllowClear [id]="id" [formControl]="form" [nzPlaceHolder]="placeholder" (ngModelChange)="onChange($event)">
           <nz-option *ngFor="let option of scopedSchema.enum" [nzLabel]="option" [nzValue]="option"></nz-option>
         </nz-select>
       </nz-form-control>
     </nz-form-item>
   `,
+  styles: [
+    `
+      nz-form-item {
+        display: block;
+      }
+      .description {
+        font-size: 0.75em;
+        margin: 0.25em 0 0.5em;
+      }
+    `,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SelectControlRenderer extends JsonFormsControl {

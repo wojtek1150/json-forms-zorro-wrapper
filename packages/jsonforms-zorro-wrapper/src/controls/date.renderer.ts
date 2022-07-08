@@ -6,8 +6,9 @@ import { DatePipe } from '@angular/common';
 @Component({
   selector: 'DateControlRenderer',
   template: `
-    <nz-form-item [class]="'formItem' + id">
-      <nz-form-label *ngIf="description" [nzFor]="id">{{ description }}</nz-form-label>
+    <nz-form-item [class]="additionalClasses">
+      <nz-form-label *ngIf="label" [nzFor]="id"><i *ngIf="labelIcon" nz-icon [nzType]="labelIcon" nzTheme="outline"></i> {{ label }}</nz-form-label>
+      <div class="description">{{ description }}</div>
       <nz-form-control nzHasFeedback [nzErrorTip]="error" [nzValidateStatus]="form.status | nzValidationStatus">
         <nz-date-picker
           [id]="id"
@@ -23,6 +24,13 @@ import { DatePipe } from '@angular/common';
     `
       nz-date-picker {
         width: 100%;
+      }
+      nz-form-item {
+        display: block;
+      }
+      .description {
+        font-size: 0.75em;
+        margin: 0.25em 0 0.5em;
       }
     `,
   ],

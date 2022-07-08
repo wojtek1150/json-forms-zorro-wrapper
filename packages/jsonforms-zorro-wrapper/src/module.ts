@@ -32,6 +32,7 @@ import { JsonFormsModule } from './jsonForms';
 import { RadioControlRenderer } from './controls/radio.renderer';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { RadioButtonControlRenderer } from './controls/radio-button.renderer';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 
 const modules = [CommonModule, JsonFormsModule, ReactiveFormsModule, NzFormModule, NzInputModule, NzDatePickerModule, NzCheckboxModule];
 
@@ -66,6 +67,7 @@ const controls = [
     NzSelectModule,
     NzStepsModule,
     NzRadioModule,
+    NzIconModule,
   ],
   declarations: [...controls, NzValidationStatusPipe],
   entryComponents: [...controls],

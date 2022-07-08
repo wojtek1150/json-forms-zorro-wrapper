@@ -2,13 +2,12 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { JsonFormsAngularService, JsonFormsControl } from '../jsonForms';
 import { isMultiLineControl, RankedTester, rankWith } from '@jsonforms/core';
 import { AutoSizeType } from 'ng-zorro-antd/input/autosize.directive';
-import { ZorroControlElement } from '../other/uischema';
 
 @Component({
   selector: 'TextAreaRenderer',
   template: `
-    <nz-form-item [class]="'formItem' + id">
-      <nz-form-label *ngIf="label" [nzFor]="id">{{ label }}</nz-form-label>
+    <nz-form-item [class]="additionalClasses">
+      <nz-form-label *ngIf="label" [nzFor]="id"><i *ngIf="labelIcon" nz-icon [nzType]="labelIcon" nzTheme="outline"></i> {{ label }}</nz-form-label>
       <div class="description">{{ uischema['description'] }}</div>
       <nz-form-control nzHasFeedback [nzErrorTip]="error" [nzValidateStatus]="form.status | nzValidationStatus">
         <textarea nz-input [id]="id" [formControl]="form" [placeholder]="placeholder" [nzAutosize]="autosize" (input)="onChange($event)"></textarea>
@@ -20,7 +19,6 @@ import { ZorroControlElement } from '../other/uischema';
       nz-form-item {
         display: block;
       }
-
       .description {
         font-size: 0.75em;
         margin: 0.25em 0 0.5em;
@@ -31,7 +29,6 @@ import { ZorroControlElement } from '../other/uischema';
 })
 export class TextAreaRenderer extends JsonFormsControl {
   autosize: string | boolean | AutoSizeType;
-  placeholder: string = null;
 
   constructor(jsonformsService: JsonFormsAngularService) {
     super(jsonformsService);
@@ -46,7 +43,6 @@ export class TextAreaRenderer extends JsonFormsControl {
         maxRows: this.uischema.options['maxRows'],
       };
       this.autosize = this.uischema.options['minRows'] || this.uischema.options['maxRows'] ? rows : true;
-      this.placeholder = (this.uischema as ZorroControlElement).placeholder ?? this.label;
     }
   }
 }

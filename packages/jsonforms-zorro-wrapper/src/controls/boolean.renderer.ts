@@ -5,7 +5,7 @@ import { isBooleanControl, RankedTester, rankWith } from '@jsonforms/core';
 @Component({
   selector: 'BooleanControlRenderer',
   template: `
-    <nz-form-item [class]="'formItem' + id">
+    <nz-form-item [class]="additionalClasses">
       <nz-form-control [nzErrorTip]="error" [nzValidateStatus]="form.status | nzValidationStatus">
         <label nz-checkbox [id]="id" [formControl]="form" (nzCheckedChange)="onChange($event)">
           <span>{{ label }}</span>

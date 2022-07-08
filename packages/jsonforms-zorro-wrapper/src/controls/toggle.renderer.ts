@@ -5,7 +5,7 @@ import { Actions, and, isBooleanControl, optionIs, RankedTester, rankWith } from
 @Component({
   selector: 'ToggleControlRenderer',
   template: `
-    <label class="switch" [class]="'formItem' + id">
+    <label class="switch" [class]="additionalClasses">
       <nz-switch [id]="id" [formControl]="form" [nzDisabled]="!isEnabled()" (ngModelChange)="onChange($event)"></nz-switch>
       <span *ngIf="label">{{ label }}</span>
     </label>
@@ -17,7 +17,6 @@ import { Actions, and, isBooleanControl, optionIs, RankedTester, rankWith } from
         cursor: pointer;
         display: flex;
       }
-
       .switch span {
         padding-left: 8px;
       }
