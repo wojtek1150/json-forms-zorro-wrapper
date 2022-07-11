@@ -7,7 +7,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { JsonFormsCustomComponent } from './json-forms-custom/json-forms-custom.component';
 import { FormsModule } from '@angular/forms';
 import { en_US, NZ_I18N } from 'ng-zorro-antd/i18n';
 import { NzIconModule } from 'ng-zorro-antd/icon';
@@ -18,11 +17,14 @@ import { SaasSubmitFormComponent } from './saas-submit-form/saas-submit-form.com
 import { DemoPageComponent } from './demo-page/demo-page.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { NzLayoutModule } from 'ng-zorro-antd/layout';
+import { NzMenuModule } from 'ng-zorro-antd/menu';
+import { RenderersPageComponent } from './renderers-page/renderers-page.component';
 
 const icons: IconDefinition[] = [CheckCircleFill];
 
 @NgModule({
-  declarations: [AppComponent, JsonFormsCustomComponent, SaasSubmitFormComponent, DemoPageComponent],
+  declarations: [AppComponent, SaasSubmitFormComponent, DemoPageComponent, RenderersPageComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -35,6 +37,8 @@ const icons: IconDefinition[] = [CheckCircleFill];
     NzAlertModule,
     NzTableModule,
     NzDividerModule,
+    NzLayoutModule,
+    NzMenuModule,
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent],

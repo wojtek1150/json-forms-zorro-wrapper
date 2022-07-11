@@ -1,4 +1,54 @@
-:host {
-  padding: 3vw;
-  display: block;
+.layout {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.logo {
+  font-family: 'Calligraffitti', cursive;
+  color: #ECF0F1;
+  line-height: 31px;
+  font-size: 26px;
+  margin: 18px 64px 0 0;
+  float: left;
+}
+
+.right {
+  float: right;
+  font-size: 32px;
+  color: white;
+
+  a {
+    color: white
+  }
+}
+
+nz-header {
+  position: fixed;
+  width: 100%;
+  z-index: 999;
+}
+
+[nz-menu] {
+  float: left;
+  line-height: 64px;
+}
+
+nz-content {
+  margin-top: 64px;
+}
+
+nz-breadcrumb {
+  margin: 16px 0;
+}
+
+.inner-content {
+  background: #fff;
+  padding: 24px;
+  min-height: 380px;
+  overflow: auto;
+  max-height: calc(100vh - 132px);
+}
+
+nz-footer {
+  text-align: center;
 }
