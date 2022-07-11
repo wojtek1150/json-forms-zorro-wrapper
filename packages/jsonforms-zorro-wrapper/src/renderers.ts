@@ -18,7 +18,8 @@ import { StepperLayoutRenderer, StepperTester } from './layouts/stepper-layout.r
 import { CardGroupLayoutRenderer, CardGroupLayoutTester } from './layouts/card-group-layout.renderer';
 import { RadioControlRenderer, RadioControlRendererTester } from './controls/radio.renderer';
 import { RadioButtonControlRenderer, RadioButtonControlRendererTester } from './controls/radio-button.renderer';
-import { CheckboxGroupControlRenderer, CheckboxGroupControlRendererTester } from './complex/enum-array.renderer';
+import { CheckboxGroupControlRenderer, CheckboxGroupControlRendererTester } from './complex/checkbox-group.renderer';
+import { MultiselectControlRenderer, MultiselectControlRendererTester } from './complex/multiselect.renderer';
 
 export const ngZorroRenderers: {
   tester: RankedTester;
@@ -37,6 +38,7 @@ export const ngZorroRenderers: {
   { tester: ToggleControlRendererTester, renderer: ToggleControlRenderer },
   // complex controls
   { tester: CheckboxGroupControlRendererTester, renderer: CheckboxGroupControlRenderer },
+  { tester: MultiselectControlRendererTester, renderer: MultiselectControlRenderer },
   // layouts
   { tester: CategorizationTester, renderer: CategorizationTabLayoutRenderer },
   { tester: StepperTester, renderer: StepperLayoutRenderer },

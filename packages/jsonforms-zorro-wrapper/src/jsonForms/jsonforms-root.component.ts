@@ -10,6 +10,7 @@ import {
 } from '@jsonforms/core';
 import Ajv, { ErrorObject } from 'ajv';
 import { JsonFormsAngularService, USE_STATE_VALUE } from './jsonforms.service';
+
 @Component({
   selector: 'jsonforms',
   template: '<jsonforms-outlet></jsonforms-outlet>',
@@ -29,6 +30,7 @@ export class JsonForms implements OnChanges, OnInit {
   @Input() i18n: JsonFormsI18nState;
   @Input() additionalErrors: ErrorObject[];
   @Output() errors = new EventEmitter<ErrorObject[]>();
+  @Output() submited = new EventEmitter<any>();
 
   private previousData: any;
   private previousErrors: ErrorObject[];
@@ -68,6 +70,7 @@ export class JsonForms implements OnChanges, OnInit {
     });
     this.oldI18N = this.i18n;
     this.initialized = true;
+    this.jsonformsService.$submitState.subscribe(value => this.submited.emit(value));
   }
 
   ngDoCheck(): void {

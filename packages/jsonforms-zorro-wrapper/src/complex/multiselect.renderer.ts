@@ -1,29 +1,25 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { JsonFormsAngularService, JsonFormsControl } from '../jsonForms';
-import {
-  Actions,
-  and,
-  hasType,
-  isEnumControl,
-  JsonSchema,
-  optionIs,
-  RankedTester,
-  rankWith,
-  schemaMatches,
-  schemaSubPathMatches,
-  uiTypeIs,
-} from '@jsonforms/core';
+import { Actions, and, hasType, JsonSchema, optionIs, RankedTester, rankWith, schemaMatches, schemaSubPathMatches, uiTypeIs } from '@jsonforms/core';
+import { hasEnumItems, hasOneOfItems } from '../other/complex.helper';
 
 @Component({
-  selector: 'CheckboxGroupControlRenderer',
+  selector: 'MultiselectControlRenderer',
   template: `
     <nz-form-item *ngIf="scopedSchema" [class]="additionalClasses">
       <nz-form-label *ngIf="label" [nzFor]="id"><i *ngIf="labelIcon" nz-icon [nzType]="labelIcon" nzTheme="outline"></i> {{ label }}</nz-form-label>
       <div class="description">{{ description }}</div>
       <nz-form-control [nzErrorTip]="error">
-        <nz-checkbox-wrapper (nzOnChange)="onChange($event)">
-          <label nz-checkbox *ngFor="let option of options" [nzValue]="option.value" [nzChecked]="option.checked">{{ option.label }}</label>
-        </nz-checkbox-wrapper>
+        <nz-select
+          nzMode="multiple"
+          [id]="id"
+          [formControl]="form"
+          [nzMaxTagCount]="uischema.options.nzMaxTagCount"
+          [nzPlaceHolder]="placeholder"
+          (ngModelChange)="onChange($event)"
+        >
+          <nz-option *ngFor="let item of options" [nzLabel]="item.label" [nzValue]="item.value"></nz-option>
+        </nz-select>
       </nz-form-control>
     </nz-form-item>
   `,
@@ -41,7 +37,7 @@ import {
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CheckboxGroupControlRenderer extends JsonFormsControl {
+export class MultiselectControlRenderer extends JsonFormsControl {
   options: { label: string; value: string; checked?: boolean }[];
 
   constructor(jsonformsService: JsonFormsAngularService) {
@@ -62,7 +58,8 @@ export class CheckboxGroupControlRenderer extends JsonFormsControl {
     this.triggerValidation();
   }
 
-  override mapAdditionalProps() {
+  override mapAdditionalProps(props) {
+    super.mapAdditionalProps(props);
     if (this.scopedSchema) {
       this.options = this.getOptions();
     }
@@ -81,20 +78,12 @@ export class CheckboxGroupControlRenderer extends JsonFormsControl {
   }
 }
 
-const hasOneOfItems = (schema: JsonSchema): boolean =>
-  schema.oneOf !== undefined &&
-  schema.oneOf.length > 0 &&
-  (schema.oneOf as JsonSchema[]).every((entry: JsonSchema) => {
-    return entry.const !== undefined;
-  });
-
-const hasEnumItems = (schema: JsonSchema): boolean => schema.type === 'string' && schema.enum !== undefined;
-
-export const CheckboxGroupControlRendererTester: RankedTester = rankWith(
-  5,
+export const MultiselectControlRendererTester: RankedTester = rankWith(
+  20,
   and(
     uiTypeIs('Control'),
     and(
+      optionIs('format', 'multiselect'),
       schemaMatches(schema => hasType(schema, 'array') && !Array.isArray(schema.items) && schema.uniqueItems === true),
       schemaSubPathMatches('items', schema => {
         return hasOneOfItems(schema) || hasEnumItems(schema);

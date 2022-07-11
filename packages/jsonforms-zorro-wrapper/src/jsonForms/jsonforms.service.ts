@@ -34,6 +34,7 @@ export const USE_STATE_VALUE = Symbol('Marker to use state value');
 export class JsonFormsAngularService {
   private _state: JsonFormsSubStates;
   private state: BehaviorSubject<JsonFormsState>;
+  private submit: BehaviorSubject<any>;
 
   init(
     initialState: JsonFormsSubStates = {
@@ -47,6 +48,7 @@ export class JsonFormsAngularService {
       updateI18n(this._state.i18n?.locale, this._state.i18n?.translate, this._state.i18n?.translateError)
     );
     this.state = new BehaviorSubject({ jsonforms: this._state });
+    this.submit = new BehaviorSubject(null);
     const data = initialState.core.data;
     const schema = initialState.core.schema ?? generateJsonSchema(data);
     const uischema = initialState.core.uischema ?? generateDefaultUISchema(schema);
@@ -58,6 +60,13 @@ export class JsonFormsAngularService {
       throw new Error('Please call init first!');
     }
     return this.state.asObservable();
+  }
+
+  get $submitState(): Observable<any> {
+    if (!this.submit) {
+      throw new Error('Please call init first!');
+    }
+    return this.submit.asObservable();
   }
 
   /**
@@ -191,6 +200,10 @@ export class JsonFormsAngularService {
 
   refresh(): void {
     this.updateSubject();
+  }
+
+  submitForm(): void {
+    this.submit.next(this._state?.core?.data);
   }
 
   updateCoreState(

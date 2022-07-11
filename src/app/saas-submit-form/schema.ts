@@ -67,6 +67,14 @@ export const schema: JsonSchema = {
         ],
       },
     },
+    expertise: {
+      type: 'array',
+      uniqueItems: true,
+      items: {
+        type: 'string',
+        enum: ['Hospitality', 'Energy/Oil & Gas', 'Finance/Banking', 'Gaming', 'Government/Not-for-Profit'],
+      },
+    },
     organize: {
       type: 'array',
       uniqueItems: true,

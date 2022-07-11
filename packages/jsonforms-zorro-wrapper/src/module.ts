@@ -33,7 +33,9 @@ import { RadioControlRenderer } from './controls/radio.renderer';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { RadioButtonControlRenderer } from './controls/radio-button.renderer';
 import { NzIconModule } from 'ng-zorro-antd/icon';
-import { CheckboxGroupControlRenderer } from './complex/enum-array.renderer';
+import { CheckboxGroupControlRenderer } from './complex/checkbox-group.renderer';
+import { MultiselectControlRenderer } from './complex/multiselect.renderer';
+import { NzButtonModule } from 'ng-zorro-antd/button';
 
 const modules = [CommonModule, JsonFormsModule, ReactiveFormsModule, NzFormModule, NzInputModule, NzDatePickerModule, NzCheckboxModule];
 
@@ -56,6 +58,7 @@ const controls = [
   RadioControlRenderer,
   RadioButtonControlRenderer,
   CheckboxGroupControlRenderer,
+  MultiselectControlRenderer,
 ];
 
 @NgModule({
@@ -70,6 +73,7 @@ const controls = [
     NzStepsModule,
     NzRadioModule,
     NzIconModule,
+    NzButtonModule,
   ],
   declarations: [...controls, NzValidationStatusPipe],
   entryComponents: [...controls],

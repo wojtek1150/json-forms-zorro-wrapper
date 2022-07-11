@@ -138,13 +138,19 @@ export const uiSchema = {
     },
     {
       type: 'Category',
-      label: 'Technical Background',
-      elements: [],
-    },
-    {
-      type: 'Category',
       label: 'Experience',
-      elements: [],
+      elements: [
+        {
+          type: 'Control',
+          label: 'Multiselect',
+          placeholder: 'Choose min 3',
+          scope: '#/properties/expertise',
+          options: {
+            format: 'multiselect',
+            nzMaxTagCount: 2,
+          },
+        },
+      ],
     },
     {
       type: 'Category',
@@ -154,6 +160,6 @@ export const uiSchema = {
   ],
   options: {
     variant: 'stepper',
-    showNavButtons: false,
+    showNavButtons: true,
   },
 };
