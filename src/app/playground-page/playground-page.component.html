@@ -1,4 +1,4 @@
-<div nz-row *ngIf="schema && uischema" nzGutter="20">
+<div nz-row nzGutter="20">
   <div nz-col nzSpan="12">
     <h2>Schema editor</h2>
     <nz-code-editor class="editor" [ngModel]="schemaCode" [nzEditorOption]="{ language: 'json', theme: 'vs-dark' }" (ngModelChange)="updateSchema($event)"></nz-code-editor>
@@ -7,6 +7,7 @@
   </div>
   <div nz-col nzSpan="12">
     <jsonforms
+      *ngIf="schema && uischema"
       [schema]="schema"
       [uischema]="uischema"
       [renderers]="renderers"
