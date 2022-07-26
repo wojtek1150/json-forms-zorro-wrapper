@@ -9,47 +9,47 @@ export const uiSchema = {
           type: 'Group',
           label: 'Personal information',
           elements: [
-            {
-              type: 'Control',
-              placeholder: 'Aaa',
-              scope: '#/properties/firstName',
-            },
-            {
-              type: 'Control',
-              scope: '#/properties/lastName',
-            },
-            {
-              type: 'Control',
-              scope: '#/properties/email',
-            },
+            // {
+            //   type: 'Control',
+            //   placeholder: 'Aaa',
+            //   scope: '#/properties/firstName',
+            // },
+            // {
+            //   type: 'Control',
+            //   scope: '#/properties/lastName',
+            // },
+            // {
+            //   type: 'Control',
+            //   scope: '#/properties/email',
+            // },
             {
               type: 'Control',
               scope: '#/properties/city',
             },
-            {
-              type: 'Control',
-              scope: '#/properties/date',
-            },
+            // {
+            //   type: 'Control',
+            //   scope: '#/properties/date',
+            // },
           ],
         },
-        {
-          type: 'Group',
-          label: 'Social',
-          elements: [
-            {
-              type: 'Control',
-              scope: '#/properties/social/properties/linkedin',
-              label: 'LinkedIn',
-              labelIcon: 'linkedin',
-            },
-            {
-              type: 'Control',
-              scope: '#/properties/social/properties/twitter',
-              label: 'Twitter',
-              labelIcon: 'twitter',
-            },
-          ],
-        },
+        // {
+        //   type: 'Group',
+        //   label: 'Social',
+        //   elements: [
+        //     {
+        //       type: 'Control',
+        //       scope: '#/properties/social/properties/linkedin',
+        //       label: 'LinkedIn',
+        //       labelIcon: 'linkedin',
+        //     },
+        //     {
+        //       type: 'Control',
+        //       scope: '#/properties/social/properties/twitter',
+        //       label: 'Twitter',
+        //       labelIcon: 'twitter',
+        //     },
+        //   ],
+        // },
       ],
     },
     {

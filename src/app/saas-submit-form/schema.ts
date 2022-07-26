@@ -17,7 +17,7 @@ export const schema: JsonSchema = {
     },
     city: {
       type: 'string',
-      enum: ['Kraków', 'Wien', 'London', 'San Francisco', 'Venice', 'Other'],
+      minLength: 1,
     },
     date: {
       type: 'string',

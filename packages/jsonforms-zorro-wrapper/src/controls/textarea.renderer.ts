@@ -10,7 +10,15 @@ import { AutoSizeType } from 'ng-zorro-antd/input/autosize.directive';
       <nz-form-label *ngIf="label" [nzFor]="id"><i *ngIf="labelIcon" nz-icon [nzType]="labelIcon" nzTheme="outline"></i> {{ label }}</nz-form-label>
       <div class="description">{{ uischema['description'] }}</div>
       <nz-form-control nzHasFeedback [nzErrorTip]="error" [nzValidateStatus]="form.status | nzValidationStatus">
-        <textarea nz-input [id]="id" [formControl]="form" [placeholder]="placeholder" [nzAutosize]="autosize" (input)="onChange($event)"></textarea>
+        <textarea
+          nz-input
+          [id]="id"
+          [formControl]="form"
+          [placeholder]="placeholder"
+          [nzAutosize]="autosize"
+          (input)="onChange($event)"
+          (blur)="triggerValidation()"
+        ></textarea>
       </nz-form-control>
     </nz-form-item>
   `,
@@ -34,7 +42,7 @@ export class TextAreaRenderer extends JsonFormsControl {
     super(jsonformsService);
   }
 
-  override getEventValue = (event: any) => event.target.value;
+  override getEventValue = (event: any) => event.target.value || undefined;
 
   override mapAdditionalProps(props) {
     super.mapAdditionalProps(props);

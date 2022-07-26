@@ -1,13 +1,12 @@
 export const formData = {
-  name: '',
   bio: 'Lorem Ipsum',
   vegetarian: false,
   birthDate: '2022-06-01',
   personalData: {
-    age: 34
+    age: 34,
   },
   nationality: 'DE',
   toggle: true,
   slider: 2,
-  enum: 'Two'
+  enum: 'Two',
 };

@@ -9,7 +9,15 @@ import { isStringControl, RankedTester, rankWith } from '@jsonforms/core';
       <nz-form-label *ngIf="label" [nzFor]="id"><i *ngIf="labelIcon" nz-icon [nzType]="labelIcon" nzTheme="outline"></i> {{ label }}</nz-form-label>
       <div class="description">{{ description }}</div>
       <nz-form-control nzHasFeedback [nzErrorTip]="error" [nzValidateStatus]="form.status | nzValidationStatus">
-        <input nz-input [id]="id" [formControl]="form" [placeholder]="placeholder" [type]="type" (input)="onChange($event)" />
+        <input
+          nz-input
+          [id]="id"
+          [formControl]="form"
+          [placeholder]="placeholder"
+          [type]="type"
+          (input)="onChange($event)"
+          (blur)="triggerValidation()"
+        />
       </nz-form-control>
     </nz-form-item>
   `,
@@ -31,7 +39,7 @@ export class TextControlRenderer extends JsonFormsControl {
     super(jsonformsService);
   }
 
-  override getEventValue = (event: any) => event.target.value;
+  override getEventValue = (event: any) => event.target.value || undefined;
 
   get type(): string {
     if (this.uischema.options && this.uischema.options['format']) {

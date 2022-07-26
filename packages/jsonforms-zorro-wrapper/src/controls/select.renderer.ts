@@ -9,7 +9,15 @@ import { Actions, isEnumControl, RankedTester, rankWith } from '@jsonforms/core'
       <nz-form-label *ngIf="label" [nzFor]="id"><i *ngIf="labelIcon" nz-icon [nzType]="labelIcon" nzTheme="outline"></i> {{ label }}</nz-form-label>
       <div class="description">{{ uischema['description'] }}</div>
       <nz-form-control nzHasFeedback [nzErrorTip]="error" [nzValidateStatus]="form.status | nzValidationStatus">
-        <nz-select nzShowSearch nzAllowClear [id]="id" [formControl]="form" [nzPlaceHolder]="placeholder" (ngModelChange)="onChange($event)">
+        <nz-select
+          nzShowSearch
+          nzAllowClear
+          [id]="id"
+          [formControl]="form"
+          [nzPlaceHolder]="placeholder"
+          (ngModelChange)="onChange($event)"
+          (blur)="triggerValidation()"
+        >
           <nz-option *ngFor="let option of scopedSchema.enum" [nzLabel]="option" [nzValue]="option"></nz-option>
         </nz-select>
       </nz-form-control>
@@ -35,7 +43,7 @@ export class SelectControlRenderer extends JsonFormsControl {
     super(jsonformsService);
   }
 
-  override getEventValue = (event: any) => event;
+  override getEventValue = (event: any) => event || undefined;
 
   override onChange(event: string) {
     if (this.selectedValue !== event) {

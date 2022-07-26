@@ -91,7 +91,8 @@ export abstract class JsonFormsAbstractControl<Props extends StatePropsOfControl
 
   // @ts-ignore
   mapAdditionalProps(props: Props) {
-    this.placeholder = (this.uischema as ZorroControlElement).placeholder ?? this.label;
+    const placeholder = (this.uischema as ZorroControlElement).placeholder ?? this.label;
+    this.placeholder = placeholder || '';
     // do nothing by default
   }
 
@@ -121,7 +122,7 @@ export abstract class JsonFormsAbstractControl<Props extends StatePropsOfControl
 
   protected abstract mapToProps(state: JsonFormsState): Props;
 
-  protected triggerValidation() {
+  triggerValidation() {
     // these cause the correct update of the error underline, seems to be
     // related to ionic-team/ionic#11640
     this.form.markAsTouched();

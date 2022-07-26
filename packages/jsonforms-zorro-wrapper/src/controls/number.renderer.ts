@@ -15,9 +15,10 @@ import { Actions, isIntegerControl, isNumberControl, or, RankedTester, rankWith,
           [nzMin]="min"
           [nzMax]="max"
           [nzStep]="stepper"
-          [nzPlaceHolder]="placeholder"
+          [nzPlaceHolder]="placeholder || ''"
           [nzDisabled]="!isEnabled()"
           (ngModelChange)="onChange($event)"
+          (blur)="triggerValidation()"
         ></nz-input-number>
       </nz-form-control>
     </nz-form-item>

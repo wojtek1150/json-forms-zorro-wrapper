@@ -17,6 +17,7 @@ import { hasEnumItems, hasOneOfItems } from '../other/complex.helper';
           [nzMaxTagCount]="uischema.options.nzMaxTagCount"
           [nzPlaceHolder]="placeholder"
           (ngModelChange)="onChange($event)"
+          (blur)="triggerValidation()"
         >
           <nz-option *ngFor="let item of options" [nzLabel]="item.label" [nzValue]="item.value"></nz-option>
         </nz-select>

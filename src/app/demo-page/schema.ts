@@ -8,62 +8,49 @@ export const schema: JsonSchema = {
     },
     bio: {
       type: 'string',
-      description: 'Multiline Example'
+      description: 'Multiline Example',
     },
     vegetarian: {
-      type: 'boolean'
+      type: 'boolean',
     },
     personalData: {
       type: 'object',
       properties: {
         birthDate: {
           type: 'string',
-          format: 'date'
+          format: 'date',
         },
         age: {
           title: 'Age',
           description: 'Age',
-          type: 'integer'
+          type: 'integer',
         },
         height: {
           minimum: 1,
           multipleOf: 1e-2,
           title: 'Height',
-          description: 'Your height',
-          type: 'number'
+          type: 'number',
         },
       },
       additionalProperties: true,
-      required: [
-        'age'
-      ]
+      required: ['age'],
     },
     toggle: {
       type: 'boolean',
-      description: 'The "toggle" option renders boolean values as a toggle.'
+      description: 'The "toggle" option renders boolean values as a toggle.',
     },
     slider: {
       type: 'number',
       minimum: 1,
       maximum: 5,
       default: 2,
-      description: 'Slider Example'
+      description: 'Slider Example',
     },
     enum: {
       type: 'string',
-      enum: [
-        'One',
-        'Two',
-        'Three'
-      ]
-    }
+      enum: ['One', 'Two', 'Three'],
+    },
   },
   additionalProperties: true,
-  required: [
-    'name',
-    'vegetarian',
-    'birthDate',
-    'personalData',
-    'postalCode'
-  ]
+  required: ['name', 'vegetarian', 'birthDate', 'personalData', 'postalCode'],
 };
