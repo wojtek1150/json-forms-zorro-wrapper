@@ -5,12 +5,12 @@ import {
   coreReducer,
   generateDefaultUISchema,
   generateJsonSchema,
+  I18nActions,
   i18nReducer,
   JsonFormsRendererRegistryEntry,
   JsonFormsState,
   JsonFormsSubStates,
   JsonSchema,
-  I18nActions,
   RankedTester,
   setConfig,
   SetConfigAction,
@@ -18,8 +18,8 @@ import {
   UISchemaElement,
   uischemaRegistryReducer,
   UISchemaTester,
-  ValidationMode,
   updateI18n,
+  ValidationMode,
 } from '@jsonforms/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { JsonFormsBaseRenderer } from './base.renderer';
@@ -32,9 +32,15 @@ export const USE_STATE_VALUE = Symbol('Marker to use state value');
 
 @Injectable({ providedIn: 'root' })
 export class JsonFormsAngularService {
+  set step(value: number) {
+    this._step = value;
+  }
+
   private _state: JsonFormsSubStates;
   private state: BehaviorSubject<JsonFormsState>;
   private submit: BehaviorSubject<any>;
+  private _step = 0;
+  private stepChange: BehaviorSubject<{ step: number; data: null }>;
 
   init(
     initialState: JsonFormsSubStates = {
@@ -49,6 +55,7 @@ export class JsonFormsAngularService {
     );
     this.state = new BehaviorSubject({ jsonforms: this._state });
     this.submit = new BehaviorSubject(null);
+    this.stepChange = new BehaviorSubject({ step: this._step, data: null });
     const data = initialState.core.data;
     const schema = initialState.core.schema ?? generateJsonSchema(data);
     const uischema = initialState.core.uischema ?? generateDefaultUISchema(schema);
@@ -67,6 +74,13 @@ export class JsonFormsAngularService {
       throw new Error('Please call init first!');
     }
     return this.submit.asObservable();
+  }
+
+  get $stepChangeState(): Observable<any> {
+    if (!this.stepChange) {
+      throw new Error('Please call init first!');
+    }
+    return this.stepChange.asObservable();
   }
 
   /**
@@ -204,6 +218,10 @@ export class JsonFormsAngularService {
 
   submitForm(): void {
     this.submit.next(this._state?.core?.data);
+  }
+
+  changeStep(step: number): void {
+    this.stepChange.next({ step, data: this._state?.core?.data });
   }
 
   updateCoreState(

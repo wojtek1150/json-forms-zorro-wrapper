@@ -16,10 +16,17 @@ export class SaasSubmitFormComponent {
   schema: JsonSchema = schema;
   uischema: UISchemaElement = uiSchema;
   formData = formData;
+  step = 1;
 
-  log($event: any) {
+  log($event: any, type: string) {
     console.log('======');
+    console.log(type);
     console.log($event);
     console.log('======');
+  }
+
+  onStepChanged($event: { step: number; data: any }) {
+    this.step = $event.step;
+    this.log($event, 'stepchanged');
   }
 }

@@ -11,7 +11,7 @@ import {
 } from '@jsonforms/core';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { JsonFormsAngularService, JsonFormsBaseRenderer } from '../jsonForms';
-import { Subscription } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'jsonforms-stepper-layout',
@@ -69,14 +69,14 @@ export class StepperLayoutRenderer extends JsonFormsBaseRenderer<Categorization>
   showButtons = false;
   step = 0;
 
-  private subscription: Subscription;
+  private destroy$ = new Subject();
 
   constructor(private jsonFormsService: JsonFormsAngularService) {
     super();
   }
 
   ngOnInit() {
-    this.subscription = this.jsonFormsService.$state.subscribe({
+    this.jsonFormsService.$state.pipe(takeUntil(this.destroy$)).subscribe({
       next: (state: JsonFormsState) => {
         const props = mapStateToLayoutProps(state, this.getOwnProps());
         const uiSchemaOptions = props.uischema.options;
@@ -85,24 +85,24 @@ export class StepperLayoutRenderer extends JsonFormsBaseRenderer<Categorization>
         }
       },
     });
+    this.jsonFormsService.$stepChangeState.pipe(takeUntil(this.destroy$)).subscribe(({ step }) => (this.step = step));
   }
 
   ngOnDestroy() {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-    }
+    this.destroy$.complete();
   }
 
   onIndexChange(index: number): void {
+    this.jsonFormsService.changeStep(this.step);
     this.step = index;
   }
 
   previous() {
-    this.step = this.step - 1;
+    this.onIndexChange(this.step - 1);
   }
 
   next() {
-    this.step = this.step + 1;
+    this.onIndexChange(this.step + 1);
   }
 
   submit() {

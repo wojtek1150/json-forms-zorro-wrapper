@@ -3,8 +3,10 @@
   [uischema]="uischema"
   [renderers]="renderers"
   [(data)]="formData"
-  (dataChange)="log($event)"
-  (submited)="log($event)"
+  [initStepIndex]="step"
+  (dataChange)="log($event, 'dataChange')"
+  (stepChanged)="onStepChanged($event)"
+  (submited)="log($event, 'submited')"
 ></jsonforms>
 
 <nz-divider></nz-divider>

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import {
   Actions,
   JsonFormsI18nState,
@@ -10,30 +10,41 @@ import {
 } from '@jsonforms/core';
 import Ajv, { ErrorObject } from 'ajv';
 import { JsonFormsAngularService, USE_STATE_VALUE } from './jsonforms.service';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'jsonforms',
   template: '<jsonforms-outlet></jsonforms-outlet>',
   providers: [JsonFormsAngularService],
 })
-export class JsonForms implements OnChanges, OnInit {
+export class JsonForms implements OnChanges, OnInit, OnDestroy {
   @Input() uischema: UISchemaElement;
   @Input() schema: JsonSchema;
   @Input() data: any;
   @Input() renderers: JsonFormsRendererRegistryEntry[];
   @Input() uischemas: { tester: UISchemaTester; uischema: UISchemaElement }[];
-  @Output() dataChange = new EventEmitter<any>();
   @Input() readonly: boolean;
   @Input() validationMode: ValidationMode;
   @Input() ajv: Ajv;
   @Input() config: any;
   @Input() i18n: JsonFormsI18nState;
   @Input() additionalErrors: ErrorObject[];
+  @Output() dataChange = new EventEmitter<any>();
   @Output() errors = new EventEmitter<ErrorObject[]>();
   @Output() submited = new EventEmitter<any>();
+  @Output() stepChanged = new EventEmitter<{ step: number; data: any }>();
+
+  @Input()
+  set initStepIndex(index: number) {
+    if (this.jsonformsService) {
+      this.jsonformsService.step = index;
+    }
+  }
 
   private previousData: any;
   private previousErrors: ErrorObject[];
+
+  private destroy$ = new Subject();
 
   private initialized = false;
   oldI18N: JsonFormsI18nState;
@@ -56,7 +67,7 @@ export class JsonForms implements OnChanges, OnInit {
       config: this.config,
       readonly: this.readonly,
     });
-    this.jsonformsService.$state.subscribe(state => {
+    this.jsonformsService.$state.pipe(takeUntil(this.destroy$)).subscribe(state => {
       const data = state?.jsonforms?.core?.data;
       const errors = state?.jsonforms?.core?.errors;
       if (this.previousData !== data) {
@@ -70,7 +81,8 @@ export class JsonForms implements OnChanges, OnInit {
     });
     this.oldI18N = this.i18n;
     this.initialized = true;
-    this.jsonformsService.$submitState.subscribe(value => this.submited.emit(value));
+    this.jsonformsService.$submitState.pipe(takeUntil(this.destroy$)).subscribe(value => this.submited.emit(value));
+    this.jsonformsService.$stepChangeState.pipe(takeUntil(this.destroy$)).subscribe(value => this.stepChanged.emit(value));
   }
 
   ngDoCheck(): void {
@@ -143,5 +155,9 @@ export class JsonForms implements OnChanges, OnInit {
     if (newConfig && !newConfig.isFirstChange()) {
       this.jsonformsService.updateConfig(Actions.setConfig(newConfig.currentValue));
     }
+  }
+
+  ngOnDestroy() {
+    this.destroy$.complete();
   }
 }
