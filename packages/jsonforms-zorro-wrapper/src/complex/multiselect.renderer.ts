@@ -9,7 +9,7 @@ import { hasEnumItems, hasOneOfItems } from '../other/complex.helper';
     <nz-form-item *ngIf="scopedSchema" [class]="additionalClasses">
       <nz-form-label *ngIf="label" [nzFor]="id"><i *ngIf="labelIcon" nz-icon [nzType]="labelIcon" nzTheme="outline"></i> {{ label }}</nz-form-label>
       <div class="description">{{ description }}</div>
-      <nz-form-control [nzErrorTip]="error">
+      <nz-form-control [nzErrorTip]="errorMessage">
         <nz-select
           nzMode="multiple"
           [id]="id"

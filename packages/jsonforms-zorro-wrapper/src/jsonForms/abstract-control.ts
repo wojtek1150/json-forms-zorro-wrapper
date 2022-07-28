@@ -18,7 +18,6 @@ export abstract class JsonFormsAbstractControl<Props extends StatePropsOfControl
   @Input() visible: boolean;
 
   form: FormControl;
-  subject = new Subject();
   data: any;
   label: string;
   placeholder: string;
@@ -29,6 +28,8 @@ export abstract class JsonFormsAbstractControl<Props extends StatePropsOfControl
   enabled: boolean;
   hidden: boolean;
   propsPath: string;
+
+  private destroy$ = new Subject();
 
   constructor(protected jsonFormsService: JsonFormsAngularService) {
     super();
@@ -48,6 +49,10 @@ export abstract class JsonFormsAbstractControl<Props extends StatePropsOfControl
     return this.uischema['labelIcon'];
   }
 
+  get errorMessage(): string | null {
+    return this.scopedSchema['errorMessage'] || this.error;
+  }
+
   getEventValue = (event: any) => event.value;
 
   onChange(ev: any) {
@@ -62,7 +67,7 @@ export abstract class JsonFormsAbstractControl<Props extends StatePropsOfControl
   }
 
   ngOnInit() {
-    this.jsonFormsService.$state.pipe(takeUntil(this.subject)).subscribe({
+    this.jsonFormsService.$state.pipe(takeUntil(this.destroy$)).subscribe({
       next: (state: JsonFormsState) => {
         const props = this.mapToProps(state);
         const { data, enabled, errors, label, required, schema, rootSchema, visible, path, config } = props;
@@ -83,6 +88,7 @@ export abstract class JsonFormsAbstractControl<Props extends StatePropsOfControl
         this.mapAdditionalProps(props);
       },
     });
+    this.jsonFormsService.$submitState.pipe(takeUntil(this.destroy$)).subscribe(value => value && this.triggerValidation());
   }
 
   validator: ValidatorFn = (_c: AbstractControl): ValidationErrors | null => {
@@ -97,7 +103,7 @@ export abstract class JsonFormsAbstractControl<Props extends StatePropsOfControl
   }
 
   ngOnDestroy() {
-    this.subject.complete();
+    this.destroy$.complete();
   }
 
   isEnabled(): boolean {

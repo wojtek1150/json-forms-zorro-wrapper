@@ -8,7 +8,7 @@ import { Actions, and, isEnumControl, optionIs, RankedTester, rankWith } from '@
     <nz-form-item *ngIf="scopedSchema" [class]="additionalClasses">
       <nz-form-label *ngIf="label" [nzFor]="id"><i *ngIf="labelIcon" nz-icon [nzType]="labelIcon" nzTheme="outline"></i> {{ label }}</nz-form-label>
       <div class="description">{{ description }}</div>
-      <nz-form-control [nzErrorTip]="error">
+      <nz-form-control [nzErrorTip]="errorMessage">
         <nz-radio-group [id]="id" [formControl]="form" (ngModelChange)="onChange($event)" nzButtonStyle="solid">
           <label nz-radio-button *ngFor="let option of scopedSchema.enum" [nzValue]="option">{{ option }}</label>
         </nz-radio-group>

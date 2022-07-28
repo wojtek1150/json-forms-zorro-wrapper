@@ -6,6 +6,7 @@ export const schema: JsonSchema = {
     firstName: {
       type: 'string',
       minLength: 3,
+      errorMessage: 'Custom error message',
     },
     lastName: {
       type: 'string',
@@ -88,5 +89,5 @@ export const schema: JsonSchema = {
       },
     },
   },
-  required: ['firstName', 'lastName', 'email', 'city', 'bio'],
+  required: ['firstName', 'lastName', 'email', 'city', 'bio', 'social.linkedin'],
 };
