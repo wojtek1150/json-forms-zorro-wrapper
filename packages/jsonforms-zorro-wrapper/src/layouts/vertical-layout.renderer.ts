@@ -11,8 +11,13 @@ import { JsonFormsAngularService } from '../jsonForms';
         <jsonforms-outlet [renderProps]="props"></jsonforms-outlet>
       </div>
     </div>
+    <div class="submit-wrapper" *ngIf="submitLabel">
+      <button nz-button nzType="primary" (click)="submit()">
+        <span>{{ submitLabel }}</span>
+      </button>
+    </div>
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class VerticalLayoutRenderer extends LayoutRenderer<VerticalLayout> {
   constructor(jsonFormsService: JsonFormsAngularService, changeDetectionRef: ChangeDetectorRef) {
@@ -20,7 +25,4 @@ export class VerticalLayoutRenderer extends LayoutRenderer<VerticalLayout> {
   }
 }
 
-export const VerticalLayoutTester: RankedTester = rankWith(
-  1,
-  uiTypeIs('VerticalLayout')
-);
+export const VerticalLayoutTester: RankedTester = rankWith(1, uiTypeIs('VerticalLayout'));

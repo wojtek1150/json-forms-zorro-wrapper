@@ -22,6 +22,7 @@ import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { RenderersPageComponent } from './renderers-page/renderers-page.component';
 import { PlaygroundPageComponent } from './playground-page/playground-page.component';
 import { NzCodeEditorModule } from 'ng-zorro-antd/code-editor';
+import { NzSelectModule } from 'ng-zorro-antd/select';
 
 const icons: IconDefinition[] = [CheckCircleFill];
 
@@ -42,6 +43,7 @@ const icons: IconDefinition[] = [CheckCircleFill];
     NzLayoutModule,
     NzMenuModule,
     NzCodeEditorModule,
+    NzSelectModule,
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent],

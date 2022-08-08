@@ -3,15 +3,22 @@ import { JsonFormsRendererRegistryEntry, JsonSchema, UISchemaElement } from '@js
 import { ngZorroRenderers } from '@wojtek1150/jsonforms-zorro-wrapper';
 import { schema } from '../demo-page/schema';
 import { uischema } from '../demo-page/uischema';
+import { groupButton } from './schemas/group-button';
 
 @Component({
   selector: 'app-playground-page',
   templateUrl: './playground-page.component.html',
   styles: [
     `
+      nz-select {
+        width: 100%;
+        margin-bottom: 20px;
+      }
+
       h2 {
         margin: 0;
       }
+
       .editor {
         display: block;
         width: 100%;
@@ -32,10 +39,10 @@ export class PlaygroundPageComponent {
   uischemaCode = JSON.stringify(uischema, null, 2);
   formData;
 
-  log($event: any) {
-    console.log('======');
+  log(type: string, $event: any) {
+    console.log('======' + type + '======');
     console.log($event);
-    console.log('======');
+    console.log('============');
   }
 
   updateSchema($event: any) {
@@ -46,5 +53,24 @@ export class PlaygroundPageComponent {
   updateUiSchema($event: any) {
     this.uischema = null;
     this.uischema = JSON.parse($event);
+  }
+
+  selectTemplate(template: string) {
+    switch (template) {
+      case 'group-button':
+        this.schema = groupButton.schema;
+        this.uischema = groupButton.uiSchema;
+        break;
+      default:
+        this.schema = schema;
+        this.uischema = uischema;
+        break;
+    }
+    this.updateSchemaCode();
+  }
+
+  updateSchemaCode() {
+    this.schemaCode = JSON.stringify(this.schema, null, 2);
+    this.uischemaCode = JSON.stringify(this.uischema, null, 2);
   }
 }

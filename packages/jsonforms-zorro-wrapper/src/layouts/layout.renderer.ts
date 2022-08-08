@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 
 @Directive()
 export class LayoutRenderer<T extends Layout> extends JsonFormsBaseRenderer<T> implements OnInit, OnDestroy {
+  submitLabel: string = null;
   hidden = false;
   private subscription = new Subscription();
 
@@ -17,8 +18,9 @@ export class LayoutRenderer<T extends Layout> extends JsonFormsBaseRenderer<T> i
       next: (state: JsonFormsState) => {
         const props = mapStateToLayoutProps(state, this.getOwnProps());
         this.hidden = !props.visible;
+        this.mapSchemaOptions(props.uischema.options);
         this.changeDetectionRef.markForCheck();
-      }
+      },
     });
   }
 
@@ -29,18 +31,24 @@ export class LayoutRenderer<T extends Layout> extends JsonFormsBaseRenderer<T> i
   }
 
   get renderProps(): OwnPropsOfRenderer[] {
-    return (this.uischema.elements || []).map(
-      (el: UISchemaElement) => ({
-        uischema: el,
-        schema: this.schema,
-        path: this.path
-      })
-    );
+    return (this.uischema.elements || []).map((el: UISchemaElement) => ({
+      uischema: el,
+      schema: this.schema,
+      path: this.path,
+    }));
+  }
+
+  // @ts-ignore
+  mapSchemaOptions(options: Record<string, any>) {
+    this.submitLabel = options?.submitLabel || null;
+    // do nothing by default
+  }
+
+  submit() {
+    this.jsonFormsService.submitForm();
   }
 
   trackElement(_index: number, renderProp: OwnPropsOfRenderer): string | null {
-    return renderProp
-      ? renderProp.path + JSON.stringify(renderProp.uischema)
-      : null;
+    return renderProp ? renderProp.path + JSON.stringify(renderProp.uischema) : null;
   }
 }

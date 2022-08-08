@@ -12,6 +12,11 @@ import { JsonFormsAngularService } from '../jsonForms';
       <div *ngFor="let props of renderProps; trackBy: trackElement" class="control-wrapper">
         <jsonforms-outlet [renderProps]="props"></jsonforms-outlet>
       </div>
+      <div class="submit-wrapper" *ngIf="submitLabel">
+        <button nz-button nzType="primary" (click)="submit()">
+          <span>{{ submitLabel }}</span>
+        </button>
+      </div>
     </div>
   `,
   styles: [

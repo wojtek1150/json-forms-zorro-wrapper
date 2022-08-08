@@ -29,13 +29,13 @@ import { Subject, takeUntil } from 'rxjs';
       </ng-container>
       <div class="steps-action" *ngIf="showButtons">
         <button nz-button nzType="default" [disabled]="step === 0" (click)="previous()">
-          <span>Previous</span>
+          <span>{{ previousLabel }}</span>
         </button>
         <button nz-button nzType="default" *ngIf="step < uischema.elements.length - 1" (click)="next()">
-          <span>Next</span>
+          <span>{{ nextLabel }}</span>
         </button>
         <button nz-button nzType="primary" *ngIf="step === uischema.elements.length - 1" (click)="submit()">
-          <span>Submit</span>
+          <span>{{ submitLabel }}</span>
         </button>
       </div>
     </div>
@@ -67,6 +67,9 @@ import { Subject, takeUntil } from 'rxjs';
 })
 export class StepperLayoutRenderer extends JsonFormsBaseRenderer<Categorization> implements OnInit, OnDestroy {
   showButtons = false;
+  nextLabel = 'Next';
+  previousLabel = 'Previous';
+  submitLabel = 'Submit';
   step = 0;
 
   private destroy$ = new Subject();
@@ -83,6 +86,9 @@ export class StepperLayoutRenderer extends JsonFormsBaseRenderer<Categorization>
         if (uiSchemaOptions['showNavButtons']) {
           this.showButtons = true;
         }
+        this.nextLabel = uiSchemaOptions['nextLabel'] || 'Next';
+        this.previousLabel = uiSchemaOptions['previousLabel'] || 'Previous';
+        this.submitLabel = uiSchemaOptions['submitLabel'] || 'Submit';
       },
     });
     this.jsonFormsService.$stepChangeState.pipe(takeUntil(this.destroy$)).subscribe(({ step }) => (this.step = step));

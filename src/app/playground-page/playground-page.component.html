@@ -1,5 +1,9 @@
 <div nz-row nzGutter="20">
   <div nz-col nzSpan="12">
+    <nz-select ngModel="demo" nzPlaceHolder="Use demo template" (ngModelChange)="selectTemplate($event)">
+      <nz-option nzValue="default" nzLabel="Vertical Layout"></nz-option>
+      <nz-option nzValue="group-button" nzLabel="Simple group with submit"></nz-option>
+    </nz-select>
     <h2>Schema editor</h2>
     <nz-code-editor class="editor" [ngModel]="schemaCode" [nzEditorOption]="{ language: 'json', theme: 'vs-dark' }" (ngModelChange)="updateSchema($event)"></nz-code-editor>
     <h2>UI Schema editor</h2>
@@ -12,8 +16,8 @@
       [uischema]="uischema"
       [renderers]="renderers"
       [(data)]="formData"
-      (dataChange)="log($event)"
-      (submited)="log($event)"
+      (dataChange)="log('dataChange', $event)"
+      (submited)="log('submited',$event)"
     ></jsonforms>
   </div>
 </div>
