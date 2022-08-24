@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
 import { HorizontalLayout, RankedTester, rankWith, uiTypeIs } from '@jsonforms/core';
 import { LayoutRenderer } from './layout.renderer';
 import { JsonFormsAngularService } from '../jsonForms';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'HorizontalLayoutRenderer',
@@ -12,28 +13,27 @@ import { JsonFormsAngularService } from '../jsonForms';
       </div>
     </div>
   `,
-  styles: [`
-    .horizontal-layout {
-      display: flex;
-    }
+  styles: [
+    `
+      .horizontal-layout {
+        display: flex;
+      }
 
-    .control-wrapper {
-      flex-basis: 0;
-      flex-grow: 1;
-      max-width: 100%;
-      padding-top: 16px;
-      padding-left: 16px;
-    }
-  `],
-  changeDetection: ChangeDetectionStrategy.OnPush
+      .control-wrapper {
+        flex-basis: 0;
+        flex-grow: 1;
+        max-width: 100%;
+        padding-top: 16px;
+        padding-left: 16px;
+      }
+    `,
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HorizontalLayoutRenderer extends LayoutRenderer<HorizontalLayout> {
-  constructor(jsonFormsService: JsonFormsAngularService, changeDetectionRef: ChangeDetectorRef) {
-    super(jsonFormsService, changeDetectionRef);
+  constructor(jsonFormsService: JsonFormsAngularService, changeDetectionRef: ChangeDetectorRef, sanitizer: DomSanitizer) {
+    super(jsonFormsService, changeDetectionRef, sanitizer);
   }
 }
 
-export const HorizontalLayoutTester: RankedTester = rankWith(
-  1,
-  uiTypeIs('HorizontalLayout')
-);
+export const HorizontalLayoutTester: RankedTester = rankWith(1, uiTypeIs('HorizontalLayout'));

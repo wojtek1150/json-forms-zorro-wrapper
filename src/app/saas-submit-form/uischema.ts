@@ -154,8 +154,43 @@ export const uiSchema = {
     },
     {
       type: 'Category',
-      label: 'Final step',
-      elements: [],
+      label: 'Terms & Conditions',
+      elements: [
+        {
+          label: 'Terms & Conditions',
+          options: {
+            html: true,
+          },
+          description: 'Do you accept<strong>Terms & Conditions</strong>?',
+          type: 'Group',
+          elements: [
+            {
+              scope: '#/properties/termsAndConditions',
+              label: 'Terms & Conditions',
+              displayType: 'TEXT',
+              displayMode: 'DEFAULT',
+              type: 'Control',
+            },
+          ],
+        },
+        {
+          label: 'Agreements',
+          options: {
+            html: true,
+          },
+          description: 'Do you accept<strong>Agreements</strong>?',
+          type: 'Group',
+          elements: [
+            {
+              scope: '#/properties/agreements',
+              label: 'Agreements',
+              displayType: 'TEXT',
+              displayMode: 'DEFAULT',
+              type: 'Control',
+            },
+          ],
+        },
+      ],
     },
   ],
   options: {

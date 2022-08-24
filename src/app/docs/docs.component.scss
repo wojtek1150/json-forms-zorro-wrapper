@@ -1,0 +1,43 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
+.layout {
+  min-height: calc(100vh - 80px);
+}
+
+.right-layout {
+  margin-left: 350px;
+}
+
+nz-sider {
+  overflow: auto;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  background: #fff;
+}
+
+nz-content {
+  padding: 24px;
+  background: #fff;
+
+  ::ng-deep {
+    line-height: 1.75em;
+
+    code {
+      margin: 0 1px;
+      padding: 0.2em 0.4em;
+      font-size: .9em;
+      background: #f2f4f5;
+      border: 1px solid rgba(0, 0, 0, .06);
+      border-radius: 3px;
+    }
+
+    table td:nth-child(3) code {
+      color: #c41d7f;
+      font-size: 13px;
+    }
+  }
+}

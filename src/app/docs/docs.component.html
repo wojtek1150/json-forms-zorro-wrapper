@@ -1,0 +1,42 @@
+<nz-layout class="layout">
+  <nz-sider [nzWidth]="350">
+    <ul nz-menu nzMode="inline">
+      <li nz-menu-group nzTitle="General">
+        <ul>
+          <li nz-menu-item nzMatchRouter><a [routerLink]="['schema']">Schema</a></li>
+        </ul>
+      </li>
+      <li nz-menu-group nzTitle="Controls">
+        <ul>
+          <li nz-menu-item nzMatchRouter><a [routerLink]="['textfield']">Text/Textarea</a></li>
+          <li nz-menu-item nzMatchRouter><a [routerLink]="['number']">Number</a></li>
+          <li nz-menu-item nzMatchRouter><a [routerLink]="['select']">Select</a></li>
+          <li nz-menu-item nzMatchRouter><a [routerLink]="['checkbox']">Checkbox</a></li>
+          <li nz-menu-item nzMatchRouter><a [routerLink]="['toggle']">Toggle</a></li>
+          <li nz-menu-item nzMatchRouter><a [routerLink]="['radio']">Radio Group</a></li>
+          <li nz-menu-item nzMatchRouter><a [routerLink]="['date']">Date Picker</a></li>
+          <li nz-menu-item nzMatchRouter><a [routerLink]="['slider']">Slider</a></li>
+        </ul>
+      </li>
+      <li nz-menu-group nzTitle="Layout types">
+        <ul>
+          <li nz-menu-item>Categorization</li>
+          <li nz-menu-item>Vertical Layout</li>
+          <li nz-menu-item>Horizontal Layout</li>
+          <li nz-menu-item>Group</li>
+          <li nz-menu-item>Category</li>
+        </ul>
+      </li>
+      <li nz-menu-group nzTitle="Presentation">
+        <ul>
+          <li nz-menu-item>Available in the future</li>
+        </ul>
+      </li>
+    </ul>
+  </nz-sider>
+  <nz-layout class="right-layout">
+    <nz-content>
+      <router-outlet></router-outlet>
+    </nz-content>
+  </nz-layout>
+</nz-layout>

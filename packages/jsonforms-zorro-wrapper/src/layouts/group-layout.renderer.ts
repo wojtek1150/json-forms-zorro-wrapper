@@ -2,13 +2,15 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
 import { GroupLayout, RankedTester, rankWith, uiTypeIs } from '@jsonforms/core';
 import { LayoutRenderer } from './layout.renderer';
 import { JsonFormsAngularService } from '../jsonForms';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'GroupLayoutRenderer',
   template: `
     <div [class]="additionalClasses">
       <h2>{{ uischema.label }}</h2>
-      <p>{{ uischema['description'] }}</p>
+      <p *ngIf="!htmlDescription">{{ uischema['description'] }}</p>
+      <div *ngIf="htmlDescription" [innerHTML]="sanitizedDescription"></div>
       <div *ngFor="let props of renderProps; trackBy: trackElement" class="control-wrapper">
         <jsonforms-outlet [renderProps]="props"></jsonforms-outlet>
       </div>
@@ -29,8 +31,8 @@ import { JsonFormsAngularService } from '../jsonForms';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GroupLayoutRenderer extends LayoutRenderer<GroupLayout> {
-  constructor(jsonFormsService: JsonFormsAngularService, changeDetectionRef: ChangeDetectorRef) {
-    super(jsonFormsService, changeDetectionRef);
+  constructor(jsonFormsService: JsonFormsAngularService, changeDetectionRef: ChangeDetectorRef, sanitizer: DomSanitizer) {
+    super(jsonFormsService, changeDetectionRef, sanitizer);
   }
 }
 

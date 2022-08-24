@@ -10,6 +10,10 @@ import { groupButton } from './schemas/group-button';
   templateUrl: './playground-page.component.html',
   styles: [
     `
+      :host {
+        padding: 24px;
+      }
+
       nz-select {
         width: 100%;
         margin-bottom: 20px;

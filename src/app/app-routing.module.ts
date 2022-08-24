@@ -22,6 +22,14 @@ const routes: Routes = [
     component: PlaygroundPageComponent,
     path: 'playground',
   },
+  {
+    loadChildren: () => import('./docs/docs.module').then(m => m.DocsModule),
+    path: 'docs',
+  },
+  {
+    path: '**',
+    redirectTo: '',
+  },
 ];
 
 @NgModule({

@@ -1,0 +1,65 @@
+<h1>Schema</h1>
+
+<p>Schema is set of rules that defines functionality of each component/validator/presentation process. We are using the following schemas:</p>
+
+<ul>
+  <li>JsonSchema - provided by <a href="https://jsonforms.io/" rel="nofollow" target="_blank">JsonForms</a>, used for creation of form controls, validation etc.
+    We are using JsonSchema7 - you can find interfacace <a href="https://github.com/wojtek1150/json-forms-zorro-wrapper/blob/master/packages/jsonforms-zorro-wrapper/src/other/schema.ts" target="_blank">here</a></li>
+  <li>UiSchema - compatible with JsonForms is used for displaying form controls at the front end. There are several differences with JsonForms UiSchema (more typed options available) which you can find on each renderer docs.
+    Interface is availabe <a href="https://github.com/wojtek1150/json-forms-zorro-wrapper/blob/master/packages/jsonforms-zorro-wrapper/src/other/uischema.ts" target="_blank">here</a></li>
+  <li>UiSchema for preview - also compatible with JsonForms but with additional properties for displaying the preview of form value. WIll be available in the future</li>
+</ul>
+
+
+<h2>Ui Schema</h2>
+<p>Each control contains a following properties:</p>
+
+<nz-table [nzTemplateMode]="true">
+  <thead>
+  <tr>
+    <th>Property</th>
+    <th>Description</th>
+    <th>Type</th>
+    <th>Default</th>
+  </tr>
+  </thead>
+  <tbody>
+
+  <tr>
+    <td>Type</td>
+    <td>The type of this UI schema element.</td>
+    <td><code>'Control'</code></td>
+    <td>-</td>
+  </tr>
+  <tr>
+    <td>Scope</td>
+    <td>The scope that determines to which part this element should be bound to.</td>
+    <td><code>string</code></td>
+    <td>-</td>
+  </tr>
+  <tr>
+    <td>Label</td>
+    <td>Label for UI schema element.</td>
+    <td><code>string</code></td>
+    <td>-</td>
+  </tr>
+  <tr>
+    <td>Placeholder</td>
+    <td>Placeholder displayed inside element.</td>
+    <td><code>string</code></td>
+    <td>-</td>
+  </tr>
+  <tr>
+    <td>Rule</td>
+    <td>An optional rule.</td>
+    <td><code>Rule</code> <br />@jsonforms/core/src/models/uischema</td>
+    <td>-</td>
+  </tr>
+  <tr>
+    <td>Options</td>
+    <td>Any additional options.</td>
+    <td><code>{{STRING_TYPES.RECORD}}</code></td>
+    <td>-</td>
+  </tr>
+  </tbody>
+</nz-table>

@@ -88,6 +88,12 @@ export const schema: JsonSchema = {
         ],
       },
     },
+    termsAndConditions: {
+      type: 'boolean',
+    },
+    agreements: {
+      type: 'boolean',
+    },
   },
   required: ['firstName', 'lastName', 'email', 'city', 'bio', 'social.linkedin'],
 };
