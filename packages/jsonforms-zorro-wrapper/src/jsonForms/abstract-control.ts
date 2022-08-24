@@ -1,4 +1,4 @@
-import { Actions, computeLabel, ControlElement, JsonFormsState, JsonSchema, OwnPropsOfControl, StatePropsOfControl } from '@jsonforms/core';
+import { Actions, computeLabel, JsonFormsState, JsonSchema, OwnPropsOfControl, StatePropsOfControl } from '@jsonforms/core';
 import { Directive, Input, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
@@ -6,11 +6,11 @@ import { Subject, takeUntil } from 'rxjs';
 import { JsonFormsBaseRenderer } from './base.renderer';
 import { JsonFormsAngularService } from './jsonforms.service';
 import { merge } from 'lodash-es';
-import { ZorroControlElement } from '../other/uischema';
+import { JFZControlElement } from '../other/uischema';
 
 @Directive({})
 export abstract class JsonFormsAbstractControl<Props extends StatePropsOfControl>
-  extends JsonFormsBaseRenderer<ControlElement>
+  extends JsonFormsBaseRenderer<JFZControlElement>
   implements OnInit, OnDestroy
 {
   @Input() id: string;
@@ -46,7 +46,7 @@ export abstract class JsonFormsAbstractControl<Props extends StatePropsOfControl
   }
 
   get labelIcon(): string | undefined {
-    return this.uischema['labelIcon'];
+    return this.uischema.labelIcon;
   }
 
   get errorMessage(): string | null {
@@ -97,7 +97,7 @@ export abstract class JsonFormsAbstractControl<Props extends StatePropsOfControl
 
   // @ts-ignore
   mapAdditionalProps(props: Props) {
-    const placeholder = (this.uischema as ZorroControlElement).placeholder ?? this.label;
+    const placeholder = this.uischema.placeholder ?? this.label;
     this.placeholder = placeholder || '';
     // do nothing by default
   }
@@ -108,6 +108,13 @@ export abstract class JsonFormsAbstractControl<Props extends StatePropsOfControl
 
   isEnabled(): boolean {
     return this.enabled;
+  }
+
+  triggerValidation() {
+    // these cause the correct update of the error underline, seems to be
+    // related to ionic-team/ionic#11640
+    this.form.markAsTouched();
+    this.form.updateValueAndValidity();
   }
 
   protected override getOwnProps(): OwnPropsOfControl {
@@ -127,11 +134,4 @@ export abstract class JsonFormsAbstractControl<Props extends StatePropsOfControl
   }
 
   protected abstract mapToProps(state: JsonFormsState): Props;
-
-  triggerValidation() {
-    // these cause the correct update of the error underline, seems to be
-    // related to ionic-team/ionic#11640
-    this.form.markAsTouched();
-    this.form.updateValueAndValidity();
-  }
 }

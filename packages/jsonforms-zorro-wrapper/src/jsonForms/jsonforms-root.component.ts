@@ -1,16 +1,9 @@
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
-import {
-  Actions,
-  JsonFormsI18nState,
-  JsonFormsRendererRegistryEntry,
-  JsonSchema,
-  UISchemaElement,
-  UISchemaTester,
-  ValidationMode,
-} from '@jsonforms/core';
+import { Actions, JsonFormsI18nState, JsonFormsRendererRegistryEntry, JsonSchema, UISchemaTester, ValidationMode } from '@jsonforms/core';
 import Ajv, { ErrorObject } from 'ajv';
 import { JsonFormsAngularService, USE_STATE_VALUE } from './jsonforms.service';
 import { Subject, takeUntil } from 'rxjs';
+import { JFZElement } from '../other/uischema';
 
 @Component({
   selector: 'jsonforms',
@@ -18,11 +11,11 @@ import { Subject, takeUntil } from 'rxjs';
   providers: [JsonFormsAngularService],
 })
 export class JsonForms implements OnChanges, OnInit, OnDestroy {
-  @Input() uischema: UISchemaElement;
+  @Input() uischema: JFZElement;
   @Input() schema: JsonSchema;
   @Input() data: any;
   @Input() renderers: JsonFormsRendererRegistryEntry[];
-  @Input() uischemas: { tester: UISchemaTester; uischema: UISchemaElement }[];
+  @Input() uischemas: { tester: UISchemaTester; uischema: JFZElement }[];
   @Input() readonly: boolean;
   @Input() validationMode: ValidationMode;
   @Input() ajv: Ajv;
@@ -33,6 +26,15 @@ export class JsonForms implements OnChanges, OnInit, OnDestroy {
   @Output() errors = new EventEmitter<ErrorObject[]>();
   @Output() submited = new EventEmitter<any>();
   @Output() stepChanged = new EventEmitter<{ step: number; data: any }>();
+  oldI18N: JsonFormsI18nState;
+  private previousData: any;
+  private previousErrors: ErrorObject[];
+
+  private destroy$ = new Subject();
+
+  private initialized = false;
+
+  constructor(private jsonformsService: JsonFormsAngularService) {}
 
   @Input()
   set initStepIndex(index: number) {
@@ -40,16 +42,6 @@ export class JsonForms implements OnChanges, OnInit, OnDestroy {
       this.jsonformsService.step = index;
     }
   }
-
-  private previousData: any;
-  private previousErrors: ErrorObject[];
-
-  private destroy$ = new Subject();
-
-  private initialized = false;
-  oldI18N: JsonFormsI18nState;
-
-  constructor(private jsonformsService: JsonFormsAngularService) {}
 
   ngOnInit(): void {
     this.jsonformsService.init({

@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { HorizontalLayout, RankedTester, rankWith, uiTypeIs } from '@jsonforms/core';
+import { RankedTester, rankWith, uiTypeIs } from '@jsonforms/core';
 import { LayoutRenderer } from './layout.renderer';
 import { JsonFormsAngularService } from '../jsonForms';
 import { DomSanitizer } from '@angular/platform-browser';
+import { JFZHorizontalLayout } from '../other/uischema';
 
 @Component({
   selector: 'HorizontalLayoutRenderer',
@@ -11,6 +12,11 @@ import { DomSanitizer } from '@angular/platform-browser';
       <div *ngFor="let props of renderProps; trackBy: trackElement" class="control-wrapper">
         <jsonforms-outlet [renderProps]="props"></jsonforms-outlet>
       </div>
+    </div>
+    <div class="submit-wrapper" *ngIf="submitLabel">
+      <button nz-button nzType="primary" (click)="submit()">
+        <span>{{ submitLabel }}</span>
+      </button>
     </div>
   `,
   styles: [
@@ -30,7 +36,7 @@ import { DomSanitizer } from '@angular/platform-browser';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HorizontalLayoutRenderer extends LayoutRenderer<HorizontalLayout> {
+export class HorizontalLayoutRenderer extends LayoutRenderer<JFZHorizontalLayout> {
   constructor(jsonFormsService: JsonFormsAngularService, changeDetectionRef: ChangeDetectorRef, sanitizer: DomSanitizer) {
     super(jsonFormsService, changeDetectionRef, sanitizer);
   }

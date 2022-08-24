@@ -1,8 +1,9 @@
 import { Directive, Input } from '@angular/core';
-import { JsonSchema, OwnPropsOfRenderer, UISchemaElement } from '@jsonforms/core';
+import { JsonSchema, OwnPropsOfRenderer } from '@jsonforms/core';
+import { JFZElement } from '../other/uischema';
 
 @Directive()
-export class JsonFormsBaseRenderer<T extends UISchemaElement> {
+export class JsonFormsBaseRenderer<T extends JFZElement> {
   @Input() uischema: T;
   @Input() schema: JsonSchema;
   @Input() path: string;

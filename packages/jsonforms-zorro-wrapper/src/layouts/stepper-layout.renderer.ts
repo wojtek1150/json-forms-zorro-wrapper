@@ -1,17 +1,8 @@
-import {
-  and,
-  Categorization,
-  categorizationHasCategory,
-  JsonFormsState,
-  mapStateToLayoutProps,
-  optionIs,
-  RankedTester,
-  rankWith,
-  uiTypeIs,
-} from '@jsonforms/core';
+import { and, categorizationHasCategory, JsonFormsState, mapStateToLayoutProps, optionIs, RankedTester, rankWith, uiTypeIs } from '@jsonforms/core';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { JsonFormsAngularService, JsonFormsBaseRenderer } from '../jsonForms';
 import { Subject, takeUntil } from 'rxjs';
+import { JFZCategoryLayout } from '../other/uischema';
 
 @Component({
   selector: 'jsonforms-stepper-layout',
@@ -65,7 +56,7 @@ import { Subject, takeUntil } from 'rxjs';
     `,
   ],
 })
-export class StepperLayoutRenderer extends JsonFormsBaseRenderer<Categorization> implements OnInit, OnDestroy {
+export class StepperLayoutRenderer extends JsonFormsBaseRenderer<JFZCategoryLayout> implements OnInit, OnDestroy {
   showButtons = false;
   nextLabel = 'Next';
   previousLabel = 'Previous';
@@ -83,12 +74,12 @@ export class StepperLayoutRenderer extends JsonFormsBaseRenderer<Categorization>
       next: (state: JsonFormsState) => {
         const props = mapStateToLayoutProps(state, this.getOwnProps());
         const uiSchemaOptions = props.uischema.options;
-        if (uiSchemaOptions['showNavButtons']) {
+        if (uiSchemaOptions.showNavButtons) {
           this.showButtons = true;
         }
-        this.nextLabel = uiSchemaOptions['nextLabel'] || 'Next';
-        this.previousLabel = uiSchemaOptions['previousLabel'] || 'Previous';
-        this.submitLabel = uiSchemaOptions['submitLabel'] || 'Submit';
+        this.nextLabel = uiSchemaOptions.nextLabel || 'Next';
+        this.previousLabel = uiSchemaOptions.previousLabel || 'Previous';
+        this.submitLabel = uiSchemaOptions.submitLabel || 'Submit';
       },
     });
     this.jsonFormsService.$stepChangeState.pipe(takeUntil(this.destroy$)).subscribe(({ step }) => (this.step = step));

@@ -18,6 +18,7 @@ import { JsonFormsControl } from './control';
 import { JsonFormsAngularService } from './jsonforms.service';
 
 import { get, isEqual } from 'lodash';
+import { JFZElement } from '../other/uischema';
 
 const areEqual = (prevProps: StatePropsOfJsonFormsRenderer, nextProps: StatePropsOfJsonFormsRenderer) => {
   return (
@@ -33,7 +34,7 @@ const areEqual = (prevProps: StatePropsOfJsonFormsRenderer, nextProps: StateProp
 @Directive({
   selector: 'jsonforms-outlet',
 })
-export class JsonFormsOutlet extends JsonFormsBaseRenderer<UISchemaElement> implements OnInit, OnDestroy {
+export class JsonFormsOutlet extends JsonFormsBaseRenderer<JFZElement> implements OnInit, OnDestroy {
   private subscription: Subscription;
   private previousProps: StatePropsOfJsonFormsRenderer;
 

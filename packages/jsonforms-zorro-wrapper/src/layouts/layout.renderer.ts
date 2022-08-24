@@ -1,11 +1,12 @@
 import { ChangeDetectorRef, Directive, OnDestroy, OnInit } from '@angular/core';
 import { JsonFormsAngularService, JsonFormsBaseRenderer } from '../jsonForms';
-import { JsonFormsState, Layout, mapStateToLayoutProps, OwnPropsOfRenderer, UISchemaElement } from '@jsonforms/core';
+import { JsonFormsState, mapStateToLayoutProps, OwnPropsOfRenderer, UISchemaElement } from '@jsonforms/core';
 import { Subscription } from 'rxjs';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { JFZLayout } from '../other/uischema';
 
 @Directive()
-export class LayoutRenderer<T extends Layout> extends JsonFormsBaseRenderer<T> implements OnInit, OnDestroy {
+export class LayoutRenderer<T extends JFZLayout> extends JsonFormsBaseRenderer<T> implements OnInit, OnDestroy {
   submitLabel: string = null;
   htmlDescription: boolean = false;
   hidden = false;

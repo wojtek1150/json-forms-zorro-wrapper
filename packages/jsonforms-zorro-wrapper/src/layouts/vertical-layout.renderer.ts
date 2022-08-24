@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { RankedTester, rankWith, uiTypeIs, VerticalLayout } from '@jsonforms/core';
+import { RankedTester, rankWith, uiTypeIs } from '@jsonforms/core';
 import { LayoutRenderer } from './layout.renderer';
 import { JsonFormsAngularService } from '../jsonForms';
 import { DomSanitizer } from '@angular/platform-browser';
+import { JFZVerticalLayout } from '../other/uischema';
 
 @Component({
   selector: 'VerticalLayoutRenderer',
@@ -20,7 +21,7 @@ import { DomSanitizer } from '@angular/platform-browser';
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class VerticalLayoutRenderer extends LayoutRenderer<VerticalLayout> {
+export class VerticalLayoutRenderer extends LayoutRenderer<JFZVerticalLayout> {
   constructor(jsonFormsService: JsonFormsAngularService, changeDetectionRef: ChangeDetectorRef, sanitizer: DomSanitizer) {
     super(jsonFormsService, changeDetectionRef, sanitizer);
   }

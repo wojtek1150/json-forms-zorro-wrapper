@@ -1,6 +1,7 @@
-import { and, Categorization, categorizationHasCategory, RankedTester, rankWith, uiTypeIs } from '@jsonforms/core';
+import { and, categorizationHasCategory, RankedTester, rankWith, uiTypeIs } from '@jsonforms/core';
 import { Component } from '@angular/core';
 import { JsonFormsBaseRenderer } from '../jsonForms';
+import { JFZCategorizationSchema } from '../other/uischema';
 
 @Component({
   selector: 'jsonforms-categorization-layout',
@@ -12,15 +13,12 @@ import { JsonFormsBaseRenderer } from '../jsonForms';
         </div>
       </nz-tab>
     </nz-tabset>
-  `
+  `,
 })
-export class CategorizationTabLayoutRenderer extends JsonFormsBaseRenderer<Categorization> {
+export class CategorizationTabLayoutRenderer extends JsonFormsBaseRenderer<JFZCategorizationSchema> {
   constructor() {
     super();
   }
 }
 
-export const CategorizationTester: RankedTester = rankWith(
-  1,
-  and(uiTypeIs('Categorization'), categorizationHasCategory)
-);
+export const CategorizationTester: RankedTester = rankWith(1, and(uiTypeIs('Categorization'), categorizationHasCategory));
