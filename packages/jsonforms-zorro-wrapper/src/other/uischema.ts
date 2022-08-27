@@ -1,4 +1,4 @@
-import { Rule } from "@jsonforms/core/src/models/uischema";
+import { Rule } from "@jsonforms/core";
 
 /**
  * @deprecated use JFZControlElement
