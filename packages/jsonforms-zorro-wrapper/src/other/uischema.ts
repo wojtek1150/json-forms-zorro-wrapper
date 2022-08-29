@@ -76,13 +76,16 @@ export interface JFZControlElement extends JFZElement {
  */
 export interface JFZLayout extends JFZElement {
   /**
-   * The child elements of this layout.
+   * The child elements of this layout, can be list of controls or subgroup of layouts
    */
-  elements: JFZControlElement[];
+  elements: JFZControlElement[] | JFZLayout[];
   /**
    * Any additional options.
    */
   options?: {
+    /**
+     * If set displays submit button with given label
+     */
     submitLabel?: string;
     /**
      * Determines if description should be parsed as html
@@ -93,16 +96,13 @@ export interface JFZLayout extends JFZElement {
 
 /**
  * A layout which orders its child elements vertically (i.e. from top to bottom).
+ * For non-documented properties check JFZLayout properties
+ *
+ * @see JFZLayout
  */
-export interface JFZVerticalLayout extends JFZElement {
+export interface JFZVerticalLayout extends JFZLayout {
   type: 'VerticalLayout';
-  /**
-   * The child elements of this layout.
-   */
-  elements: JFZControlElement[];
-  /**
-   * Any additional options.
-   */
+  elements: JFZControlElement[] | JFZLayout[];
   options?: {
     submitLabel?: string;
   } & Options;
@@ -111,15 +111,9 @@ export interface JFZVerticalLayout extends JFZElement {
 /**
  * A layout which orders its children horizontally (i.e. from left to right).
  */
-export interface JFZHorizontalLayout extends JFZElement {
+export interface JFZHorizontalLayout extends JFZLayout {
   type: 'HorizontalLayout';
-  /**
-   * The child elements of this layout.
-   */
-  elements: JFZControlElement[];
-  /**
-   * Any additional options.
-   */
+  elements: JFZControlElement[] | JFZLayout[];
   options?: {
     submitLabel?: string;
   } & Options;
@@ -129,47 +123,43 @@ export interface JFZHorizontalLayout extends JFZElement {
  * A group resembles a vertical layout, but additionally might have a label and text/html description.
  * This layout is useful when grouping different elements by a certain criteria.
  */
-export interface JFZGroupLayout extends JFZElement {
+export interface JFZGroupLayout extends JFZLayout {
   type: 'Group';
-  label?: string;
-  description?: string;
-  elements: JFZControlElement[];
   /**
-   * Any additional options.
+   * Title of group as H2 element
    */
+  label?: string;
+  /**
+   * Additional content displayed below label. Can be displayed as html,
+   *
+   * @see JFZGroupLayout.options.html
+   */
+  description?: string;
+  elements: JFZControlElement[] | JFZLayout[];
   options?: {
     submitLabel?: string;
-    /**
-     * Determines if description should be parsed as html
-     */
     html?: boolean;
   } & Options;
 }
 
-export interface JFZCardGroupLayout extends JFZElement {
+export interface JFZCardGroupLayout extends JFZLayout {
   type: 'CardGroup';
   label: string;
-  elements: JFZControlElement[];
-  /**
-   * Any additional options.
-   */
+  elements: JFZControlElement[] | JFZLayout[];
   options?: Options;
 }
 
 /**
  * The category layout, mostly used within categorization
  */
-export interface JFZCategoryLayout extends JFZElement {
+export interface JFZCategoryLayout extends JFZLayout {
   type: 'Category';
   label: string;
-  elements: JFZGroupLayout[] | JFZControlElement[];
-  /**
-   * Any additional options.
-   */
+  elements: JFZGroupLayout[] | JFZLayout[];
   options?: Options;
 }
 
-export interface JFZCategorizationSchema extends JFZElement {
+export interface JFZCategorizationSchema extends JFZLayout {
   type: 'Categorization';
   options?: {
     variant?: 'stepper';
@@ -178,5 +168,5 @@ export interface JFZCategorizationSchema extends JFZElement {
     previousLabel?: string; // default "Previous"
     submitLabel?: string; // default "Submit"
   } & Options;
-  elements: JFZCategoryLayout[];
+  elements: JFZCategoryLayout[] | JFZLayout[];
 }
