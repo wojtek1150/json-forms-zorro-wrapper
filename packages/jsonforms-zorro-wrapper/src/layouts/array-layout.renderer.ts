@@ -18,7 +18,7 @@ import {
   unsetReadonly,
 } from '@jsonforms/core';
 import { JsonFormsAbstractControl } from '../jsonForms/abstract-control';
-import { JsonFormsAngularService } from '@wojtek1150/jsonforms-zorro-wrapper';
+import { JsonFormsAngularService } from '../jsonForms';
 
 @Component({
   selector: 'ArrayLayoutRenderer',
