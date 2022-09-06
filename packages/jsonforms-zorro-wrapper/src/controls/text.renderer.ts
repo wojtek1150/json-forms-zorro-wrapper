@@ -6,7 +6,9 @@ import { isStringControl, RankedTester, rankWith } from '@jsonforms/core';
   selector: 'TextControlRenderer',
   template: `
     <nz-form-item [class]="additionalClasses">
-      <nz-form-label *ngIf="label" [nzFor]="id"><i *ngIf="labelIcon" nz-icon [nzType]="labelIcon" nzTheme="outline"></i> {{ label }}</nz-form-label>
+      <nz-form-label *ngIf="label && label !== '*'" [nzFor]="id"
+        ><i *ngIf="labelIcon" nz-icon [nzType]="labelIcon" nzTheme="outline"></i> {{ label }}</nz-form-label
+      >
       <div class="description">{{ description }}</div>
       <nz-form-control nzHasFeedback [nzErrorTip]="errorMessage" [nzValidateStatus]="form.status | nzValidationStatus">
         <input
@@ -26,6 +28,7 @@ import { isStringControl, RankedTester, rankWith } from '@jsonforms/core';
       nz-form-item {
         display: block;
       }
+
       .description {
         font-size: 0.75em;
         margin: 0.25em 0 0.5em;
@@ -38,8 +41,6 @@ export class TextControlRenderer extends JsonFormsControl {
   constructor(jsonformsService: JsonFormsAngularService) {
     super(jsonformsService);
   }
-
-  override getEventValue = (event: any) => event.target.value || undefined;
 
   get type(): string {
     if (this.uischema.options && this.uischema.options['format']) {
@@ -57,6 +58,8 @@ export class TextControlRenderer extends JsonFormsControl {
     }
     return 'text';
   }
+
+  override getEventValue = (event: any) => event.target.value || undefined;
 }
 
 export const TextControlRendererTester: RankedTester = rankWith(1, isStringControl);

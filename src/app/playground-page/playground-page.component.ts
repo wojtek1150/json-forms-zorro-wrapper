@@ -3,7 +3,10 @@ import { JsonFormsRendererRegistryEntry, JsonSchema, UISchemaElement } from '@js
 import { ngZorroRenderers } from '@wojtek1150/jsonforms-zorro-wrapper';
 import { schema } from '../demo-page/schema';
 import { uischema } from '../demo-page/uischema';
+import { array } from './schemas/array';
 import { groupButton } from './schemas/group-button';
+import { listDetails } from './schemas/list-details';
+import { itemArray } from './schemas/item-array';
 
 @Component({
   selector: 'app-playground-page',
@@ -43,6 +46,14 @@ export class PlaygroundPageComponent {
   uischemaCode = JSON.stringify(uischema, null, 2);
   formData;
 
+  readonly options = [
+    { label: 'Vertical Layout', value: 'default' },
+    { label: 'Simple group with submit', value: 'group-button' },
+    { label: 'Array', value: 'array' },
+    { label: 'Simple array with one property', value: 'item-array' },
+    { label: 'List with details', value: 'listDetails' },
+  ];
+
   log(type: string, $event: any) {
     console.log('======' + type + '======');
     console.log($event);
@@ -64,6 +75,18 @@ export class PlaygroundPageComponent {
       case 'group-button':
         this.schema = groupButton.schema;
         this.uischema = groupButton.uiSchema;
+        break;
+      case 'array':
+        this.schema = array.schema;
+        this.uischema = array.uiSchema;
+        break;
+      case 'item-array':
+        this.schema = itemArray.schema;
+        this.uischema = itemArray.uiSchema;
+        break;
+      case 'listDetails':
+        this.schema = listDetails.schema;
+        this.uischema = listDetails.uiSchema;
         break;
       default:
         this.schema = schema;

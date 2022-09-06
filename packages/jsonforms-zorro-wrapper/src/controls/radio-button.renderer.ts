@@ -6,7 +6,9 @@ import { Actions, and, isEnumControl, optionIs, RankedTester, rankWith } from '@
   selector: 'RadioControlRenderer',
   template: `
     <nz-form-item *ngIf="scopedSchema" [class]="additionalClasses">
-      <nz-form-label *ngIf="label" [nzFor]="id"><i *ngIf="labelIcon" nz-icon [nzType]="labelIcon" nzTheme="outline"></i> {{ label }}</nz-form-label>
+      <nz-form-label *ngIf="label && label !== '*'" [nzFor]="id"
+        ><i *ngIf="labelIcon" nz-icon [nzType]="labelIcon" nzTheme="outline"></i> {{ label }}</nz-form-label
+      >
       <div class="description">{{ description }}</div>
       <nz-form-control [nzErrorTip]="errorMessage">
         <nz-radio-group [id]="id" [formControl]="form" (ngModelChange)="onChange($event)" nzButtonStyle="solid">
@@ -20,6 +22,7 @@ import { Actions, and, isEnumControl, optionIs, RankedTester, rankWith } from '@
       nz-form-item {
         display: block;
       }
+
       .description {
         font-size: 0.75em;
         margin: 0.25em 0 0.5em;

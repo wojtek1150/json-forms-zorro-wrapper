@@ -20,6 +20,7 @@ import { RadioControlRenderer, RadioControlRendererTester } from './controls/rad
 import { RadioButtonControlRenderer, RadioButtonControlRendererTester } from './controls/radio-button.renderer';
 import { CheckboxGroupControlRenderer, CheckboxGroupControlRendererTester } from './complex/checkbox-group.renderer';
 import { MultiselectControlRenderer, MultiselectControlRendererTester } from './complex/multiselect.renderer';
+import { ArrayLayoutRenderer, ArrayLayoutRendererTester } from './layouts/array-layout.renderer';
 
 export const ngZorroRenderers: {
   tester: RankedTester;
@@ -46,6 +47,7 @@ export const ngZorroRenderers: {
   { tester: GroupLayoutTester, renderer: GroupLayoutRenderer },
   { tester: HorizontalLayoutTester, renderer: HorizontalLayoutRenderer },
   { tester: VerticalLayoutTester, renderer: VerticalLayoutRenderer },
+  { tester: ArrayLayoutRendererTester, renderer: ArrayLayoutRenderer },
   // other
   { tester: ObjectControlRendererTester, renderer: ObjectControlRenderer },
 ];

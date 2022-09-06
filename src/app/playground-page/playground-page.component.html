@@ -1,23 +1,22 @@
 <div nz-row nzGutter="20">
   <div nz-col nzSpan="12">
-    <nz-select ngModel="demo" nzPlaceHolder="Use demo template" (ngModelChange)="selectTemplate($event)">
-      <nz-option nzValue="default" nzLabel="Vertical Layout"></nz-option>
-      <nz-option nzValue="group-button" nzLabel="Simple group with submit"></nz-option>
+    <nz-select (ngModelChange)="selectTemplate($event)" ngModel="demo" nzPlaceHolder="Use demo template">
+      <nz-option *ngFor="let option of options" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
     </nz-select>
     <h2>Schema editor</h2>
-    <nz-code-editor class="editor" [ngModel]="schemaCode" [nzEditorOption]="{ language: 'json', theme: 'vs-dark' }" (ngModelChange)="updateSchema($event)"></nz-code-editor>
+    <nz-code-editor (ngModelChange)="updateSchema($event)" [ngModel]="schemaCode" [nzEditorOption]="{ language: 'json', theme: 'vs-dark' }" class="editor"></nz-code-editor>
     <h2>UI Schema editor</h2>
-    <nz-code-editor class="editor" [ngModel]="uischemaCode" [nzEditorOption]="{ language: 'json', theme: 'vs-dark' }" (ngModelChange)="updateUiSchema($event)"></nz-code-editor>
+    <nz-code-editor (ngModelChange)="updateUiSchema($event)" [ngModel]="uischemaCode" [nzEditorOption]="{ language: 'json', theme: 'vs-dark' }" class="editor"></nz-code-editor>
   </div>
   <div nz-col nzSpan="12">
     <jsonforms
-      *ngIf="schema && uischema"
-      [schema]="schema"
-      [uischema]="uischema"
-      [renderers]="renderers"
-      [(data)]="formData"
       (dataChange)="log('dataChange', $event)"
       (submited)="log('submited',$event)"
+      *ngIf="schema && uischema"
+      [(data)]="formData"
+      [renderers]="renderers"
+      [schema]="schema"
+      [uischema]="uischema"
     ></jsonforms>
   </div>
 </div>

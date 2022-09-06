@@ -6,7 +6,9 @@ import { Actions, isIntegerControl, isNumberControl, or, RankedTester, rankWith,
   selector: 'NumberControlRenderer',
   template: `
     <nz-form-item [class]="additionalClasses">
-      <nz-form-label *ngIf="label" [nzFor]="id"><i *ngIf="labelIcon" nz-icon [nzType]="labelIcon" nzTheme="outline"></i> {{ label }}</nz-form-label>
+      <nz-form-label *ngIf="label && label !== '*'" [nzFor]="id"
+        ><i *ngIf="labelIcon" nz-icon [nzType]="labelIcon" nzTheme="outline"></i> {{ label }}</nz-form-label
+      >
       <div class="description">{{ description }}</div>
       <nz-form-control nzHasFeedback [nzErrorTip]="errorMessage" [nzValidateStatus]="form.status | nzValidationStatus">
         <nz-input-number
@@ -28,6 +30,7 @@ import { Actions, isIntegerControl, isNumberControl, or, RankedTester, rankWith,
       nz-form-item {
         display: block;
       }
+
       .description {
         font-size: 0.75em;
         margin: 0.25em 0 0.5em;

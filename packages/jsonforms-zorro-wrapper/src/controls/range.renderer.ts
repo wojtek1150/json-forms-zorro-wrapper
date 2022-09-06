@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { JsonFormsAngularService, JsonFormsControl } from '../jsonForms';
 import { isRangeControl, RankedTester, rankWith } from '@jsonforms/core';
 
@@ -6,7 +6,9 @@ import { isRangeControl, RankedTester, rankWith } from '@jsonforms/core';
   selector: 'RangeControlRenderer',
   template: `
     <nz-form-item [class]="additionalClasses">
-      <nz-form-label *ngIf="label" [nzFor]="id"><i *ngIf="labelIcon" nz-icon [nzType]="labelIcon" nzTheme="outline"></i> {{ label }}</nz-form-label>
+      <nz-form-label *ngIf="label && label !== '*'" [nzFor]="id"
+        ><i *ngIf="labelIcon" nz-icon [nzType]="labelIcon" nzTheme="outline"></i> {{ label }}</nz-form-label
+      >
       <div class="description">{{ description }}</div>
       <nz-form-control>
         <nz-slider [id]="id" [formControl]="form" [nzDisabled]="!isEnabled()" [nzMin]="min" [nzMax]="max" [nzStep]="multipleOf"></nz-slider>
@@ -18,6 +20,7 @@ import { isRangeControl, RankedTester, rankWith } from '@jsonforms/core';
       nz-form-item {
         display: block;
       }
+
       .description {
         font-size: 0.75em;
         margin: 0.25em 0 0.5em;
