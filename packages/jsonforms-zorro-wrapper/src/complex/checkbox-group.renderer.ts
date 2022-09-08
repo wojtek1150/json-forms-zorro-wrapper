@@ -8,7 +8,7 @@ import { hasEnumItems, hasOneOfItems } from '../other/complex.helper';
   template: `
     <nz-form-item *ngIf="scopedSchema" [class]="additionalClasses">
       <nz-form-label *ngIf="label" [nzFor]="id"><i *ngIf="labelIcon" nz-icon [nzType]="labelIcon" nzTheme="outline"></i> {{ label }}</nz-form-label>
-      <div class="description">{{ description }}</div>
+      <DescriptionRenderer [uiSchema]="uischema" [scopedSchema]="schema"></DescriptionRenderer>
       <nz-form-control [nzErrorTip]="errorMessage">
         <nz-checkbox-wrapper (nzOnChange)="onChange($event)">
           <label nz-checkbox *ngFor="let option of options" [nzValue]="option.value" [nzChecked]="option.checked">{{ option.label }}</label>
@@ -20,11 +20,6 @@ import { hasEnumItems, hasOneOfItems } from '../other/complex.helper';
     `
       nz-form-item {
         display: block;
-      }
-
-      .description {
-        font-size: 0.75em;
-        margin: 0.25em 0 0.5em;
       }
     `,
   ],

@@ -7,9 +7,13 @@ import { JFZCategoryLayout } from '../other/uischema';
 @Component({
   selector: 'jsonforms-stepper-layout',
   template: `
-    <nz-steps [nzCurrent]="step" nzDirection="vertical" nzSize="small" (nzIndexChange)="onIndexChange($event)">
-      <nz-step *ngFor="let category of uischema.elements" [nzTitle]="category.label"></nz-step>
-    </nz-steps>
+    <aside>
+      <h2 *ngIf="uischema.label">{{ uischema.label }}</h2>
+      <DescriptionRenderer [uiSchema]="uischema" [scopedSchema]="schema"></DescriptionRenderer>
+      <nz-steps [nzCurrent]="step" nzDirection="vertical" nzSize="small" (nzIndexChange)="onIndexChange($event)">
+        <nz-step *ngFor="let category of uischema.elements" [nzTitle]="category.label"></nz-step>
+      </nz-steps>
+    </aside>
     <div class="step-content">
       <ng-container *ngFor="let category of uischema.elements; let index = index">
         <ng-container *ngIf="step === index">

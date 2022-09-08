@@ -32,6 +32,7 @@ import { JsonFormsAngularService } from '../jsonForms';
           <i nz-icon nzType="plus" nzTheme="outline"></i>
         </button>
       </div>
+      <DescriptionRenderer [uiSchema]="uischema" [scopedSchema]="schema"></DescriptionRenderer>
       <p *ngIf="noData">{{ noDataMessage }}</p>
       <div *ngFor="let item of [].constructor(data); let idx = index; trackBy: trackByFn; last as last">
         <div class="row">

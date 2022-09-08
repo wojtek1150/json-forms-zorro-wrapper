@@ -9,9 +9,8 @@ import { JFZGroupLayout } from '../other/uischema';
   selector: 'GroupLayoutRenderer',
   template: `
     <div [class]="additionalClasses">
-      <h2>{{ uischema.label }}</h2>
-      <p *ngIf="!htmlDescription">{{ uischema.description }}</p>
-      <div *ngIf="htmlDescription" [innerHTML]="sanitizedDescription"></div>
+      <h2 *ngIf="uischema.label">{{ uischema.label }}</h2>
+      <DescriptionRenderer [uiSchema]="uischema" [scopedSchema]="schema"></DescriptionRenderer>
       <div *ngFor="let props of renderProps; trackBy: trackElement" class="control-wrapper">
         <jsonforms-outlet [renderProps]="props"></jsonforms-outlet>
       </div>

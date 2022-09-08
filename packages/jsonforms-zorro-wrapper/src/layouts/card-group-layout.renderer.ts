@@ -9,6 +9,7 @@ import { JFZCardGroupLayout } from '../other/uischema';
   selector: 'CardGroupLayoutRenderer',
   template: `
     <nz-card [nzTitle]="uischema.label">
+      <DescriptionRenderer [uiSchema]="uischema" [scopedSchema]="schema"></DescriptionRenderer>
       <div *ngFor="let props of renderProps; trackBy: trackElement" class="control-wrapper">
         <jsonforms-outlet [renderProps]="props"></jsonforms-outlet>
       </div>

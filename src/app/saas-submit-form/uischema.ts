@@ -1,5 +1,7 @@
 export const uiSchema = {
   type: 'Categorization',
+  label: 'Titile',
+  description: 'description',
   elements: [
     {
       type: 'Category',

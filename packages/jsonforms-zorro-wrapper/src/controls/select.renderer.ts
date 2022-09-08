@@ -9,7 +9,7 @@ import { Actions, isEnumControl, RankedTester, rankWith } from '@jsonforms/core'
       <nz-form-label *ngIf="label && label !== '*'" [nzFor]="id"
         ><i *ngIf="labelIcon" nz-icon [nzType]="labelIcon" nzTheme="outline"></i> {{ label }}</nz-form-label
       >
-      <div class="description">{{ uischema['description'] }}</div>
+      <DescriptionRenderer [uiSchema]="uischema" [scopedSchema]="schema"></DescriptionRenderer>
       <nz-form-control nzHasFeedback [nzErrorTip]="errorMessage" [nzValidateStatus]="form.status | nzValidationStatus">
         <nz-select
           nzShowSearch
@@ -29,11 +29,6 @@ import { Actions, isEnumControl, RankedTester, rankWith } from '@jsonforms/core'
     `
       nz-form-item {
         display: block;
-      }
-
-      .description {
-        font-size: 0.75em;
-        margin: 0.25em 0 0.5em;
       }
     `,
   ],

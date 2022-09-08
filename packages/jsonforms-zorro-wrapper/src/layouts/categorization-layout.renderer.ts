@@ -8,6 +8,7 @@ import { JFZCategorizationSchema } from '../other/uischema';
   template: `
     <nz-tabset>
       <nz-tab *ngFor="let category of uischema.elements" [nzTitle]="category.label">
+        <DescriptionRenderer [uiSchema]="uischema" [scopedSchema]="schema"></DescriptionRenderer>
         <div *ngFor="let element of category.elements">
           <jsonforms-outlet [uischema]="element" [path]="path" [schema]="schema"></jsonforms-outlet>
         </div>

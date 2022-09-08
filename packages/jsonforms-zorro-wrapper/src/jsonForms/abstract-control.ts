@@ -79,7 +79,7 @@ export abstract class JsonFormsAbstractControl<Props extends StatePropsOfControl
         this.hidden = !visible;
         this.scopedSchema = schema;
         this.rootSchema = rootSchema;
-        this.description = this.scopedSchema !== undefined ? this.scopedSchema.description : '';
+        this.description = this.scopedSchema !== undefined ? this.scopedSchema.description : this.uischema.description || '';
         this.id = props.id;
         if (this.form.value !== data) {
           this.form.setValue(data);

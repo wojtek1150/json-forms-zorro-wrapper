@@ -5,7 +5,14 @@ import { Rule } from "@jsonforms/core";
  */
 export interface ZorroControlElement extends JFZControlElement {}
 
-type Options = { [key: string]: any };
+type Options = {
+  /**
+   * Determines if description should be parsed as html
+   */
+  html?: boolean;
+
+  [key: string]: any;
+};
 
 export interface JFZElement {
   /**
@@ -22,6 +29,18 @@ export interface JFZElement {
    * Any additional options.
    */
   options?: Options;
+
+  /**
+   * Label for UI schema element.
+   */
+  label?: string;
+
+  /**
+   * Additional content displayed below label. Can be displayed as html,
+   *
+   * @see Options.html
+   */
+  description?: string;
 }
 
 /**
@@ -43,6 +62,13 @@ export interface JFZControlElement extends JFZElement {
    * Label for UI schema element.
    */
   label: string;
+
+  /**
+   * Additional content displayed below label. Can be displayed as html,
+   *
+   * @see Options.html
+   */
+  description?: string;
 
   /**
    * NgZorro icon name before label
@@ -76,6 +102,17 @@ export interface JFZControlElement extends JFZElement {
  */
 export interface JFZLayout extends JFZElement {
   /**
+   * Title as H2 element
+   */
+  label?: string;
+
+  /**
+   * Additional content displayed below label. Can be displayed as html,
+   *
+   * @see Options.html
+   */
+  description?: string;
+  /**
    * The child elements of this layout, can be list of controls or subgroup of layouts
    */
   elements: JFZControlElement[] | JFZLayout[];
@@ -87,10 +124,6 @@ export interface JFZLayout extends JFZElement {
      * If set displays submit button with given label
      */
     submitLabel?: string;
-    /**
-     * Determines if description should be parsed as html
-     */
-    html?: boolean;
   } & Options;
 }
 
@@ -101,6 +134,8 @@ export interface JFZLayout extends JFZElement {
  * @see JFZLayout
  */
 export interface JFZVerticalLayout extends JFZLayout {
+  label?: string;
+  description?: string;
   type: 'VerticalLayout';
   elements: JFZControlElement[] | JFZLayout[];
   options?: {
@@ -112,6 +147,8 @@ export interface JFZVerticalLayout extends JFZLayout {
  * A layout which orders its children horizontally (i.e. from left to right).
  */
 export interface JFZHorizontalLayout extends JFZLayout {
+  label?: string;
+  description?: string;
   type: 'HorizontalLayout';
   elements: JFZControlElement[] | JFZLayout[];
   options?: {
@@ -125,26 +162,18 @@ export interface JFZHorizontalLayout extends JFZLayout {
  */
 export interface JFZGroupLayout extends JFZLayout {
   type: 'Group';
-  /**
-   * Title of group as H2 element
-   */
   label?: string;
-  /**
-   * Additional content displayed below label. Can be displayed as html,
-   *
-   * @see JFZGroupLayout.options.html
-   */
   description?: string;
   elements: JFZControlElement[] | JFZLayout[];
   options?: {
     submitLabel?: string;
-    html?: boolean;
   } & Options;
 }
 
 export interface JFZCardGroupLayout extends JFZLayout {
   type: 'CardGroup';
   label: string;
+  description?: string;
   elements: JFZControlElement[] | JFZLayout[];
   options?: Options;
 }
@@ -155,6 +184,7 @@ export interface JFZCardGroupLayout extends JFZLayout {
 export interface JFZCategoryLayout extends JFZLayout {
   type: 'Category';
   label: string;
+  description?: string;
   elements: JFZGroupLayout[] | JFZLayout[];
   options?: Options;
 }

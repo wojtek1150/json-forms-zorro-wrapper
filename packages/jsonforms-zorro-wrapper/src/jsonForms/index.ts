@@ -1,6 +1,7 @@
 export * from './base.renderer';
 export * from './control';
 export * from './array-control';
+export * from './description.renderer';
 export * from './jsonforms.component';
 export * from './jsonforms.module';
 export * from './unknown.component';
