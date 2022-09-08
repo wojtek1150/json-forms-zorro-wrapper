@@ -1,11 +1,11 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { JsonFormsAngularService, JsonFormsControl } from '../jsonForms';
 import { isStringControl, RankedTester, rankWith } from '@jsonforms/core';
 
 @Component({
   selector: 'TextControlRenderer',
   template: `
-    <nz-form-item [class]="additionalClasses">
+    <nz-form-item [class]="additionalClasses" [class.hidden]="hidden">
       <nz-form-label *ngIf="label && label !== '*'" [nzFor]="id"
         ><i *ngIf="labelIcon" nz-icon [nzType]="labelIcon" nzTheme="outline"></i> {{ label }}</nz-form-label
       >
@@ -28,13 +28,17 @@ import { isStringControl, RankedTester, rankWith } from '@jsonforms/core';
       nz-form-item {
         display: block;
       }
+
+      .hidden {
+        display: none;
+      }
     `,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TextControlRenderer extends JsonFormsControl {
-  constructor(jsonformsService: JsonFormsAngularService) {
-    super(jsonformsService);
+  constructor(jsonformsService: JsonFormsAngularService, changeDetectorRef: ChangeDetectorRef) {
+    super(jsonformsService, changeDetectorRef);
   }
 
   get type(): string {

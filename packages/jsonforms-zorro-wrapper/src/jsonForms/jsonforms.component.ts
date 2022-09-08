@@ -2,6 +2,7 @@ import { maxBy } from 'lodash-es';
 import { ComponentFactoryResolver, Directive, Input, OnDestroy, OnInit, Type, ViewContainerRef } from '@angular/core';
 import {
   createId,
+  getConfig,
   isControl,
   JsonFormsProps,
   JsonFormsState,
@@ -74,11 +75,14 @@ export class JsonFormsOutlet extends JsonFormsBaseRenderer<JFZElement> implement
     const { renderers } = props as JsonFormsProps;
     const schema: JsonSchema = this.schema || props.schema;
     const uischema = this.uischema || props.uischema;
-    const rootSchema = props.rootSchema;
+    const testerContext = {
+      rootSchema: props.rootSchema,
+      config: getConfig(state),
+    };
 
-    const renderer = maxBy(renderers, r => r.tester(uischema, schema, rootSchema));
+    const renderer = maxBy(renderers, r => r.tester(uischema, schema, testerContext));
     let bestComponent: Type<any> = UnknownRenderer;
-    if (renderer !== undefined && renderer.tester(uischema, schema, rootSchema) !== -1) {
+    if (renderer !== undefined && renderer.tester(uischema, schema, testerContext) !== -1) {
       bestComponent = renderer.renderer;
     }
 

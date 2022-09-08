@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { JsonFormsAngularService, JsonFormsControl } from '../jsonForms';
 import { Actions, and, isBooleanControl, optionIs, RankedTester, rankWith } from '@jsonforms/core';
 
@@ -22,6 +22,10 @@ import { Actions, and, isBooleanControl, optionIs, RankedTester, rankWith } from
       .switch span {
         padding-left: 8px;
       }
+
+      .hidden {
+        display: none;
+      }
     `,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -29,8 +33,8 @@ import { Actions, and, isBooleanControl, optionIs, RankedTester, rankWith } from
 export class ToggleControlRenderer extends JsonFormsControl {
   private selectedState: boolean = false;
 
-  constructor(jsonformsService: JsonFormsAngularService) {
-    super(jsonformsService);
+  constructor(jsonformsService: JsonFormsAngularService, changeDetectorRef: ChangeDetectorRef) {
+    super(jsonformsService, changeDetectorRef);
   }
 
   override getEventValue = (event: any) => event;

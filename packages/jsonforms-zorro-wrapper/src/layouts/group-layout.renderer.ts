@@ -8,7 +8,7 @@ import { JFZGroupLayout } from '../other/uischema';
 @Component({
   selector: 'GroupLayoutRenderer',
   template: `
-    <div [class]="additionalClasses">
+    <div [class]="additionalClasses" [class.hidden]="hidden">
       <h2 *ngIf="uischema.label">{{ uischema.label }}</h2>
       <DescriptionRenderer [uiSchema]="uischema" [scopedSchema]="schema"></DescriptionRenderer>
       <div *ngFor="let props of renderProps; trackBy: trackElement" class="control-wrapper">
@@ -25,6 +25,10 @@ import { JFZGroupLayout } from '../other/uischema';
     `
       nz-card {
         margin-bottom: 16px;
+      }
+
+      .hidden {
+        display: none;
       }
     `,
   ],

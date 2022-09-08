@@ -1,5 +1,5 @@
 import { Actions, computeLabel, JsonFormsState, JsonSchema, OwnPropsOfControl, StatePropsOfControl } from '@jsonforms/core';
-import { Directive, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Directive, Input, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
 
@@ -31,7 +31,7 @@ export abstract class JsonFormsAbstractControl<Props extends StatePropsOfControl
 
   private destroy$ = new Subject();
 
-  constructor(protected jsonFormsService: JsonFormsAngularService) {
+  constructor(protected jsonFormsService: JsonFormsAngularService, protected changeDetectorRef: ChangeDetectorRef) {
     super();
     this.form = new FormControl(
       {
@@ -99,6 +99,7 @@ export abstract class JsonFormsAbstractControl<Props extends StatePropsOfControl
   mapAdditionalProps(props: Props) {
     const placeholder = this.uischema.placeholder ?? this.label;
     this.placeholder = placeholder || '';
+    this.changeDetectorRef.markForCheck();
     // do nothing by default
   }
 
@@ -111,8 +112,6 @@ export abstract class JsonFormsAbstractControl<Props extends StatePropsOfControl
   }
 
   triggerValidation() {
-    // these cause the correct update of the error underline, seems to be
-    // related to ionic-team/ionic#11640
     this.form.markAsTouched();
     this.form.updateValueAndValidity();
   }

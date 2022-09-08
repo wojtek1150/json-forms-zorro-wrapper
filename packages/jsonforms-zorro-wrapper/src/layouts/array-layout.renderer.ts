@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import {
   ArrayLayoutProps,
   createDefaultValue,
@@ -23,7 +23,7 @@ import { JsonFormsAngularService } from '../jsonForms';
 @Component({
   selector: 'ArrayLayoutRenderer',
   template: `
-    <div [hidden]="hidden">
+    <div [class.hidden]="hidden">
       <div [ngClass]="'array-layout-toolbar'">
         <nz-badge [nzCount]="errorsNo" [title]="error">
           <h2>{{ label }}</h2>
@@ -60,6 +60,10 @@ import { JsonFormsAngularService } from '../jsonForms';
       h2 {
         margin: 0;
       }
+
+      .hidden {
+        display: none;
+      }
     `,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -78,8 +82,8 @@ export class ArrayLayoutRenderer extends JsonFormsAbstractControl<StatePropsOfAr
     uischema: UISchemaElement;
   }[];
 
-  constructor(jsonFormsService: JsonFormsAngularService) {
-    super(jsonFormsService);
+  constructor(jsonFormsService: JsonFormsAngularService, changeDetectorRef: ChangeDetectorRef) {
+    super(jsonFormsService, changeDetectorRef);
   }
 
   get errorsNo(): number {

@@ -1,11 +1,11 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { JsonFormsAngularService, JsonFormsControl } from '../jsonForms';
 import { Actions, isIntegerControl, isNumberControl, or, RankedTester, rankWith, StatePropsOfControl } from '@jsonforms/core';
 
 @Component({
   selector: 'NumberControlRenderer',
   template: `
-    <nz-form-item [class]="additionalClasses">
+    <nz-form-item [class]="additionalClasses" [class.hidden]="hidden">
       <nz-form-label *ngIf="label && label !== '*'" [nzFor]="id"
         ><i *ngIf="labelIcon" nz-icon [nzType]="labelIcon" nzTheme="outline"></i> {{ label }}</nz-form-label
       >
@@ -30,6 +30,10 @@ import { Actions, isIntegerControl, isNumberControl, or, RankedTester, rankWith,
       nz-form-item {
         display: block;
       }
+
+      .hidden {
+        display: none;
+      }
     `,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -42,8 +46,8 @@ export class NumberControlRenderer extends JsonFormsControl {
 
   selectedValue: number;
 
-  constructor(jsonformsService: JsonFormsAngularService) {
-    super(jsonformsService);
+  constructor(jsonformsService: JsonFormsAngularService, changeDetectorRef: ChangeDetectorRef) {
+    super(jsonformsService, changeDetectorRef);
   }
 
   override getEventValue = (event: number) => event;
@@ -58,7 +62,11 @@ export class NumberControlRenderer extends JsonFormsControl {
 
   override mapAdditionalProps(props: StatePropsOfControl) {
     if (this.scopedSchema) {
-      const defaultStep = isNumberControl(this.uischema, this.rootSchema, this.rootSchema) ? 0.1 : 1;
+      const testerContext = {
+        rootSchema: this.rootSchema,
+        config: props.config,
+      };
+      const defaultStep = isNumberControl(this.uischema, this.rootSchema, testerContext) ? 0.1 : 1;
       this.min = this.scopedSchema.minimum;
       this.max = this.scopedSchema.maximum;
       this.stepper = this.scopedSchema.multipleOf || defaultStep;

@@ -8,7 +8,7 @@ import { JFZVerticalLayout } from '../other/uischema';
 @Component({
   selector: 'VerticalLayoutRenderer',
   template: `
-    <div class="vertical-layout">
+    <div class="vertical-layout" [class.hidden]="hidden">
       <h2 *ngIf="uischema.label">{{ uischema.label }}</h2>
       <DescriptionRenderer [uiSchema]="uischema" [scopedSchema]="schema"></DescriptionRenderer>
       <div *ngFor="let props of renderProps; trackBy: trackElement" class="control-wrapper">
@@ -21,6 +21,13 @@ import { JFZVerticalLayout } from '../other/uischema';
       </button>
     </div>
   `,
+  styles: [
+    `
+      .hidden {
+        display: none;
+      }
+    `,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class VerticalLayoutRenderer extends LayoutRenderer<JFZVerticalLayout> {

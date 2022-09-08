@@ -5,7 +5,7 @@ import { isRangeControl, RankedTester, rankWith } from '@jsonforms/core';
 @Component({
   selector: 'RangeControlRenderer',
   template: `
-    <nz-form-item [class]="additionalClasses">
+    <nz-form-item [class]="additionalClasses" [class.hidden]="hidden">
       <nz-form-label *ngIf="label && label !== '*'" [nzFor]="id"
         ><i *ngIf="labelIcon" nz-icon [nzType]="labelIcon" nzTheme="outline"></i> {{ label }}</nz-form-label
       >
@@ -20,6 +20,10 @@ import { isRangeControl, RankedTester, rankWith } from '@jsonforms/core';
       nz-form-item {
         display: block;
       }
+
+      .hidden {
+        display: none;
+      }
     `,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -29,8 +33,8 @@ export class RangeControlRenderer extends JsonFormsControl {
   max: number;
   multipleOf: number;
 
-  constructor(jsonformsService: JsonFormsAngularService, private changeDetectorRef: ChangeDetectorRef) {
-    super(jsonformsService);
+  constructor(jsonformsService: JsonFormsAngularService, changeDetectorRef: ChangeDetectorRef) {
+    super(jsonformsService, changeDetectorRef);
   }
 
   override getEventValue = (event: any) => Number(event.value);

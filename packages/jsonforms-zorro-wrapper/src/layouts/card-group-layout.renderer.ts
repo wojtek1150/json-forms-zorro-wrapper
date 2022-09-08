@@ -8,7 +8,7 @@ import { JFZCardGroupLayout } from '../other/uischema';
 @Component({
   selector: 'CardGroupLayoutRenderer',
   template: `
-    <nz-card [nzTitle]="uischema.label">
+    <nz-card [nzTitle]="uischema.label" [class.hidden]="hidden">
       <DescriptionRenderer [uiSchema]="uischema" [scopedSchema]="schema"></DescriptionRenderer>
       <div *ngFor="let props of renderProps; trackBy: trackElement" class="control-wrapper">
         <jsonforms-outlet [renderProps]="props"></jsonforms-outlet>
@@ -19,6 +19,10 @@ import { JFZCardGroupLayout } from '../other/uischema';
     `
       nz-card {
         margin-bottom: 16px;
+      }
+
+      .hidden {
+        display: none;
       }
     `,
   ],

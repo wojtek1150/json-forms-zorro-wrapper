@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { JsonFormsAngularService, JsonFormsControl } from '../jsonForms';
 import { Actions, and, hasType, JsonSchema, optionIs, RankedTester, rankWith, schemaMatches, schemaSubPathMatches, uiTypeIs } from '@jsonforms/core';
 import { hasEnumItems, hasOneOfItems } from '../other/complex.helper';
@@ -6,7 +6,7 @@ import { hasEnumItems, hasOneOfItems } from '../other/complex.helper';
 @Component({
   selector: 'MultiselectControlRenderer',
   template: `
-    <nz-form-item *ngIf="scopedSchema" [class]="additionalClasses">
+    <nz-form-item *ngIf="scopedSchema" [class]="additionalClasses" [class.hidden]="hidden">
       <nz-form-label *ngIf="label" [nzFor]="id"><i *ngIf="labelIcon" nz-icon [nzType]="labelIcon" nzTheme="outline"></i> {{ label }}</nz-form-label>
       <DescriptionRenderer [uiSchema]="uischema" [scopedSchema]="schema"></DescriptionRenderer>
       <nz-form-control [nzErrorTip]="errorMessage">
@@ -29,6 +29,10 @@ import { hasEnumItems, hasOneOfItems } from '../other/complex.helper';
       nz-form-item {
         display: block;
       }
+
+      .hidden {
+        display: none;
+      }
     `,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -36,8 +40,8 @@ import { hasEnumItems, hasOneOfItems } from '../other/complex.helper';
 export class MultiselectControlRenderer extends JsonFormsControl {
   options: { label: string; value: string; checked?: boolean }[];
 
-  constructor(jsonformsService: JsonFormsAngularService) {
-    super(jsonformsService);
+  constructor(jsonformsService: JsonFormsAngularService, changeDetectorRef: ChangeDetectorRef) {
+    super(jsonformsService, changeDetectorRef);
   }
 
   override getEventValue = (event: any) => event;

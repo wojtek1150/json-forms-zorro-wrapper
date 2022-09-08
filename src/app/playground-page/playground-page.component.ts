@@ -7,6 +7,7 @@ import { array } from './schemas/array';
 import { groupButton } from './schemas/group-button';
 import { listDetails } from './schemas/list-details';
 import { itemArray } from './schemas/item-array';
+import { rule } from './schemas/rule';
 
 @Component({
   selector: 'app-playground-page',
@@ -52,6 +53,7 @@ export class PlaygroundPageComponent {
     { label: 'Array', value: 'array' },
     { label: 'Simple array with one property', value: 'item-array' },
     { label: 'List with details', value: 'listDetails' },
+    { label: 'Rule', value: 'rule' },
   ];
 
   log(type: string, $event: any) {
@@ -87,6 +89,10 @@ export class PlaygroundPageComponent {
       case 'listDetails':
         this.schema = listDetails.schema;
         this.uischema = listDetails.uiSchema;
+        break;
+      case 'rule':
+        this.schema = rule.schema;
+        this.uischema = rule.uiSchema;
         break;
       default:
         this.schema = schema;

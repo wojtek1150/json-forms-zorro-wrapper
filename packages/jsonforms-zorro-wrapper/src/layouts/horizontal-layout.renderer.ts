@@ -8,7 +8,7 @@ import { JFZHorizontalLayout } from '../other/uischema';
 @Component({
   selector: 'HorizontalLayoutRenderer',
   template: `
-    <div class="horizontal-layout">
+    <div class="horizontal-layout" [class.hidden]="hidden">
       <h2 *ngIf="uischema.label">{{ uischema.label }}</h2>
       <DescriptionRenderer [uiSchema]="uischema" [scopedSchema]="schema"></DescriptionRenderer>
       <div *ngFor="let props of renderProps; trackBy: trackElement" class="control-wrapper">
@@ -33,6 +33,10 @@ import { JFZHorizontalLayout } from '../other/uischema';
         max-width: 100%;
         padding-top: 16px;
         padding-left: 16px;
+      }
+
+      .hidden {
+        display: none;
       }
     `,
   ],
