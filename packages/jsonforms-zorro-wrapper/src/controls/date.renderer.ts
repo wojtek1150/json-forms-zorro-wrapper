@@ -7,11 +7,11 @@ import { DatePipe } from '@angular/common';
   selector: 'DateControlRenderer',
   template: `
     <nz-form-item [class]="additionalClasses" [class.hidden]="hidden">
-      <nz-form-label *ngIf="label && label !== '*'" [nzFor]="id"
+      <nz-form-label *ngIf="label && label !== '*'" [nzFor]="id" [nzRequired]="required" [nzNoColon]="hideColonInLabel"
         ><i *ngIf="labelIcon" nz-icon [nzType]="labelIcon" nzTheme="outline"></i> {{ label }}</nz-form-label
       >
       <DescriptionRenderer [uiSchema]="uischema" [scopedSchema]="schema"></DescriptionRenderer>
-      <nz-form-control nzHasFeedback [nzErrorTip]="errorMessage" [nzValidateStatus]="form.status | nzValidationStatus">
+      <nz-form-control [nzHasFeedback]="showValidationStatus" [nzErrorTip]="errorMessage" [nzValidateStatus]="form.status | nzValidationStatus">
         <nz-date-picker
           [id]="id"
           [formControl]="form"

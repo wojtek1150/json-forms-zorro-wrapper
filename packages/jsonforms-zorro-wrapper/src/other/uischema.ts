@@ -93,7 +93,7 @@ export interface JFZControlElement extends JFZElement {
   /**
    * Any additional options.
    */
-  options?: Options;
+  options?: { showValidationStatus: boolean } & Options;
 }
 
 /**

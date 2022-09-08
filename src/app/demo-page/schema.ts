@@ -50,7 +50,17 @@ export const schema: JsonSchema = {
       type: 'string',
       enum: ['One', 'Two', 'Three'],
     },
+    programmingLanguages: {
+      type: 'array',
+      minItems: 2,
+      maxItems: 5,
+      uniqueItems: true,
+      items: {
+        type: 'string',
+        enum: ['Solidity', 'Wasm', 'Go', ' C++', 'JavaScript', 'Python', 'Ruby'],
+      },
+    },
   },
   additionalProperties: true,
-  required: ['name', 'vegetarian', 'birthDate', 'personalData', 'postalCode'],
+  required: ['name', 'programmingLanguages'],
 };

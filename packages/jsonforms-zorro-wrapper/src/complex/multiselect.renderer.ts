@@ -7,9 +7,11 @@ import { hasEnumItems, hasOneOfItems } from '../other/complex.helper';
   selector: 'MultiselectControlRenderer',
   template: `
     <nz-form-item *ngIf="scopedSchema" [class]="additionalClasses" [class.hidden]="hidden">
-      <nz-form-label *ngIf="label" [nzFor]="id"><i *ngIf="labelIcon" nz-icon [nzType]="labelIcon" nzTheme="outline"></i> {{ label }}</nz-form-label>
+      <nz-form-label *ngIf="label" [nzFor]="id" [nzRequired]="required" [nzNoColon]="hideColonInLabel"
+        ><i *ngIf="labelIcon" nz-icon [nzType]="labelIcon" nzTheme="outline"></i> {{ label }}
+      </nz-form-label>
       <DescriptionRenderer [uiSchema]="uischema" [scopedSchema]="schema"></DescriptionRenderer>
-      <nz-form-control [nzErrorTip]="errorMessage">
+      <nz-form-control [nzHasFeedback]="showValidationStatus" [nzErrorTip]="errorMessage" [nzValidateStatus]="form.status | nzValidationStatus">
         <nz-select
           nzMode="multiple"
           [id]="id"

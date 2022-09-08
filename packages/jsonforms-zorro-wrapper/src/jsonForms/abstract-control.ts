@@ -21,6 +21,9 @@ export abstract class JsonFormsAbstractControl<Props extends StatePropsOfControl
   data: any;
   label: string;
   placeholder: string;
+  required: boolean;
+  hideColonInLabel: boolean;
+  showValidationStatus: boolean;
   description: string;
   error: string | null;
   scopedSchema: JsonSchema;
@@ -71,10 +74,12 @@ export abstract class JsonFormsAbstractControl<Props extends StatePropsOfControl
       next: (state: JsonFormsState) => {
         const props = this.mapToProps(state);
         const { data, enabled, errors, label, required, schema, rootSchema, visible, path, config } = props;
-        this.label = computeLabel(label, required, config ? config.hideRequiredAsterisk : false);
+        this.label = computeLabel(label, required, config ? !config.showRequiredAsterisk : true);
         this.data = data;
         this.error = errors;
         this.enabled = enabled;
+        this.required = required;
+        this.hideColonInLabel = !!config.hideColon;
         this.isEnabled() ? this.form.enable() : this.form.disable();
         this.hidden = !visible;
         this.scopedSchema = schema;
@@ -97,8 +102,8 @@ export abstract class JsonFormsAbstractControl<Props extends StatePropsOfControl
 
   // @ts-ignore
   mapAdditionalProps(props: Props) {
-    const placeholder = this.uischema.placeholder ?? this.label;
-    this.placeholder = placeholder || '';
+    this.placeholder = this.uischema.placeholder || '';
+    this.showValidationStatus = !!this.uischema.options?.showValidationStatus;
     this.changeDetectorRef.markForCheck();
     // do nothing by default
   }
@@ -114,6 +119,7 @@ export abstract class JsonFormsAbstractControl<Props extends StatePropsOfControl
   triggerValidation() {
     this.form.markAsTouched();
     this.form.updateValueAndValidity();
+    this.changeDetectorRef.markForCheck();
   }
 
   protected override getOwnProps(): OwnPropsOfControl {
