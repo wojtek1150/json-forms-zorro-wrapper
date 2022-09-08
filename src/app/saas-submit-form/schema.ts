@@ -41,15 +41,21 @@ export const schema: JsonSchema = {
     },
     participant_gdg: {
       type: 'string',
-      enum: ['Past', 'Active', 'N/A'],
+      enum: ['Yes', 'No'],
+      pattern: 'Yes',
+      description: "Please provide a short bio that describes who you are, what you do and what you're passionate about*\n",
+      errorMessage: "Musisz zaznaczyc 'Tak'",
     },
     participant_gdsc: {
-      type: 'string',
-      enum: ['Past', 'Active', 'N/A'],
+      type: 'boolean',
+      default: null,
+      enum: [null, true],
+      errorMessage: "Musisz zaznaczyc 'Tak'",
     },
     participant_gde: {
-      type: 'string',
-      enum: ['Past', 'Active', 'N/A'],
+      type: 'boolean',
+      const: true,
+      errorMessage: "Musisz zaznaczyc 'Tak'",
     },
     active_participation: {
       type: 'string',
