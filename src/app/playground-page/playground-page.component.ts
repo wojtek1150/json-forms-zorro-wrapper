@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { JsonFormsRendererRegistryEntry, JsonSchema, UISchemaElement } from '@jsonforms/core';
 import { ngZorroRenderers } from '@wojtek1150/jsonforms-zorro-wrapper';
-import { schema } from '../demo-page/schema';
-import { uischema } from '../demo-page/uischema';
+import schema from '../demo-page/schema.json';
+import uischema from '../demo-page/uischema.json';
 import { array } from './schemas/array';
 import { groupButton } from './schemas/group-button';
 import { listDetails } from './schemas/list-details';

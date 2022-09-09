@@ -1,0 +1,42 @@
+{
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "description": {
+      "title": "Long Description",
+      "type": "string"
+    },
+    "done": {
+      "type": "boolean"
+    },
+    "due_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "rating": {
+      "type": "integer",
+      "maximum": 5
+    },
+    "recurrence": {
+      "type": "string",
+      "enum": ["Never", "Daily", "Weekly", "Monthly"]
+    },
+    "recurrence_interval": {
+      "type": "integer"
+    },
+    "programmingLanguages": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 4,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": ["Solidity", "Wasm", "Go", " C++", "JavaScript", "Python", "Ruby"]
+      }
+    }
+  },
+  "required": ["name", "due_date"]
+}

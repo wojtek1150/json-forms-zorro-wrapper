@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { schema } from './schema';
-import { uischema } from './uischema';
+import schema from './schema.json';
+import uischema from './uischema.json';
 import { formData } from './formdata';
 import { JsonFormsRendererRegistryEntry, JsonSchema, UISchemaElement } from '@jsonforms/core';
 import { ngZorroRenderers } from '@wojtek1150/jsonforms-zorro-wrapper';
@@ -15,13 +15,6 @@ export class DemoPageComponent {
   uischema: UISchemaElement = uischema;
   renderers: JsonFormsRendererRegistryEntry[] = ngZorroRenderers;
   formData = formData;
-
-  log($event: any) {
-    console.log('======');
-    console.log($event);
-    console.log('======');
-  }
-
   readonly html = `
     <jsonforms
       [schema]="schema"
@@ -30,4 +23,10 @@ export class DemoPageComponent {
       [(data)]="formData"
     ></jsonforms>
     `;
+
+  log($event: any) {
+    console.log('======');
+    console.log($event);
+    console.log('======');
+  }
 }

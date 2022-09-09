@@ -18,6 +18,7 @@
     "importHelpers": true,
     "target": "es2017",
     "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
     "rootDir": ".",
     "module": "es2020",
     "lib": [
