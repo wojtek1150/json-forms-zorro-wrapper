@@ -23,12 +23,22 @@ import { RenderersPageComponent } from './renderers-page/renderers-page.componen
 import { PlaygroundPageComponent } from './playground-page/playground-page.component';
 import { NzCodeEditorModule } from 'ng-zorro-antd/code-editor';
 import { NzSelectModule } from 'ng-zorro-antd/select';
+import { BuilderPageComponent } from './builder-page/builder-page.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { NzBadgeModule } from 'ng-zorro-antd/badge';
+import { ListInputSourceComponent } from './builder-page/builder/list-input-source.component';
+import { ListInputTargetComponent } from './builder-page/builder/list-input-target.component';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 
 const icons: IconDefinition[] = [CheckCircleFill];
 
+const builder = [ListInputSourceComponent, ListInputTargetComponent];
+
 @NgModule({
-  declarations: [AppComponent, SaasSubmitFormComponent, DemoPageComponent, RenderersPageComponent, PlaygroundPageComponent],
+  declarations: [AppComponent, SaasSubmitFormComponent, DemoPageComponent, RenderersPageComponent, PlaygroundPageComponent, BuilderPageComponent],
   imports: [
+    ...builder,
     BrowserModule,
     AppRoutingModule,
     NzTabsModule,
@@ -44,6 +54,10 @@ const icons: IconDefinition[] = [CheckCircleFill];
     NzMenuModule,
     NzCodeEditorModule,
     NzSelectModule,
+    DragDropModule,
+    NzBadgeModule,
+    NzButtonModule,
+    NzCollapseModule,
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent],

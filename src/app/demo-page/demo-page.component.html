@@ -1,8 +1,8 @@
 <nz-alert
-  nzType="info"
-  nzMessage="Instalation"
   nzDescription="npm run install @wojtek1150/jsonforms-zorro-wrapper"
+  nzMessage="Instalation"
   nzShowIcon
+  nzType="info"
 ></nz-alert>
 
 <nz-tabset nzTabPosition="left">
@@ -12,11 +12,11 @@
       DEMO
     </ng-template>
     <jsonforms
+      (dataChange)="log($event)"
+      [(data)]="formData"
+      [renderers]="renderers"
       [schema]="schema"
       [uischema]="uischema"
-      [renderers]="renderers"
-      [(data)]="formData"
-      (dataChange)="log($event)"
     ></jsonforms>
   </nz-tab>
   <nz-tab nzTitle="Form Data">

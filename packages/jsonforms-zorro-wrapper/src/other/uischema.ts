@@ -83,7 +83,7 @@ export interface JFZControlElement extends JFZElement {
   /**
    * Placeholder displayed inside element.
    */
-  placeholder: string;
+  placeholder?: string;
 
   /**
    * An optional rule.
