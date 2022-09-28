@@ -1,14 +1,17 @@
 <nz-layout class="layout">
   <nz-header>
     <div class="logo">Zorro JsonForms</div>
-    <ul nz-menu nzTheme="dark" nzMode="horizontal">
+    <ul nz-menu nzMode="horizontal" nzTheme="dark">
       <li nz-menu-item nzMatchRouter nzMatchRouterExact routerLink="/">Demo</li>
       <li nz-menu-item nzMatchRouter routerLink="/docs">Docs</li>
       <li nz-menu-item nzMatchRouter routerLink="/renderers">Renderers</li>
       <li nz-menu-item nzMatchRouter routerLink="/playground">Playground</li>
+      <li class="beta" nz-menu-item nzMatchRouter routerLink="/builder">
+        <nz-ribbon nzText="BETA">Builder</nz-ribbon>
+      </li>
     </ul>
     <div class="right">
-      <a href="https://github.com/wojtek1150/json-forms-zorro-wrapper" title="https://github.com/wojtek1150/json-forms-zorro-wrapper" target="_blank"><i nz-icon nzType="github" nzTheme="outline"></i></a>
+      <a href="https://github.com/wojtek1150/json-forms-zorro-wrapper" target="_blank" title="https://github.com/wojtek1150/json-forms-zorro-wrapper"><i nz-icon nzTheme="outline" nzType="github"></i></a>
     </div>
   </nz-header>
   <nz-content>

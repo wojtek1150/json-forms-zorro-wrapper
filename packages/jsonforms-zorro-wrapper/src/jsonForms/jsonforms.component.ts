@@ -78,7 +78,7 @@ export class JsonFormsOutlet extends JsonFormsBaseRenderer<JFZElement> implement
     const testerContext = {
       rootSchema: props.rootSchema,
       config: getConfig(state),
-    };
+    } as JsonSchema;
 
     const renderer = maxBy(renderers, r => r.tester(uischema, schema, testerContext));
     let bestComponent: Type<any> = UnknownRenderer;

@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { JsonFormsAngularService, JsonFormsControl } from '../jsonForms';
 import { Actions, isIntegerControl, isNumberControl, or, RankedTester, rankWith, StatePropsOfControl } from '@jsonforms/core';
+import { JsonSchema } from '@jsonforms/core/src/models';
 
 @Component({
   selector: 'NumberControlRenderer',
@@ -65,7 +66,7 @@ export class NumberControlRenderer extends JsonFormsControl {
       const testerContext = {
         rootSchema: this.rootSchema,
         config: props.config,
-      };
+      } as JsonSchema;
       const defaultStep = isNumberControl(this.uischema, this.rootSchema, testerContext) ? 0.1 : 1;
       this.min = this.scopedSchema.minimum;
       this.max = this.scopedSchema.maximum;

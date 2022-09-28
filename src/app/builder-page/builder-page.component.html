@@ -1,0 +1,65 @@
+<main cdkDropListGroup>
+  <!-- drag from list -->
+  <dnd-list-input-source
+    class="dnd-source"
+    itemContainerClass="dnd-item"
+    listContainerClass="dnd-container"
+  >
+    <ng-template #input let-it>
+      <button nz-button nzShape="round">
+        <span [nzType]="it.input.icon" nz-icon nzTheme="outline"></span>
+        {{it.input.name}}
+      </button>
+    </ng-template>
+  </dnd-list-input-source>
+  <!-- drop list -->
+  <dnd-list-input-target
+    class="dnd-placeholder"
+    itemContainerClass="dnd-item"
+    listContainerClass="dnd-container"
+  >
+    <ng-template #dragHandle>
+      <div class="drag-icon">
+        <span nz-icon nzTheme="outline" nzType="drag"></span>
+      </div>
+    </ng-template>
+
+    <ng-template #item let-it>
+      <nz-collapse *ngIf="it.item.uiSchema as schema" class="item-data">
+        <nz-collapse-panel (nzActiveChange)="openEditor(it.item)" [nzActive]="it.item.editor" [nzExtra]="extraTpl" [nzHeader]="titleTpl">
+          <nz-input-group nzAddOnBefore="Scope">
+            <input (ngModelChange)="updateSchema(it.item, 'scope', $event)" [ngModel]="schema.scope" nz-input type="text" />
+          </nz-input-group>
+          <nz-input-group nzAddOnBefore="Label">
+            <input (ngModelChange)="updateSchema(it.item, 'label', $event)" [ngModel]="schema.label" nz-input type="text" />
+          </nz-input-group>
+          <nz-input-group nzAddOnBefore="Placeholder">
+            <input (ngModelChange)="updateSchema(it.item, 'placeholder', $event)" [ngModel]="schema.placeholder" nz-input type="text" />
+          </nz-input-group>
+        </nz-collapse-panel>
+      </nz-collapse>
+      <ng-template #titleTpl>
+        <span [nzType]="it.item.icon" class="type-icon" nz-icon nzTheme="outline"></span>
+        <span>{{it.item.uiSchema.label}}</span>
+      </ng-template>
+      <ng-template #extraTpl>
+        <span (click)="saveChanges(it.item.key)" class="save-icon" nz-icon nzTheme="twotone" nzType="save"></span>
+      </ng-template>
+    </ng-template>
+
+    <ng-template #placeholder>
+      <p class="placeholder">Drop Items Here</p>
+    </ng-template>
+  </dnd-list-input-target>
+</main>
+
+<aside>
+  <nz-tabset>
+    <nz-tab nzTitle="Preview">
+      <pre>{{service.fields$ | async | json}}</pre>
+    </nz-tab>
+    <nz-tab nzTitle="JsonUiSchema">
+      <pre>{{service.uiSchema$ | async | json}}</pre>
+    </nz-tab>
+  </nz-tabset>
+</aside>

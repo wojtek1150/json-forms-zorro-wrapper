@@ -51,3 +51,11 @@ nz-breadcrumb {
 nz-footer {
   text-align: center;
 }
+
+.beta {
+  width: 150px;
+
+  ::ng-deep .ant-ribbon-corner {
+    display: none;
+  }
+}
