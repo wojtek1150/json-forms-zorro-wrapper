@@ -32,34 +32,15 @@ export const USE_STATE_VALUE = Symbol('Marker to use state value');
 
 @Injectable({ providedIn: 'root' })
 export class JsonFormsAngularService {
-  set step(value: number) {
-    this._step = value;
-  }
-
   private _state: JsonFormsSubStates;
   private state: BehaviorSubject<JsonFormsState>;
   private submit: BehaviorSubject<any>;
-  private _step = 0;
   private stepChange: BehaviorSubject<{ step: number; data: null }>;
 
-  init(
-    initialState: JsonFormsSubStates = {
-      core: { data: undefined, schema: undefined, uischema: undefined, validationMode: 'ValidateAndShow', additionalErrors: undefined },
-    }
-  ) {
-    this._state = initialState;
-    this._state.config = configReducer(undefined, setConfig(this._state.config));
-    this._state.i18n = i18nReducer(
-      this._state.i18n,
-      updateI18n(this._state.i18n?.locale, this._state.i18n?.translate, this._state.i18n?.translateError)
-    );
-    this.state = new BehaviorSubject({ jsonforms: this._state });
-    this.submit = new BehaviorSubject(null);
-    this.stepChange = new BehaviorSubject({ step: this._step, data: null });
-    const data = initialState.core.data;
-    const schema = initialState.core.schema ?? generateJsonSchema(data);
-    const uischema = initialState.core.uischema ?? generateDefaultUISchema(schema);
-    this.updateCore(Actions.init(data, schema, uischema));
+  private _step = 0;
+
+  set step(value: number) {
+    this._step = value;
   }
 
   get $state(): Observable<JsonFormsState> {
@@ -81,6 +62,26 @@ export class JsonFormsAngularService {
       throw new Error('Please call init first!');
     }
     return this.stepChange.asObservable();
+  }
+
+  init(
+    initialState: JsonFormsSubStates = {
+      core: { data: undefined, schema: undefined, uischema: undefined, validationMode: 'ValidateAndShow', additionalErrors: undefined },
+    }
+  ) {
+    this._state = initialState;
+    this._state.config = configReducer(undefined, setConfig(this._state.config));
+    this._state.i18n = i18nReducer(
+      this._state.i18n,
+      updateI18n(this._state.i18n?.locale, this._state.i18n?.translate, this._state.i18n?.translateError)
+    );
+    this.state = new BehaviorSubject({ jsonforms: this._state });
+    this.submit = new BehaviorSubject(null);
+    this.stepChange = new BehaviorSubject({ step: this._step, data: null });
+    const data = initialState.core.data;
+    const schema = initialState.core.schema ?? generateJsonSchema(data);
+    const uischema = initialState.core.uischema ?? generateDefaultUISchema(schema);
+    this.updateCore(Actions.init(data, schema, uischema));
   }
 
   /**
@@ -205,6 +206,11 @@ export class JsonFormsAngularService {
 
   setReadonly(readonly: boolean): void {
     this._state.readonly = readonly;
+    this.updateSubject();
+  }
+
+  setSubmitLoading(loading: boolean): void {
+    this._state.submitLoading = loading;
     this.updateSubject();
   }
 

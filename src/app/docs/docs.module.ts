@@ -7,6 +7,9 @@ import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { SchemaDocsComponent } from './schema-docs/schema-docs.component';
 import { NzTableModule } from 'ng-zorro-antd/table';
+import { JsonFormsZorroModule } from '@wojtek1150/jsonforms-zorro-wrapper';
+import { NzAlertModule } from 'ng-zorro-antd/alert';
+import { JsonFormsDocsComponent } from './json-forms-docs/json-forms-docs.component';
 
 const routes: Routes = [
   {
@@ -16,6 +19,10 @@ const routes: Routes = [
       {
         component: SchemaDocsComponent,
         path: 'schema',
+      },
+      {
+        component: JsonFormsDocsComponent,
+        path: 'forms',
       },
       {
         component: TexfieldDocsComponent,
@@ -34,7 +41,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes), NzLayoutModule, NzMenuModule, NzIconModule, NzTableModule],
-  declarations: [TexfieldDocsComponent, DocsComponent, SchemaDocsComponent],
+  imports: [RouterModule.forChild(routes), NzLayoutModule, NzMenuModule, NzIconModule, NzTableModule, JsonFormsZorroModule, NzAlertModule],
+  declarations: [TexfieldDocsComponent, DocsComponent, SchemaDocsComponent, JsonFormsDocsComponent],
 })
 export class DocsModule {}

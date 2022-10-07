@@ -8,6 +8,7 @@ import { JFZLayout } from '../other/uischema';
 @Directive()
 export class LayoutRenderer<T extends JFZLayout> extends JsonFormsBaseRenderer<T> implements OnInit, OnDestroy {
   submitLabel: string = null;
+  submitLoading: boolean = false;
   htmlDescription: boolean = false;
   hidden = false;
   private subscription = new Subscription();
@@ -33,6 +34,7 @@ export class LayoutRenderer<T extends JFZLayout> extends JsonFormsBaseRenderer<T
       next: (state: JsonFormsState) => {
         const props = mapStateToLayoutProps(state, this.getOwnProps());
         this.hidden = !props.visible;
+        this.submitLoading = state.jsonforms.submitLoading;
         this.mapSchemaOptions(props.uischema.options);
         this.changeDetectionRef.markForCheck();
       },

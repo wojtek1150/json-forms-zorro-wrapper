@@ -11,11 +11,12 @@
   <div nz-col nzSpan="12">
     <jsonforms
       (dataChange)="log('dataChange', $event)"
-      (submited)="log('submited',$event)"
+      (submited)="submitted('submited',$event)"
       *ngIf="schema && uischema"
       [(data)]="formData"
       [renderers]="renderers"
       [schema]="schema"
+      [submitLoading]="loading"
       [uischema]="uischema"
     ></jsonforms>
   </div>

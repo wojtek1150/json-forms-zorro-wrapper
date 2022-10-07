@@ -16,7 +16,7 @@ import { JFZHorizontalLayout } from '../other/uischema';
       </div>
     </div>
     <div class="submit-wrapper" *ngIf="submitLabel">
-      <button nz-button nzType="primary" (click)="submit()">
+      <button nz-button nzType="primary" (click)="submit()" [nzLoading]="submitLoading">
         <span>{{ submitLabel }}</span>
       </button>
     </div>

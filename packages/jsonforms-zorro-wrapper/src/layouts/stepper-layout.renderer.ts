@@ -29,7 +29,7 @@ import { JFZCategoryLayout } from '../other/uischema';
         <button nz-button nzType="default" *ngIf="step < uischema.elements.length - 1" (click)="next()">
           <span>{{ nextLabel }}</span>
         </button>
-        <button nz-button nzType="primary" *ngIf="step === uischema.elements.length - 1" (click)="submit()">
+        <button nz-button nzType="primary" *ngIf="step === uischema.elements.length - 1" (click)="submit()" [nzLoading]="submitLoading">
           <span>{{ submitLabel }}</span>
         </button>
       </div>
@@ -65,6 +65,7 @@ export class StepperLayoutRenderer extends JsonFormsBaseRenderer<JFZCategoryLayo
   nextLabel = 'Next';
   previousLabel = 'Previous';
   submitLabel = 'Submit';
+  submitLoading: boolean = false;
   step = 0;
 
   private destroy$ = new Subject();
@@ -84,6 +85,7 @@ export class StepperLayoutRenderer extends JsonFormsBaseRenderer<JFZCategoryLayo
         this.nextLabel = uiSchemaOptions.nextLabel || 'Next';
         this.previousLabel = uiSchemaOptions.previousLabel || 'Previous';
         this.submitLabel = uiSchemaOptions.submitLabel || 'Submit';
+        this.submitLoading = state.jsonforms.submitLoading;
       },
     });
     this.jsonFormsService.$stepChangeState.pipe(takeUntil(this.destroy$)).subscribe(({ step }) => (this.step = step));

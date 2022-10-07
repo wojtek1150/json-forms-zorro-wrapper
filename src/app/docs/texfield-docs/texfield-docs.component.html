@@ -1,1 +1,51 @@
-<p>texfield-docs works!</p>
+<h1>Text control</h1>
+<pre><code>{{schema.properties | json }}</code></pre>
+
+<p>Ui Schema</p>
+<pre><code>{{uiSchema.elements[0] | json }}</code></pre>
+
+<jsonforms
+  [renderers]="renderers"
+  [schema]="schema"
+  [uischema]="uiSchema"
+></jsonforms>
+
+<p>As textarea</p>
+<pre><code>{{uiSchemaArea.elements[0] | json }}</code></pre>
+<jsonforms
+  [renderers]="renderers"
+  [schema]="schema"
+  [uischema]="uiSchemaArea"
+></jsonforms>
+
+<p>Options</p>
+<nz-table [nzTemplateMode]="true">
+  <thead>
+  <tr>
+    <th>Property</th>
+    <th>Description</th>
+    <th>Type</th>
+    <th>Default</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>multi</td>
+    <td>Determines if should be displayed as textarea</td>
+    <td><code>boolean</code></td>
+    <td>-</td>
+  </tr>
+  <tr>
+    <td>minRows</td>
+    <td>Minimum textarea size</td>
+    <td><code>number</code></td>
+    <td>-</td>
+  </tr>
+  <tr>
+    <td>maxRows</td>
+    <td>Maximum textarea size</td>
+    <td><code>number</code></td>
+    <td>-</td>
+  </tr>
+  </tbody>
+</nz-table>

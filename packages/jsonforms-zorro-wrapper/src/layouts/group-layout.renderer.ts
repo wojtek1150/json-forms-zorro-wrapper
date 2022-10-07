@@ -15,7 +15,7 @@ import { JFZGroupLayout } from '../other/uischema';
         <jsonforms-outlet [renderProps]="props"></jsonforms-outlet>
       </div>
       <div class="submit-wrapper" *ngIf="submitLabel">
-        <button nz-button nzType="primary" (click)="submit()">
+        <button nz-button nzType="primary" (click)="submit()" [nzLoading]="submitLoading">
           <span>{{ submitLabel }}</span>
         </button>
       </div>

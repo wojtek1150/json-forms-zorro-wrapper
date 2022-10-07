@@ -17,6 +17,7 @@ export class JsonForms implements OnChanges, OnInit, OnDestroy {
   @Input() renderers: JsonFormsRendererRegistryEntry[];
   @Input() uischemas: { tester: UISchemaTester; uischema: JFZElement }[];
   @Input() readonly: boolean;
+  @Input() submitLoading: boolean;
   @Input() validationMode: ValidationMode;
   @Input() ajv: Ajv;
   @Input() config: any;
@@ -58,6 +59,7 @@ export class JsonForms implements OnChanges, OnInit, OnDestroy {
       renderers: this.renderers,
       config: this.config,
       readonly: this.readonly,
+      submitLoading: this.submitLoading,
     });
     this.jsonformsService.$state.pipe(takeUntil(this.destroy$)).subscribe(state => {
       const data = state?.jsonforms?.core?.data;
@@ -110,6 +112,7 @@ export class JsonForms implements OnChanges, OnInit, OnDestroy {
     const newUischemas = changes['uischemas'];
     const newI18n = changes['i18n'];
     const newReadonly = changes['readonly'];
+    const newSubmitLoading = changes['submitLoading'];
     const newValidationMode = changes['validationMode'];
     const newAjv = changes['ajv'];
     const newConfig = changes['config'];
@@ -142,6 +145,10 @@ export class JsonForms implements OnChanges, OnInit, OnDestroy {
 
     if (newReadonly && !newReadonly.isFirstChange()) {
       this.jsonformsService.setReadonly(newReadonly.currentValue);
+    }
+
+    if (newSubmitLoading && !newSubmitLoading.isFirstChange()) {
+      this.jsonformsService.setSubmitLoading(newSubmitLoading.currentValue);
     }
 
     if (newConfig && !newConfig.isFirstChange()) {

@@ -45,7 +45,7 @@ export class PlaygroundPageComponent {
 
   schemaCode = JSON.stringify(schema, null, 2);
   uischemaCode = JSON.stringify(uischema, null, 2);
-  formData;
+  formData = null;
 
   readonly options = [
     { label: 'Vertical Layout', value: 'default' },
@@ -55,6 +55,7 @@ export class PlaygroundPageComponent {
     { label: 'List with details', value: 'listDetails' },
     { label: 'Rule', value: 'rule' },
   ];
+  loading: boolean;
 
   log(type: string, $event: any) {
     console.log('======' + type + '======');
@@ -105,5 +106,11 @@ export class PlaygroundPageComponent {
   updateSchemaCode() {
     this.schemaCode = JSON.stringify(this.schema, null, 2);
     this.uischemaCode = JSON.stringify(this.uischema, null, 2);
+  }
+
+  submitted(submited: string, $event: any) {
+    this.loading = true;
+    setTimeout(() => (this.loading = false), 1000);
+    this.log('submited', $event);
   }
 }

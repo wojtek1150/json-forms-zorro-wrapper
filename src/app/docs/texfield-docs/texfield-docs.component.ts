@@ -1,15 +1,48 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { JsonSchema } from '@jsonforms/core';
+import { JFZVerticalLayout, ngZorroRenderers } from '@wojtek1150/jsonforms-zorro-wrapper';
 
 @Component({
   selector: 'app-texfield-docs',
   templateUrl: './texfield-docs.component.html',
-  styleUrls: ['./texfield-docs.component.scss']
 })
-export class TexfieldDocsComponent implements OnInit {
+export class TexfieldDocsComponent {
+  renderers = ngZorroRenderers;
 
-  constructor() { }
+  schema: JsonSchema = {
+    type: 'object',
+    properties: {
+      name: {
+        type: 'string',
+        minLength: 3,
+      },
+    },
+  };
 
-  ngOnInit(): void {
-  }
+  uiSchema: JFZVerticalLayout = {
+    type: 'VerticalLayout',
+    elements: [
+      {
+        label: 'First name',
+        type: 'Control',
+        scope: '#/properties/name',
+      },
+    ],
+  };
 
+  uiSchemaArea: JFZVerticalLayout = {
+    type: 'VerticalLayout',
+    elements: [
+      {
+        label: 'First name',
+        type: 'Control',
+        scope: '#/properties/name',
+        options: {
+          multi: true,
+          minRows: 3,
+          maxRows: 5,
+        },
+      },
+    ],
+  };
 }

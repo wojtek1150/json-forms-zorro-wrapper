@@ -26,7 +26,7 @@ nz-content {
   ::ng-deep {
     line-height: 1.75em;
 
-    code {
+    pre, table td code {
       margin: 0 1px;
       padding: 0.2em 0.4em;
       font-size: .9em;
@@ -38,6 +38,20 @@ nz-content {
     table td:nth-child(3) code {
       color: #c41d7f;
       font-size: 13px;
+    }
+
+    .required::after {
+      content: ' *';
+      color: #c41d7f;
+    }
+
+    h2 {
+      margin-top: 3em;
+    }
+
+    h3, p {
+      margin-top: 30px;
+      font-weight: bold;
     }
   }
 }
