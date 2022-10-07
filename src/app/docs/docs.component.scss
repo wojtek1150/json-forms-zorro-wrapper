@@ -45,6 +45,19 @@ nz-content {
       color: #c41d7f;
     }
 
+    .flex {
+      display: flex;
+
+      & > * {
+        flex: 1;
+        margin-right: 15px;
+
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+    }
+
     h2 {
       margin-top: 3em;
     }
@@ -52,6 +65,11 @@ nz-content {
     h3, p {
       margin-top: 30px;
       font-weight: bold;
+    }
+
+    quill-editor p {
+      margin-top: 0;
+      font-weight: normal
     }
   }
 }

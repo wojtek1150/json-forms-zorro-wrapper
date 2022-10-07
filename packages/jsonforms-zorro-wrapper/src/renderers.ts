@@ -21,6 +21,7 @@ import { RadioButtonControlRenderer, RadioButtonControlRendererTester } from './
 import { CheckboxGroupControlRenderer, CheckboxGroupControlRendererTester } from './complex/checkbox-group.renderer';
 import { MultiselectControlRenderer, MultiselectControlRendererTester } from './complex/multiselect.renderer';
 import { ArrayLayoutRenderer, ArrayLayoutRendererTester } from './layouts/array-layout.renderer';
+import { WysiwygRenderer, WysiwygRendererTester } from './controls/wysiwyg.renderer';
 
 export const ngZorroRenderers: {
   tester: RankedTester;
@@ -37,6 +38,7 @@ export const ngZorroRenderers: {
   { tester: TextControlRendererTester, renderer: TextControlRenderer },
   { tester: TextAreaRendererTester, renderer: TextAreaRenderer },
   { tester: ToggleControlRendererTester, renderer: ToggleControlRenderer },
+  { tester: WysiwygRendererTester, renderer: WysiwygRenderer },
   // complex controls
   { tester: CheckboxGroupControlRendererTester, renderer: CheckboxGroupControlRenderer },
   { tester: MultiselectControlRendererTester, renderer: MultiselectControlRenderer },

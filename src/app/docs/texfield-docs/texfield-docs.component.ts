@@ -45,4 +45,18 @@ export class TexfieldDocsComponent {
       },
     ],
   };
+
+  uiSchemaWysiwyg: JFZVerticalLayout = {
+    type: 'VerticalLayout',
+    elements: [
+      {
+        label: 'First name',
+        type: 'Control',
+        scope: '#/properties/name',
+        options: {
+          wysiwyg: true,
+        },
+      },
+    ],
+  };
 }

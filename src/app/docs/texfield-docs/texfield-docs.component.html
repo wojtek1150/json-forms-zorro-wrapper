@@ -18,6 +18,14 @@
   [uischema]="uiSchemaArea"
 ></jsonforms>
 
+<p>WYSIWYG editor</p>
+<pre><code>{{uiSchemaWysiwyg.elements[0] | json }}</code></pre>
+<jsonforms
+  [renderers]="renderers"
+  [schema]="schema"
+  [uischema]="uiSchemaWysiwyg"
+></jsonforms>
+
 <p>Options</p>
 <nz-table [nzTemplateMode]="true">
   <thead>
@@ -29,6 +37,18 @@
   </tr>
   </thead>
   <tbody>
+  <tr>
+    <td>wysiwyg</td>
+    <td>Determines if should be displayed as WYSIWYG editor</td>
+    <td><code>boolean</code></td>
+    <td>-</td>
+  </tr>
+  <tr>
+    <td>toolbar</td>
+    <td>Configure toolbar options in WYSIWYG editor</td>
+    <td><code>QuillToolbarConfig</code></td>
+    <td><code>bold,italic,underline,link,ordered list,unordered list</code></td>
+  </tr>
   <tr>
     <td>multi</td>
     <td>Determines if should be displayed as textarea</td>

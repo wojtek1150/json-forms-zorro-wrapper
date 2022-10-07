@@ -38,6 +38,8 @@ import { MultiselectControlRenderer } from './complex/multiselect.renderer';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { ArrayLayoutRenderer } from './layouts/array-layout.renderer';
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
+import { WysiwygRenderer } from './controls/wysiwyg.renderer';
+import { QuillModule } from 'ngx-quill';
 
 const modules = [CommonModule, JsonFormsModule, ReactiveFormsModule, NzFormModule, NzInputModule, NzDatePickerModule, NzCheckboxModule];
 
@@ -62,6 +64,7 @@ const controls = [
   CheckboxGroupControlRenderer,
   MultiselectControlRenderer,
   ArrayLayoutRenderer,
+  WysiwygRenderer,
 ];
 
 @NgModule({
@@ -78,6 +81,7 @@ const controls = [
     NzIconModule,
     NzButtonModule,
     NzBadgeModule,
+    QuillModule,
   ],
   declarations: [...controls, NzValidationStatusPipe],
   entryComponents: [...controls],
