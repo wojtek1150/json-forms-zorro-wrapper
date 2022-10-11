@@ -4,7 +4,8 @@ import { Actions, and, optionIs, RankedTester, rankWith, uiTypeIs } from '@jsonf
 import { NzUploadChangeParam, NzUploadFile } from 'ng-zorro-antd/upload';
 import { catchError, finalize, Observable, Observer, of, Subscription, tap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { NzUploadXHRArgs } from 'ng-zorro-antd/upload/interface';
+import { NzShowUploadList, NzUploadXHRArgs } from 'ng-zorro-antd/upload/interface';
+import { hasOption } from '../../other/complex.helper';
 
 @Component({
   selector: 'ImageUploadRenderer',
@@ -12,24 +13,25 @@ import { NzUploadXHRArgs } from 'ng-zorro-antd/upload/interface';
   styleUrls: ['./image.renderer.scss'],
 })
 export class ImageControlRenderer extends JsonFormsControl {
-  uploadUrl: string;
-  deleteUrl?: string;
-  imageToEdit?: string;
-  withHint: boolean = true;
-  minImageWidth = 300;
-  minImageHeight = 300;
-  maxImageWidth = 9999;
-  maxImageHeight = 9999;
-  maxImageSizeMB = 8;
-  removeImagesOnDestroy = false;
+  public fileList: NzUploadFile[] = [];
+  public isLoading = false;
+  public previewButtonsConfig: NzShowUploadList;
+  public allowedExtensions = ['image/jpeg', 'image/png', 'image/gif'];
 
+  public hint?: string;
+
+  imageToEdit?: string;
+  removeImagesOnDestroy = false;
   removeImagesOnDestroyChange = new EventEmitter<boolean>();
   removedImageToEdit = new EventEmitter<string>();
 
-  fileList: NzUploadFile[] = [];
-  isLoading = false;
-  previewButtonsConfig = { showRemoveIcon: true };
-  allowedExtensions = ['image/jpeg', 'image/png', 'image/gif'];
+  private uploadUrl: string;
+  private deleteUrl?: string;
+  private minImageWidth: number;
+  private minImageHeight: number;
+  private maxImageWidth: number;
+  private maxImageHeight: number;
+  private maxImageSizeMB: number;
 
   constructor(jsonformsService: JsonFormsAngularService, changeDetectorRef: ChangeDetectorRef, protected httpClient: HttpClient) {
     super(jsonformsService, changeDetectorRef);
@@ -49,6 +51,11 @@ export class ImageControlRenderer extends JsonFormsControl {
     }
   }
 
+  override onChange(ev: any) {
+    console.log('onChange', ev);
+    super.onChange(ev);
+  }
+
   override getEventValue = (value: any) => {
     if (value !== undefined && value !== this.imageToEdit) {
       return value;
@@ -57,6 +64,18 @@ export class ImageControlRenderer extends JsonFormsControl {
 
   override mapAdditionalProps(props) {
     super.mapAdditionalProps(props);
+    const { options } = props.uischema;
+    this.minImageWidth = options.minImageWidth || 300;
+    this.minImageHeight = options.minImageHeight || 300;
+    this.maxImageWidth = options.maxImageWidth || 9999;
+    this.maxImageHeight = options.maxImageHeight || 9999;
+    this.maxImageSizeMB = options.maxImageSizeMB || 8;
+    this.hint = options.hint;
+    this.uploadUrl = options.uploadUrl;
+    this.deleteUrl = options.deleteUrl;
+    this.allowedExtensions = options.allowedExtensions || ['image/jpeg', 'image/png', 'image/gif'];
+
+    this.previewButtonsConfig = { showRemoveIcon: !!this.deleteUrl };
   }
 
   beforeUpload = (file: NzUploadFile) => {
@@ -71,24 +90,23 @@ export class ImageControlRenderer extends JsonFormsControl {
   };
 
   request = (item: NzUploadXHRArgs): Subscription => {
-    console.log('request', item);
     this.isLoading = true;
     this.imageUrl = 'PENDING';
     const formData = new FormData();
     formData.append('files[]', item.file as unknown as File);
 
-    console.log('dto', formData, formData.getAll('files[]'));
-
     return this.uploadImages(formData)
       .pipe(
         tap((response: { url: string }) => {
-          console.log('tap', response);
           this.imageUrl = response.url;
+          // @ts-ignore
+          item.onSuccess();
         }),
         catchError(err => {
-          console.log('catchError');
           this.error = err.error?.message || 'Sorry, your image cannot be uploaded. Please, try again later.';
-          this.imageUrl = null;
+          // @ts-ignore
+          item.onError();
+          this.imageUrl = '';
           return of(err);
         }),
         finalize(() => (this.isLoading = false))
@@ -97,18 +115,13 @@ export class ImageControlRenderer extends JsonFormsControl {
   };
 
   handleChange(info: NzUploadChangeParam): void {
-    console.log('handleChange', info);
     this.removeImagesOnDestroyChange.emit(true);
-    const fileList = [
-      ...info.fileList.map<NzUploadFile>(i => {
-        return { ...i, status: 'done' };
-      }),
-    ];
+    const fileList = [...info.fileList];
     this.fileList = fileList.slice(-1);
   }
 
   handleRemoveFile = (): boolean => {
-    this.imageUrl = null;
+    this.imageUrl = '';
     this.fileList = [];
     return true;
   };
@@ -122,7 +135,7 @@ export class ImageControlRenderer extends JsonFormsControl {
     if (this.imageToEdit === url) {
       this.removedImageToEdit.emit(url);
     } else {
-      this.httpClient.request<null>('delete', this.deleteUrl, { body: { url } }).subscribe();
+      this.deleteImage(url).subscribe();
     }
   }
 
@@ -142,6 +155,7 @@ export class ImageControlRenderer extends JsonFormsControl {
       const hasValidExtension = this.allowedExtensions.includes(file.type);
       if (!hasValidExtension) {
         this.error = 'File has incorrect extension.';
+        this.changeDetectorRef.detectChanges();
         observer.complete();
         return;
       }
@@ -149,6 +163,7 @@ export class ImageControlRenderer extends JsonFormsControl {
       const hasValidSize = file.size <= this.maxImageSizeMB * 1_000 * 1_000;
       if (!hasValidSize) {
         this.error = `Image has to be smaller than ${this.maxImageSizeMB}MB.`;
+        this.changeDetectorRef.detectChanges();
         observer.complete();
         return;
       }
@@ -162,15 +177,20 @@ export class ImageControlRenderer extends JsonFormsControl {
           const hasValidMinDimensions = img.width >= this.minImageWidth && img.height >= this.minImageHeight;
           if (!hasValidMinDimensions) {
             this.error = `Image has to be bigger than ${this.minImageHeight}x${this.minImageWidth}.`;
+            this.changeDetectorRef.detectChanges();
             observer.complete();
             return;
           }
           const hasValidMaxDimensions = img.width <= this.maxImageHeight && img.height <= this.maxImageHeight;
           if (!hasValidMaxDimensions) {
             this.error = `Image has to be smaller than ${this.maxImageHeight}x${this.maxImageWidth}.`;
+            this.changeDetectorRef.detectChanges();
             observer.complete();
             return;
           }
+
+          this.changeDetectorRef.detectChanges();
+          this.error = null;
           observer.next(event.target.result as string);
           observer.complete();
         };
@@ -193,4 +213,4 @@ export class ImageControlRenderer extends JsonFormsControl {
   }
 }
 
-export const ImageControlRendererTester: RankedTester = rankWith(4, and(uiTypeIs('Control'), optionIs('format', 'image')));
+export const ImageControlRendererTester: RankedTester = rankWith(4, and(uiTypeIs('Control'), optionIs('format', 'image'), hasOption('uploadUrl')));

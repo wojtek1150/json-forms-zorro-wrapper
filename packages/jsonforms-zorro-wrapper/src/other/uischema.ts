@@ -59,7 +59,7 @@ export interface JFZControlElement extends JFZElement {
   scope: string;
 
   /**
-   * Label for UI schema element.
+   * Label for UI schema element. To hide set as empty string
    */
   label: string;
 
