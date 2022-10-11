@@ -1,0 +1,28 @@
+<nz-form-item *ngIf="scopedSchema" [class.hidden]="hidden" [class]="additionalClasses">
+  <nz-form-label *ngIf="label" [nzFor]="id" [nzNoColon]="hideColonInLabel" [nzRequired]="required"
+  ><i *ngIf="labelIcon" [nzType]="labelIcon" nz-icon nzTheme="outline"></i> {{ label }}
+  </nz-form-label>
+  <DescriptionRenderer [scopedSchema]="schema" [uiSchema]="uischema"></DescriptionRenderer>
+  <nz-form-control [nzErrorTip]="errorMessage" [nzHasFeedback]="showValidationStatus" [nzValidateStatus]="form.status | nzValidationStatus">
+    <nz-upload
+      (nzChange)="handleChange($event)"
+      [nzAccept]="allowedExtensions.join(',')"
+      [nzBeforeUpload]="beforeUpload"
+      [nzCustomRequest]="request"
+      [nzDisabled]="isLoading"
+      [nzFileList]="fileList"
+      [nzRemove]="handleRemoveFile"
+      [nzShowUploadList]="previewButtonsConfig"
+      nzListType="picture"
+      nzType="drag"
+    >
+      <ng-container>
+        <p class="ant-upload-drag-icon">
+          <i nz-icon nzType="inbox"></i>
+        </p>
+        <p class="ant-upload-text">Drop image here or click to select</p>
+        <p *ngIf="withHint" class="ant-upload-hint">You can upload JPG, PNG or GIF file</p>
+      </ng-container>
+    </nz-upload>
+  </nz-form-control>
+</nz-form-item>

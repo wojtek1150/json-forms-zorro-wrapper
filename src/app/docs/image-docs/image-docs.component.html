@@ -1,0 +1,41 @@
+<h1>Upload Image control</h1>
+<pre><code>{{schema.properties | json }}</code></pre>
+
+<p>Ui Schema</p>
+<pre><code>{{uiSchema.elements[0] | json }}</code></pre>
+
+<div class="flex">
+  <jsonforms
+    [(data)]="data"
+    [renderers]="renderers"
+    [schema]="schema"
+    [uischema]="uiSchema"
+  ></jsonforms>
+  <pre>{{data | json}}</pre>
+</div>
+
+<p>Options</p>
+<nz-table [nzTemplateMode]="true">
+  <thead>
+  <tr>
+    <th>Property</th>
+    <th>Description</th>
+    <th>Type</th>
+    <th>Default</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>minRows</td>
+    <td>Minimum textarea size</td>
+    <td><code>number</code></td>
+    <td>-</td>
+  </tr>
+  <tr>
+    <td>maxRows</td>
+    <td>Maximum textarea size</td>
+    <td><code>number</code></td>
+    <td>-</td>
+  </tr>
+  </tbody>
+</nz-table>

@@ -10,6 +10,7 @@ import { NzTableModule } from 'ng-zorro-antd/table';
 import { JsonFormsZorroModule } from '@wojtek1150/jsonforms-zorro-wrapper';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { JsonFormsDocsComponent } from './json-forms-docs/json-forms-docs.component';
+import { ImageDocsComponent } from './image-docs/image-docs.component';
 
 const routes: Routes = [
   {
@@ -29,6 +30,10 @@ const routes: Routes = [
         path: 'textfield',
       },
       {
+        component: ImageDocsComponent,
+        path: 'image',
+      },
+      {
         path: '**',
         redirectTo: 'schema',
       },
@@ -42,6 +47,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(routes), NzLayoutModule, NzMenuModule, NzIconModule, NzTableModule, JsonFormsZorroModule, NzAlertModule],
-  declarations: [TexfieldDocsComponent, DocsComponent, SchemaDocsComponent, JsonFormsDocsComponent],
+  declarations: [TexfieldDocsComponent, DocsComponent, SchemaDocsComponent, JsonFormsDocsComponent, ImageDocsComponent],
 })
 export class DocsModule {}

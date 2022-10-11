@@ -4,7 +4,7 @@ import { and, optionIs, RankedTester, rankWith, uiTypeIs } from '@jsonforms/core
 import { AutoSizeType } from 'ng-zorro-antd/input/autosize.directive';
 
 @Component({
-  selector: 'TextAreaRenderer',
+  selector: 'WysiwygRenderer',
   template: `
     <nz-form-item [class]="additionalClasses" [class.hidden]="hidden">
       <nz-form-label *ngIf="label && label !== '*'" [nzFor]="id" [nzRequired]="required" [nzNoColon]="hideColonInLabel"

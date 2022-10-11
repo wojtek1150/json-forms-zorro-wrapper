@@ -22,6 +22,7 @@ import { CheckboxGroupControlRenderer, CheckboxGroupControlRendererTester } from
 import { MultiselectControlRenderer, MultiselectControlRendererTester } from './complex/multiselect.renderer';
 import { ArrayLayoutRenderer, ArrayLayoutRendererTester } from './layouts/array-layout.renderer';
 import { WysiwygRenderer, WysiwygRendererTester } from './controls/wysiwyg.renderer';
+import { ImageControlRenderer, ImageControlRendererTester } from './complex/image/image.renderer';
 
 export const ngZorroRenderers: {
   tester: RankedTester;
@@ -42,6 +43,7 @@ export const ngZorroRenderers: {
   // complex controls
   { tester: CheckboxGroupControlRendererTester, renderer: CheckboxGroupControlRenderer },
   { tester: MultiselectControlRendererTester, renderer: MultiselectControlRenderer },
+  { tester: ImageControlRendererTester, renderer: ImageControlRenderer },
   // layouts
   { tester: CategorizationTester, renderer: CategorizationTabLayoutRenderer },
   { tester: StepperTester, renderer: StepperLayoutRenderer },
