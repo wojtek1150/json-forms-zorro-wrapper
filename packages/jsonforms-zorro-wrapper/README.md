@@ -1,10 +1,10 @@
-# NG Zorro wrapper for jsonforms.io plugin
+# JsonForms based on ng-zorro
 
 ## Documentation
 
-Please see the official JSON Forms website, [jsonforms.io](https://jsonforms.io), for documentation, examples and API references.
+See documentation at [Plugion homepage](https://wojtek1150.github.io/json-forms-zorro-wrapper/docs)
+For JsonSchema documentation check [jsonforms core package](https://jsonforms.io)
 For UI docs, see the documentation on [ngzorro website](https://ng.ant.design/docs/introduce/en).
-
 
 ## Requirements
 
