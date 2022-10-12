@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { JsonFormsAngularService, JsonFormsControl } from '../../jsonForms';
 import { Actions, and, optionIs, RankedTester, rankWith, uiTypeIs } from '@jsonforms/core';
 import { NzUploadChangeParam, NzUploadFile } from 'ng-zorro-antd/upload';
@@ -20,10 +20,7 @@ export class ImageControlRenderer extends JsonFormsControl {
 
   public hint?: string;
 
-  imageToEdit?: string;
-  removeImagesOnDestroy = false;
-  removeImagesOnDestroyChange = new EventEmitter<boolean>();
-  removedImageToEdit = new EventEmitter<string>();
+  private imageToEdit?: string;
 
   private uploadUrl: string;
   private deleteUrl?: string;
@@ -51,9 +48,12 @@ export class ImageControlRenderer extends JsonFormsControl {
     }
   }
 
-  override onChange(ev: any) {
-    console.log('onChange', ev);
-    super.onChange(ev);
+  override ngOnInit() {
+    super.ngOnInit();
+    if (this.form.value) {
+      this.imageToEdit = this.form.value;
+      this.initImageUrlInEditionMode();
+    }
   }
 
   override getEventValue = (value: any) => {
@@ -115,7 +115,6 @@ export class ImageControlRenderer extends JsonFormsControl {
   };
 
   handleChange(info: NzUploadChangeParam): void {
-    this.removeImagesOnDestroyChange.emit(true);
     const fileList = [...info.fileList];
     this.fileList = fileList.slice(-1);
   }
@@ -126,15 +125,8 @@ export class ImageControlRenderer extends JsonFormsControl {
     return true;
   };
 
-  clearAndRemove() {
-    this.imageToEdit = null;
-    this.handleRemoveFile();
-  }
-
   removeImage(url: string): void {
-    if (this.imageToEdit === url) {
-      this.removedImageToEdit.emit(url);
-    } else {
+    if (this.imageToEdit !== url) {
       this.deleteImage(url).subscribe();
     }
   }

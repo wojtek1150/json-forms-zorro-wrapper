@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { JsonFormsAngularService, JsonFormsControl } from '../jsonForms';
-import { Actions, isEnumControl, RankedTester, rankWith } from '@jsonforms/core';
+import { Actions, isEnumControl, isOneOfControl, or, RankedTester, rankWith, StatePropsOfControl } from '@jsonforms/core';
 
 @Component({
   selector: 'SelectControlRenderer',
@@ -20,7 +20,7 @@ import { Actions, isEnumControl, RankedTester, rankWith } from '@jsonforms/core'
           (ngModelChange)="onChange($event)"
           (blur)="triggerValidation()"
         >
-          <nz-option *ngFor="let option of scopedSchema.enum" [nzLabel]="option" [nzValue]="option"></nz-option>
+          <nz-option *ngFor="let option of options" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
         </nz-select>
       </nz-form-control>
     </nz-form-item>
@@ -39,6 +39,10 @@ import { Actions, isEnumControl, RankedTester, rankWith } from '@jsonforms/core'
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SelectControlRenderer extends JsonFormsControl {
+  options: {
+    label: string;
+    value: any;
+  }[];
   private selectedValue: string;
 
   constructor(jsonformsService: JsonFormsAngularService, changeDetectorRef: ChangeDetectorRef) {
@@ -54,6 +58,15 @@ export class SelectControlRenderer extends JsonFormsControl {
       this.triggerValidation();
     }
   }
+
+  override mapAdditionalProps(props: StatePropsOfControl) {
+    super.mapAdditionalProps(props);
+    if (this.scopedSchema.enum) {
+      this.options = this.scopedSchema.enum.map(option => ({ label: option, value: option }));
+    } else {
+      this.options = this.scopedSchema.oneOf.map(option => ({ label: option.title, value: option.const }));
+    }
+  }
 }
 
-export const SelectControlTester: RankedTester = rankWith(2, isEnumControl);
+export const SelectControlTester: RankedTester = rankWith(2, or(isEnumControl, isOneOfControl));

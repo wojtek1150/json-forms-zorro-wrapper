@@ -35,4 +35,4 @@ export class BooleanControlRenderer extends JsonFormsControl {
   override getEventValue = (event: string) => event;
 }
 
-export const BooleanControlTester: RankedTester = rankWith(20, isBooleanControl);
+export const BooleanControlTester: RankedTester = rankWith(2, isBooleanControl);

@@ -11,6 +11,12 @@ import { JsonFormsZorroModule } from '@wojtek1150/jsonforms-zorro-wrapper';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { JsonFormsDocsComponent } from './json-forms-docs/json-forms-docs.component';
 import { ImageDocsComponent } from './image-docs/image-docs.component';
+import { WysiwygDocsComponent } from './wysiwyg-docs/wysiwyg-docs.component';
+import { NumberDocsComponent } from './number-docs/number-docs.component';
+import { SelectDocsComponent } from './select-docs/select-docs.component';
+import { MultiselectDocsComponent } from './multiselect-docs/multiselect-docs.component';
+import { ToggleDocsComponent } from './toggle-docs/toggle-docs.component';
+import { RadioDocsComponent } from './radio-docs/radio-docs.component';
 
 const routes: Routes = [
   {
@@ -30,8 +36,32 @@ const routes: Routes = [
         path: 'textfield',
       },
       {
+        component: WysiwygDocsComponent,
+        path: 'wysiwyg',
+      },
+      {
         component: ImageDocsComponent,
         path: 'image',
+      },
+      {
+        component: NumberDocsComponent,
+        path: 'number',
+      },
+      {
+        component: SelectDocsComponent,
+        path: 'select',
+      },
+      {
+        component: MultiselectDocsComponent,
+        path: 'multiselect',
+      },
+      {
+        component: ToggleDocsComponent,
+        path: 'toggle',
+      },
+      {
+        component: RadioDocsComponent,
+        path: 'radio',
       },
       {
         path: '**',
@@ -39,14 +69,22 @@ const routes: Routes = [
       },
     ],
   },
-  {
-    path: '**',
-    redirectTo: '',
-  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes), NzLayoutModule, NzMenuModule, NzIconModule, NzTableModule, JsonFormsZorroModule, NzAlertModule],
-  declarations: [TexfieldDocsComponent, DocsComponent, SchemaDocsComponent, JsonFormsDocsComponent, ImageDocsComponent],
+  declarations: [
+    TexfieldDocsComponent,
+    DocsComponent,
+    SchemaDocsComponent,
+    JsonFormsDocsComponent,
+    ImageDocsComponent,
+    WysiwygDocsComponent,
+    NumberDocsComponent,
+    SelectDocsComponent,
+    MultiselectDocsComponent,
+    ToggleDocsComponent,
+    RadioDocsComponent,
+  ],
 })
 export class DocsModule {}
