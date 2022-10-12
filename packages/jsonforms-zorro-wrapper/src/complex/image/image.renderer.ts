@@ -195,13 +195,11 @@ export class ImageControlRenderer extends JsonFormsControl {
   }
 
   private uploadImages(formData: FormData): Observable<any> {
-    return this.httpClient
-      .post(this.uploadUrl, formData)
-      .pipe(catchError(() => of({ url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png' })));
+    return this.httpClient.post(this.uploadUrl, formData);
   }
 
   private deleteImage(url): Observable<any> {
-    return this.httpClient.request<null>('delete', this.deleteUrl, { body: { url } }).pipe(catchError(() => of(true)));
+    return this.httpClient.request<null>('delete', this.deleteUrl, { body: { url } });
   }
 }
 

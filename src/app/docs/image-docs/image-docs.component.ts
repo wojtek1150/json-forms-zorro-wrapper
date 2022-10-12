@@ -39,8 +39,8 @@ export class ImageDocsComponent {
         options: {
           format: 'image',
           hint: 'You can upload JPG, PNG or GIF file',
-          uploadUrl: 'http://localhost:4200/images',
-          deleteUrl: 'http://localhost:4200/images',
+          uploadUrl: 'https://mocky.io/v3/0d4e05cd-4ce6-4061-a736-9d48a4869a9e',
+          deleteUrl: 'https://mocky.io/v3/0d4e05cd-4ce6-4061-a736-9d48a4869a9e',
           maxImageWidth: 600,
           maxImageHeight: 600,
           maxImageSizeMB: 1,
