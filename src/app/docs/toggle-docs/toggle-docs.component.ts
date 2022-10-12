@@ -3,18 +3,19 @@ import { JsonSchema } from '@jsonforms/core';
 import { JFZVerticalLayout, ngZorroRenderers } from '@wojtek1150/jsonforms-zorro-wrapper';
 
 @Component({
-  selector: 'app-texfield-docs',
-  templateUrl: './texfield-docs.component.html',
+  selector: 'app-toggle-docs',
+  templateUrl: './toggle-docs.component.html',
 })
-export class TexfieldDocsComponent {
+export class ToggleDocsComponent {
   renderers = ngZorroRenderers;
+  data = { done: false };
+  data2 = { done: false };
 
   schema: JsonSchema = {
     type: 'object',
     properties: {
-      name: {
-        type: 'string',
-        minLength: 3,
+      done: {
+        type: 'boolean',
       },
     },
   };
@@ -23,24 +24,31 @@ export class TexfieldDocsComponent {
     type: 'VerticalLayout',
     elements: [
       {
-        label: 'First name',
         type: 'Control',
-        scope: '#/properties/name',
+        label: 'Completed',
+        scope: '#/properties/done',
       },
     ],
   };
 
-  uiSchemaArea: JFZVerticalLayout = {
+  schema2: JsonSchema = {
+    type: 'object',
+    properties: {
+      done: {
+        type: 'boolean',
+      },
+    },
+  };
+
+  uiSchema2: JFZVerticalLayout = {
     type: 'VerticalLayout',
     elements: [
       {
-        label: 'First name',
         type: 'Control',
-        scope: '#/properties/name',
+        label: 'Completed',
+        scope: '#/properties/done',
         options: {
-          multi: true,
-          minRows: 3,
-          maxRows: 5,
+          toggle: true,
         },
       },
     ],

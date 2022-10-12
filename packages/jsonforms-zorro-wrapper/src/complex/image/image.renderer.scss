@@ -1,0 +1,21 @@
+nz-form-item {
+  display: block;
+}
+
+.hidden {
+  display: none;
+}
+
+nz-upload ::ng-deep {
+  a.ant-upload-list-item-thumbnail {
+    pointer-events: none;
+  }
+
+  .ant-upload-list-item-card-actions a {
+    cursor: pointer;
+  }
+
+  p {
+    margin: 0;
+  }
+}

@@ -1,0 +1,130 @@
+<h1>Multiple selection control</h1>
+<p>A multiselect can be achieved by using an enum or a oneOf in the JSON schema.</p>
+
+<article>
+  <h2>Enum</h2>
+  <jsonforms
+    [(data)]="data"
+    [renderers]="renderers"
+    [schema]="schema"
+    [uischema]="uiSchema"
+  ></jsonforms>
+
+  <div class="flex">
+    <div>
+      <p>Schema</p>
+      <pre><code>{{schema.properties | json }}</code></pre>
+    </div>
+
+    <div>
+      <p>Ui Schema</p>
+      <pre><code>{{uiSchema.elements[0] | json }}</code></pre>
+      <p>Data</p>
+      <pre><code>{{data | json }}</code></pre>
+    </div>
+  </div>
+</article>
+
+<article>
+  <h2>One of</h2>
+  <p>With the use of oneOf, you can also add the title option. You can define an enum in your schema like this:</p>
+  <jsonforms
+    [(data)]="dataOne"
+    [renderers]="renderers"
+    [schema]="schemaOne"
+    [uischema]="uiSchemaOne"
+  ></jsonforms>
+
+  <div class="flex">
+    <div>
+      <p>Schema</p>
+      <pre><code>{{schemaOne.properties | json }}</code></pre>
+    </div>
+
+    <div>
+      <p>Ui Schema</p>
+      <pre><code>{{uiSchemaOne.elements[0] | json }}</code></pre>
+      <p>Data</p>
+      <pre><code>{{dataOne | json }}</code></pre>
+    </div>
+  </div>
+</article>
+
+
+<article>
+  <h2>Checkbox</h2>
+  <p>Without multiselect format option selection is available via checkbox group</p>
+  <jsonforms
+    [(data)]="dataCheck"
+    [renderers]="renderers"
+    [schema]="schemaCheckbox"
+    [uischema]="uiSchemaCheckbox"
+  ></jsonforms>
+
+  <div class="flex">
+    <div>
+      <p>Schema</p>
+      <pre><code>{{schemaCheckbox.properties | json }}</code></pre>
+    </div>
+
+    <div>
+      <p>Ui Schema</p>
+      <pre><code>{{uiSchemaCheckbox.elements[0] | json }}</code></pre>
+      <p>Data</p>
+      <pre><code>{{dataCheck | json }}</code></pre>
+    </div>
+  </div>
+</article>
+
+
+<p>Schema</p>
+<nz-table [nzTemplateMode]="true">
+  <thead>
+  <tr>
+    <th>Property</th>
+    <th>Description</th>
+    <th>Type</th>
+    <th>Default</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>minItems</td>
+    <td>Set to validate minimum number of items to be checked / selected</td>
+    <td><code>number</code></td>
+    <td>-</td>
+  </tr>
+  <tr>
+    <td>maxItems</td>
+    <td>Set to validate maximum number of items to be checked / selected</td>
+    <td><code>number</code></td>
+    <td>-</td>
+  </tr>
+  <tr>
+    <td>uniqueItems</td>
+    <td>Set to enable multiple choice control</td>
+    <td><code>boolean</code></td>
+    <td>-</td>
+  </tr>
+  </tbody>
+</nz-table>
+
+<p>UiSchema Options</p>
+<nz-table [nzTemplateMode]="true">
+  <thead>
+  <tr>
+    <th>Property</th>
+    <th>Description</th>
+    <th>Type</th>
+    <th>Default</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>format</td>
+    <td>Set to `multiselect` to enable dropdown selection</td>
+    <td><code>string</code></td>
+    <td>-</td>
+  </tr>
+  </tbody>
+</nz-table>

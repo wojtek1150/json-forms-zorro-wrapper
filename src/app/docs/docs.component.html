@@ -10,27 +10,29 @@
       <li nz-menu-group nzTitle="Controls">
         <ul>
           <li nz-menu-item nzMatchRouter><a [routerLink]="['textfield']">Text/Textarea</a></li>
+          <li nz-menu-item nzMatchRouter><a [routerLink]="['wysiwyg']">WYSIWYG</a></li>
+          <li nz-menu-item nzMatchRouter><a [routerLink]="['image']">Image</a></li>
           <li nz-menu-item nzMatchRouter><a [routerLink]="['number']">Number</a></li>
           <li nz-menu-item nzMatchRouter><a [routerLink]="['select']">Select</a></li>
-          <li nz-menu-item nzMatchRouter><a [routerLink]="['checkbox']">Checkbox</a></li>
-          <li nz-menu-item nzMatchRouter><a [routerLink]="['toggle']">Toggle</a></li>
+          <li nz-menu-item nzMatchRouter><a [routerLink]="['multiselect']">Multiselect / Checkbox Group</a></li>
+          <li nz-menu-item nzMatchRouter><a [routerLink]="['toggle']">Checkbox / Toggle</a></li>
           <li nz-menu-item nzMatchRouter><a [routerLink]="['radio']">Radio Group</a></li>
-          <li nz-menu-item nzMatchRouter><a [routerLink]="['date']">Date Picker</a></li>
-          <li nz-menu-item nzMatchRouter><a [routerLink]="['slider']">Slider</a></li>
+          <li nz-menu-item nzDisabled nzMatchRouter><a [routerLink]="['date']">Date Picker</a></li>
+          <li nz-menu-item nzDisabled nzMatchRouter><a [routerLink]="['slider']">Slider</a></li>
         </ul>
       </li>
       <li nz-menu-group nzTitle="Layout types">
         <ul>
-          <li nz-menu-item>Categorization</li>
-          <li nz-menu-item>Vertical Layout</li>
-          <li nz-menu-item>Horizontal Layout</li>
-          <li nz-menu-item>Group</li>
-          <li nz-menu-item>Category</li>
+          <li nz-menu-item nzDisabled>Categorization</li>
+          <li nz-menu-item nzDisabled>Vertical Layout</li>
+          <li nz-menu-item nzDisabled>Horizontal Layout</li>
+          <li nz-menu-item nzDisabled>Group</li>
+          <li nz-menu-item nzDisabled>Category</li>
         </ul>
       </li>
       <li nz-menu-group nzTitle="Presentation">
         <ul>
-          <li nz-menu-item>Available in the future</li>
+          <li nz-menu-item nzDisabled>Available in the future</li>
         </ul>
       </li>
     </ul>

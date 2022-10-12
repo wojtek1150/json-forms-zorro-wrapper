@@ -19,7 +19,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
-import { RenderersPageComponent } from './renderers-page/renderers-page.component';
 import { PlaygroundPageComponent } from './playground-page/playground-page.component';
 import { NzCodeEditorModule } from 'ng-zorro-antd/code-editor';
 import { NzSelectModule } from 'ng-zorro-antd/select';
@@ -36,7 +35,7 @@ const icons: IconDefinition[] = [CheckCircleFill];
 const builder = [ListInputSourceComponent, ListInputTargetComponent];
 
 @NgModule({
-  declarations: [AppComponent, SaasSubmitFormComponent, DemoPageComponent, RenderersPageComponent, PlaygroundPageComponent, BuilderPageComponent],
+  declarations: [AppComponent, SaasSubmitFormComponent, DemoPageComponent, PlaygroundPageComponent, BuilderPageComponent],
   imports: [
     ...builder,
     BrowserModule,

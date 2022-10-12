@@ -1,0 +1,72 @@
+<h1>Boolean control</h1>
+
+<article>
+  <p>Checkbox</p>
+  <jsonforms
+    [(data)]="data"
+    [renderers]="renderers"
+    [schema]="schema"
+    [uischema]="uiSchema"
+  ></jsonforms>
+
+  <div class="flex">
+    <div>
+      <p>Schema</p>
+      <pre><code>{{schema.properties | json }}</code></pre>
+    </div>
+    <div>
+      <p>Ui Schema</p>
+      <pre><code>{{uiSchema.elements[0] | json }}</code></pre>
+    </div>
+    <div>
+      <p>Data</p>
+      <pre><code>{{data | json }}</code></pre>
+    </div>
+  </div>
+</article>
+
+<article>
+  <p>Toggle</p>
+  <jsonforms
+    [(data)]="data2"
+    [renderers]="renderers"
+    [schema]="schema2"
+    [uischema]="uiSchema2"
+  ></jsonforms>
+
+  <div class="flex">
+    <div>
+      <p>Schema</p>
+      <pre><code>{{schema2.properties | json }}</code></pre>
+    </div>
+    <div>
+      <p>Ui Schema</p>
+      <pre><code>{{uiSchema2.elements[0] | json }}</code></pre>
+    </div>
+    <div>
+      <p>Data</p>
+      <pre><code>{{data2 | json }}</code></pre>
+    </div>
+  </div>
+</article>
+
+
+<p>UiSchema options</p>
+<nz-table [nzTemplateMode]="true">
+  <thead>
+  <tr>
+    <th>Property</th>
+    <th>Description</th>
+    <th>Type</th>
+    <th>Default</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>toggle</td>
+    <td>Enable/disable toggle mode</td>
+    <td><code>boolean</code></td>
+    <td><code>false</code></td>
+  </tr>
+  </tbody>
+</nz-table>
