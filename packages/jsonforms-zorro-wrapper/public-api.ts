@@ -4,3 +4,4 @@ export * from './src/renderers';
 export * from './src/other/schema';
 export * from './src/other/uischema';
 export * from './src/other/validation-status.pipe';
+export * from './src/complex/image/image.renderer.service';

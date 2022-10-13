@@ -7,7 +7,7 @@ import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { SchemaDocsComponent } from './schema-docs/schema-docs.component';
 import { NzTableModule } from 'ng-zorro-antd/table';
-import { JsonFormsZorroModule } from '@wojtek1150/jsonforms-zorro-wrapper';
+import { JFZImageRendererService, JsonFormsZorroModule } from '@wojtek1150/jsonforms-zorro-wrapper';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { JsonFormsDocsComponent } from './json-forms-docs/json-forms-docs.component';
 import { ImageDocsComponent } from './image-docs/image-docs.component';
@@ -17,6 +17,7 @@ import { SelectDocsComponent } from './select-docs/select-docs.component';
 import { MultiselectDocsComponent } from './multiselect-docs/multiselect-docs.component';
 import { ToggleDocsComponent } from './toggle-docs/toggle-docs.component';
 import { RadioDocsComponent } from './radio-docs/radio-docs.component';
+import { ImageRendererService } from './image.service';
 
 const routes: Routes = [
   {
@@ -86,5 +87,6 @@ const routes: Routes = [
     ToggleDocsComponent,
     RadioDocsComponent,
   ],
+  providers: [{ provide: JFZImageRendererService, useClass: ImageRendererService }],
 })
 export class DocsModule {}

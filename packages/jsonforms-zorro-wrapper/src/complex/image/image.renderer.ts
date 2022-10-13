@@ -3,9 +3,9 @@ import { JsonFormsAngularService, JsonFormsControl } from '../../jsonForms';
 import { Actions, and, optionIs, RankedTester, rankWith, uiTypeIs } from '@jsonforms/core';
 import { NzUploadChangeParam, NzUploadFile } from 'ng-zorro-antd/upload';
 import { catchError, finalize, Observable, Observer, of, Subscription, tap } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
 import { NzShowUploadList, NzUploadXHRArgs } from 'ng-zorro-antd/upload/interface';
 import { hasOption } from '../../other/complex.helper';
+import { JFZImageRendererService } from './image.renderer.service';
 
 @Component({
   selector: 'ImageUploadRenderer',
@@ -30,7 +30,7 @@ export class ImageControlRenderer extends JsonFormsControl {
   private maxImageHeight: number;
   private maxImageSizeMB: number;
 
-  constructor(jsonformsService: JsonFormsAngularService, changeDetectorRef: ChangeDetectorRef, protected httpClient: HttpClient) {
+  constructor(jsonformsService: JsonFormsAngularService, changeDetectorRef: ChangeDetectorRef, protected service: JFZImageRendererService) {
     super(jsonformsService, changeDetectorRef);
   }
 
@@ -93,9 +93,10 @@ export class ImageControlRenderer extends JsonFormsControl {
     this.isLoading = true;
     this.imageUrl = 'PENDING';
     const formData = new FormData();
-    formData.append('files[]', item.file as unknown as File);
+    formData.append('files', item.file as unknown as File);
 
-    return this.uploadImages(formData)
+    return this.service
+      .uploadImages(this.uploadUrl, formData)
       .pipe(
         tap((response: { url: string }) => {
           this.imageUrl = response.url;
@@ -127,7 +128,7 @@ export class ImageControlRenderer extends JsonFormsControl {
 
   removeImage(url: string): void {
     if (this.imageToEdit !== url) {
-      this.deleteImage(url).subscribe();
+      this.service.deleteImage(this.deleteUrl, url).subscribe();
     }
   }
 
@@ -192,14 +193,6 @@ export class ImageControlRenderer extends JsonFormsControl {
       // https://github.com/NG-ZORRO/ng-zorro-antd/issues/4744
       reader.readAsDataURL(file as unknown as File);
     });
-  }
-
-  private uploadImages(formData: FormData): Observable<any> {
-    return this.httpClient.post(this.uploadUrl, formData);
-  }
-
-  private deleteImage(url): Observable<any> {
-    return this.httpClient.request<null>('delete', this.deleteUrl, { body: { url } });
   }
 }
 

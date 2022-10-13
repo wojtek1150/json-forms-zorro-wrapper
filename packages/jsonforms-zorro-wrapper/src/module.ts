@@ -42,6 +42,7 @@ import { WysiwygRenderer } from './controls/wysiwyg.renderer';
 import { QuillModule } from 'ngx-quill';
 import { ImageControlRenderer } from './complex/image/image.renderer';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
+import { JFZImageRendererService } from './complex/image/image.renderer.service';
 
 const modules = [CommonModule, JsonFormsModule, ReactiveFormsModule, NzFormModule, NzInputModule, NzDatePickerModule, NzCheckboxModule];
 
@@ -91,6 +92,6 @@ const controls = [
   entryComponents: [...controls],
   exports: [...modules],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  providers: [DatePipe],
+  providers: [DatePipe, JFZImageRendererService],
 })
 export class JsonFormsZorroModule {}
