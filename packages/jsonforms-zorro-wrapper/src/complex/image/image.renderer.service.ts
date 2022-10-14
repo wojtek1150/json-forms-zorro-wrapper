@@ -6,11 +6,14 @@ import { Injectable } from '@angular/core';
 export class JFZImageRendererService {
   constructor(private httpClient: HttpClient) {}
 
-  uploadImages(url: string, formData: FormData): Observable<{ url: string }> {
-    return this.httpClient.post<{ url: string }>(url, formData);
+  uploadImage(file: File, uploadUrl: string): Observable<{ url: string }> {
+    const formData = new FormData();
+    formData.append('files', file as unknown as File);
+
+    return this.httpClient.post<{ url: string }>(uploadUrl, formData);
   }
 
-  deleteImage(url: string, imageUrl: string): Observable<any> {
-    return this.httpClient.request('delete', url, { body: { url: imageUrl } });
+  deleteImage(imageUrl: string, deleteUrl: string): Observable<any> {
+    return this.httpClient.request('delete', deleteUrl, { body: { url: imageUrl } });
   }
 }

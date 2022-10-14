@@ -22,7 +22,7 @@ export class ImageControlRenderer extends JsonFormsControl {
 
   private imageToEdit?: string;
 
-  private uploadUrl: string;
+  private uploadUrl?: string;
   private deleteUrl?: string;
   private minImageWidth: number;
   private minImageHeight: number;
@@ -71,8 +71,8 @@ export class ImageControlRenderer extends JsonFormsControl {
     this.maxImageHeight = options.maxImageHeight || 9999;
     this.maxImageSizeMB = options.maxImageSizeMB || 8;
     this.hint = options.hint;
-    this.uploadUrl = options.uploadUrl;
-    this.deleteUrl = options.deleteUrl;
+    this.uploadUrl = options.uploadUrl || '';
+    this.deleteUrl = options.deleteUrl || '';
     this.allowedExtensions = options.allowedExtensions || ['image/jpeg', 'image/png', 'image/gif'];
 
     this.previewButtonsConfig = { showRemoveIcon: !!this.deleteUrl };
@@ -92,11 +92,8 @@ export class ImageControlRenderer extends JsonFormsControl {
   request = (item: NzUploadXHRArgs): Subscription => {
     this.isLoading = true;
     this.imageUrl = 'PENDING';
-    const formData = new FormData();
-    formData.append('files', item.file as unknown as File);
-
     return this.service
-      .uploadImages(this.uploadUrl, formData)
+      .uploadImage(item.file as unknown as File, this.uploadUrl)
       .pipe(
         tap((response: { url: string }) => {
           this.imageUrl = response.url;
@@ -126,9 +123,9 @@ export class ImageControlRenderer extends JsonFormsControl {
     return true;
   };
 
-  removeImage(url: string): void {
-    if (this.imageToEdit !== url) {
-      this.service.deleteImage(this.deleteUrl, url).subscribe();
+  removeImage(imageUrl: string): void {
+    if (this.imageToEdit !== imageUrl) {
+      this.service.deleteImage(imageUrl, this.deleteUrl).subscribe();
     }
   }
 
