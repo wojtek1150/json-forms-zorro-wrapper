@@ -25,6 +25,7 @@ export class ImageDocsComponent {
     properties: {
       image: {
         type: 'string',
+        errorMessage: 'testing',
       },
     },
   };

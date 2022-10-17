@@ -48,6 +48,10 @@ export class ImageControlRenderer extends JsonFormsControl {
     }
   }
 
+  override get errorMessage(): string | null {
+    return this.error ? super.errorMessage : null;
+  }
+
   override ngOnInit() {
     super.ngOnInit();
     if (this.form.value) {
@@ -186,7 +190,7 @@ export class ImageControlRenderer extends JsonFormsControl {
         };
       };
 
-      // little workaround, ng-zorro says that file param is a UploadFile type, but debugger shows it's native File object:
+      // little workaround, ng-zorro says that file param is a UploadFile type, but debugger shows its native File object:
       // https://github.com/NG-ZORRO/ng-zorro-antd/issues/4744
       reader.readAsDataURL(file as unknown as File);
     });
