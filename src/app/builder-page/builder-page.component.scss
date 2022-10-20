@@ -11,7 +11,7 @@ main {
 
 aside {
   border-left: 1px solid #ccc;
-  padding-left: 10px;
+  padding: 0 16px;
 }
 
 .dnd-source {
@@ -52,10 +52,6 @@ dnd-list-input-target {
       align-items: center;
     }
 
-    .item-data {
-      flex: 1;
-    }
-
     .type-icon {
       font-size: 16px;
     }
@@ -63,6 +59,14 @@ dnd-list-input-target {
     .ant-input-group-addon:first-child {
       width: 30%;
       text-align: left;
+
+      & + * {
+        width: 100%;
+      }
+    }
+
+    h3 {
+      margin: 15px 0 5px;
     }
   }
 }
@@ -76,4 +80,13 @@ dnd-list-input-target {
 .save-icon {
   color: #1890ff;
   cursor: pointer;
+  font-size: 20px;
+}
+
+
+.remove-icon {
+  color: var(--ant-error-color);
+  cursor: pointer;
+  margin-right: 5px;
+  font-size: 20px;
 }

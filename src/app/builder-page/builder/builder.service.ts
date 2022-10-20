@@ -4,15 +4,21 @@ import { BehaviorSubject } from 'rxjs';
 import { v4 as createId } from 'uuid';
 import { JFZBuilderControl, jfzBuilderInputs } from './model';
 import { JFZVerticalLayout } from '@wojtek1150/jsonforms-zorro-wrapper';
+import { JsonSchema } from '@jsonforms/core';
 
 @Injectable({ providedIn: 'root' })
 export class BuilderService {
   copyFromInputs: JFZBuilderControl[] = [...jfzBuilderInputs];
   dropInputs: JFZBuilderControl[] = [];
+
   private _fields$ = new BehaviorSubject<JFZBuilderControl[]>([]);
   fields$ = this._fields$.asObservable();
+
   private _uiSchema$ = new BehaviorSubject<JFZVerticalLayout>({ elements: [], type: 'VerticalLayout' });
   uiSchema$ = this._uiSchema$.asObservable();
+
+  private _formSchema$ = new BehaviorSubject<JsonSchema>({ type: 'object', properties: {} });
+  formSchema$ = this._formSchema$.asObservable();
 
   handleDropEvent(event: CdkDragDrop<JFZBuilderControl[]>): JFZBuilderControl | undefined {
     this.cleanupTemporaryInputTypes();
@@ -36,11 +42,6 @@ export class BuilderService {
     }
   }
 
-  setFields(config: JFZBuilderControl[] = this.dropInputs): void {
-    this._fields$.next(JSON.parse(JSON.stringify(config)));
-    this.toUiSchema(config);
-  }
-
   addItem(config: JFZBuilderControl): void {
     this.dropInputs = this.dropInputs.concat(config);
     this.setFields();
@@ -61,16 +62,15 @@ export class BuilderService {
   }
 
   updateControlData(key: string, data: JFZBuilderControl): void {
-    this.dropInputs = this.dropInputs.map(item => {
-      if (item.key === key) {
-        return {
-          ...item,
-          ...data,
-        };
-      } else {
-        return item;
-      }
-    });
+    this.dropInputs = this.dropInputs
+      .map(item => {
+        if (item.key === key) {
+          return !data ? null : { ...item, ...data };
+        } else {
+          return item;
+        }
+      })
+      .filter(item => item);
     this.setFields();
   }
 
@@ -87,8 +87,29 @@ export class BuilderService {
     });
   }
 
-  toUiSchema(config: JFZBuilderControl[] = this.dropInputs): void {
+  private setFields(config: JFZBuilderControl[] = this.dropInputs): void {
+    this._fields$.next(JSON.parse(JSON.stringify(config)));
+    this.toUiSchema(config);
+    this.toFormSchema(config);
+  }
+
+  private toUiSchema(config: JFZBuilderControl[] = this.dropInputs): void {
     const elements = config.map(item => item.uiSchema);
     this._uiSchema$.next({ type: 'VerticalLayout', elements });
+  }
+
+  private toFormSchema(config: JFZBuilderControl[] = this.dropInputs): void {
+    const properties = {};
+    config.forEach(item => {
+      properties[item.name] = item.formSchema;
+    });
+    this._formSchema$.next({ type: 'object', properties });
+  }
+
+  private scopeToLocation(scope: string): string {
+    return scope
+      .split('/')
+      .filter(i => i !== '#')
+      .join('.');
   }
 }

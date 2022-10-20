@@ -10,7 +10,7 @@ import { hasEnumItems, hasOneOfItems } from '../other/complex.helper';
       <nz-form-label *ngIf="label" [nzFor]="id" [nzRequired]="required" [nzNoColon]="hideColonInLabel"
         ><i *ngIf="labelIcon" nz-icon [nzType]="labelIcon" nzTheme="outline"></i> {{ label }}
       </nz-form-label>
-      <DescriptionRenderer [uiSchema]="uischema" [scopedSchema]="schema"></DescriptionRenderer>
+      <DescriptionRenderer [uiSchema]="uischema" [scopedSchema]="scopedSchema"></DescriptionRenderer>
       <nz-form-control [nzHasFeedback]="showValidationStatus" [nzErrorTip]="errorMessage" [nzValidateStatus]="form.status | nzValidationStatus">
         <nz-checkbox-wrapper (nzOnChange)="onChange($event)">
           <label nz-checkbox *ngFor="let option of options" [nzValue]="option.value" [nzChecked]="option.checked">{{ option.label }}</label>

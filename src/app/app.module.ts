@@ -29,6 +29,7 @@ import { ListInputSourceComponent } from './builder-page/builder/list-input-sour
 import { ListInputTargetComponent } from './builder-page/builder/list-input-target.component';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCollapseModule } from 'ng-zorro-antd/collapse';
+import { TextRendererEditorComponent } from './builder-page/builder/controls/text-renderer.editor.component';
 
 const icons: IconDefinition[] = [CheckCircleFill];
 
@@ -57,6 +58,7 @@ const builder = [ListInputSourceComponent, ListInputTargetComponent];
     NzBadgeModule,
     NzButtonModule,
     NzCollapseModule,
+    TextRendererEditorComponent,
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent],

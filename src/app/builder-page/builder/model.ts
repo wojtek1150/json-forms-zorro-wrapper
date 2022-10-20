@@ -1,6 +1,14 @@
 import { JFZControlElement } from '@wojtek1150/jsonforms-zorro-wrapper';
+import { JsonSchema7 } from '@jsonforms/core';
 
-export type JFZBuilderInputType = 'Text' | 'Number' | 'DatePicker' | 'Radio' | 'Checkbox' | 'Select';
+export enum JFZBuilderInputType {
+  'TEXT' = 'TEXT',
+  'NUMBER' = 'NUMBER',
+  'DATE_PICKER' = 'DATE_PICKER',
+  'RADIO' = 'RADIO',
+  'CHECKBOX' = 'CHECKBOX',
+  'SELECT' = 'SELECT',
+}
 
 export interface JFZBuilderControl {
   key?: string;
@@ -10,24 +18,28 @@ export interface JFZBuilderControl {
   temp: boolean;
   editor: boolean;
   uiSchema: JFZControlElement;
+  formSchema: JsonSchema7;
 }
 
 export const jfzBuilderInputText: JFZBuilderControl = {
   icon: 'font-size',
-  type: 'Text',
-  name: 'Text',
+  type: JFZBuilderInputType.TEXT,
+  name: 'firstName',
   temp: false,
   editor: false,
   uiSchema: {
     type: 'Control',
-    scope: '#',
+    scope: '#/properties/firstName',
     label: 'Text Label',
+  },
+  formSchema: {
+    type: 'string',
   },
 };
 
 export const jfzBuilderInputSelect: JFZBuilderControl = {
   icon: 'down-circle',
-  type: 'Select',
+  type: JFZBuilderInputType.SELECT,
   name: 'Select',
   temp: false,
   editor: false,
@@ -35,6 +47,10 @@ export const jfzBuilderInputSelect: JFZBuilderControl = {
     type: 'Control',
     scope: '#',
     label: 'Select Label',
+  },
+  formSchema: {
+    type: 'string',
+    enum: [],
   },
 };
 

@@ -9,7 +9,7 @@ import { isRangeControl, RankedTester, rankWith } from '@jsonforms/core';
       <nz-form-label *ngIf="label && label !== '*'" [nzFor]="id" [nzRequired]="required" [nzNoColon]="hideColonInLabel"
         ><i *ngIf="labelIcon" nz-icon [nzType]="labelIcon" nzTheme="outline"></i> {{ label }}</nz-form-label
       >
-      <DescriptionRenderer [uiSchema]="uischema" [scopedSchema]="schema"></DescriptionRenderer>
+      <DescriptionRenderer [uiSchema]="uischema" [scopedSchema]="scopedSchema"></DescriptionRenderer>
       <nz-form-control>
         <nz-slider [id]="id" [formControl]="form" [nzDisabled]="!isEnabled()" [nzMin]="min" [nzMax]="max" [nzStep]="multipleOf"></nz-slider>
       </nz-form-control>

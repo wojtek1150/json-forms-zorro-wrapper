@@ -2,7 +2,7 @@
   <nz-form-label *ngIf="label" [nzFor]="id" [nzNoColon]="hideColonInLabel" [nzRequired]="required"
   ><i *ngIf="labelIcon" [nzType]="labelIcon" nz-icon nzTheme="outline"></i> {{ label }}
   </nz-form-label>
-  <DescriptionRenderer [scopedSchema]="schema" [uiSchema]="uischema"></DescriptionRenderer>
+  <DescriptionRenderer [scopedSchema]="schema" [uiSchema]="scopedSchema"></DescriptionRenderer>
   <nz-upload
     (nzChange)="handleChange($event)"
     [nzAccept]="allowedExtensions.join(',')"

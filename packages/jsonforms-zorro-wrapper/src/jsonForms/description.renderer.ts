@@ -14,7 +14,7 @@ import { JsonSchema } from '@jsonforms/core';
   styles: [
     `
       .description {
-        font-size: 0.75em;
+        font-size: var(--jfz-description-font-size, 0.75em);
         margin: 0.25em 0 0.5em;
       }
     `,
