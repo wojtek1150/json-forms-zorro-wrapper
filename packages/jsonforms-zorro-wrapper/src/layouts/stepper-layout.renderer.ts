@@ -10,7 +10,7 @@ import { JFZCategoryLayout } from '../other/uischema';
     <aside>
       <h2 *ngIf="uischema.label">{{ uischema.label }}</h2>
       <DescriptionRenderer [uiSchema]="uischema" [scopedSchema]="schema"></DescriptionRenderer>
-      <nz-steps [nzCurrent]="step" nzDirection="vertical" nzSize="small" (nzIndexChange)="onIndexChange($event)">
+      <nz-steps [nzCurrent]="step" [nzDirection]="stepperDirection" nzSize="small" (nzIndexChange)="onIndexChange($event)">
         <nz-step *ngFor="let category of uischema.elements" [nzTitle]="category.label"></nz-step>
       </nz-steps>
     </aside>
@@ -67,6 +67,7 @@ export class StepperLayoutRenderer extends JsonFormsBaseRenderer<JFZCategoryLayo
   submitLabel = 'Submit';
   submitLoading: boolean = false;
   step = 0;
+  stepperDirection: 'horizontal' | 'vertical' = 'vertical';
 
   private destroy$ = new Subject();
 
@@ -85,6 +86,7 @@ export class StepperLayoutRenderer extends JsonFormsBaseRenderer<JFZCategoryLayo
         this.nextLabel = uiSchemaOptions.nextLabel || 'Next';
         this.previousLabel = uiSchemaOptions.previousLabel || 'Previous';
         this.submitLabel = uiSchemaOptions.submitLabel || 'Submit';
+        this.stepperDirection = uiSchemaOptions.stepperDirection || 'vertical';
         this.submitLoading = state.jsonforms.submitLoading;
       },
     });

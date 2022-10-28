@@ -35,17 +35,17 @@ export class JsonForms implements OnChanges, OnInit, OnDestroy {
 
   private initialized = false;
 
-  constructor(private jsonformsService: JsonFormsAngularService) {}
+  constructor(private service: JsonFormsAngularService) {}
 
   @Input()
   set initStepIndex(index: number) {
-    if (this.jsonformsService) {
-      this.jsonformsService.step = index;
+    if (this.service) {
+      this.service.step = index;
     }
   }
 
   ngOnInit(): void {
-    this.jsonformsService.init({
+    this.service.init({
       core: {
         data: this.data,
         uischema: this.uischema,
@@ -61,7 +61,7 @@ export class JsonForms implements OnChanges, OnInit, OnDestroy {
       readonly: this.readonly,
       submitLoading: this.submitLoading,
     });
-    this.jsonformsService.$state.pipe(takeUntil(this.destroy$)).subscribe(state => {
+    this.service.$state.pipe(takeUntil(this.destroy$)).subscribe(state => {
       const data = state?.jsonforms?.core?.data;
       const errors = state?.jsonforms?.core?.errors;
       if (this.previousData !== data) {
@@ -75,8 +75,8 @@ export class JsonForms implements OnChanges, OnInit, OnDestroy {
     });
     this.oldI18N = this.i18n;
     this.initialized = true;
-    this.jsonformsService.$submitState.pipe(takeUntil(this.destroy$)).subscribe(value => this.submited.emit(value));
-    this.jsonformsService.$stepChangeState.pipe(takeUntil(this.destroy$)).subscribe(value => this.stepChanged.emit(value));
+    this.service.$submitState.pipe(takeUntil(this.destroy$)).subscribe(value => this.submited.emit(value));
+    this.service.$stepChangeState.pipe(takeUntil(this.destroy$)).subscribe(value => this.stepChanged.emit(value));
   }
 
   ngDoCheck(): void {
@@ -87,12 +87,12 @@ export class JsonForms implements OnChanges, OnInit, OnDestroy {
       this.oldI18N?.translate !== this.i18n?.translate ||
       this.oldI18N?.translateError !== this.i18n?.translateError
     ) {
-      this.jsonformsService.updateI18n(
+      this.service.updateI18n(
         Actions.updateI18n(
-          this.oldI18N?.locale === this.i18n?.locale ? this.jsonformsService.getState().jsonforms.i18n.locale : this.i18n?.locale,
-          this.oldI18N?.translate === this.i18n?.translate ? this.jsonformsService.getState().jsonforms.i18n.translate : this.i18n?.translate,
+          this.oldI18N?.locale === this.i18n?.locale ? this.service.getState().jsonforms.i18n.locale : this.i18n?.locale,
+          this.oldI18N?.translate === this.i18n?.translate ? this.service.getState().jsonforms.i18n.translate : this.i18n?.translate,
           this.oldI18N?.translateError === this.i18n?.translateError
-            ? this.jsonformsService.getState().jsonforms.i18n.translateError
+            ? this.service.getState().jsonforms.i18n.translateError
             : this.i18n?.translateError
         )
       );
@@ -119,7 +119,7 @@ export class JsonForms implements OnChanges, OnInit, OnDestroy {
     const newAdditionalErrors = changes['additionalErrors'];
 
     if (newData || newSchema || newUiSchema || newValidationMode || newAjv || newAdditionalErrors) {
-      this.jsonformsService.updateCoreState(
+      this.service.updateCoreState(
         newData ? newData.currentValue : USE_STATE_VALUE,
         newSchema ? newSchema.currentValue : USE_STATE_VALUE,
         newUiSchema ? newUiSchema.currentValue : USE_STATE_VALUE,
@@ -130,33 +130,37 @@ export class JsonForms implements OnChanges, OnInit, OnDestroy {
     }
 
     if (newRenderers && !newRenderers.isFirstChange()) {
-      this.jsonformsService.setRenderers(newRenderers.currentValue);
+      this.service.setRenderers(newRenderers.currentValue);
     }
 
     if (newUischemas && !newUischemas.isFirstChange()) {
-      this.jsonformsService.setUiSchemas(newUischemas.currentValue);
+      this.service.setUiSchemas(newUischemas.currentValue);
     }
 
     if (newI18n && !newI18n.isFirstChange()) {
-      this.jsonformsService.updateI18n(
+      this.service.updateI18n(
         Actions.updateI18n(newI18n.currentValue?.locale, newI18n.currentValue?.translate, newI18n.currentValue?.translateError)
       );
     }
 
     if (newReadonly && !newReadonly.isFirstChange()) {
-      this.jsonformsService.setReadonly(newReadonly.currentValue);
+      this.service.setReadonly(newReadonly.currentValue);
     }
 
     if (newSubmitLoading && !newSubmitLoading.isFirstChange()) {
-      this.jsonformsService.setSubmitLoading(newSubmitLoading.currentValue);
+      this.service.setSubmitLoading(newSubmitLoading.currentValue);
     }
 
     if (newConfig && !newConfig.isFirstChange()) {
-      this.jsonformsService.updateConfig(Actions.setConfig(newConfig.currentValue));
+      this.service.updateConfig(Actions.setConfig(newConfig.currentValue));
     }
   }
 
   ngOnDestroy() {
     this.destroy$.complete();
+  }
+
+  public submit() {
+    this.service.submitForm();
   }
 }
