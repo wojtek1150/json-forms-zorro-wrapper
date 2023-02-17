@@ -69,7 +69,7 @@ export class StepperLayoutRenderer extends JsonFormsBaseRenderer<JFZCategoryLayo
   step = 0;
   stepperDirection: 'horizontal' | 'vertical' = 'vertical';
 
-  private destroy$ = new Subject();
+  private readonly destroy$ = new Subject<void>();
 
   constructor(private jsonFormsService: JsonFormsAngularService) {
     super();
@@ -94,6 +94,7 @@ export class StepperLayoutRenderer extends JsonFormsBaseRenderer<JFZCategoryLayo
   }
 
   ngOnDestroy() {
+    this.destroy$.next();
     this.destroy$.complete();
   }
 

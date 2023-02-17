@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Directive, OnDestroy, OnInit } from '@angular/core';
 import { JsonFormsAngularService, JsonFormsBaseRenderer } from '../jsonForms';
 import { JsonFormsState, mapStateToLayoutProps, OwnPropsOfRenderer, UISchemaElement } from '@jsonforms/core';
-import { Subscription } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { JFZLayout } from '../other/uischema';
 
@@ -11,7 +11,7 @@ export class LayoutRenderer<T extends JFZLayout> extends JsonFormsBaseRenderer<T
   submitLoading: boolean = false;
   htmlDescription: boolean = false;
   hidden = false;
-  private subscription = new Subscription();
+  private readonly destroy$ = new Subject<void>();
 
   constructor(private jsonFormsService: JsonFormsAngularService, protected changeDetectionRef: ChangeDetectorRef, private sanitizer: DomSanitizer) {
     super();
@@ -30,21 +30,18 @@ export class LayoutRenderer<T extends JFZLayout> extends JsonFormsBaseRenderer<T
   }
 
   ngOnInit() {
-    this.subscription = this.jsonFormsService.$state.subscribe({
-      next: (state: JsonFormsState) => {
-        const props = mapStateToLayoutProps(state, this.getOwnProps());
-        this.hidden = !props.visible;
-        this.submitLoading = state.jsonforms.submitLoading;
-        this.mapSchemaOptions(props.uischema.options);
-        this.changeDetectionRef.markForCheck();
-      },
+    this.jsonFormsService.$state.pipe(takeUntil(this.destroy$)).subscribe((state: JsonFormsState) => {
+      const props = mapStateToLayoutProps(state, this.getOwnProps());
+      this.hidden = !props.visible;
+      this.submitLoading = state.jsonforms.submitLoading;
+      this.mapSchemaOptions(props.uischema.options);
+      this.changeDetectionRef.markForCheck();
     });
   }
 
   ngOnDestroy() {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-    }
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   // @ts-ignore

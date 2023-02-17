@@ -32,7 +32,7 @@ export class JsonForms implements OnChanges, OnInit, OnDestroy {
   private previousData: any;
   private previousErrors: ErrorObject[];
 
-  private destroy$ = new Subject();
+  private readonly destroy$ = new Subject<void>();
 
   private initialized = false;
 
@@ -158,6 +158,7 @@ export class JsonForms implements OnChanges, OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.destroy$.next();
     this.destroy$.complete();
   }
 

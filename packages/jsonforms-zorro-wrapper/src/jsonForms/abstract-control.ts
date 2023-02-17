@@ -34,7 +34,7 @@ export abstract class JsonFormsAbstractControl<Props extends StatePropsOfControl
   propsPath: string;
   config: Config;
 
-  private destroy$ = new Subject();
+  private readonly destroy$ = new Subject<void>();
 
   constructor(protected jsonFormsService: JsonFormsAngularService, protected changeDetectorRef: ChangeDetectorRef) {
     super();
@@ -112,6 +112,7 @@ export abstract class JsonFormsAbstractControl<Props extends StatePropsOfControl
   }
 
   ngOnDestroy() {
+    this.destroy$.next();
     this.destroy$.complete();
   }
 

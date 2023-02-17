@@ -14,7 +14,7 @@ import {
 } from '@jsonforms/core';
 import { UnknownRenderer } from './unknown.component';
 import { JsonFormsBaseRenderer } from './base.renderer';
-import { Subscription } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { JsonFormsControl } from './control';
 import { JsonFormsAngularService } from './jsonforms.service';
 
@@ -36,8 +36,8 @@ const areEqual = (prevProps: StatePropsOfJsonFormsRenderer, nextProps: StateProp
   selector: 'jsonforms-outlet',
 })
 export class JsonFormsOutlet extends JsonFormsBaseRenderer<JFZElement> implements OnInit, OnDestroy {
-  private subscription: Subscription;
   private previousProps: StatePropsOfJsonFormsRenderer;
+  private readonly destroy$ = new Subject<void>();
 
   constructor(
     private viewContainerRef: ViewContainerRef,
@@ -56,9 +56,7 @@ export class JsonFormsOutlet extends JsonFormsBaseRenderer<JFZElement> implement
   }
 
   ngOnInit(): void {
-    this.subscription = this.jsonformsService.$state.subscribe({
-      next: (state: JsonFormsState) => this.update(state),
-    });
+    this.jsonformsService.$state.pipe(takeUntil(this.destroy$)).subscribe((state: JsonFormsState) => this.update(state));
   }
 
   update(state: JsonFormsState) {
@@ -106,8 +104,7 @@ export class JsonFormsOutlet extends JsonFormsBaseRenderer<JFZElement> implement
   }
 
   ngOnDestroy() {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-    }
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }
