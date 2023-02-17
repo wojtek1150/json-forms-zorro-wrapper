@@ -70,6 +70,10 @@ export class MultiselectControlRenderer extends JsonFormsControl {
   private getOptions(): { label: string; value: string }[] {
     const items = this.scopedSchema.items as JsonSchema;
     const formValue = this.form.value;
+    const dictionaryKey = this.uischema.options?.dictionaryKey;
+    if (dictionaryKey) {
+      return this.config.multiselectExternalDictionary[dictionaryKey] || [];
+    }
     if (hasEnumItems(items)) {
       return items['enum'].map(label => ({ label, value: label, checked: formValue?.includes(label) }));
     }

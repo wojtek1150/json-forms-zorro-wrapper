@@ -23,6 +23,7 @@
             "outputPath": "",
             "allowedCommonJsDependencies": [
               "lodash",
+              "quill",
               "ajv",
               "ajv-formats"
             ],

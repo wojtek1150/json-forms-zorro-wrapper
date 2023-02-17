@@ -1,5 +1,9 @@
 # JsonForms based on ng-zorro
 
+## Changelog
+
+https://github.com/wojtek1150/json-forms-zorro-wrapper/releases
+
 ## Documentation
 
 See documentation at [Plugion homepage](https://wojtek1150.github.io/json-forms-zorro-wrapper/docs)

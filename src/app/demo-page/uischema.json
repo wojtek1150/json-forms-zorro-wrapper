@@ -63,6 +63,15 @@
       "options": {
         "multi": true
       }
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/externalField",
+      "label": "Multiselect that use external value",
+      "options": {
+        "format": "multiselect",
+        "dictionaryKey": "tags"
+      }
     }
   ]
 }

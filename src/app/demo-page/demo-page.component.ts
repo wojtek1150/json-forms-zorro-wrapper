@@ -3,7 +3,7 @@ import schema from './schema.json';
 import uischema from './uischema.json';
 import { formData } from './formdata';
 import { JsonFormsRendererRegistryEntry, JsonSchema, UISchemaElement } from '@jsonforms/core';
-import { ngZorroRenderers } from '@wojtek1150/jsonforms-zorro-wrapper';
+import { Config, ngZorroRenderers } from '@wojtek1150/jsonforms-zorro-wrapper';
 
 @Component({
   selector: 'app-demo-page',
@@ -23,6 +23,11 @@ export class DemoPageComponent {
       [(data)]="formData"
     ></jsonforms>
     `;
+  jsonformsConfig: Config = {
+    multiselectExternalDictionary: {
+      tags: ['foo', 'bar', 'tar'].map(label => ({ label, value: label })),
+    },
+  };
 
   log($event: any) {
     console.log('======');

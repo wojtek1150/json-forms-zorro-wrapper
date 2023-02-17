@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { JsonSchema } from '@jsonforms/core';
-import { JFZVerticalLayout, ngZorroRenderers } from '@wojtek1150/jsonforms-zorro-wrapper';
+import { Config, JFZVerticalLayout, ngZorroRenderers } from '@wojtek1150/jsonforms-zorro-wrapper';
 
 @Component({
   selector: 'app-multiselect-docs',
@@ -11,6 +11,7 @@ export class MultiselectDocsComponent {
   data = {};
   dataOne = {};
   dataCheck = {};
+  dataExternal = {};
 
   schema: JsonSchema = {
     type: 'object',
@@ -37,6 +38,7 @@ export class MultiselectDocsComponent {
         label: 'What programming languages are you most comfortable with?',
         options: {
           format: 'multiselect',
+          nzMaxTagCount: 2,
         },
       },
     ],
@@ -114,5 +116,42 @@ export class MultiselectDocsComponent {
         label: 'What programming languages are you most comfortable with?',
       },
     ],
+  };
+
+  schemaExternal: JsonSchema = {
+    type: 'object',
+    properties: {
+      tags: {
+        type: 'array',
+        minItems: 2,
+        maxItems: 3,
+        uniqueItems: true,
+        items: {
+          type: 'string',
+          enum: ['Anything to trigger validation'],
+        },
+      },
+    },
+  };
+
+  uiSchemaExternal: JFZVerticalLayout = {
+    type: 'VerticalLayout',
+    elements: [
+      {
+        label: 'External',
+        type: 'Control',
+        scope: '#/properties/tags',
+        options: {
+          format: 'multiselect',
+          dictionaryKey: 'tags',
+        },
+      },
+    ],
+  };
+
+  jsonformsConfigExternal: Config = {
+    multiselectExternalDictionary: {
+      tags: ['foo', 'bar', 'tar', 'some', 'value'].map(label => ({ label, value: label })),
+    },
   };
 }

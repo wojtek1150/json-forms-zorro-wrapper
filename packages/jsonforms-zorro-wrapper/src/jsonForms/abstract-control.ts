@@ -7,6 +7,7 @@ import { JsonFormsBaseRenderer } from './base.renderer';
 import { JsonFormsAngularService } from './jsonforms.service';
 import { merge } from 'lodash-es';
 import { JFZControlElement } from '../other/uischema';
+import { Config } from '../other/config';
 
 @Directive({})
 export abstract class JsonFormsAbstractControl<Props extends StatePropsOfControl>
@@ -31,6 +32,7 @@ export abstract class JsonFormsAbstractControl<Props extends StatePropsOfControl
   enabled: boolean;
   hidden: boolean;
   propsPath: string;
+  config: Config;
 
   private destroy$ = new Subject();
 
@@ -75,6 +77,7 @@ export abstract class JsonFormsAbstractControl<Props extends StatePropsOfControl
         const props = this.mapToProps(state);
         const { data, enabled, errors, label, required, schema, rootSchema, visible, path, config } = props;
         this.label = computeLabel(label, required, config ? !config.showRequiredAsterisk : true);
+        this.config = config;
         this.data = data;
         this.error = errors;
         this.enabled = enabled;

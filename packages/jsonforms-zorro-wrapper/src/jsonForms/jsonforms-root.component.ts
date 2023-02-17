@@ -4,6 +4,7 @@ import Ajv, { ErrorObject } from 'ajv';
 import { JsonFormsAngularService, USE_STATE_VALUE } from './jsonforms.service';
 import { JFZElement } from '../other/uischema';
 import { Subject, takeUntil } from 'rxjs';
+import { Config } from '../other/config';
 
 @Component({
   selector: 'jsonforms',
@@ -20,7 +21,7 @@ export class JsonForms implements OnChanges, OnInit, OnDestroy {
   @Input() submitLoading: boolean;
   @Input() validationMode: ValidationMode;
   @Input() ajv: Ajv;
-  @Input() config: any;
+  @Input() config: Config;
   @Input() i18n: JsonFormsI18nState;
   @Input() additionalErrors: ErrorObject[];
   @Output() dataChange = new EventEmitter<any>();

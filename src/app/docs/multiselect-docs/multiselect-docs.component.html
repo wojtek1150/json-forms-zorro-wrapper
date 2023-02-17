@@ -77,6 +77,42 @@
 </article>
 
 
+<article>
+  <h2>External dictionary</h2>
+  <p>Allow to use external dictionaries provided to the <code>config</code> param.</p>
+  <nz-alert
+    nzDescription="Enum field has to contain at least one value to perform validation"
+    nzMessage="Important"
+    nzShowIcon
+    nzType="warning"
+  ></nz-alert>
+  <jsonforms
+    [(data)]="dataExternal"
+    [config]="jsonformsConfigExternal"
+    [renderers]="renderers"
+    [schema]="schemaExternal"
+    [uischema]="uiSchemaExternal"
+  ></jsonforms>
+
+  <div class="flex">
+    <div>
+      <p>Schema</p>
+      <pre><code>{{schemaExternal.properties | json }}</code></pre>
+
+      <p>Ui Schema</p>
+      <pre><code>{{uiSchemaExternal.elements[0] | json }}</code></pre>
+    </div>
+
+    <div>
+      <p>Config</p>
+      <pre><code>{{jsonformsConfigExternal | json }}</code></pre>
+      <p>Data</p>
+      <pre><code>{{dataExternal | json }}</code></pre>
+    </div>
+  </div>
+</article>
+
+
 <p>Schema</p>
 <nz-table [nzTemplateMode]="true">
   <thead>
@@ -123,6 +159,18 @@
   <tr>
     <td>format</td>
     <td>Set to `multiselect` to enable dropdown selection</td>
+    <td><code>string</code></td>
+    <td>-</td>
+  </tr>
+  <tr>
+    <td>nzMaxTagCount</td>
+    <td>Max tag count to show</td>
+    <td><code>number</code></td>
+    <td>-</td>
+  </tr>
+  <tr>
+    <td>dictionaryKey</td>
+    <td>Key for external options dictionary</td>
     <td><code>string</code></td>
     <td>-</td>
   </tr>

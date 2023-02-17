@@ -36,6 +36,16 @@
         "type": "string",
         "enum": ["Solidity", "Wasm", "Go", " C++", "JavaScript", "Python", "Ruby"]
       }
+    },
+    "externalField": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 4,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": ["foo"]
+      }
     }
   },
   "required": ["name", "due_date"]
