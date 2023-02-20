@@ -7,6 +7,8 @@
     <nz-code-editor (ngModelChange)="updateSchema($event)" [ngModel]="schemaCode" [nzEditorOption]="{ language: 'json', theme: 'vs-dark' }" class="editor"></nz-code-editor>
     <h2>UI Schema editor</h2>
     <nz-code-editor (ngModelChange)="updateUiSchema($event)" [ngModel]="uischemaCode" [nzEditorOption]="{ language: 'json', theme: 'vs-dark' }" class="editor"></nz-code-editor>
+    <h2>Config editor</h2>
+    <nz-code-editor (ngModelChange)="updateConfig($event)" [ngModel]="jsonformsConfigCode" [nzEditorOption]="{ language: 'json', theme: 'vs-dark' }" class="editor"></nz-code-editor>
   </div>
   <div nz-col nzSpan="12">
     <jsonforms
@@ -14,6 +16,7 @@
       (submited)="submitted('submited',$event)"
       *ngIf="schema && uischema"
       [(data)]="formData"
+      [config]="jsonformsConfig"
       [renderers]="renderers"
       [schema]="schema"
       [submitLoading]="loading"

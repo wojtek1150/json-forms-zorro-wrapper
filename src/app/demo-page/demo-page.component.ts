@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import schema from './schema.json';
 import uischema from './uischema.json';
-import { formData } from './formdata';
+import { formData, jsonformsConfig } from './formdata';
 import { JsonFormsRendererRegistryEntry, JsonSchema, UISchemaElement } from '@jsonforms/core';
-import { Config, ngZorroRenderers } from '@wojtek1150/jsonforms-zorro-wrapper';
+import { ngZorroRenderers } from '@wojtek1150/jsonforms-zorro-wrapper';
 
 @Component({
   selector: 'app-demo-page',
@@ -15,19 +15,16 @@ export class DemoPageComponent {
   uischema: UISchemaElement = uischema;
   renderers: JsonFormsRendererRegistryEntry[] = ngZorroRenderers;
   formData = formData;
+  jsonformsConfig = jsonformsConfig;
   readonly html = `
     <jsonforms
       [schema]="schema"
       [uischema]="uischema"
       [renderers]="ngZorroRenderers"
+      [config]="yourCustomConfig"
       [(data)]="formData"
     ></jsonforms>
     `;
-  jsonformsConfig: Config = {
-    multiselectExternalDictionary: {
-      tags: ['foo', 'bar', 'tar'].map(label => ({ label, value: label })),
-    },
-  };
 
   log($event: any) {
     console.log('======');

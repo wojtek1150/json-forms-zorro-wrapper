@@ -10,6 +10,14 @@
   font-size: 26px;
   margin: 18px 64px 0 0;
   float: left;
+
+  span {
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    font-size: 16px;
+    font-weight: normal;
+    display: inline-block;
+    margin-left: 10px;
+  }
 }
 
 .right {

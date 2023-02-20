@@ -1,3 +1,5 @@
+import { Config } from '@wojtek1150/jsonforms-zorro-wrapper';
+
 export const formData = {
   bio: 'Lorem Ipsum',
   vegetarian: false,
@@ -9,4 +11,10 @@ export const formData = {
   toggle: true,
   slider: 2,
   enum: 'Two',
+};
+
+export const jsonformsConfig: Config = {
+  multiselectExternalDictionary: {
+    tags: ['foo', 'bar', 'tar'].map(label => ({ label, value: label })),
+  },
 };

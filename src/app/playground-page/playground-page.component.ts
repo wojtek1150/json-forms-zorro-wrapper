@@ -8,6 +8,7 @@ import { groupButton } from './schemas/group-button';
 import { listDetails } from './schemas/list-details';
 import { itemArray } from './schemas/item-array';
 import { rule } from './schemas/rule';
+import { jsonformsConfig } from '../demo-page/formdata';
 
 @Component({
   selector: 'app-playground-page',
@@ -15,6 +16,7 @@ import { rule } from './schemas/rule';
   styles: [
     `
       :host {
+        display: block;
         padding: 24px;
       }
 
@@ -46,6 +48,8 @@ export class PlaygroundPageComponent {
   schemaCode = JSON.stringify(schema, null, 2);
   uischemaCode = JSON.stringify(uischema, null, 2);
   formData = null;
+  jsonformsConfig = jsonformsConfig;
+  jsonformsConfigCode = JSON.stringify(jsonformsConfig, null, 2);
 
   readonly options = [
     { label: 'Vertical Layout', value: 'default' },
@@ -112,5 +116,10 @@ export class PlaygroundPageComponent {
     this.loading = true;
     setTimeout(() => (this.loading = false), 1000);
     this.log('submited', $event);
+  }
+
+  updateConfig($event: any) {
+    this.jsonformsConfig = jsonformsConfig;
+    this.jsonformsConfig = JSON.parse($event);
   }
 }
