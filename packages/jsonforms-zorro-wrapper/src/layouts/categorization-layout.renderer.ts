@@ -2,7 +2,7 @@ import { and, categorizationHasCategory, JsonFormsState, mapStateToLayoutProps, 
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { JsonFormsAngularService, JsonFormsBaseRenderer } from '../jsonForms';
 import { JFZCategorizationSchema } from '../other/uischema';
-import { Subscription } from 'rxjs';
+import {Subject, takeUntil} from 'rxjs';
 
 @Component({
   selector: 'jsonforms-categorization-layout',
@@ -26,25 +26,22 @@ import { Subscription } from 'rxjs';
 })
 export class CategorizationTabLayoutRenderer extends JsonFormsBaseRenderer<JFZCategorizationSchema> implements OnInit, OnDestroy {
   hidden = false;
-  private subscription = new Subscription();
+  private readonly destroy$ = new Subject<void>();
 
   constructor(private jsonFormsService: JsonFormsAngularService) {
     super();
   }
 
   ngOnInit() {
-    this.subscription = this.jsonFormsService.$state.subscribe({
-      next: (state: JsonFormsState) => {
-        const props = mapStateToLayoutProps(state, this.getOwnProps());
-        this.hidden = !props.visible;
-      },
-    });
+    this.jsonFormsService.$state.pipe(takeUntil(this.destroy$)).subscribe((state: JsonFormsState) => {
+      const props = mapStateToLayoutProps(state, this.getOwnProps());
+      this.hidden = !props.visible;
+    })
   }
 
   ngOnDestroy() {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-    }
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }
 
