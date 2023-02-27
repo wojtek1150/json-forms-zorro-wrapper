@@ -29,6 +29,9 @@
       "@wojtek1150/jsonforms-zorro-wrapper": [
         "packages/jsonforms-zorro-wrapper/*",
         "packages/jsonforms-zorro-wrapper"
+      ],
+      "jsonforms-zorro-wrapper-test": [
+        "packages/jsonforms-zorro-wrapper-test"
       ]
     }
   },

@@ -126,7 +126,26 @@
           }
         }
       }
+    },
+    "jsonforms-zorro-wrapper-tests": {
+      "projectType": "library",
+      "root": "packages/jsonforms-zorro-wrapper-tests",
+      "sourceRoot": "packages/jsonforms-zorro-wrapper-tests",
+      "architect": {
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "packages/jsonforms-zorro-wrapper-tests/test.ts",
+            "polyfills": "packages/jsonforms-zorro-wrapper-tests/polyfills.ts",
+            "tsConfig": "packages/jsonforms-zorro-wrapper-tests/tsconfig.spec.json",
+            "karmaConfig": "packages/jsonforms-zorro-wrapper-tests/karma.conf.js"
+          }
+        }
+      }
     }
   },
-  "defaultProject": "json-forms"
+  "defaultProject": "json-forms",
+  "cli": {
+    "analytics": false
+  }
 }
