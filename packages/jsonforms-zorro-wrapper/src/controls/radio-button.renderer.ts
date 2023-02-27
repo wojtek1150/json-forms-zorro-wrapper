@@ -5,7 +5,7 @@ import { Actions, and, isEnumControl, optionIs, RankedTester, rankWith } from '@
 @Component({
   selector: 'RadioControlRenderer',
   template: `
-    <nz-form-item *ngIf="scopedSchema" [class]="additionalClasses" [class.hidden]="hidden">
+    <nz-form-item *ngIf="!hidden && scopedSchema" [class]="additionalClasses">
       <nz-form-label *ngIf="label && label !== '*'" [nzFor]="id" [nzRequired]="required" [nzNoColon]="hideColonInLabel"
         ><i *ngIf="labelIcon" nz-icon [nzType]="labelIcon" nzTheme="outline"></i> {{ label }}</nz-form-label
       >
@@ -21,10 +21,6 @@ import { Actions, and, isEnumControl, optionIs, RankedTester, rankWith } from '@
     `
       nz-form-item {
         display: block;
-      }
-
-      .hidden {
-        display: none;
       }
     `,
   ],

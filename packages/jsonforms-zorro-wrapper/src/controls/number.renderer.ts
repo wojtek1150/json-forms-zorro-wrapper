@@ -5,7 +5,7 @@ import { Actions, isIntegerControl, isNumberControl, or, RankedTester, rankWith,
 @Component({
   selector: 'NumberControlRenderer',
   template: `
-    <nz-form-item [class]="additionalClasses" [class.hidden]="hidden">
+    <nz-form-item *ngIf="!hidden" [class]="additionalClasses">
       <nz-form-label *ngIf="label && label !== '*'" [nzFor]="id" [nzRequired]="required" [nzNoColon]="hideColonInLabel"
         ><i *ngIf="labelIcon" nz-icon [nzType]="labelIcon" nzTheme="outline"></i> {{ label }}</nz-form-label
       >
@@ -29,10 +29,6 @@ import { Actions, isIntegerControl, isNumberControl, or, RankedTester, rankWith,
     `
       nz-form-item {
         display: block;
-      }
-
-      .hidden {
-        display: none;
       }
     `,
   ],

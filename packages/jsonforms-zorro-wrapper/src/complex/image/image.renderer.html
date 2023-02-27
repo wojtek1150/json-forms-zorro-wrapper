@@ -1,4 +1,4 @@
-<nz-form-item *ngIf="scopedSchema" [class.hidden]="hidden" [class]="additionalClasses">
+<nz-form-item *ngIf="!hidden && scopedSchema" [class]="additionalClasses">
   <nz-form-label *ngIf="label" [nzFor]="id" [nzNoColon]="hideColonInLabel" [nzRequired]="required"
   ><i *ngIf="labelIcon" [nzType]="labelIcon" nz-icon nzTheme="outline"></i> {{ label }}
   </nz-form-label>

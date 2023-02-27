@@ -5,11 +5,13 @@ import { Actions, and, isBooleanControl, optionIs, RankedTester, rankWith } from
 @Component({
   selector: 'ToggleControlRenderer',
   template: `
-    <DescriptionRenderer [uiSchema]="uischema" [scopedSchema]="scopedSchema"></DescriptionRenderer>
-    <label class="switch" [class]="additionalClasses">
-      <nz-switch [id]="id" [formControl]="form" [nzDisabled]="!isEnabled()" (ngModelChange)="onChange($event)"></nz-switch>
-      <span *ngIf="label">{{ label }}</span>
-    </label>
+    <ng-container *ngIf="!hidden">
+      <DescriptionRenderer [uiSchema]="uischema" [scopedSchema]="scopedSchema"></DescriptionRenderer>
+      <label class="switch" [class]="additionalClasses">
+        <nz-switch [id]="id" [formControl]="form" [nzDisabled]="!isEnabled()" (ngModelChange)="onChange($event)"></nz-switch>
+        <span *ngIf="label">{{ label }}</span>
+      </label>
+    </ng-container>
   `,
   styles: [
     `
@@ -21,10 +23,6 @@ import { Actions, and, isBooleanControl, optionIs, RankedTester, rankWith } from
 
       .switch span {
         padding-left: 8px;
-      }
-
-      .hidden {
-        display: none;
       }
     `,
   ],
