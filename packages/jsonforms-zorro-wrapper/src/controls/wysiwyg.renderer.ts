@@ -6,7 +6,7 @@ import { AutoSizeType } from 'ng-zorro-antd/input/autosize.directive';
 @Component({
   selector: 'WysiwygRenderer',
   template: `
-    <nz-form-item [class]="additionalClasses" [class.hidden]="hidden">
+    <nz-form-item *ngIf="!hidden" [class]="additionalClasses">
       <nz-form-label *ngIf="label && label !== '*'" [nzFor]="id" [nzRequired]="required" [nzNoColon]="hideColonInLabel"
         ><i *ngIf="labelIcon" nz-icon [nzType]="labelIcon" nzTheme="outline"></i> {{ label }}</nz-form-label
       >
@@ -33,10 +33,6 @@ import { AutoSizeType } from 'ng-zorro-antd/input/autosize.directive';
 
       quill-editor {
         display: block;
-      }
-
-      .hidden {
-        display: none;
       }
     `,
   ],

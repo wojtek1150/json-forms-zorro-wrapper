@@ -6,7 +6,7 @@ import { AutoSizeType } from 'ng-zorro-antd/input/autosize.directive';
 @Component({
   selector: 'TextAreaRenderer',
   template: `
-    <nz-form-item [class]="additionalClasses" [class.hidden]="hidden">
+    <nz-form-item *ngIf="!hidden" [class]="additionalClasses">
       <nz-form-label *ngIf="label && label !== '*'" [nzFor]="id" [nzRequired]="required" [nzNoColon]="hideColonInLabel"
         ><i *ngIf="labelIcon" nz-icon [nzType]="labelIcon" nzTheme="outline"></i> {{ label }}</nz-form-label
       >
@@ -28,10 +28,6 @@ import { AutoSizeType } from 'ng-zorro-antd/input/autosize.directive';
     `
       nz-form-item {
         display: block;
-      }
-
-      .hidden {
-        display: none;
       }
     `,
   ],

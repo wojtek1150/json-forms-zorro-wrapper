@@ -5,7 +5,7 @@ import { isBooleanControl, RankedTester, rankWith } from '@jsonforms/core';
 @Component({
   selector: 'BooleanControlRenderer',
   template: `
-    <nz-form-item [class]="additionalClasses" [class.hidden]="hidden">
+    <nz-form-item *ngIf="!hidden" [class]="additionalClasses">
       <DescriptionRenderer [uiSchema]="uischema" [scopedSchema]="scopedSchema"></DescriptionRenderer>
       <nz-form-control [nzErrorTip]="errorMessage" [nzValidateStatus]="form.status | nzValidationStatus">
         <label nz-checkbox [id]="id" [formControl]="form" (nzCheckedChange)="onChange($event)">
@@ -18,10 +18,6 @@ import { isBooleanControl, RankedTester, rankWith } from '@jsonforms/core';
     `
       nz-form-item {
         display: block;
-      }
-
-      .hidden {
-        display: none;
       }
     `,
   ],
