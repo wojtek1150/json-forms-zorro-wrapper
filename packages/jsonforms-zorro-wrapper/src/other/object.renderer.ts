@@ -31,7 +31,7 @@ export class ObjectControlRenderer extends JsonFormsControlWithDetail {
     } else {
       (this.detailUiSchema as GroupLayout).label = startCase(props.path);
     }
-    if (!this.isEnabled()) {
+    if (!this.isEnabled) {
       setReadonly(this.detailUiSchema);
     }
   }

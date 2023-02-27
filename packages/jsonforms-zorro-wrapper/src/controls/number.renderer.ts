@@ -18,7 +18,7 @@ import { Actions, isIntegerControl, isNumberControl, or, RankedTester, rankWith,
           [nzMax]="max"
           [nzStep]="stepper"
           [nzPlaceHolder]="placeholder || ''"
-          [nzDisabled]="!isEnabled()"
+          [nzDisabled]="!isEnabled"
           (ngModelChange)="onChange($event)"
           (blur)="triggerValidation()"
         ></nz-input-number>

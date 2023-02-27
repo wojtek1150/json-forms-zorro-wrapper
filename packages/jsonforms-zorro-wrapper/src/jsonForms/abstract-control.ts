@@ -29,7 +29,7 @@ export abstract class JsonFormsAbstractControl<Props extends StatePropsOfControl
   error: string | null;
   scopedSchema: JsonSchema;
   rootSchema: JsonSchema;
-  enabled: boolean;
+  isEnabled: boolean;
   hidden: boolean;
   propsPath: string;
   config: Config;
@@ -45,7 +45,7 @@ export abstract class JsonFormsAbstractControl<Props extends StatePropsOfControl
       },
       {
         updateOn: 'change',
-        validators: this.validator.bind(this),
+        validators: this.validator(),
       }
     );
   }
@@ -80,10 +80,10 @@ export abstract class JsonFormsAbstractControl<Props extends StatePropsOfControl
         this.config = config;
         this.data = data;
         this.error = errors;
-        this.enabled = enabled;
+        this.isEnabled = enabled;
         this.required = required;
         this.hideColonInLabel = !!config.hideColon;
-        this.isEnabled() ? this.form.enable() : this.form.disable();
+        this.isEnabled ? this.form.enable() : this.form.disable();
         this.hidden = !visible;
         this.scopedSchema = schema;
         this.rootSchema = rootSchema;
@@ -99,11 +99,10 @@ export abstract class JsonFormsAbstractControl<Props extends StatePropsOfControl
     this.jsonFormsService.$submitState.pipe(takeUntil(this.destroy$)).subscribe(value => value && this.triggerValidation());
   }
 
-  validator: ValidatorFn = (_c: AbstractControl): ValidationErrors | null => {
-    return _c.touched && this.error ? { error: this.error } : null;
-  };
+  validator(): ValidatorFn {
+    return (c: AbstractControl): ValidationErrors | null => (c.touched && this.error ? { error: this.error } : null)
+}
 
-  // @ts-ignore
   mapAdditionalProps(props: Props) {
     this.placeholder = this.uischema.placeholder || '';
     this.showValidationStatus = !!this.uischema.options?.showValidationStatus;
@@ -114,10 +113,6 @@ export abstract class JsonFormsAbstractControl<Props extends StatePropsOfControl
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();
-  }
-
-  isEnabled(): boolean {
-    return this.enabled;
   }
 
   triggerValidation() {

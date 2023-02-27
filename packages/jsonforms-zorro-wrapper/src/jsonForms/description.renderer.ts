@@ -32,7 +32,7 @@ export class DescriptionRenderer<T extends JFZElement> {
   }
 
   get htmlDescription(): boolean {
-    return !!this.uiSchema.options?.html;
+    return this.uiSchema.options?.html;
   }
 
   get sanitizedDescription(): SafeHtml {
