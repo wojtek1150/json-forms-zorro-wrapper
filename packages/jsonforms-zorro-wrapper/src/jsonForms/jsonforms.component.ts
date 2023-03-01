@@ -1,5 +1,5 @@
 import { maxBy } from 'lodash-es';
-import { ComponentFactoryResolver, Directive, Input, OnDestroy, OnInit, Type, ViewContainerRef } from '@angular/core';
+import { Directive, Input, OnDestroy, OnInit, Type, ViewContainerRef } from '@angular/core';
 import {
   createId,
   getConfig,
@@ -41,7 +41,6 @@ export class JsonFormsOutlet extends JsonFormsBaseRenderer<JFZElement> implement
 
   constructor(
     private viewContainerRef: ViewContainerRef,
-    private componentFactoryResolver: ComponentFactoryResolver,
     private jsonformsService: JsonFormsAngularService
   ) {
     super();
@@ -65,11 +64,12 @@ export class JsonFormsOutlet extends JsonFormsBaseRenderer<JFZElement> implement
       uischema: this.uischema,
       path: this.path,
     });
+
     if (areEqual(this.previousProps, props)) {
       return;
-    } else {
-      this.previousProps = props;
     }
+    this.previousProps = props;
+
     const { renderers } = props as JsonFormsProps;
     const schema: JsonSchema = this.schema || props.schema;
     const uischema = this.uischema || props.uischema;
@@ -84,9 +84,8 @@ export class JsonFormsOutlet extends JsonFormsBaseRenderer<JFZElement> implement
       bestComponent = renderer.renderer;
     }
 
-    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(bestComponent);
     this.viewContainerRef.clear();
-    const currentComponentRef = this.viewContainerRef.createComponent(componentFactory);
+    const currentComponentRef = this.viewContainerRef.createComponent(bestComponent);
 
     if (currentComponentRef.instance instanceof JsonFormsBaseRenderer) {
       const instance = currentComponentRef.instance as JsonFormsBaseRenderer<UISchemaElement>;
@@ -96,8 +95,7 @@ export class JsonFormsOutlet extends JsonFormsBaseRenderer<JFZElement> implement
       if (instance instanceof JsonFormsControl) {
         const controlInstance = instance as JsonFormsControl;
         if (controlInstance.id === undefined) {
-          const id = isControl(props.uischema) ? createId(props.uischema.scope) : undefined;
-          (instance as JsonFormsControl).id = id;
+          instance.id = isControl(props.uischema) ? createId(props.uischema.scope) : undefined;
         }
       }
     }
