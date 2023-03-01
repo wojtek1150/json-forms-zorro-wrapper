@@ -28,7 +28,7 @@ import { JsonFormsAngularService } from '../jsonForms';
         <nz-badge [nzCount]="errorsNo" [title]="error">
           <h2>{{ label }}</h2>
         </nz-badge>
-        <button nz-button title="{{ addTooltip }}" [disabled]="!isEnabled()" (click)="add()">
+        <button nz-button title="{{ addTooltip }}" [disabled]="!isEnabled" (click)="add()">
           <i nz-icon nzType="plus" nzTheme="outline"></i>
         </button>
       </div>
@@ -39,7 +39,7 @@ import { JsonFormsAngularService } from '../jsonForms';
           <div class="content">
             <jsonforms-outlet [renderProps]="getProps(idx)"></jsonforms-outlet>
           </div>
-          <div class="actions" *ngIf="isEnabled()">
+          <div class="actions" *ngIf="isEnabled">
             <button nz-button nzDanger (click)="remove(idx)" title="{{ removeTooltip }}">
               <i nz-icon nzType="delete" nzTheme="outline"></i>
             </button>
@@ -122,7 +122,7 @@ export class ArrayLayoutRenderer extends JsonFormsAbstractControl<StatePropsOfAr
 
   getProps(index: number): OwnPropsOfRenderer {
     const uischema = findUISchema(this.uischemas, this.scopedSchema, this.uischema.scope, this.propsPath, undefined, this.uischema, this.rootSchema);
-    if (this.isEnabled()) {
+    if (this.isEnabled) {
       unsetReadonly(uischema);
     } else {
       setReadonly(uischema);

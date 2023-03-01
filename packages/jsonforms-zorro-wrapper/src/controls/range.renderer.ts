@@ -11,7 +11,7 @@ import { isRangeControl, RankedTester, rankWith } from '@jsonforms/core';
       >
       <DescriptionRenderer [uiSchema]="uischema" [scopedSchema]="scopedSchema"></DescriptionRenderer>
       <nz-form-control>
-        <nz-slider [id]="id" [formControl]="form" [nzDisabled]="!isEnabled()" [nzMin]="min" [nzMax]="max" [nzStep]="multipleOf"></nz-slider>
+        <nz-slider [id]="id" [formControl]="form" [nzDisabled]="!isEnabled" [nzMin]="min" [nzMax]="max" [nzStep]="multipleOf"></nz-slider>
       </nz-form-control>
     </nz-form-item>
   `,
