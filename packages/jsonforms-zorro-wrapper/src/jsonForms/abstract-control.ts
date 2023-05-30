@@ -81,7 +81,6 @@ export abstract class JsonFormsAbstractControl<Props extends StatePropsOfControl
         this.data = data;
         this.error = errors;
         this.isEnabled = enabled;
-        this.required = errors.includes('required') ? true : required;
         this.hideColonInLabel = !!config.hideColon;
         this.isEnabled ? this.form.enable() : this.form.disable();
         this.hidden = !visible;
@@ -89,6 +88,7 @@ export abstract class JsonFormsAbstractControl<Props extends StatePropsOfControl
         this.rootSchema = rootSchema;
         this.description = this.scopedSchema !== undefined ? this.scopedSchema.description : this.uischema.description || '';
         this.id = props.id;
+        this.required = this.getRequiredState(props);
         if (this.form.value !== data) {
           this.form.setValue(data);
         }
@@ -138,4 +138,12 @@ export abstract class JsonFormsAbstractControl<Props extends StatePropsOfControl
   }
 
   protected abstract mapToProps(state: JsonFormsState): Props;
+
+  private getRequiredState(props: Props): boolean {
+    if (props.visible && this.uischema.rule && this.uischema.rule.required !== undefined) {
+      return this.uischema.rule.required;
+    } else {
+      return props.required;
+    }
+  }
 }

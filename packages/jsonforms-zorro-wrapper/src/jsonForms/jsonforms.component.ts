@@ -10,7 +10,6 @@ import {
   mapStateToJsonFormsRendererProps,
   OwnPropsOfRenderer,
   StatePropsOfJsonFormsRenderer,
-  UISchemaElement,
 } from '@jsonforms/core';
 import { UnknownRenderer } from './unknown.component';
 import { JsonFormsBaseRenderer } from './base.renderer';
@@ -39,10 +38,7 @@ export class JsonFormsOutlet extends JsonFormsBaseRenderer<JFZElement> implement
   private previousProps: StatePropsOfJsonFormsRenderer;
   private readonly destroy$ = new Subject<void>();
 
-  constructor(
-    private viewContainerRef: ViewContainerRef,
-    private jsonformsService: JsonFormsAngularService
-  ) {
+  constructor(private viewContainerRef: ViewContainerRef, private jsonformsService: JsonFormsAngularService) {
     super();
   }
 
@@ -50,7 +46,7 @@ export class JsonFormsOutlet extends JsonFormsBaseRenderer<JFZElement> implement
   set renderProps(renderProps: OwnPropsOfRenderer) {
     this.path = renderProps.path;
     this.schema = renderProps.schema;
-    this.uischema = renderProps.uischema;
+    this.uischema = renderProps.uischema as JFZElement;
     this.update(this.jsonformsService.getState());
   }
 
@@ -88,8 +84,8 @@ export class JsonFormsOutlet extends JsonFormsBaseRenderer<JFZElement> implement
     const currentComponentRef = this.viewContainerRef.createComponent(bestComponent);
 
     if (currentComponentRef.instance instanceof JsonFormsBaseRenderer) {
-      const instance = currentComponentRef.instance as JsonFormsBaseRenderer<UISchemaElement>;
-      instance.uischema = uischema;
+      const instance = currentComponentRef.instance as JsonFormsBaseRenderer<JFZElement>;
+      instance.uischema = uischema as JFZElement;
       instance.schema = schema;
       instance.path = this.path;
       if (instance instanceof JsonFormsControl) {

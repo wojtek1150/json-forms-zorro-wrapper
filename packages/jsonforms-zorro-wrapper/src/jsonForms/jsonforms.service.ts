@@ -27,6 +27,7 @@ import { JsonFormsBaseRenderer } from './base.renderer';
 import { cloneDeep } from 'lodash-es';
 import Ajv, { ErrorObject } from 'ajv';
 import { Injectable } from '@angular/core';
+import { JFZElement } from '../other/uischema';
 
 export const USE_STATE_VALUE = Symbol('Marker to use state value');
 
@@ -87,11 +88,11 @@ export class JsonFormsAngularService {
   /**
    * @deprecated use {@link JsonFormsAngularService.addRenderer}
    */
-  registerRenderer(renderer: JsonFormsBaseRenderer<UISchemaElement>, tester: RankedTester): void {
+  registerRenderer(renderer: JsonFormsBaseRenderer<JFZElement>, tester: RankedTester): void {
     this.addRenderer(renderer, tester);
   }
 
-  addRenderer(renderer: JsonFormsBaseRenderer<UISchemaElement>, tester: RankedTester): void {
+  addRenderer(renderer: JsonFormsBaseRenderer<JFZElement>, tester: RankedTester): void {
     this._state.renderers.push({ renderer, tester });
     this.updateSubject();
   }
