@@ -81,7 +81,7 @@ export abstract class JsonFormsAbstractControl<Props extends StatePropsOfControl
         this.data = data;
         this.error = errors;
         this.isEnabled = enabled;
-        this.required = required;
+        this.required = errors.includes('required') ? true : required;
         this.hideColonInLabel = !!config.hideColon;
         this.isEnabled ? this.form.enable() : this.form.disable();
         this.hidden = !visible;
@@ -100,8 +100,8 @@ export abstract class JsonFormsAbstractControl<Props extends StatePropsOfControl
   }
 
   validator(): ValidatorFn {
-    return (c: AbstractControl): ValidationErrors | null => (c.touched && this.error ? { error: this.error } : null)
-}
+    return (c: AbstractControl): ValidationErrors | null => (c.touched && this.error ? { error: this.error } : null);
+  }
 
   mapAdditionalProps(props: Props) {
     this.placeholder = this.uischema.placeholder || '';
