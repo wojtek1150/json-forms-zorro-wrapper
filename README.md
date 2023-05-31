@@ -15,7 +15,6 @@ For UI docs, see the documentation on [ngzorro website](https://ng.ant.design/do
 This plugin requires the following dependencies:
 
 ```
-"@jsonforms/core": "^3.0.0-beta.3",
 "ng-zorro-antd": "^13.1.1",
 "lodash-es": "^4.17.21"
 ```

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { JsonFormsAngularService, JsonFormsControl } from '../jsonForms';
-import { Actions, and, isEnumControl, optionIs, RankedTester, rankWith } from '@jsonforms/core';
+import { Actions, and, isEnumControl, optionIs, RankedTester, rankWith } from '../core';
 
 @Component({
   selector: 'RadioControlRenderer',

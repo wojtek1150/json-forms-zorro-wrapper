@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { JsonFormsAngularService, JsonFormsControl } from '../jsonForms';
-import { Actions, and, isBooleanControl, optionIs, RankedTester, rankWith } from '@jsonforms/core';
+import { Actions, and, isBooleanControl, optionIs, RankedTester, rankWith } from '../core';
 
 @Component({
   selector: 'ToggleControlRenderer',

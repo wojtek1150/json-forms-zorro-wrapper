@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Directive, OnDestroy, OnInit } from '@angular/core';
 import { JsonFormsAngularService, JsonFormsBaseRenderer } from '../jsonForms';
-import { JsonFormsState, mapStateToLayoutProps, OwnPropsOfRenderer, UISchemaElement } from '@jsonforms/core';
+import { JsonFormsState, mapStateToLayoutProps, OwnPropsOfRenderer, UISchemaElement } from '../core';
 import { Subject, takeUntil } from 'rxjs';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { JFZLayout } from '../other/uischema';

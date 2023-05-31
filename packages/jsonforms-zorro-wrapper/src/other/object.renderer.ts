@@ -1,20 +1,11 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { JsonFormsAngularService, JsonFormsControlWithDetail } from '../jsonForms';
-import {
-  ControlWithDetailProps,
-  findUISchema,
-  GroupLayout,
-  isObjectControl,
-  RankedTester,
-  rankWith,
-  setReadonly,
-  UISchemaElement,
-} from '@jsonforms/core';
+import { ControlWithDetailProps, findUISchema, GroupLayout, isObjectControl, RankedTester, rankWith, setReadonly, UISchemaElement } from '../core';
 import { isEmpty, startCase } from 'lodash-es';
 
 @Component({
   selector: 'ObjectRenderer',
-  template: ` <jsonforms-outlet [uischema]="detailUiSchema" [schema]="scopedSchema" [path]="propsPath"> </jsonforms-outlet> `,
+  template: ` <jsonforms-outlet [uischema]="detailUiSchema" [schema]="scopedSchema" [path]="propsPath"></jsonforms-outlet> `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ObjectControlRenderer extends JsonFormsControlWithDetail {

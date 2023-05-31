@@ -16,7 +16,7 @@ import {
   UISchemaElement,
   UISchemaTester,
   unsetReadonly,
-} from '@jsonforms/core';
+} from '../core';
 import { JsonFormsAbstractControl } from '../jsonForms/abstract-control';
 import { JsonFormsAngularService } from '../jsonForms';
 

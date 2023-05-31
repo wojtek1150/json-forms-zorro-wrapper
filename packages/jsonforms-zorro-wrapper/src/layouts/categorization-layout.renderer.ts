@@ -1,8 +1,8 @@
-import { and, categorizationHasCategory, JsonFormsState, mapStateToLayoutProps, RankedTester, rankWith, uiTypeIs } from '@jsonforms/core';
+import { and, categorizationHasCategory, JsonFormsState, mapStateToLayoutProps, RankedTester, rankWith, uiTypeIs } from '../core';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { JsonFormsAngularService, JsonFormsBaseRenderer } from '../jsonForms';
 import { JFZCategorizationSchema } from '../other/uischema';
-import {Subject, takeUntil} from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'jsonforms-categorization-layout',
@@ -36,7 +36,7 @@ export class CategorizationTabLayoutRenderer extends JsonFormsBaseRenderer<JFZCa
     this.jsonFormsService.$state.pipe(takeUntil(this.destroy$)).subscribe((state: JsonFormsState) => {
       const props = mapStateToLayoutProps(state, this.getOwnProps());
       this.hidden = !props.visible;
-    })
+    });
   }
 
   ngOnDestroy() {

@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { JsonFormsAngularService, JsonFormsControl } from '../jsonForms';
-import { isMultiLineControl, RankedTester, rankWith } from '@jsonforms/core';
-import { AutoSizeType } from 'ng-zorro-antd/input/autosize.directive';
+import { isMultiLineControl, RankedTester, rankWith } from '../core';
+import { AutoSizeType } from 'ng-zorro-antd/input';
 
 @Component({
   selector: 'TextAreaRenderer',

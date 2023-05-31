@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { JFZElement } from '../other/uischema';
-import { JsonSchema } from '@jsonforms/core';
+import { JsonSchema } from '../core';
 
 @Component({
   selector: 'DescriptionRenderer',
