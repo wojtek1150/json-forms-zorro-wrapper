@@ -3,8 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { v4 as createId } from 'uuid';
 import { JFZBuilderControl, jfzBuilderInputs } from './model';
-import { JFZVerticalLayout } from '@wojtek1150/jsonforms-zorro-wrapper';
-import { JsonSchema } from '@jsonforms/core';
+import { JFZVerticalLayout, JsonSchema } from '@wojtek1150/jsonforms-zorro-wrapper';
 
 @Injectable({ providedIn: 'root' })
 export class BuilderService {

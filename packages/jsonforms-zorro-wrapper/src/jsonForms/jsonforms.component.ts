@@ -10,7 +10,7 @@ import {
   mapStateToJsonFormsRendererProps,
   OwnPropsOfRenderer,
   StatePropsOfJsonFormsRenderer,
-} from '@jsonforms/core';
+} from '../core';
 import { UnknownRenderer } from './unknown.component';
 import { JsonFormsBaseRenderer } from './base.renderer';
 import { Subject, takeUntil } from 'rxjs';

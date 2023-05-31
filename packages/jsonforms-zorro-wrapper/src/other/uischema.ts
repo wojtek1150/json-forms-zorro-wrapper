@@ -1,25 +1,4 @@
-import { Condition, Rule, RuleEffect, UISchemaElement } from "@jsonforms/core";
-
-/**
- * A rule that may be attached to any UI schema element.
- */
-export interface ZorroRule extends Rule {
-  /**
-   * The effect of the rule
-   */
-  effect: RuleEffect;
-
-  /**
-   * The condition of the rule that must evaluate to true in order
-   * to trigger the effect.
-   */
-  condition: Condition;
-
-  /**
-   * Show or hide required indicator if RuleEffect is set to SHOW or ENABLE
-   */
-  required: boolean;
-}
+import { Rule, UISchemaElement } from '../core';
 
 /**
  * @deprecated use JFZControlElement
@@ -44,7 +23,7 @@ export interface JFZElement extends UISchemaElement {
   /**
    * An optional rule.
    */
-  rule?: ZorroRule;
+  rule?: Rule;
 
   /**
    * Any additional options.
@@ -109,7 +88,7 @@ export interface JFZControlElement extends JFZElement {
   /**
    * An optional rule.
    */
-  rule?: ZorroRule;
+  rule?: Rule;
 
   /**
    * Any additional options.

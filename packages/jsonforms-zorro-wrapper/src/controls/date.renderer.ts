@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { Actions, isDateControl, RankedTester, rankWith } from '@jsonforms/core';
+import { Actions, isDateControl, RankedTester, rankWith } from '../core';
 import { JsonFormsAngularService, JsonFormsControl } from '../jsonForms';
 import { DatePipe } from '@angular/common';
 

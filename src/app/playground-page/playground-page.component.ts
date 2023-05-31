@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { JsonFormsRendererRegistryEntry, JsonSchema, UISchemaElement } from '@jsonforms/core';
-import { ngZorroRenderers } from '@wojtek1150/jsonforms-zorro-wrapper';
+import { JsonFormsRendererRegistryEntry, JsonSchema, ngZorroRenderers, UISchemaElement } from '@wojtek1150/jsonforms-zorro-wrapper';
 import schema from '../demo-page/schema.json';
 import uischema from '../demo-page/uischema.json';
 import { array } from './schemas/array';

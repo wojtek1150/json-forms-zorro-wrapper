@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 import schema from './schema.json';
 import uischema from './uischema.json';
 import { formData, jsonformsConfig } from './formdata';
-import { JsonFormsRendererRegistryEntry, JsonSchema, UISchemaElement } from '@jsonforms/core';
-import { ngZorroRenderers } from '@wojtek1150/jsonforms-zorro-wrapper';
+import { ngZorroRenderers, JsonFormsRendererRegistryEntry, JsonSchema, UISchemaElement } from '@wojtek1150/jsonforms-zorro-wrapper';
 
 @Component({
   selector: 'app-demo-page',

@@ -1,5 +1,4 @@
-import { JFZControlElement } from '@wojtek1150/jsonforms-zorro-wrapper';
-import { JsonSchema7 } from '@jsonforms/core';
+import { JFZControlElement, JsonSchema7 } from '@wojtek1150/jsonforms-zorro-wrapper';
 
 export enum JFZBuilderInputType {
   'TEXT' = 'TEXT',

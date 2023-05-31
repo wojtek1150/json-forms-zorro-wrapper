@@ -20,7 +20,7 @@ import {
   UISchemaTester,
   updateI18n,
   ValidationMode,
-} from '@jsonforms/core';
+} from '../core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { JsonFormsBaseRenderer } from './base.renderer';
 

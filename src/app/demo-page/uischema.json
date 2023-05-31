@@ -1,77 +1,234 @@
 {
-  "type": "VerticalLayout",
+  "type": "Categorization",
   "elements": [
     {
-      "type": "Control",
-      "label": "Completed",
-      "scope": "#/properties/done"
-    },
-    {
-      "type": "Control",
-      "scope": "#/properties/name"
-    },
-    {
-      "type": "Control",
-      "scope": "#/properties/programmingLanguages",
-      "label": "What programming languages are you most comfortable with?"
-    },
-    {
-      "type": "Control",
-      "scope": "#/properties/programmingLanguages",
-      "label": "What programming languages are you most comfortable with?",
-      "options": {
-        "format": "multiselect"
-      }
-    },
-    {
-      "type": "HorizontalLayout",
+      "label": "About You",
+      "type": "Category",
       "elements": [
         {
-          "type": "Control",
-          "scope": "#/properties/due_date"
-        },
-        {
-          "type": "Control",
-          "scope": "#/properties/rating"
-        }
-      ]
-    },
-    {
-      "type": "HorizontalLayout",
-      "elements": [
-        {
-          "type": "Control",
-          "scope": "#/properties/recurrence"
-        },
-        {
-          "type": "Control",
-          "scope": "#/properties/recurrence_interval",
-          "rule": {
-            "effect": "HIDE",
-            "condition": {
-              "type": "LEAF",
-              "scope": "#/properties/recurrence",
-              "expectedValue": "Never"
+          "label": "About You",
+          "type": "Group",
+          "elements": [
+            {
+              "scope": "#/properties/bio",
+              "label": "Share with us something that you build and are really proud of, time to show yourself as much as you like, sell yourself as much as you can! ",
+              "description": "Include any links you think are necessary to further the work, with a minimum of 2000 characters.",
+              "options": {
+                "multi": true,
+                "minRows": 3
+              },
+              "type": "Control"
+            },
+            {
+              "scope": "#/properties/advocateTitle",
+              "label": "Which Polygon Advocate title describes you best?",
+              "description": "This will indicate the path within the Polygon Community you will take on further.",
+              "type": "Control"
             }
-          }
+          ]
         }
       ]
     },
     {
-      "type": "Control",
-      "scope": "#/properties/description",
-      "options": {
-        "multi": true
-      }
+      "label": "Experience ",
+      "type": "Category",
+      "elements": [
+        {
+          "label": "Experience ",
+          "type": "Group",
+          "elements": [
+            {
+              "scope": "#/properties/tbTechnicalSkills",
+              "label": "What technical skills do you have?",
+              "description": "Please select at least 5 from the list.",
+              "options": {
+                "format": "multiselect"
+              },
+              "rule": {
+                "effect": "SHOW",
+                "condition": {
+                  "scope": "#/properties/advocateTitle",
+                  "schema": {
+                    "const": "Technical Builder"
+                  }
+                }
+              },
+              "type": "Control"
+            },
+            {
+              "scope": "#/properties/tbGithubId",
+              "label": "Your GitHub ID.",
+              "rule": {
+                "effect": "SHOW",
+                "required": true,
+                "condition": {
+                  "scope": "#/properties/advocateTitle",
+                  "schema": {
+                    "const": "Technical Builder"
+                  }
+                }
+              },
+              "type": "Control"
+            },
+            {
+              "scope": "#/properties/tbGithubProject",
+              "label": "Link to your GitHub project that you want to showcase.",
+              "rule": {
+                "effect": "SHOW",
+                "condition": {
+                  "scope": "#/properties/advocateTitle",
+                  "schema": {
+                    "const": "Technical Builder"
+                  }
+                }
+              },
+              "type": "Control"
+            },
+            {
+              "scope": "#/properties/tbAnotherProject",
+              "label": "Would you like to share another project with us to take a look at?",
+              "rule": {
+                "effect": "SHOW",
+                "condition": {
+                  "scope": "#/properties/advocateTitle",
+                  "schema": {
+                    "const": "Technical Builder"
+                  }
+                }
+              },
+              "type": "Control"
+            },
+            {
+              "scope": "#/properties/tbHasExperienceRunningTechnicalCommunity",
+              "label": "Do you have any experience in running a technical community?",
+              "options": {
+                "format": "radio-button"
+              },
+              "rule": {
+                "effect": "SHOW",
+                "condition": {
+                  "scope": "#/properties/advocateTitle",
+                  "schema": {
+                    "const": "Technical Builder"
+                  }
+                }
+              },
+              "type": "Control"
+            },
+            {
+              "scope": "#/properties/tbVideoLink",
+              "label": "Share with us a link to a video where you spoke about the topic to the public, or just make a 2-minute video describing any Polygon Solution.",
+              "description": "Make sure it’s accessible to view to anyone with the link.",
+              "rule": {
+                "effect": "SHOW",
+                "condition": {
+                  "scope": "#/properties/advocateTitle",
+                  "schema": {
+                    "const": "Technical Builder"
+                  }
+                }
+              },
+              "type": "Control"
+            },
+            {
+              "scope": "#/properties/cbSkills",
+              "label": "What skills describe your contribution in the space best?",
+              "description": "Please select at least one from the list.",
+              "options": {
+                "format": "multiselect"
+              },
+              "rule": {
+                "effect": "SHOW",
+                "condition": {
+                  "scope": "#/properties/advocateTitle",
+                  "schema": {
+                    "const": "Community Builder"
+                  }
+                }
+              },
+              "type": "Control"
+            },
+            {
+              "scope": "#/properties/cbOtherCommunities",
+              "label": " Other communities you are actively involved in.",
+              "rule": {
+                "effect": "SHOW",
+                "condition": {
+                  "scope": "#/properties/advocateTitle",
+                  "schema": {
+                    "const": "Community Builder"
+                  }
+                }
+              },
+              "type": "Control"
+            },
+            {
+              "scope": "#/properties/cbVideoLink",
+              "label": "Share with us a 2 min video explaining us about your goals and the ways you hope to participate and how did your journey with Polygon started ?",
+              "description": "Make sure it’s accessible to view to anyone with the link.",
+              "rule": {
+                "effect": "SHOW",
+                "condition": {
+                  "scope": "#/properties/advocateTitle",
+                  "schema": {
+                    "const": "Community Builder"
+                  }
+                }
+              },
+              "type": "Control"
+            },
+            {
+              "scope": "#/properties/cbWeb3CommunityExperience",
+              "label": "Do you have any experience in running a Web3 community?",
+              "options": {
+                "format": "radio-button"
+              },
+              "rule": {
+                "effect": "SHOW",
+                "condition": {
+                  "scope": "#/properties/advocateTitle",
+                  "schema": {
+                    "const": "Community Builder"
+                  }
+                }
+              },
+              "type": "Control"
+            }
+          ]
+        }
+      ]
     },
     {
-      "type": "Control",
-      "scope": "#/properties/externalField",
-      "label": "Multiselect that use external value",
-      "options": {
-        "format": "multiselect",
-        "dictionaryKey": "tags"
-      }
+      "label": "Summary",
+      "type": "Category",
+      "elements": [
+        {
+          "label": "Summary",
+          "type": "Group",
+          "elements": [
+            {
+              "scope": "#/properties/termsAndConditions",
+              "label": "I have read and agreed to the Terms & Conditions.",
+              "options": {
+                "format": "radio-button"
+              },
+              "type": "Control"
+            },
+            {
+              "scope": "#/properties/communityGuideLines",
+              "label": "I've read through the Community Guidelines and agree to adhere to them.",
+              "options": {
+                "format": "radio-button"
+              },
+              "type": "Control"
+            }
+          ]
+        }
+      ]
     }
-  ]
+  ],
+  "options": {
+    "variant": "stepper",
+    "showNavButtons": true
+  }
 }

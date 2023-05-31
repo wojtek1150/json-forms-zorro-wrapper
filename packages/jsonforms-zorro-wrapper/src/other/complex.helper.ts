@@ -1,7 +1,5 @@
-import { JsonSchema } from '@jsonforms/core';
-import { UISchemaElement } from '@jsonforms/core/src/models';
-import isEmpty from 'lodash/isEmpty';
-import { Tester } from '@jsonforms/core/src/testers/testers';
+import { JsonSchema, Tester, UISchemaElement } from '../core';
+import { isEmpty } from 'lodash-es';
 
 export const hasOneOfItems = (schema: JsonSchema): boolean =>
   schema.oneOf !== undefined &&

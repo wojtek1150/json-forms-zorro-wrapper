@@ -1,4 +1,4 @@
-import { RankedTester } from '@jsonforms/core';
+import { RankedTester } from './core';
 
 import { BooleanControlRenderer, BooleanControlTester } from './controls/boolean.renderer';
 import { DateControlRenderer, DateControlRendererTester } from './controls/date.renderer';

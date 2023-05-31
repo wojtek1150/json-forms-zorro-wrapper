@@ -1,4 +1,4 @@
-import { Actions, computeLabel, JsonFormsState, JsonSchema, OwnPropsOfControl, StatePropsOfControl } from '@jsonforms/core';
+import { Actions, computeLabel, JsonFormsState, JsonSchema, OwnPropsOfControl, StatePropsOfControl } from '../core';
 import { ChangeDetectorRef, Directive, Input, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
@@ -88,7 +88,7 @@ export abstract class JsonFormsAbstractControl<Props extends StatePropsOfControl
         this.rootSchema = rootSchema;
         this.description = this.scopedSchema !== undefined ? this.scopedSchema.description : this.uischema.description || '';
         this.id = props.id;
-        this.required = this.getRequiredState(props);
+        this.required = required;
         if (this.form.value !== data) {
           this.form.setValue(data);
         }
@@ -138,12 +138,4 @@ export abstract class JsonFormsAbstractControl<Props extends StatePropsOfControl
   }
 
   protected abstract mapToProps(state: JsonFormsState): Props;
-
-  private getRequiredState(props: Props): boolean {
-    if (props.visible && this.uischema.rule && this.uischema.rule.required !== undefined) {
-      return this.uischema.rule.required;
-    } else {
-      return props.required;
-    }
-  }
 }

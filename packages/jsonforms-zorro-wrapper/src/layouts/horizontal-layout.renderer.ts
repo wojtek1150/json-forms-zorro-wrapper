@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { RankedTester, rankWith, uiTypeIs } from '@jsonforms/core';
+import { RankedTester, rankWith, uiTypeIs } from '../core';
 import { LayoutRenderer } from './layout.renderer';
 import { JsonFormsAngularService } from '../jsonForms';
 import { DomSanitizer } from '@angular/platform-browser';
