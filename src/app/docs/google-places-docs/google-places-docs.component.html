@@ -1,0 +1,45 @@
+<h1>Google Places City Autocomplete Control</h1>
+<p>This control allows you to select a city from google places library. It also adds additional property suffixed by <code>PlaceId</code> to your form data to help you save the right spot.</p>
+<pre><code>{{schema.properties | json }}</code></pre>
+
+<p>Ui Schema</p>
+<pre><code>{{uiSchema.elements[0] | json }}</code></pre>
+
+<div class="flex">
+  <div>
+    <jsonforms
+      [(data)]="data"
+      [renderers]="renderers"
+      [schema]="schema"
+      [uischema]="uiSchema"
+    ></jsonforms>
+    <nz-alert nzMessage="This field requires google places api key to work. Here is how it will looks like:" nzShowIcon nzType="warning"></nz-alert>
+    <img alt="" src="assets/images/places-demo.png">
+  </div>
+  <pre>{{data | json}}</pre>
+</div>
+
+
+<p>Api key configuration</p>
+<pre><code>{{configuration }}</code></pre>
+
+
+<p>UiSchema Options</p>
+<nz-table [nzTemplateMode]="true">
+  <thead>
+  <tr>
+    <th>Property</th>
+    <th>Description</th>
+    <th>Type</th>
+    <th>Default</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td class="required">format</td>
+    <td>Makes control as GP autocomplete</td>
+    <td><code>'google-places'</code></td>
+    <td>-</td>
+  </tr>
+  </tbody>
+</nz-table>

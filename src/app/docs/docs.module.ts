@@ -18,6 +18,7 @@ import { MultiselectDocsComponent } from './multiselect-docs/multiselect-docs.co
 import { ToggleDocsComponent } from './toggle-docs/toggle-docs.component';
 import { RadioDocsComponent } from './radio-docs/radio-docs.component';
 import { ImageRendererService } from './image.service';
+import { GooglePlacesDocsComponent } from './google-places-docs/google-places-docs.component';
 
 const routes: Routes = [
   {
@@ -65,6 +66,10 @@ const routes: Routes = [
         path: 'radio',
       },
       {
+        component: GooglePlacesDocsComponent,
+        path: 'google-places',
+      },
+      {
         path: '**',
         redirectTo: 'schema',
       },
@@ -86,6 +91,7 @@ const routes: Routes = [
     MultiselectDocsComponent,
     ToggleDocsComponent,
     RadioDocsComponent,
+    GooglePlacesDocsComponent,
   ],
   providers: [{ provide: JFZImageRendererService, useClass: ImageRendererService }],
 })
