@@ -23,6 +23,7 @@ import { MultiselectControlRenderer, MultiselectControlRendererTester } from './
 import { ArrayLayoutRenderer, ArrayLayoutRendererTester } from './layouts/array-layout.renderer';
 import { WysiwygRenderer, WysiwygRendererTester } from './controls/wysiwyg.renderer';
 import { ImageControlRenderer, ImageControlRendererTester } from './complex/image/image.renderer';
+import { GooglePlacesControlRendererTester, GooglePlacesRenderer } from './complex/google-places/google-places.renderer';
 
 export const ngZorroRenderers: {
   tester: RankedTester;
@@ -44,6 +45,7 @@ export const ngZorroRenderers: {
   { tester: CheckboxGroupControlRendererTester, renderer: CheckboxGroupControlRenderer },
   { tester: MultiselectControlRendererTester, renderer: MultiselectControlRenderer },
   { tester: ImageControlRendererTester, renderer: ImageControlRenderer },
+  { tester: GooglePlacesControlRendererTester, renderer: GooglePlacesRenderer },
   // layouts
   { tester: CategorizationTester, renderer: CategorizationTabLayoutRenderer },
   { tester: StepperTester, renderer: StepperLayoutRenderer },

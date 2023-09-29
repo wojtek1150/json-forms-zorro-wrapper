@@ -12,7 +12,7 @@ import { en_US, NZ_I18N } from 'ng-zorro-antd/i18n';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { NzTableModule } from 'ng-zorro-antd/table';
-import { JsonFormsZorroModule } from '@wojtek1150/jsonforms-zorro-wrapper';
+import { JZW_GOOGLE_PLACES_API_KEY, JsonFormsZorroModule } from '@wojtek1150/jsonforms-zorro-wrapper';
 import { DemoPageComponent } from './demo-page/demo-page.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
@@ -59,7 +59,13 @@ const builder = [ListInputSourceComponent, ListInputTargetComponent];
     NzCollapseModule,
     TextRendererEditorComponent,
   ],
-  providers: [{ provide: NZ_I18N, useValue: en_US }],
+  providers: [
+    { provide: NZ_I18N, useValue: en_US },
+    {
+      provide: JZW_GOOGLE_PLACES_API_KEY,
+      useValue: 'YOUR_API_KEY',
+    },
+  ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

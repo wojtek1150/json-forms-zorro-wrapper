@@ -43,6 +43,8 @@ import { QuillModule } from 'ngx-quill';
 import { ImageControlRenderer } from './complex/image/image.renderer';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { JFZImageRendererService } from './complex/image/image.renderer.service';
+import { GooglePlacesRenderer } from './complex/google-places/google-places.renderer';
+import { GooglePlacesApiLoaderService } from './complex/google-places/google-places-api-loader.service';
 
 const modules = [CommonModule, JsonFormsModule, ReactiveFormsModule, NzFormModule, NzInputModule, NzDatePickerModule, NzCheckboxModule];
 
@@ -69,6 +71,7 @@ const controls = [
   ArrayLayoutRenderer,
   WysiwygRenderer,
   ImageControlRenderer,
+  GooglePlacesRenderer,
 ];
 
 @NgModule({
@@ -89,9 +92,8 @@ const controls = [
     NzUploadModule,
   ],
   declarations: [...controls, NzValidationStatusPipe],
-  entryComponents: [...controls],
   exports: [...modules],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  providers: [DatePipe, JFZImageRendererService],
+  providers: [DatePipe, JFZImageRendererService, GooglePlacesApiLoaderService],
 })
 export class JsonFormsZorroModule {}
