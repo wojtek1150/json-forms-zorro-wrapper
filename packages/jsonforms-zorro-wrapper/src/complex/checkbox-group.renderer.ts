@@ -80,7 +80,7 @@ export const CheckboxGroupControlRendererTester: RankedTester = rankWith(
       schemaMatches(schema => hasType(schema, 'array') && !Array.isArray(schema.items) && schema.uniqueItems === true),
       schemaSubPathMatches('items', schema => {
         return hasOneOfItems(schema) || hasEnumItems(schema);
-      })
-    )
-  )
+      }),
+    ),
+  ),
 );

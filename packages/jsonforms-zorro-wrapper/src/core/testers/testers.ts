@@ -163,6 +163,23 @@ export const optionIs =
   };
 
 /**
+ * Checks whether the given UI schema has an option with the given
+ * name. If no options property is set, returns false.
+ *
+ * @param {string} optionName the name of the option to check
+ */
+export const hasOption =
+  (optionName: string): Tester =>
+  (uischema: UISchemaElement): boolean => {
+    if (isEmpty(uischema)) {
+      return false;
+    }
+
+    const options = uischema.options;
+    return !isEmpty(options) && options[optionName];
+  };
+
+/**
  * Only applicable for Controls.
  *
  * Checks whether the scope of a control ends with the expected string.
@@ -255,17 +272,17 @@ export const isObjectControl = and(uiTypeIs('Control'), schemaTypeIs('object'));
 
 export const isAllOfControl = and(
   uiTypeIs('Control'),
-  schemaMatches(schema => Object.prototype.hasOwnProperty.call(schema, 'allOf'))
+  schemaMatches(schema => Object.prototype.hasOwnProperty.call(schema, 'allOf')),
 );
 
 export const isAnyOfControl = and(
   uiTypeIs('Control'),
-  schemaMatches(schema => Object.prototype.hasOwnProperty.call(schema, 'anyOf'))
+  schemaMatches(schema => Object.prototype.hasOwnProperty.call(schema, 'anyOf')),
 );
 
 export const isOneOfControl = and(
   uiTypeIs('Control'),
-  schemaMatches(schema => Object.prototype.hasOwnProperty.call(schema, 'oneOf'))
+  schemaMatches(schema => Object.prototype.hasOwnProperty.call(schema, 'oneOf')),
 );
 
 /**
@@ -277,8 +294,8 @@ export const isEnumControl = and(
   uiTypeIs('Control'),
   or(
     schemaMatches(schema => Object.prototype.hasOwnProperty.call(schema, 'enum')),
-    schemaMatches(schema => Object.prototype.hasOwnProperty.call(schema, 'const'))
-  )
+    schemaMatches(schema => Object.prototype.hasOwnProperty.call(schema, 'const')),
+  ),
 );
 
 /**
@@ -288,7 +305,7 @@ export const isEnumControl = and(
  */
 export const isOneOfEnumControl = and(
   uiTypeIs('Control'),
-  schemaMatches(schema => isOneOfEnumSchema(schema))
+  schemaMatches(schema => isOneOfEnumSchema(schema)),
 );
 
 /**
@@ -346,12 +363,12 @@ export const isDateTimeControl = and(uiTypeIs('Control'), or(formatIs('date-time
  */
 export const isObjectArray = and(
   schemaMatches(
-    (schema, rootSchema) => hasType(schema, 'array') && !Array.isArray(resolveSchema(schema, 'items', rootSchema)) // we don't care about tuples
+    (schema, rootSchema) => hasType(schema, 'array') && !Array.isArray(resolveSchema(schema, 'items', rootSchema)), // we don't care about tuples
   ),
   schemaSubPathMatches('items', (schema, rootSchema) => {
     const resolvedSchema = schema.$ref ? resolveSchema(rootSchema, schema.$ref, rootSchema) : schema;
     return hasType(resolvedSchema, 'object');
-  })
+  }),
 );
 
 /**
@@ -423,7 +440,7 @@ export const isObjectArrayWithNesting = (uischema: UISchemaElement, schema: Json
           }
           return false;
         },
-        context?.rootSchema
+        context?.rootSchema,
       )
     ) {
       return true;
@@ -453,13 +470,13 @@ export const isArrayObjectControl = isObjectArrayControl;
 export const isPrimitiveArrayControl = and(
   uiTypeIs('Control'),
   schemaMatches(
-    (schema, rootSchema) => deriveTypes(schema).length !== 0 && !Array.isArray(resolveSchema(schema, 'items', rootSchema)) // we don't care about tuples
+    (schema, rootSchema) => deriveTypes(schema).length !== 0 && !Array.isArray(resolveSchema(schema, 'items', rootSchema)), // we don't care about tuples
   ),
   schemaSubPathMatches('items', (schema, rootSchema) => {
     const resolvedSchema = schema.$ref ? resolveSchema(rootSchema, schema.$ref, rootSchema) : schema;
     const types = deriveTypes(resolvedSchema);
     return types.length === 1 && includes(['integer', 'number', 'boolean', 'string'], types[0]);
-  })
+  }),
 );
 
 /**
@@ -475,9 +492,9 @@ export const isRangeControl = and(
     schema =>
       Object.prototype.hasOwnProperty.call(schema, 'maximum') &&
       Object.prototype.hasOwnProperty.call(schema, 'minimum') &&
-      Object.prototype.hasOwnProperty.call(schema, 'default')
+      Object.prototype.hasOwnProperty.call(schema, 'default'),
   ),
-  optionIs('slider', true)
+  optionIs('slider', true),
 );
 
 /**

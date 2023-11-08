@@ -68,13 +68,13 @@ export class JsonFormsAngularService {
   init(
     initialState: JsonFormsSubStates = {
       core: { data: undefined, schema: undefined, uischema: undefined, validationMode: 'ValidateAndShow', additionalErrors: undefined },
-    }
+    },
   ) {
     this._state = initialState;
     this._state.config = configReducer(undefined, setConfig(this._state.config));
     this._state.i18n = i18nReducer(
       this._state.i18n,
-      updateI18n(this._state.i18n?.locale, this._state.i18n?.translate, this._state.i18n?.translateError)
+      updateI18n(this._state.i18n?.locale, this._state.i18n?.translate, this._state.i18n?.translateError),
     );
     this.state = new BehaviorSubject({ jsonforms: this._state });
     this.submit = new BehaviorSubject(null);
@@ -184,7 +184,7 @@ export class JsonFormsAngularService {
   setSchema(schema: JsonSchema | undefined): void {
     const coreState = coreReducer(
       this._state.core,
-      Actions.updateCore(this._state.core.data, schema ?? generateJsonSchema(this._state.core.data), this._state.core.uischema)
+      Actions.updateCore(this._state.core.data, schema ?? generateJsonSchema(this._state.core.data), this._state.core.uischema),
     );
     if (coreState !== this._state.core) {
       this._state.core = coreState;
@@ -237,7 +237,7 @@ export class JsonFormsAngularService {
     uischema: UISchemaElement | typeof USE_STATE_VALUE,
     ajv: Ajv | typeof USE_STATE_VALUE,
     validationMode: ValidationMode | typeof USE_STATE_VALUE,
-    additionalErrors: ErrorObject[] | typeof USE_STATE_VALUE
+    additionalErrors: ErrorObject[] | typeof USE_STATE_VALUE,
   ): void {
     const newData = data === USE_STATE_VALUE ? this._state.core.data : data;
     const newSchema = schema === USE_STATE_VALUE ? this._state.core.schema : schema ?? generateJsonSchema(newData);
@@ -246,7 +246,7 @@ export class JsonFormsAngularService {
     const newValidationMode = validationMode === USE_STATE_VALUE ? this._state.core.validationMode : validationMode;
     const newAdditionalErrors = additionalErrors === USE_STATE_VALUE ? this._state.core.additionalErrors : additionalErrors;
     this.updateCore(
-      Actions.updateCore(newData, newSchema, newUischema, { ajv: newAjv, validationMode: newValidationMode, additionalErrors: newAdditionalErrors })
+      Actions.updateCore(newData, newSchema, newUischema, { ajv: newAjv, validationMode: newValidationMode, additionalErrors: newAdditionalErrors }),
     );
   }
 

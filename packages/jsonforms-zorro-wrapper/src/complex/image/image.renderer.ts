@@ -30,7 +30,11 @@ export class ImageControlRenderer extends JsonFormsControl {
   private maxImageHeight: number;
   private maxImageSizeMB: number;
 
-  constructor(jsonformsService: JsonFormsAngularService, changeDetectorRef: ChangeDetectorRef, protected service: JFZImageRendererService) {
+  constructor(
+    jsonformsService: JsonFormsAngularService,
+    changeDetectorRef: ChangeDetectorRef,
+    protected service: JFZImageRendererService,
+  ) {
     super(jsonformsService, changeDetectorRef);
   }
 
@@ -111,7 +115,7 @@ export class ImageControlRenderer extends JsonFormsControl {
           this.imageUrl = '';
           return of(err);
         }),
-        finalize(() => (this.isLoading = false))
+        finalize(() => (this.isLoading = false)),
       )
       .subscribe();
   };

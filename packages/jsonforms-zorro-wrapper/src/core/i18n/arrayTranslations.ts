@@ -27,11 +27,11 @@ export type ArrayTranslations = {
 export const arrayDefaultTranslations: ArrayDefaultTranslation[] = [
   {
     key: ArrayTranslationEnum.addTooltip,
-    default: (input) => (input ? `Add to ${input}` : 'Add'),
+    default: input => (input ? `Add to ${input}` : 'Add'),
   },
   {
     key: ArrayTranslationEnum.addAriaLabel,
-    default: (input) => (input ? `Add to ${input} button` : 'Add button'),
+    default: input => (input ? `Add to ${input} button` : 'Add button'),
   },
   { key: ArrayTranslationEnum.removeTooltip, default: () => 'Delete' },
   { key: ArrayTranslationEnum.removeAriaLabel, default: () => 'Delete button' },

@@ -31,12 +31,7 @@ export const Generate: {
   // TODO fix @typescript-eslint/ban-types
   // eslint-disable-next-line @typescript-eslint/ban-types
   jsonSchema(instance: Object, options?: any): JsonSchema;
-  uiSchema(
-    jsonSchema: JsonSchema,
-    layoutType?: string,
-    prefix?: string,
-    rootSchema?: JsonSchema
-  ): UISchemaElement;
+  uiSchema(jsonSchema: JsonSchema, layoutType?: string, prefix?: string, rootSchema?: JsonSchema): UISchemaElement;
   controlElement(ref: string): ControlElement;
 } = {
   jsonSchema: generateJsonSchema,

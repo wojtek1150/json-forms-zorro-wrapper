@@ -46,6 +46,16 @@
         "type": "string",
         "enum": ["foo"]
       }
+    },
+    "mentionField": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 4,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": ["foo"]
+      }
     }
   },
   "required": ["name", "due_date"]

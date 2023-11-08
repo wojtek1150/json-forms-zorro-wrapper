@@ -1,9 +1,4 @@
-<nz-alert
-  nzDescription="npm run install @wojtek1150/jsonforms-zorro-wrapper"
-  nzMessage="Instalation"
-  nzShowIcon
-  nzType="info"
-></nz-alert>
+<nz-alert nzDescription="npm run install @wojtek1150/jsonforms-zorro-wrapper" nzMessage="Instalation" nzShowIcon nzType="info"></nz-alert>
 
 <nz-tabset nzTabPosition="left">
   <nz-tab [nzTitle]="titleTemplate">
@@ -17,8 +12,7 @@
       [config]="jsonformsConfig"
       [renderers]="renderers"
       [schema]="schema"
-      [uischema]="uischema"
-    ></jsonforms>
+      [uischema]="uischema"></jsonforms>
   </nz-tab>
   <nz-tab nzTitle="Form Data">
     <pre><code>{{formData | json }}</code></pre>

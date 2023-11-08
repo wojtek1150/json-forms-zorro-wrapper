@@ -140,7 +140,7 @@ const resolveSchemaWithSegments = (schema: JsonSchema, pathSegments: string[], r
       schema.allOf ?? [],
       schema.anyOf ?? [],
       (schema as JsonSchema7).then ?? [],
-      (schema as JsonSchema7).else ?? []
+      (schema as JsonSchema7).else ?? [],
     );
 
     for (const subSchema of subSchemas) {

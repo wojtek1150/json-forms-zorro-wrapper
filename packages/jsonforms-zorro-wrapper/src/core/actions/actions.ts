@@ -104,26 +104,15 @@ export interface SetValidationModeAction {
   validationMode: ValidationMode;
 }
 
-export const init = (
-  data: any,
-  schema: JsonSchema = generateJsonSchema(data),
-  uischema?: UISchemaElement,
-  options?: InitActionOptions | AJV
-) => ({
+export const init = (data: any, schema: JsonSchema = generateJsonSchema(data), uischema?: UISchemaElement, options?: InitActionOptions | AJV) => ({
   type: INIT,
   data,
   schema,
-  uischema:
-    typeof uischema === 'object' ? uischema : generateDefaultUISchema(schema),
+  uischema: typeof uischema === 'object' ? uischema : generateDefaultUISchema(schema),
   options,
 });
 
-export const updateCore = (
-  data: any,
-  schema: JsonSchema,
-  uischema?: UISchemaElement,
-  options?: AJV | InitActionOptions
-): UpdateCoreAction => ({
+export const updateCore = (data: any, schema: JsonSchema, uischema?: UISchemaElement, options?: AJV | InitActionOptions): UpdateCoreAction => ({
   type: UPDATE_CORE,
   data,
   schema,
@@ -163,10 +152,7 @@ export const setAjv = (ajv: AJV) => ({
   ajv,
 });
 
-export const update = (
-  path: string,
-  updater: (existingData: any) => any
-): UpdateAction => ({
+export const update = (path: string, updater: (existingData: any) => any): UpdateAction => ({
   type: UPDATE_DATA,
   path,
   updater,
@@ -235,9 +221,7 @@ export const setConfig = (config: any): SetConfigAction => ({
   config,
 });
 
-export const setValidationMode = (
-  validationMode: ValidationMode
-): SetValidationModeAction => ({
+export const setValidationMode = (validationMode: ValidationMode): SetValidationModeAction => ({
   type: SET_VALIDATION_MODE,
   validationMode,
 });
@@ -250,10 +234,7 @@ export interface AddUISchemaAction {
   uischema: UISchemaElement;
 }
 
-export const registerUISchema = (
-  tester: UISchemaTester,
-  uischema: UISchemaElement
-): AddUISchemaAction => {
+export const registerUISchema = (tester: UISchemaTester, uischema: UISchemaElement): AddUISchemaAction => {
   return {
     type: ADD_UI_SCHEMA,
     tester,
@@ -266,19 +247,14 @@ export interface RemoveUISchemaAction {
   tester: UISchemaTester;
 }
 
-export const unregisterUISchema = (
-  tester: UISchemaTester
-): RemoveUISchemaAction => {
+export const unregisterUISchema = (tester: UISchemaTester): RemoveUISchemaAction => {
   return {
     type: REMOVE_UI_SCHEMA,
     tester,
   };
 };
 
-export type I18nActions =
-  | SetLocaleAction
-  | SetTranslatorAction
-  | UpdateI18nAction;
+export type I18nActions = SetLocaleAction | SetTranslatorAction | UpdateI18nAction;
 
 export interface SetLocaleAction {
   type: 'jsonforms/SET_LOCALE';
@@ -306,10 +282,7 @@ export interface SetTranslatorAction {
   errorTranslator?: ErrorTranslator;
 }
 
-export const setTranslator = (
-  translator?: Translator,
-  errorTranslator?: ErrorTranslator
-): SetTranslatorAction => ({
+export const setTranslator = (translator?: Translator, errorTranslator?: ErrorTranslator): SetTranslatorAction => ({
   type: SET_TRANSLATOR,
   translator,
   errorTranslator,
@@ -325,7 +298,7 @@ export interface UpdateI18nAction {
 export const updateI18n = (
   locale: string | undefined,
   translator: Translator | undefined,
-  errorTranslator: ErrorTranslator | undefined
+  errorTranslator: ErrorTranslator | undefined,
 ): UpdateI18nAction => ({
   type: UPDATE_I18N,
   locale,

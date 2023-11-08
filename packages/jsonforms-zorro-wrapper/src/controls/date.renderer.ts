@@ -43,7 +43,11 @@ export class DateControlRenderer extends JsonFormsControl {
   readonly dateFormat = 'yyyy-MM-dd';
   selectedDate: string = null;
 
-  constructor(jsonformsService: JsonFormsAngularService, changeDetectorRef: ChangeDetectorRef, private datePipe: DatePipe) {
+  constructor(
+    jsonformsService: JsonFormsAngularService,
+    changeDetectorRef: ChangeDetectorRef,
+    private datePipe: DatePipe,
+  ) {
     super(jsonformsService, changeDetectorRef);
   }
 

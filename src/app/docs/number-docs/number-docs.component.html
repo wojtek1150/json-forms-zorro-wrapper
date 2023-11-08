@@ -4,41 +4,36 @@
 <p>Ui Schema</p>
 <pre><code>{{uiSchema.elements[0] | json }}</code></pre>
 
-<jsonforms
-  [renderers]="renderers"
-  [schema]="schema"
-  [uischema]="uiSchema"
-></jsonforms>
-
+<jsonforms [renderers]="renderers" [schema]="schema" [uischema]="uiSchema"></jsonforms>
 
 <p>Schema</p>
 <nz-table [nzTemplateMode]="true">
   <thead>
-  <tr>
-    <th>Property</th>
-    <th>Description</th>
-    <th>Type</th>
-    <th>Default</th>
-  </tr>
+    <tr>
+      <th>Property</th>
+      <th>Description</th>
+      <th>Type</th>
+      <th>Default</th>
+    </tr>
   </thead>
   <tbody>
-  <tr>
-    <td>minimum</td>
-    <td>Minimum value</td>
-    <td><code>number</code></td>
-    <td>-</td>
-  </tr>
-  <tr>
-    <td>maximum</td>
-    <td>Maximum value</td>
-    <td><code>number</code></td>
-    <td>-</td>
-  </tr>
-  <tr>
-    <td>multipleOf</td>
-    <td>Stepper</td>
-    <td><code>number</code></td>
-    <td>-</td>
-  </tr>
+    <tr>
+      <td>minimum</td>
+      <td>Minimum value</td>
+      <td><code>number</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>maximum</td>
+      <td>Maximum value</td>
+      <td><code>number</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>multipleOf</td>
+      <td>Stepper</td>
+      <td><code>number</code></td>
+      <td>-</td>
+    </tr>
   </tbody>
 </nz-table>

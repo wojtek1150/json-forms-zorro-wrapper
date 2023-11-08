@@ -13,7 +13,11 @@ export class LayoutRenderer<T extends JFZLayout> extends JsonFormsBaseRenderer<T
   hidden = false;
   private readonly destroy$ = new Subject<void>();
 
-  constructor(private jsonFormsService: JsonFormsAngularService, protected changeDetectionRef: ChangeDetectorRef, private sanitizer: DomSanitizer) {
+  constructor(
+    private jsonFormsService: JsonFormsAngularService,
+    protected changeDetectionRef: ChangeDetectorRef,
+    private sanitizer: DomSanitizer,
+  ) {
     super();
   }
 

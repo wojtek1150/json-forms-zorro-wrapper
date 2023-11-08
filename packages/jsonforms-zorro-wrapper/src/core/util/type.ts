@@ -62,9 +62,7 @@ export interface AnyAction extends Action {
  * @template A The type of things (actions or otherwise) which may be
  *   dispatched.
  */
-export type Dispatch<A extends Action = AnyAction> = <T extends A>(
-  action: T
-) => T;
+export type Dispatch<A extends Action = AnyAction> = <T extends A>(action: T) => T;
 
 // Copied from https://github.com/reduxjs/redux/blob/master/src/types/store.ts
 /**
@@ -210,10 +208,7 @@ export type Observer<T> = {
  * @template S The type of state consumed and produced by this reducer.
  * @template A The type of actions the reducer can potentially respond to.
  */
-export type Reducer<S = any, A extends Action = AnyAction> = (
-  state: S | undefined,
-  action: A
-) => S;
+export type Reducer<S = any, A extends Action = AnyAction> = (state: S | undefined, action: A) => S;
 
 // Copied from https://github.com/reduxjs/redux/blob/master/src/types/store.ts
 /**

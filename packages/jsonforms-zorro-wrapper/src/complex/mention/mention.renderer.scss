@@ -1,0 +1,25 @@
+nz-form-item {
+  display: block;
+}
+
+.hidden {
+  display: none;
+}
+
+.item-user {
+  img {
+    width: 1.5em;
+    height: 1.5em;
+    border-radius: 50%;
+  }
+
+  strong {
+    display: inline-block;
+    margin: 0 0.5em;
+    font-weight: normal;
+  }
+
+  span {
+    opacity: 0.75;
+  }
+}

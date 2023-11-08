@@ -144,7 +144,7 @@ export const isInherentlyEnabled = (
   uischema: UISchemaElement,
   schema: (JsonSchema & { readOnly?: boolean }) | undefined,
   rootData: any,
-  config: any
+  config: any,
 ) => {
   if (state?.jsonforms?.readonly) {
     return false;

@@ -13,7 +13,11 @@
     "access": "public"
   },
   "description": "Ng Zorro wrapper for Json Forms library",
-  "keywords": ["jsonforms", "ngzorro", "angular"],
+  "keywords": [
+    "jsonforms",
+    "ngzorro",
+    "angular"
+  ],
   "peerDependencies": {
     "@angular/animations": "^13.1 || 14 || 15 || 16",
     "@angular/common": "^13.1 || 14 || 15 || 16",

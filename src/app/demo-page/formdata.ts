@@ -11,10 +11,30 @@ export const formData = {
   toggle: true,
   slider: 2,
   enum: 'Two',
+  mentionField: ['jane.doe@gmail.com'],
 };
 
 export const jsonformsConfig: Config = {
   multiselectExternalDictionary: {
     tags: ['foo', 'bar', 'tar'].map(label => ({ label, value: label })),
+  },
+  mentionDictionary: {
+    users: [
+      {
+        name: 'John Doe',
+        email: 'john.doe@gmail.com',
+        avatar: 'https://i.pravatar.cc/400?img=50',
+      },
+      {
+        name: 'Jane Doe',
+        email: 'jane.doe@gmail.com',
+        avatar: 'https://i.pravatar.cc/400?img=51',
+      },
+      {
+        name: 'John Smith',
+        email: 'smith@gmail.com',
+        avatar: 'https://i.pravatar.cc/400?img=52',
+      },
+    ],
   },
 };

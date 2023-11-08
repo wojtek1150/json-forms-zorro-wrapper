@@ -23,17 +23,8 @@
   THE SOFTWARE.
 */
 
-import {
-  defaultErrorTranslator,
-  defaultTranslator,
-  JsonFormsI18nState,
-} from '../i18n';
-import {
-  I18nActions,
-  SET_LOCALE,
-  SET_TRANSLATOR,
-  UPDATE_I18N,
-} from '../actions';
+import { defaultErrorTranslator, defaultTranslator, JsonFormsI18nState } from '../i18n';
+import { I18nActions, SET_LOCALE, SET_TRANSLATOR, UPDATE_I18N } from '../actions';
 import type { Reducer } from '../util';
 
 export const defaultJsonFormsI18nState: Required<JsonFormsI18nState> = {
@@ -42,23 +33,14 @@ export const defaultJsonFormsI18nState: Required<JsonFormsI18nState> = {
   translateError: defaultErrorTranslator,
 };
 
-export const i18nReducer: Reducer<JsonFormsI18nState, I18nActions> = (
-  state = defaultJsonFormsI18nState,
-  action
-) => {
+export const i18nReducer: Reducer<JsonFormsI18nState, I18nActions> = (state = defaultJsonFormsI18nState, action) => {
   switch (action.type) {
     case UPDATE_I18N: {
       const locale = action.locale ?? defaultJsonFormsI18nState.locale;
-      const translate =
-        action.translator ?? defaultJsonFormsI18nState.translate;
-      const translateError =
-        action.errorTranslator ?? defaultJsonFormsI18nState.translateError;
+      const translate = action.translator ?? defaultJsonFormsI18nState.translate;
+      const translateError = action.errorTranslator ?? defaultJsonFormsI18nState.translateError;
 
-      if (
-        locale !== state.locale ||
-        translate !== state.translate ||
-        translateError !== state.translateError
-      ) {
+      if (locale !== state.locale || translate !== state.translate || translateError !== state.translateError) {
         return {
           ...state,
           locale,

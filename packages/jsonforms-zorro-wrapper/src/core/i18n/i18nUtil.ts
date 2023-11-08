@@ -3,15 +3,9 @@ import { isInternationalized, Labelable, UISchemaElement } from '../models';
 import { getControlPath } from '../reducers';
 import { formatErrorMessage } from '../util';
 import type { i18nJsonSchema, ErrorTranslator, Translator } from './i18nTypes';
-import {
-  ArrayDefaultTranslation,
-  ArrayTranslations,
-} from './arrayTranslations';
+import { ArrayDefaultTranslation, ArrayTranslations } from './arrayTranslations';
 
-export const getI18nKeyPrefixBySchema = (
-  schema: i18nJsonSchema | undefined,
-  uischema: unknown | undefined
-): string | undefined => {
+export const getI18nKeyPrefixBySchema = (schema: i18nJsonSchema | undefined, uischema: unknown | undefined): string | undefined => {
   if (isInternationalized(uischema)) {
     return uischema.i18n;
   }
@@ -26,51 +20,28 @@ export const transformPathToI18nPrefix = (path: string): string => {
   return (
     path
       ?.split('.')
-      .filter((segment) => !/^\d+$/.test(segment))
+      .filter(segment => !/^\d+$/.test(segment))
       .join('.') || 'root'
   );
 };
 
-export const getI18nKeyPrefix = (
-  schema: i18nJsonSchema | undefined,
-  uischema: unknown | undefined,
-  path: string | undefined
-): string => {
-  return (
-    getI18nKeyPrefixBySchema(schema, uischema) ??
-    transformPathToI18nPrefix(path)
-  );
+export const getI18nKeyPrefix = (schema: i18nJsonSchema | undefined, uischema: unknown | undefined, path: string | undefined): string => {
+  return getI18nKeyPrefixBySchema(schema, uischema) ?? transformPathToI18nPrefix(path);
 };
 
-export const getI18nKey = (
-  schema: i18nJsonSchema | undefined,
-  uischema: unknown | undefined,
-  path: string | undefined,
-  key: string
-): string => {
+export const getI18nKey = (schema: i18nJsonSchema | undefined, uischema: unknown | undefined, path: string | undefined, key: string): string => {
   return `${getI18nKeyPrefix(schema, uischema, path)}.${key}`;
 };
 
-export const addI18nKeyToPrefix = (
-  i18nKeyPrefix: string,
-  key: string
-): string => {
+export const addI18nKeyToPrefix = (i18nKeyPrefix: string, key: string): string => {
   return `${i18nKeyPrefix}.${key}`;
 };
 
-export const defaultTranslator: Translator = (
-  _id: string,
-  defaultMessage: string | undefined
-) => defaultMessage;
+export const defaultTranslator: Translator = (_id: string, defaultMessage: string | undefined) => defaultMessage;
 
 export const defaultErrorTranslator: ErrorTranslator = (error, t, uischema) => {
   // check whether there is a special keyword message
-  const i18nKey = getI18nKey(
-    error.parentSchema,
-    uischema,
-    getControlPath(error),
-    `error.${error.keyword}`
-  );
+  const i18nKey = getI18nKey(error.parentSchema, uischema, getControlPath(error), `error.${error.keyword}`);
   const specializedKeywordMessage = t(i18nKey, undefined, { error });
   if (specializedKeywordMessage !== undefined) {
     return specializedKeywordMessage;
@@ -91,10 +62,7 @@ export const defaultErrorTranslator: ErrorTranslator = (error, t, uischema) => {
   }
 
   // rewrite required property messages (if they were not customized) as we place them next to the respective input
-  if (
-    error.keyword === 'required' &&
-    error.message?.startsWith('must have required property')
-  ) {
+  if (error.keyword === 'required' && error.message?.startsWith('must have required property')) {
     return t('is a required property', 'is a required property', { error });
   }
 
@@ -111,7 +79,7 @@ export const getCombinedErrorMessage = (
   t: Translator,
   schema?: i18nJsonSchema,
   uischema?: UISchemaElement,
-  path?: string
+  path?: string,
 ) => {
   if (errors.length > 0 && t) {
     // check whether there is a special message which overwrites all others
@@ -126,37 +94,23 @@ export const getCombinedErrorMessage = (
       return specializedErrorMessage;
     }
   }
-  return formatErrorMessage(errors.map((error) => et(error, t, uischema)));
+  return formatErrorMessage(errors.map(error => et(error, t, uischema)));
 };
 
 /**
  * This can be used to internationalize the label of the given Labelable (e.g. UI Schema elements).
  * This should not be used for controls as there we have additional context in the form of the JSON Schema available.
  */
-export const deriveLabelForUISchemaElement = (
-  uischema: Labelable<boolean>,
-  t: Translator
-): string | undefined => {
+export const deriveLabelForUISchemaElement = (uischema: Labelable<boolean>, t: Translator): string | undefined => {
   if (uischema.label === false) {
     return undefined;
   }
-  if (
-    (uischema.label === undefined ||
-      uischema.label === null ||
-      uischema.label === true) &&
-    !isInternationalized(uischema)
-  ) {
+  if ((uischema.label === undefined || uischema.label === null || uischema.label === true) && !isInternationalized(uischema)) {
     return undefined;
   }
-  const stringifiedLabel =
-    typeof uischema.label === 'string'
-      ? uischema.label
-      : JSON.stringify(uischema.label);
+  const stringifiedLabel = typeof uischema.label === 'string' ? uischema.label : JSON.stringify(uischema.label);
   const i18nKeyPrefix = getI18nKeyPrefixBySchema(undefined, uischema);
-  const i18nKey =
-    typeof i18nKeyPrefix === 'string'
-      ? `${i18nKeyPrefix}.label`
-      : stringifiedLabel;
+  const i18nKey = typeof i18nKeyPrefix === 'string' ? `${i18nKeyPrefix}.label` : stringifiedLabel;
   return t(i18nKey, stringifiedLabel, { uischema: uischema });
 };
 
@@ -164,10 +118,10 @@ export const getArrayTranslations = (
   t: Translator,
   defaultTranslations: ArrayDefaultTranslation[],
   i18nKeyPrefix: string,
-  label: string
+  label: string,
 ): ArrayTranslations => {
   const translations: ArrayTranslations = {};
-  defaultTranslations.forEach((controlElement) => {
+  defaultTranslations.forEach(controlElement => {
     const key = addI18nKeyToPrefix(i18nKeyPrefix, controlElement.key);
     translations[controlElement.key] = t(key, controlElement.default(label));
   });

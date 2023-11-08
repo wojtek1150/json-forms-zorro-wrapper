@@ -24,6 +24,7 @@ import { ArrayLayoutRenderer, ArrayLayoutRendererTester } from './layouts/array-
 import { WysiwygRenderer, WysiwygRendererTester } from './controls/wysiwyg.renderer';
 import { ImageControlRenderer, ImageControlRendererTester } from './complex/image/image.renderer';
 import { GooglePlacesControlRendererTester, GooglePlacesRenderer } from './complex/google-places/google-places.renderer';
+import { MentionControlRenderer, MentionControlRendererTester } from './complex/mention/mention.renderer';
 
 export const ngZorroRenderers: {
   tester: RankedTester;
@@ -44,6 +45,7 @@ export const ngZorroRenderers: {
   // complex controls
   { tester: CheckboxGroupControlRendererTester, renderer: CheckboxGroupControlRenderer },
   { tester: MultiselectControlRendererTester, renderer: MultiselectControlRenderer },
+  { tester: MentionControlRendererTester, renderer: MentionControlRenderer },
   { tester: ImageControlRendererTester, renderer: ImageControlRenderer },
   { tester: GooglePlacesControlRendererTester, renderer: GooglePlacesRenderer },
   // layouts

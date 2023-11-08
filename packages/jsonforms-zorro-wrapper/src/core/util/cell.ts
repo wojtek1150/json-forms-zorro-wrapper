@@ -181,7 +181,7 @@ export const mapStateToOneOfEnumCellProps = (state: JsonFormsState, ownProps: Ow
   const options: EnumOption[] =
     ownProps.options ||
     (props.schema.oneOf as JsonSchema[])?.map(oneOfSubSchema =>
-      oneOfToEnumOptionMapper(oneOfSubSchema, getTranslator()(state), getI18nKeyPrefix(props.schema, props.uischema, props.path))
+      oneOfToEnumOptionMapper(oneOfSubSchema, getTranslator()(state), getI18nKeyPrefix(props.schema, props.uischema, props.path)),
     );
   return {
     ...props,

@@ -23,10 +23,10 @@
   THE SOFTWARE.
 */
 
-import { SET_CONFIG, SetConfigAction } from "../actions";
-import { configDefault } from "../configDefault";
-import type { Reducer } from "../util";
-import { merge } from "lodash-es";
+import { SET_CONFIG, SetConfigAction } from '../actions';
+import { configDefault } from '../configDefault';
+import type { Reducer } from '../util';
+import { merge } from 'lodash-es';
 
 export const applyDefaultConfiguration = (config: any = {}) => merge({}, configDefault, config);
 
