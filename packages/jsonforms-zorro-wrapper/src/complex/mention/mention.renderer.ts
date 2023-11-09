@@ -5,7 +5,7 @@ import { Actions, and, hasOption, hasType, optionIs, RankedTester, rankWith, sch
 interface Person {
   name: string;
   email: string;
-  avatar: string;
+  avatar?: string;
 }
 
 @Component({
@@ -15,7 +15,8 @@ interface Person {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MentionControlRenderer extends JsonFormsControl {
-  options: { user: Person; value: string; checked?: boolean }[] = [];
+  selectOptions: { user: Person; value: string | Person; checked?: boolean }[] = [];
+  returnValueKey: string = 'email';
 
   constructor(jsonformsService: JsonFormsAngularService, changeDetectorRef: ChangeDetectorRef) {
     super(jsonformsService, changeDetectorRef);
@@ -23,29 +24,38 @@ export class MentionControlRenderer extends JsonFormsControl {
 
   override getEventValue = (event: any) => event;
 
-  override onChange(event: string[]) {
-    this.options = this.options.map(option => {
+  override onChange(event: string[] | Person[]): void {
+    this.selectOptions = this.selectOptions.map(option => {
       return {
         user: option.user,
         value: option.value,
-        checked: event.includes(option.value),
+        checked:
+          this.returnValueKey === 'all'
+            ? event.some(person => person.email === (option.value as Person).email)
+            : (event as string[]).includes(option.value as string),
       };
     });
     this.jsonFormsService.updateCore(Actions.update(this.propsPath, () => event));
     this.triggerValidation();
   }
 
-  override mapAdditionalProps(props) {
+  override mapAdditionalProps(props): void {
     super.mapAdditionalProps(props);
     if (this.scopedSchema) {
-      this.options = this.getOptions();
+      this.returnValueKey = this.uischema.options?.returnValueKey || 'email';
+      this.selectOptions = this.getOptions();
     }
   }
 
   private getOptions(): { user: Person; value: string }[] {
     const mentionKey = this.uischema.options?.mentionKey;
     if (mentionKey) {
-      return this.config.mentionDictionary[mentionKey].map(user => ({ user, value: user.email }));
+      return this.config.mentionDictionary[mentionKey].map(user => {
+        return {
+          user,
+          value: this.returnValueKey === 'all' ? user : user[this.returnValueKey],
+        };
+      });
     }
     return [];
   }

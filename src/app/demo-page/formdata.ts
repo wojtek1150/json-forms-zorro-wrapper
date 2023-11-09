@@ -31,6 +31,10 @@ export const jsonformsConfig: Config = {
         avatar: 'https://i.pravatar.cc/400?img=51',
       },
       {
+        name: 'Lucy Green',
+        email: 'lucy.green@gmail.com',
+      },
+      {
         name: 'John Smith',
         email: 'smith@gmail.com',
         avatar: 'https://i.pravatar.cc/400?img=52',

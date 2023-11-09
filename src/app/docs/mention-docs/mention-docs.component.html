@@ -1,0 +1,113 @@
+<h1>Mention control</h1>
+<p>A multiple select control for selecting users with custom dropdown rendered. It can return multiple types of values. Requires external list of data in jsonforms config</p>
+
+<article>
+  <h2>String value</h2>
+  <p>You can choose in uischema options the key Person object which you want to select. Default email is used</p>
+  <jsonforms [(data)]="data" [config]="jsonformsConfigExternal" [renderers]="renderers" [schema]="schema" [uischema]="uiSchema"></jsonforms>
+
+  <div class="flex">
+    <div>
+      <p>Schema</p>
+      <pre><code>{{schema.properties | json }}</code></pre>
+
+      <p>Ui Schema</p>
+      <pre><code>{{uiSchema.elements[0] | json }}</code></pre>
+    </div>
+
+    <div>
+      <p>Config</p>
+      <pre><code>{{jsonformsConfigExternal | json }}</code></pre>
+      <p>Data</p>
+      <pre><code>{{data | json }}</code></pre>
+    </div>
+  </div>
+</article>
+
+
+<article>
+  <h2>Whole object</h2>
+  <p>When you pass <code>all</code> as return key whole object will be used as a value of input</p>
+  <jsonforms [(data)]="data2" [config]="jsonformsConfigExternal" [renderers]="renderers" [schema]="schema2" [uischema]="uiSchema2"></jsonforms>
+
+  <div class="flex">
+    <div>
+      <p>Schema</p>
+      <pre><code>{{schema2.properties | json }}</code></pre>
+
+      <p>Ui Schema</p>
+      <pre><code>{{uiSchema2.elements[0] | json }}</code></pre>
+    </div>
+
+    <div>
+      <p>Config</p>
+      <pre><code>{{jsonformsConfigExternal | json }}</code></pre>
+      <p>Data</p>
+      <pre><code>{{data2 | json }}</code></pre>
+    </div>
+  </div>
+</article>
+
+<p>Schema</p>
+<nz-table [nzTemplateMode]="true">
+  <thead>
+  <tr>
+    <th>Property</th>
+    <th>Description</th>
+    <th>Type</th>
+    <th>Default</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>minItems</td>
+    <td>Set to validate minimum number of items to be checked / selected</td>
+    <td><code>number</code></td>
+    <td>-</td>
+  </tr>
+  <tr>
+    <td>maxItems</td>
+    <td>Set to validate maximum number of items to be checked / selected</td>
+    <td><code>number</code></td>
+    <td>-</td>
+  </tr>
+  <tr>
+    <td>uniqueItems</td>
+    <td>Set to enable multiple choice control</td>
+    <td><code>boolean</code></td>
+    <td>-</td>
+  </tr>
+  </tbody>
+</nz-table>
+
+<p>UiSchema Options</p>
+<nz-table [nzTemplateMode]="true">
+  <thead>
+  <tr>
+    <th>Property</th>
+    <th>Description</th>
+    <th>Type</th>
+    <th>Default</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>format</td>
+    <td>Set to `mention` to enable dropdown selection</td>
+    <td><code>string</code></td>
+    <td>-</td>
+  </tr>
+  <tr>
+    <td>returnValueKey</td>
+    <td>Object key from passed list to return</td>
+    <td><code>string</code></td>
+    <td><code>email</code></td>
+  </tr>
+  <tr>
+    <td>mentionDictionary</td>
+    <td>Key for external mention options dictionary</td>
+    <td><code>string</code></td>
+    <td>-</td>
+  </tr>
+  </tbody>
+</nz-table>

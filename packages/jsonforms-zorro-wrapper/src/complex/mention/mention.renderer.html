@@ -1,6 +1,6 @@
 <nz-form-item *ngIf="scopedSchema" [class.hidden]="hidden" [class]="additionalClasses">
   <nz-form-label *ngIf="label" [nzFor]="id" [nzNoColon]="hideColonInLabel" [nzRequired]="required"
-    ><i *ngIf="labelIcon" [nzType]="labelIcon" nz-icon nzTheme="outline"></i> {{ label }}
+  ><i *ngIf="labelIcon" [nzType]="labelIcon" nz-icon nzTheme="outline"></i> {{ label }}
   </nz-form-label>
   <DescriptionRenderer [scopedSchema]="scopedSchema" [uiSchema]="uischema"></DescriptionRenderer>
   <nz-form-control [nzErrorTip]="errorMessage" [nzHasFeedback]="showValidationStatus" [nzValidateStatus]="form.status | nzValidationStatus">
@@ -12,9 +12,9 @@
       [nzMaxTagCount]="uischema.options.nzMaxTagCount"
       [nzPlaceHolder]="placeholder"
       nzMode="multiple">
-      <nz-option *ngFor="let item of options" [nzLabel]="item.user.name" [nzValue]="item.value" nzCustomContent>
+      <nz-option *ngFor="let item of selectOptions" [nzLabel]="item.user.name" [nzValue]="item.value" nzCustomContent>
         <div class="item-user">
-          <img [alt]="item.user.name" [src]="item.user.avatar" />
+          <nz-avatar [nzSrc]="item.user.avatar" nzIcon="user"></nz-avatar>
           <strong>{{ item.user.name }}</strong>
           <span>({{ item.user.email }})</span>
         </div>

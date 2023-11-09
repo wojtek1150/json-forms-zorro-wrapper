@@ -7,10 +7,9 @@ nz-form-item {
 }
 
 .item-user {
-  img {
+  nz-avatar {
     width: 1.5em;
     height: 1.5em;
-    border-radius: 50%;
   }
 
   strong {
