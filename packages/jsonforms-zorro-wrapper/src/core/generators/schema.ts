@@ -23,7 +23,7 @@
   THE SOFTWARE.
 */
 
-import type { JsonSchema4 } from "../models";
+import type { JsonSchema4 } from '../models';
 
 const ADDITIONAL_PROPERTIES = 'additionalProperties';
 const REQUIRED_PROPERTIES = 'required';
@@ -141,7 +141,7 @@ export const generateJsonSchema = (
   // TODO fix @typescript-eslint/ban-types
   // eslint-disable-next-line @typescript-eslint/ban-types
   instance: Object,
-  options: any = {}
+  options: any = {},
 ): JsonSchema4 => {
   const findOption =
     (props: Properties) =>

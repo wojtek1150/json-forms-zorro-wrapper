@@ -41,15 +41,7 @@ export const Draft4 = {
       allOf: [{ $ref: '#/definitions/positiveInteger' }, { default: 0 }],
     },
     simpleTypes: {
-      enum: [
-        'array',
-        'boolean',
-        'integer',
-        'null',
-        'number',
-        'object',
-        'string',
-      ],
+      enum: ['array', 'boolean', 'integer', 'null', 'number', 'object', 'string'],
     },
     stringArray: {
       type: 'array',

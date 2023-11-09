@@ -389,7 +389,7 @@ export const getErrorsAt =
     return errorsAt(
       instancePath,
       schema,
-      matchPath
+      matchPath,
     )(state.validationMode === 'ValidateAndHide' ? additionalErrors : [...errors, ...additionalErrors]);
   };
 

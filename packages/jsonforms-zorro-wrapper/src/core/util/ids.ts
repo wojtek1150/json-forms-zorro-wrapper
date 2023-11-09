@@ -25,8 +25,7 @@
 
 const usedIds: Set<string> = new Set<string>();
 
-const makeId = (idBase: string, iteration: number) =>
-  iteration <= 1 ? idBase : idBase + iteration.toString();
+const makeId = (idBase: string, iteration: number) => (iteration <= 1 ? idBase : idBase + iteration.toString());
 
 const isUniqueId = (idBase: string, iteration: number) => {
   const newID = makeId(idBase, iteration);

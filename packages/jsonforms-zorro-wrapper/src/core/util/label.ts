@@ -28,10 +28,7 @@ import startCase from 'lodash/startCase';
 import type { ControlElement, JsonSchema, LabelDescription } from '../models';
 import { decode } from './path';
 
-const deriveLabel = (
-  controlElement: ControlElement,
-  schemaElement?: JsonSchema
-): string => {
+const deriveLabel = (controlElement: ControlElement, schemaElement?: JsonSchema): string => {
   if (schemaElement && typeof schemaElement.title === 'string') {
     return schemaElement.title;
   }
@@ -54,10 +51,7 @@ export const createCleanLabel = (label: string): string => {
  * @param {JsonSchema} schema optional: the corresponding schema element
  * @returns {LabelDescription}
  */
-export const createLabelDescriptionFrom = (
-  withLabel: ControlElement,
-  schema?: JsonSchema
-): LabelDescription => {
+export const createLabelDescriptionFrom = (withLabel: ControlElement, schema?: JsonSchema): LabelDescription => {
   const labelProperty = withLabel.label;
   if (typeof labelProperty === 'boolean') {
     return labelDescription(deriveLabel(withLabel, schema), labelProperty);
@@ -66,12 +60,8 @@ export const createLabelDescriptionFrom = (
     return labelDescription(labelProperty, true);
   }
   if (typeof labelProperty === 'object') {
-    const label =
-      typeof labelProperty.text === 'string'
-        ? labelProperty.text
-        : deriveLabel(withLabel, schema);
-    const show =
-      typeof labelProperty.show === 'boolean' ? labelProperty.show : true;
+    const label = typeof labelProperty.text === 'string' ? labelProperty.text : deriveLabel(withLabel, schema);
+    const show = typeof labelProperty.show === 'boolean' ? labelProperty.show : true;
     return labelDescription(label, show);
   }
   return labelDescription(deriveLabel(withLabel, schema), true);

@@ -36,7 +36,10 @@ export abstract class JsonFormsAbstractControl<Props extends StatePropsOfControl
 
   private readonly destroy$ = new Subject<void>();
 
-  constructor(protected jsonFormsService: JsonFormsAngularService, protected changeDetectorRef: ChangeDetectorRef) {
+  constructor(
+    protected jsonFormsService: JsonFormsAngularService,
+    protected changeDetectorRef: ChangeDetectorRef,
+  ) {
     super();
     this.form = new FormControl(
       {
@@ -46,7 +49,7 @@ export abstract class JsonFormsAbstractControl<Props extends StatePropsOfControl
       {
         updateOn: 'change',
         validators: this.validator(),
-      }
+      },
     );
   }
 

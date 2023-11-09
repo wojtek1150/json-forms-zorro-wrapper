@@ -56,18 +56,14 @@ export { compose as composePaths };
  * @returns {string[]} an array containing only non-schema-specific segments
  */
 export const toDataPathSegments = (schemaPath: string): string[] => {
-  const s = schemaPath
-    .replace(/(anyOf|allOf|oneOf)\/[\d]\//g, '')
-    .replace(/(then|else)\//g, '');
+  const s = schemaPath.replace(/(anyOf|allOf|oneOf)\/[\d]\//g, '').replace(/(then|else)\//g, '');
   const segments = s.split('/');
 
   const decodedSegments = segments.map(decode);
 
   const startFromRoot = decodedSegments[0] === '#' || decodedSegments[0] === '';
   const startIndex = startFromRoot ? 2 : 1;
-  return range(startIndex, decodedSegments.length, 2).map(
-    (idx) => decodedSegments[idx]
-  );
+  return range(startIndex, decodedSegments.length, 2).map(idx => decodedSegments[idx]);
 };
 
 /**
@@ -104,10 +100,8 @@ export const composeWithUi = (scopableUi: Scopable, path: string): string => {
  *
  * JSON Pointer has special meaning for "/" and "~", therefore these must be encoded
  */
-export const encode = (segment: string) =>
-  segment?.replace(/~/g, '~0').replace(/\//g, '~1');
+export const encode = (segment: string) => segment?.replace(/~/g, '~0').replace(/\//g, '~1');
 /**
  * Decodes a given JSON Pointer segment to its "normal" representation
  */
-export const decode = (pointerSegment: string) =>
-  pointerSegment?.replace(/~1/g, '/').replace(/~0/, '~');
+export const decode = (pointerSegment: string) => pointerSegment?.replace(/~1/g, '/').replace(/~0/, '~');

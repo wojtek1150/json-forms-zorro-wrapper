@@ -3,6 +3,16 @@
   "elements": [
     {
       "type": "Control",
+      "scope": "#/properties/mentionField",
+      "label": "User selection",
+      "options": {
+        "format": "mention",
+        "mentionKey": "users",
+        "returnValueKey": "email"
+      }
+    },
+    {
+      "type": "Control",
       "label": "Completed",
       "scope": "#/properties/done"
     },

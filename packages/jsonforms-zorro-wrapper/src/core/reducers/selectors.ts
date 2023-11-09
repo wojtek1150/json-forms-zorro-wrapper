@@ -27,38 +27,17 @@ import get from 'lodash/get';
 import type Ajv from 'ajv';
 import type { JsonFormsState } from '../store';
 import type { JsonSchema, UISchemaElement } from '../models';
-import {
-  extractAjv,
-  extractData,
-  extractSchema,
-  extractUiSchema,
-} from './core';
-import {
-  extractDefaultData,
-  JsonFormsDefaultDataRegistryEntry,
-} from './default-data';
+import { extractAjv, extractData, extractSchema, extractUiSchema } from './core';
+import { extractDefaultData, JsonFormsDefaultDataRegistryEntry } from './default-data';
 import type { JsonFormsRendererRegistryEntry } from './renderers';
 import type { JsonFormsCellRendererRegistryEntry } from './cells';
 import type { JsonFormsUISchemaRegistryEntry } from './uischemas';
 
-export const getData = (state: JsonFormsState) =>
-  extractData(get(state, 'jsonforms.core'));
-export const getSchema = (state: JsonFormsState): JsonSchema =>
-  extractSchema(get(state, 'jsonforms.core'));
-export const getUiSchema = (state: JsonFormsState): UISchemaElement =>
-  extractUiSchema(get(state, 'jsonforms.core'));
-export const getAjv = (state: JsonFormsState): Ajv =>
-  extractAjv(get(state, 'jsonforms.core'));
-export const getDefaultData = (
-  state: JsonFormsState
-): JsonFormsDefaultDataRegistryEntry[] =>
-  extractDefaultData(get(state, 'jsonforms.defaultData'));
-export const getRenderers = (
-  state: JsonFormsState
-): JsonFormsRendererRegistryEntry[] => get(state, 'jsonforms.renderers');
-export const getCells = (
-  state: JsonFormsState
-): JsonFormsCellRendererRegistryEntry[] => get(state, 'jsonforms.cells');
-export const getUISchemas = (
-  state: JsonFormsState
-): JsonFormsUISchemaRegistryEntry[] => get(state, 'jsonforms.uischemas');
+export const getData = (state: JsonFormsState) => extractData(get(state, 'jsonforms.core'));
+export const getSchema = (state: JsonFormsState): JsonSchema => extractSchema(get(state, 'jsonforms.core'));
+export const getUiSchema = (state: JsonFormsState): UISchemaElement => extractUiSchema(get(state, 'jsonforms.core'));
+export const getAjv = (state: JsonFormsState): Ajv => extractAjv(get(state, 'jsonforms.core'));
+export const getDefaultData = (state: JsonFormsState): JsonFormsDefaultDataRegistryEntry[] => extractDefaultData(get(state, 'jsonforms.defaultData'));
+export const getRenderers = (state: JsonFormsState): JsonFormsRendererRegistryEntry[] => get(state, 'jsonforms.renderers');
+export const getCells = (state: JsonFormsState): JsonFormsCellRendererRegistryEntry[] => get(state, 'jsonforms.cells');
+export const getUISchemas = (state: JsonFormsState): JsonFormsUISchemaRegistryEntry[] => get(state, 'jsonforms.uischemas');

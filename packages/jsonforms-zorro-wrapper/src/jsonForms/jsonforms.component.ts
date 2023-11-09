@@ -38,7 +38,10 @@ export class JsonFormsOutlet extends JsonFormsBaseRenderer<JFZElement> implement
   private previousProps: StatePropsOfJsonFormsRenderer;
   private readonly destroy$ = new Subject<void>();
 
-  constructor(private viewContainerRef: ViewContainerRef, private jsonformsService: JsonFormsAngularService) {
+  constructor(
+    private viewContainerRef: ViewContainerRef,
+    private jsonformsService: JsonFormsAngularService,
+  ) {
     super();
   }
 

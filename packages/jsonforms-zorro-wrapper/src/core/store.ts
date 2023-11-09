@@ -24,12 +24,7 @@
 */
 
 import type { Store } from './util';
-import type {
-  JsonFormsCore,
-  JsonFormsCellRendererRegistryEntry,
-  JsonFormsRendererRegistryEntry,
-  JsonFormsUISchemaRegistryEntry,
-} from './reducers';
+import type { JsonFormsCore, JsonFormsCellRendererRegistryEntry, JsonFormsRendererRegistryEntry, JsonFormsUISchemaRegistryEntry } from './reducers';
 import type { JsonFormsI18nState } from './i18n';
 
 /**

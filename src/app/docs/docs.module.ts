@@ -19,6 +19,7 @@ import { ToggleDocsComponent } from './toggle-docs/toggle-docs.component';
 import { RadioDocsComponent } from './radio-docs/radio-docs.component';
 import { ImageRendererService } from './image.service';
 import { GooglePlacesDocsComponent } from './google-places-docs/google-places-docs.component';
+import { MentionDocsComponent } from './mention-docs/mention-docs.component';
 
 const routes: Routes = [
   {
@@ -52,6 +53,10 @@ const routes: Routes = [
       {
         component: SelectDocsComponent,
         path: 'select',
+      },
+      {
+        component: MentionDocsComponent,
+        path: 'mention',
       },
       {
         component: MultiselectDocsComponent,
@@ -92,6 +97,7 @@ const routes: Routes = [
     ToggleDocsComponent,
     RadioDocsComponent,
     GooglePlacesDocsComponent,
+    MentionDocsComponent,
   ],
   providers: [{ provide: JFZImageRendererService, useClass: ImageRendererService }],
 })

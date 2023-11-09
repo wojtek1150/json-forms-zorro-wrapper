@@ -27,7 +27,7 @@ export class BuilderService {
         moveItemInArray(
           event.container.data, // current target container data before item dropped
           event.previousIndex, // index of the item in the source container being dragged
-          event.currentIndex // desired index of item in the target container
+          event.currentIndex, // desired index of item in the target container
         );
         return data;
       } else {

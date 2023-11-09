@@ -4,6 +4,7 @@ export interface Config {
   showRequiredAsterisk?: boolean;
   hideColon?: boolean;
   multiselectExternalDictionary?: Record<string, { label: string; value: string; checked?: boolean }[]>;
+  mentionDictionary?: Record<string, { avatar?: string; email: string; name: string }[]>;
 
   [key: string]: any;
 }

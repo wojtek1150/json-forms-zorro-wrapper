@@ -4,97 +4,99 @@
 <p>jsonforms</p>
 <nz-table [nzTemplateMode]="true">
   <thead>
-  <tr>
-    <th>Property</th>
-    <th>Description</th>
-    <th>Type</th>
-    <th>Default</th>
-  </tr>
+    <tr>
+      <th>Property</th>
+      <th>Description</th>
+      <th>Type</th>
+      <th>Default</th>
+    </tr>
   </thead>
   <tbody>
-  <tr>
-    <td><code>[uischema]</code></td>
-    <td>Ui Schema for displaying forms</td>
-    <td><code>JFZElement</code></td>
-    <td>-</td>
-  </tr>
-  <tr>
-    <td><code>[schema]</code></td>
-    <td>Schema for defining forms</td>
-    <td><code>JsonSchema</code></td>
-    <td>-</td>
-  </tr>
-  <tr>
-    <td><code>[data]</code></td>
-    <td>Form data</td>
-    <td><code>Object</code></td>
-    <td>-</td>
-  </tr>
-  <tr>
-    <td><code>[renderers]</code></td>
-    <td>Renderers</td>
-    <td><code>JsonFormsRendererRegistryEntry[]</code></td>
-    <td>-</td>
-  </tr>
-  <tr>
-    <td><code>[readonly]</code></td>
-    <td>Should be readonly or not</td>
-    <td><code>boolean</code></td>
-    <td><code>false</code></td>
-  </tr>
-  <tr>
-    <td><code>[submitLoading]</code></td>
-    <td>Displays loader indicator on submit button if provided in uischema</td>
-    <td><code>boolean</code></td>
-    <td><code>false</code></td>
-  </tr>
-  <tr>
-    <td><code>[validationMode]</code></td>
-    <td>Validation mode</td>
-    <td><code>'ValidateAndShow' | 'ValidateAndHide' | 'NoValidation']</code></td>
-    <td>-</td>
-  </tr>
-  <tr>
-    <td><code>[ajv]</code></td>
-    <td>Ajv custom validators</td>
-    <td><code>Ajv</code></td>
-    <td>-</td>
-  </tr>
-  <tr>
-    <td><code>[config]</code></td>
-    <td>Global config options</td>
-    <td><code>Object</code></td>
-    <td>-</td>
-  </tr>
-  <tr>
-    <td><code>[additionalErrors]</code></td>
-    <td>Additional error messages</td>
-    <td><code>ErrorObject[]</code></td>
-    <td>-</td>
-  </tr>
-  <tr>
-    <td><code>(dataChange)</code></td>
-    <td>Emits form data on change</td>
-    <td><code>Object</code></td>
-    <td>-</td>
-  </tr>
-  <tr>
-    <td><code>(errors)</code></td>
-    <td>Emits errors after validation check</td>
-    <td><code>ErrorObject</code></td>
-    <td>-</td>
-  </tr>
-  <tr>
-    <td><code>(submited)</code></td>
-    <td>Emits form data after click submit button</td>
-    <td><code>Object</code></td>
-    <td>-</td>
-  </tr>
-  <tr>
-    <td><code>(stepChanged)</code></td>
-    <td>Emits form data and step index after change stepper layout state</td>
-    <td><code>{{STRING_TYPES.STEP_CHANGE}}</code></td>
-    <td>-</td>
-  </tr>
+    <tr>
+      <td><code>[uischema]</code></td>
+      <td>Ui Schema for displaying forms</td>
+      <td><code>JFZElement</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><code>[schema]</code></td>
+      <td>Schema for defining forms</td>
+      <td><code>JsonSchema</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><code>[data]</code></td>
+      <td>Form data</td>
+      <td><code>Object</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><code>[renderers]</code></td>
+      <td>Renderers</td>
+      <td><code>JsonFormsRendererRegistryEntry[]</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><code>[readonly]</code></td>
+      <td>Should be readonly or not</td>
+      <td><code>boolean</code></td>
+      <td><code>false</code></td>
+    </tr>
+    <tr>
+      <td><code>[submitLoading]</code></td>
+      <td>Displays loader indicator on submit button if provided in uischema</td>
+      <td><code>boolean</code></td>
+      <td><code>false</code></td>
+    </tr>
+    <tr>
+      <td><code>[validationMode]</code></td>
+      <td>Validation mode</td>
+      <td><code>'ValidateAndShow' | 'ValidateAndHide' | 'NoValidation']</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><code>[ajv]</code></td>
+      <td>Ajv custom validators</td>
+      <td><code>Ajv</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><code>[config]</code></td>
+      <td>Global config options</td>
+      <td><code>Object</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><code>[additionalErrors]</code></td>
+      <td>Additional error messages</td>
+      <td><code>ErrorObject[]</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><code>(dataChange)</code></td>
+      <td>Emits form data on change</td>
+      <td><code>Object</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><code>(errors)</code></td>
+      <td>Emits errors after validation check</td>
+      <td><code>ErrorObject</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><code>(submited)</code></td>
+      <td>Emits form data after click submit button</td>
+      <td><code>Object</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><code>(stepChanged)</code></td>
+      <td>Emits form data and step index after change stepper layout state</td>
+      <td>
+        <code>{{ STRING_TYPES.STEP_CHANGE }}</code>
+      </td>
+      <td>-</td>
+    </tr>
   </tbody>
 </nz-table>

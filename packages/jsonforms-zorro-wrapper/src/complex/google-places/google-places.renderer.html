@@ -1,6 +1,6 @@
 <nz-form-item [class.hidden]="hidden" [class]="additionalClasses">
   <nz-form-label *ngIf="label && label !== '*'" [nzFor]="id" [nzNoColon]="hideColonInLabel" [nzRequired]="required"
-  ><i *ngIf="labelIcon" [nzType]="labelIcon" nz-icon nzTheme="outline"></i> {{ label }}</nz-form-label
+    ><i *ngIf="labelIcon" [nzType]="labelIcon" nz-icon nzTheme="outline"></i> {{ label }}</nz-form-label
   >
   <DescriptionRenderer [scopedSchema]="scopedSchema" [uiSchema]="uischema"></DescriptionRenderer>
   <nz-form-control [nzErrorTip]="errorMessage" [nzHasFeedback]="showValidationStatus" [nzValidateStatus]="form.status | nzValidationStatus">
@@ -11,7 +11,6 @@
       [formControl]="form"
       [id]="id"
       [placeholder]="placeholder"
-      nz-input
-    />
+      nz-input />
   </nz-form-control>
 </nz-form-item>

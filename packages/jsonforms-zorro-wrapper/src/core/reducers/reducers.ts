@@ -65,7 +65,7 @@ export const findUISchema = (
   path: string,
   fallback: string | (() => UISchemaElement) = 'VerticalLayout',
   control?: ControlElement,
-  rootSchema?: JsonSchema
+  rootSchema?: JsonSchema,
 ): UISchemaElement => {
   // handle options
   if (control && control.options && control.options.detail) {

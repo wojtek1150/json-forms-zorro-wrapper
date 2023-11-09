@@ -21,7 +21,7 @@ export class GooglePlacesRenderer extends JsonFormsControl implements AfterViewI
     jsonformsService: JsonFormsAngularService,
     changeDetectorRef: ChangeDetectorRef,
     private ngZone: NgZone,
-    private gpaLoader: GooglePlacesApiLoaderService
+    private gpaLoader: GooglePlacesApiLoaderService,
   ) {
     super(jsonformsService, changeDetectorRef);
   }
@@ -88,5 +88,5 @@ export class GooglePlacesRenderer extends JsonFormsControl implements AfterViewI
 
 export const GooglePlacesControlRendererTester: RankedTester = rankWith(
   4,
-  and(uiTypeIs('Control'), schemaTypeIs('string'), optionIs('format', 'google-places'))
+  and(uiTypeIs('Control'), schemaTypeIs('string'), optionIs('format', 'google-places')),
 );

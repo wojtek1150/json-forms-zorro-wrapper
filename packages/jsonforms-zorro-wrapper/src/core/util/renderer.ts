@@ -136,7 +136,7 @@ export const isDescriptionHidden = (
   visible: boolean,
   description: string | undefined,
   isFocused: boolean,
-  showUnfocusedDescription: boolean
+  showUnfocusedDescription: boolean,
 ): boolean => {
   return description === undefined || (description !== undefined && !visible) || (!showUnfocusedDescription && !isFocused);
 };
@@ -467,7 +467,7 @@ export const mapDispatchToControlProps = (dispatch: Dispatch<AnyAction>): Dispat
  */
 export const mapStateToEnumControlProps = (
   state: JsonFormsState,
-  ownProps: OwnPropsOfControl & OwnPropsOfEnum
+  ownProps: OwnPropsOfControl & OwnPropsOfEnum,
 ): StatePropsOfControl & OwnPropsOfEnum => {
   const props: StatePropsOfControl = mapStateToControlProps(state, ownProps);
   const options: EnumOption[] =
@@ -490,13 +490,13 @@ export const mapStateToEnumControlProps = (
  */
 export const mapStateToOneOfEnumControlProps = (
   state: JsonFormsState,
-  ownProps: OwnPropsOfControl & OwnPropsOfEnum
+  ownProps: OwnPropsOfControl & OwnPropsOfEnum,
 ): StatePropsOfControl & OwnPropsOfEnum => {
   const props: StatePropsOfControl = mapStateToControlProps(state, ownProps);
   const options: EnumOption[] =
     ownProps.options ||
     (props.schema.oneOf as JsonSchema[])?.map(oneOfSubSchema =>
-      oneOfToEnumOptionMapper(oneOfSubSchema, getTranslator()(state), getI18nKeyPrefix(props.schema, props.uischema, props.path))
+      oneOfToEnumOptionMapper(oneOfSubSchema, getTranslator()(state), getI18nKeyPrefix(props.schema, props.uischema, props.path)),
     );
   return {
     ...props,
@@ -512,7 +512,7 @@ export const mapStateToOneOfEnumControlProps = (
  */
 export const mapStateToMultiEnumControlProps = (
   state: JsonFormsState,
-  ownProps: OwnPropsOfControl & OwnPropsOfEnum
+  ownProps: OwnPropsOfControl & OwnPropsOfEnum,
 ): StatePropsOfControl & OwnPropsOfEnum => {
   const props: StatePropsOfControl = mapStateToControlProps(state, ownProps);
   const items = props.schema.items as JsonSchema;
@@ -520,7 +520,7 @@ export const mapStateToMultiEnumControlProps = (
     ownProps.options ||
     (items?.oneOf &&
       (items.oneOf as JsonSchema[]).map(oneOfSubSchema =>
-        oneOfToEnumOptionMapper(oneOfSubSchema, state.jsonforms.i18n?.translate, getI18nKeyPrefix(props.schema, props.uischema, props.path))
+        oneOfToEnumOptionMapper(oneOfSubSchema, state.jsonforms.i18n?.translate, getI18nKeyPrefix(props.schema, props.uischema, props.path)),
       )) ||
     items?.enum?.map(e => enumToEnumOptionMapper(e, state.jsonforms.i18n?.translate, getI18nKeyPrefix(props.schema, props.uischema, props.path)));
   return {
@@ -660,7 +660,7 @@ export const mapDispatchToArrayControlProps = (dispatch: Dispatch<CoreActions>):
 
         array.push(value);
         return array;
-      })
+      }),
     );
   },
   removeItems: (path: string, toDelete: number[]) => () => {
@@ -671,7 +671,7 @@ export const mapDispatchToArrayControlProps = (dispatch: Dispatch<CoreActions>):
           .reverse()
           .forEach(s => array.splice(s, 1));
         return array;
-      })
+      }),
     );
   },
   moveUp: (path, toMove: number) => () => {
@@ -679,7 +679,7 @@ export const mapDispatchToArrayControlProps = (dispatch: Dispatch<CoreActions>):
       update(path, array => {
         moveUp(array, toMove);
         return array;
-      })
+      }),
     );
   },
   moveDown: (path, toMove: number) => () => {
@@ -687,7 +687,7 @@ export const mapDispatchToArrayControlProps = (dispatch: Dispatch<CoreActions>):
       update(path, array => {
         moveDown(array, toMove);
         return array;
-      })
+      }),
     );
   },
 });
@@ -706,7 +706,7 @@ export const mapDispatchToMultiEnumProps = (dispatch: Dispatch<CoreActions>): Di
         }
         data.push(value);
         return data;
-      })
+      }),
     );
   },
   removeItem: (path: string, toDelete: any) => {
@@ -715,7 +715,7 @@ export const mapDispatchToMultiEnumProps = (dispatch: Dispatch<CoreActions>): Di
         const indexInData = data.indexOf(toDelete);
         data.splice(indexInData, 1);
         return data;
-      })
+      }),
     );
   },
 });
@@ -767,7 +767,7 @@ export const mapStateToLayoutProps = (state: JsonFormsState, ownProps: OwnPropsO
     uischema,
     undefined, // layouts have no associated schema
     rootData,
-    config
+    config,
   );
 
   // some layouts have labels which might need to be translated
@@ -831,7 +831,7 @@ export interface StatePropsOfCombinator extends StatePropsOfControl {
 export const mapStateToCombinatorRendererProps = (
   state: JsonFormsState,
   ownProps: OwnPropsOfControl,
-  keyword: CombinatorKeyword
+  keyword: CombinatorKeyword,
 ): StatePropsOfCombinator => {
   const { data, schema, rootSchema, ...props } = mapStateToControlProps(state, ownProps);
 
@@ -915,7 +915,7 @@ export const mapStateToArrayLayoutProps = (state: JsonFormsState, ownProps: OwnP
     t,
     undefined,
     undefined,
-    undefined
+    undefined,
   );
 
   const allErrors = errors + (errors.length > 0 && childErrors.length > 0 ? '\n' : '') + childErrors;

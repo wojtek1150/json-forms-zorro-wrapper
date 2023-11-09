@@ -7,11 +7,7 @@ export type Translator = {
   (id: string, defaultMessage?: string, values?: any): string | undefined;
 };
 
-export type ErrorTranslator = (
-  error: ErrorObject,
-  translate: Translator,
-  uischema?: UISchemaElement
-) => string;
+export type ErrorTranslator = (error: ErrorObject, translate: Translator, uischema?: UISchemaElement) => string;
 
 export interface JsonFormsI18nState {
   locale?: string;

@@ -23,9 +23,9 @@
   THE SOFTWARE.
 */
 
-import type { RankedTester } from "../testers";
-import { ADD_CELL, AddCellRendererAction, REMOVE_CELL, RemoveCellRendererAction } from "../actions";
-import type { Reducer } from "../util";
+import type { RankedTester } from '../testers';
+import { ADD_CELL, AddCellRendererAction, REMOVE_CELL, RemoveCellRendererAction } from '../actions';
+import type { Reducer } from '../util';
 
 export type ValidCellReducerActions = AddCellRendererAction | RemoveCellRendererAction;
 

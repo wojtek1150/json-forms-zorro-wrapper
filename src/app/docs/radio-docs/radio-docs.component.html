@@ -1,14 +1,12 @@
 <h1>Radio control</h1>
-<p>You can define a radio button in same way as <a routerLink="/docs/select">Select control</a>, with enum or oneOf property. Use format option to enable radio style</p>
+<p>
+  You can define a radio button in same way as <a routerLink="/docs/select">Select control</a>, with enum or oneOf property. Use format option to
+  enable radio style
+</p>
 
 <article>
   <p>Radio</p>
-  <jsonforms
-    [(data)]="data"
-    [renderers]="renderers"
-    [schema]="schema"
-    [uischema]="uiSchema"
-  ></jsonforms>
+  <jsonforms [(data)]="data" [renderers]="renderers" [schema]="schema" [uischema]="uiSchema"></jsonforms>
 
   <div class="flex">
     <div>
@@ -27,12 +25,7 @@
 
 <article>
   <p>Button style</p>
-  <jsonforms
-    [(data)]="data1"
-    [renderers]="renderers"
-    [schema]="schema1"
-    [uischema]="uiSchema1"
-  ></jsonforms>
+  <jsonforms [(data)]="data1" [renderers]="renderers" [schema]="schema1" [uischema]="uiSchema1"></jsonforms>
 
   <div class="flex">
     <div>
@@ -52,19 +45,19 @@
 <p>UiSchema options</p>
 <nz-table [nzTemplateMode]="true">
   <thead>
-  <tr>
-    <th>Property</th>
-    <th>Description</th>
-    <th>Type</th>
-    <th>Default</th>
-  </tr>
+    <tr>
+      <th>Property</th>
+      <th>Description</th>
+      <th>Type</th>
+      <th>Default</th>
+    </tr>
   </thead>
   <tbody>
-  <tr>
-    <td>format</td>
-    <td>Enable radio styling</td>
-    <td><code>'radio' | 'radio-group'</code></td>
-    <td><code>-</code></td>
-  </tr>
+    <tr>
+      <td>format</td>
+      <td>Enable radio styling</td>
+      <td><code>'radio' | 'radio-group'</code></td>
+      <td><code>-</code></td>
+    </tr>
   </tbody>
 </nz-table>

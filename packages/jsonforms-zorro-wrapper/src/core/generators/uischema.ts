@@ -23,9 +23,9 @@
   THE SOFTWARE.
 */
 
-import { isEmpty, keys, startCase } from "lodash-es";
-import { ControlElement, isGroup, isLayout, JsonSchema, LabelElement, Layout, UISchemaElement } from "../models";
-import { deriveTypes, encode, resolveSchema } from "../util";
+import { isEmpty, keys, startCase } from 'lodash-es';
+import { ControlElement, isGroup, isLayout, JsonSchema, LabelElement, Layout, UISchemaElement } from '../models';
+import { deriveTypes, encode, resolveSchema } from '../util';
 
 /**
  * Creates a new ILayout.
@@ -100,7 +100,7 @@ export const generateUISchema = (
   currentRef: string,
   schemaName: string,
   layoutType: string,
-  rootSchema?: JsonSchema
+  rootSchema?: JsonSchema,
 ): UISchemaElement => {
   if (!isEmpty(jsonSchema) && jsonSchema.$ref !== undefined) {
     return generateUISchema(resolveSchema(rootSchema, jsonSchema.$ref, rootSchema), schemaElements, currentRef, schemaName, layoutType, rootSchema);
@@ -180,5 +180,5 @@ export const generateDefaultUISchema = (
   jsonSchema: JsonSchema,
   layoutType = 'VerticalLayout',
   prefix = '#',
-  rootSchema = jsonSchema
+  rootSchema = jsonSchema,
 ): UISchemaElement => wrapInLayoutIfNecessary(generateUISchema(jsonSchema, [], prefix, '', layoutType, rootSchema), layoutType);

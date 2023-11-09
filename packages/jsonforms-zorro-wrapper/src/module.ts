@@ -45,6 +45,8 @@ import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { JFZImageRendererService } from './complex/image/image.renderer.service';
 import { GooglePlacesRenderer } from './complex/google-places/google-places.renderer';
 import { GooglePlacesApiLoaderService } from './complex/google-places/google-places-api-loader.service';
+import { MentionControlRenderer } from './complex/mention/mention.renderer';
+import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 
 const modules = [CommonModule, JsonFormsModule, ReactiveFormsModule, NzFormModule, NzInputModule, NzDatePickerModule, NzCheckboxModule];
 
@@ -68,6 +70,7 @@ const controls = [
   RadioButtonControlRenderer,
   CheckboxGroupControlRenderer,
   MultiselectControlRenderer,
+  MentionControlRenderer,
   ArrayLayoutRenderer,
   WysiwygRenderer,
   ImageControlRenderer,
@@ -90,6 +93,7 @@ const controls = [
     NzBadgeModule,
     QuillModule,
     NzUploadModule,
+    NzAvatarModule,
   ],
   declarations: [...controls, NzValidationStatusPipe],
   exports: [...modules],
