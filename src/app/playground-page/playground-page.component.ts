@@ -112,10 +112,10 @@ export class PlaygroundPageComponent {
     this.uischemaCode = JSON.stringify(this.uischema, null, 2);
   }
 
-  submitted(submited: string, $event: any) {
+  submitted(submitted: string, $event: any) {
     this.loading = true;
     setTimeout(() => (this.loading = false), 1000);
-    this.log('submited', $event);
+    this.log('submitted', $event);
   }
 
   updateConfig($event: any) {

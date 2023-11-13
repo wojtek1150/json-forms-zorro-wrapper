@@ -66,7 +66,7 @@ export class JsonFormsAngularService {
 
   init(
     initialState: JsonFormsSubStates = {
-      core: { data: undefined, schema: undefined, uischema: undefined, validationMode: 'ValidateAndShow', additionalErrors: undefined },
+      core: { data: {}, schema: undefined, uischema: undefined, validationMode: 'ValidateAndShow', additionalErrors: undefined },
     }
   ) {
     this._state = initialState;

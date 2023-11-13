@@ -3,7 +3,7 @@ import { Actions, JsonFormsI18nState, JsonFormsRendererRegistryEntry, JsonSchema
 import Ajv, { ErrorObject } from 'ajv';
 import { JsonFormsAngularService, USE_STATE_VALUE } from './jsonforms.service';
 import { JFZElement } from '../other/uischema';
-import { Subject, takeUntil } from 'rxjs';
+import {filter, Subject, takeUntil} from 'rxjs';
 import { Config } from '../other/config';
 
 @Component({
@@ -26,7 +26,7 @@ export class JsonForms implements OnChanges, OnInit, OnDestroy {
   @Input() additionalErrors: ErrorObject[];
   @Output() dataChange = new EventEmitter<any>();
   @Output() errors = new EventEmitter<ErrorObject[]>();
-  @Output() submited = new EventEmitter<any>();
+  @Output() submitted = new EventEmitter<any>();
   @Output() stepChanged = new EventEmitter<{ step: number; data: any }>();
   oldI18N: JsonFormsI18nState;
   private previousData: any;
@@ -76,8 +76,14 @@ export class JsonForms implements OnChanges, OnInit, OnDestroy {
     });
     this.oldI18N = this.i18n;
     this.initialized = true;
-    this.service.$submitState.pipe(takeUntil(this.destroy$)).subscribe(value => this.submited.emit(value));
-    this.service.$stepChangeState.pipe(takeUntil(this.destroy$)).subscribe(value => this.stepChanged.emit(value));
+    this.service.$submitState.pipe(
+      filter(value => value !== null),
+      takeUntil(this.destroy$)
+    ).subscribe(value => this.submitted.emit(value));
+    this.service.$stepChangeState.pipe(
+      filter(value => value !== null),
+      takeUntil(this.destroy$)
+    ).subscribe(value => this.stepChanged.emit(value));
   }
 
   ngDoCheck(): void {
