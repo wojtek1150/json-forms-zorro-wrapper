@@ -25,7 +25,7 @@
   <div nz-col nzSpan="12">
     <jsonforms
       (dataChange)="log('dataChange', $event)"
-      (submited)="submitted('submited', $event)"
+      (submitted)="submitted('submitted',$event)"
       *ngIf="schema && uischema"
       [(data)]="formData"
       [config]="jsonformsConfig"
