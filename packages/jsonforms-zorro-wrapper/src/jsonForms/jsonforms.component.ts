@@ -1,5 +1,5 @@
 import { maxBy } from 'lodash-es';
-import { ComponentFactoryResolver, Directive, Input, OnDestroy, OnInit, Type, ViewContainerRef } from '@angular/core';
+import { Directive, Input, OnDestroy, OnInit, Type, ViewContainerRef } from '@angular/core';
 import {
   createId,
   getConfig,
@@ -10,8 +10,7 @@ import {
   mapStateToJsonFormsRendererProps,
   OwnPropsOfRenderer,
   StatePropsOfJsonFormsRenderer,
-  UISchemaElement,
-} from '@jsonforms/core';
+} from '../core';
 import { UnknownRenderer } from './unknown.component';
 import { JsonFormsBaseRenderer } from './base.renderer';
 import { Subject, takeUntil } from 'rxjs';
@@ -41,8 +40,7 @@ export class JsonFormsOutlet extends JsonFormsBaseRenderer<JFZElement> implement
 
   constructor(
     private viewContainerRef: ViewContainerRef,
-    private componentFactoryResolver: ComponentFactoryResolver,
-    private jsonformsService: JsonFormsAngularService
+    private jsonformsService: JsonFormsAngularService,
   ) {
     super();
   }
@@ -51,7 +49,7 @@ export class JsonFormsOutlet extends JsonFormsBaseRenderer<JFZElement> implement
   set renderProps(renderProps: OwnPropsOfRenderer) {
     this.path = renderProps.path;
     this.schema = renderProps.schema;
-    this.uischema = renderProps.uischema;
+    this.uischema = renderProps.uischema as JFZElement;
     this.update(this.jsonformsService.getState());
   }
 
@@ -65,11 +63,12 @@ export class JsonFormsOutlet extends JsonFormsBaseRenderer<JFZElement> implement
       uischema: this.uischema,
       path: this.path,
     });
+
     if (areEqual(this.previousProps, props)) {
       return;
-    } else {
-      this.previousProps = props;
     }
+    this.previousProps = props;
+
     const { renderers } = props as JsonFormsProps;
     const schema: JsonSchema = this.schema || props.schema;
     const uischema = this.uischema || props.uischema;
@@ -84,20 +83,18 @@ export class JsonFormsOutlet extends JsonFormsBaseRenderer<JFZElement> implement
       bestComponent = renderer.renderer;
     }
 
-    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(bestComponent);
     this.viewContainerRef.clear();
-    const currentComponentRef = this.viewContainerRef.createComponent(componentFactory);
+    const currentComponentRef = this.viewContainerRef.createComponent(bestComponent);
 
     if (currentComponentRef.instance instanceof JsonFormsBaseRenderer) {
-      const instance = currentComponentRef.instance as JsonFormsBaseRenderer<UISchemaElement>;
-      instance.uischema = uischema;
+      const instance = currentComponentRef.instance as JsonFormsBaseRenderer<JFZElement>;
+      instance.uischema = uischema as JFZElement;
       instance.schema = schema;
       instance.path = this.path;
       if (instance instanceof JsonFormsControl) {
         const controlInstance = instance as JsonFormsControl;
         if (controlInstance.id === undefined) {
-          const id = isControl(props.uischema) ? createId(props.uischema.scope) : undefined;
-          (instance as JsonFormsControl).id = id;
+          instance.id = isControl(props.uischema) ? createId(props.uischema.scope) : undefined;
         }
       }
     }

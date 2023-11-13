@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { JsonFormsAngularService, JsonFormsControl } from '../jsonForms';
-import { Actions, isIntegerControl, isNumberControl, or, RankedTester, rankWith, StatePropsOfControl } from '@jsonforms/core';
+import { Actions, isIntegerControl, isNumberControl, or, RankedTester, rankWith, StatePropsOfControl } from '../core';
 
 @Component({
   selector: 'NumberControlRenderer',
@@ -18,7 +18,7 @@ import { Actions, isIntegerControl, isNumberControl, or, RankedTester, rankWith,
           [nzMax]="max"
           [nzStep]="stepper"
           [nzPlaceHolder]="placeholder || ''"
-          [nzDisabled]="!isEnabled()"
+          [nzDisabled]="!isEnabled"
           (ngModelChange)="onChange($event)"
           (blur)="triggerValidation()"
         ></nz-input-number>

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { JsonFormsAngularService, JsonFormsControl } from '../jsonForms';
-import { Actions, and, hasType, JsonSchema, RankedTester, rankWith, schemaMatches, schemaSubPathMatches, uiTypeIs } from '@jsonforms/core';
+import { Actions, and, hasType, JsonSchema, RankedTester, rankWith, schemaMatches, schemaSubPathMatches, uiTypeIs } from '../core';
 import { hasEnumItems, hasOneOfItems } from '../other/complex.helper';
 
 @Component({
@@ -80,7 +80,7 @@ export const CheckboxGroupControlRendererTester: RankedTester = rankWith(
       schemaMatches(schema => hasType(schema, 'array') && !Array.isArray(schema.items) && schema.uniqueItems === true),
       schemaSubPathMatches('items', schema => {
         return hasOneOfItems(schema) || hasEnumItems(schema);
-      })
-    )
-  )
+      }),
+    ),
+  ),
 );

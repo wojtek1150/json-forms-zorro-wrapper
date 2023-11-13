@@ -4,7 +4,7 @@ import {
   mapStateToControlWithDetailProps,
   StatePropsOfControl,
   StatePropsOfControlWithDetail,
-} from '@jsonforms/core';
+} from '../core';
 import { OnDestroy, OnInit } from '@angular/core';
 import { JsonFormsAbstractControl } from './abstract-control';
 

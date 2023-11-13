@@ -1,5 +1,36 @@
+/*
+  The MIT License
+
+  Copyright (c) 2016 Richard Adams
+  https://github.com/enriched
+
+  Modifications by EclipseSource Munich 2018
+  https://github.com/eclipsesource/jsonforms
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  THE SOFTWARE.
+*/
+
 export interface JsonSchema7 {
   $ref?: string;
+  /////////////////////////////////////////////////
+  // Schema Metadata
+  /////////////////////////////////////////////////
   /**
    * This is important because it tells refs where
    * the root of the document is located
@@ -23,6 +54,10 @@ export interface JsonSchema7 {
    * this schema
    */
   default?: any;
+
+  /////////////////////////////////////////////////
+  // Number Validation
+  /////////////////////////////////////////////////
   /**
    * The value must be a multiple of the number
    * (e.g. 10 is a multiple of 5)
@@ -38,6 +73,10 @@ export interface JsonSchema7 {
    * If true minimum must be < value, <= otherwise
    */
   exclusiveMinimum?: number;
+
+  /////////////////////////////////////////////////
+  // String Validation
+  /////////////////////////////////////////////////
   maxLength?: number;
   minLength?: number;
   /**
@@ -45,11 +84,19 @@ export interface JsonSchema7 {
    * conform to
    */
   pattern?: string;
+
+  /////////////////////////////////////////////////
+  // Array Validation
+  /////////////////////////////////////////////////
   additionalItems?: boolean | JsonSchema7;
   items?: JsonSchema7 | JsonSchema7[];
   maxItems?: number;
   minItems?: number;
   uniqueItems?: boolean;
+
+  /////////////////////////////////////////////////
+  // Object Validation
+  /////////////////////////////////////////////////
   maxProperties?: number;
   minProperties?: number;
   required?: string[];
@@ -58,23 +105,17 @@ export interface JsonSchema7 {
    * Holds simple JSON Schema definitions for
    * referencing from elsewhere.
    */
-  definitions?: {
-    [key: string]: JsonSchema7;
-  };
+  definitions?: { [key: string]: JsonSchema7 };
   /**
    * The keys that can exist on the object with the
    * json schema that should validate their value
    */
-  properties?: {
-    [property: string]: JsonSchema7;
-  };
+  properties?: { [property: string]: JsonSchema7 };
   /**
    * The key of this object is a regex for which
    * properties the schema applies to
    */
-  patternProperties?: {
-    [pattern: string]: JsonSchema7;
-  };
+  patternProperties?: { [pattern: string]: JsonSchema7 };
   /**
    * If the key is present as a property then the
    * string of properties must also be present.
@@ -82,9 +123,11 @@ export interface JsonSchema7 {
    * also be valid for the object if the key is
    * present.
    */
-  dependencies?: {
-    [key: string]: JsonSchema7 | string[];
-  };
+  dependencies?: { [key: string]: JsonSchema7 | string[] };
+
+  /////////////////////////////////////////////////
+  // Generic
+  /////////////////////////////////////////////////
   /**
    * Enumerates the values that this schema can be
    * e.g.
@@ -98,6 +141,10 @@ export interface JsonSchema7 {
    * or an array of the acceptable types
    */
   type?: string | string[];
+
+  /////////////////////////////////////////////////
+  // Combining Schemas
+  /////////////////////////////////////////////////
   allOf?: JsonSchema7[];
   anyOf?: JsonSchema7[];
   oneOf?: JsonSchema7[];
@@ -105,6 +152,7 @@ export interface JsonSchema7 {
    * The entity being validated must not match this schema
    */
   not?: JsonSchema7;
+
   format?: string;
   readOnly?: boolean;
   writeOnly?: boolean;

@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { NzFormControlStatusType } from 'ng-zorro-antd/form/form-item.component';
+import { NzFormControlStatusType } from 'ng-zorro-antd/form';
 
 @Pipe({
   name: 'nzValidationStatus',

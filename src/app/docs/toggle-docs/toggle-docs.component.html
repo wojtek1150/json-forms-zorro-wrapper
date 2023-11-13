@@ -2,12 +2,7 @@
 
 <article>
   <p>Checkbox</p>
-  <jsonforms
-    [(data)]="data"
-    [renderers]="renderers"
-    [schema]="schema"
-    [uischema]="uiSchema"
-  ></jsonforms>
+  <jsonforms [(data)]="data" [renderers]="renderers" [schema]="schema" [uischema]="uiSchema"></jsonforms>
 
   <div class="flex">
     <div>
@@ -27,12 +22,7 @@
 
 <article>
   <p>Toggle</p>
-  <jsonforms
-    [(data)]="data2"
-    [renderers]="renderers"
-    [schema]="schema2"
-    [uischema]="uiSchema2"
-  ></jsonforms>
+  <jsonforms [(data)]="data2" [renderers]="renderers" [schema]="schema2" [uischema]="uiSchema2"></jsonforms>
 
   <div class="flex">
     <div>
@@ -50,23 +40,22 @@
   </div>
 </article>
 
-
 <p>UiSchema options</p>
 <nz-table [nzTemplateMode]="true">
   <thead>
-  <tr>
-    <th>Property</th>
-    <th>Description</th>
-    <th>Type</th>
-    <th>Default</th>
-  </tr>
+    <tr>
+      <th>Property</th>
+      <th>Description</th>
+      <th>Type</th>
+      <th>Default</th>
+    </tr>
   </thead>
   <tbody>
-  <tr>
-    <td>toggle</td>
-    <td>Enable/disable toggle mode</td>
-    <td><code>boolean</code></td>
-    <td><code>false</code></td>
-  </tr>
+    <tr>
+      <td>toggle</td>
+      <td>Enable/disable toggle mode</td>
+      <td><code>boolean</code></td>
+      <td><code>false</code></td>
+    </tr>
   </tbody>
 </nz-table>

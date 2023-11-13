@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { JsonFormsAngularService, JsonFormsControl } from '../jsonForms';
-import { Actions, isEnumControl, isOneOfControl, or, RankedTester, rankWith, StatePropsOfControl } from '@jsonforms/core';
+import { Actions, isEnumControl, isOneOfControl, or, RankedTester, rankWith, StatePropsOfControl } from '../core';
 
 @Component({
   selector: 'SelectControlRenderer',

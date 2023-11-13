@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { JsonSchema } from '@jsonforms/core';
-import { JFZVerticalLayout, ngZorroRenderers } from '@wojtek1150/jsonforms-zorro-wrapper';
+import { JsonSchema, JFZVerticalLayout, ngZorroRenderers } from '@wojtek1150/jsonforms-zorro-wrapper';
 
 @Component({
   selector: 'app-image-docs',

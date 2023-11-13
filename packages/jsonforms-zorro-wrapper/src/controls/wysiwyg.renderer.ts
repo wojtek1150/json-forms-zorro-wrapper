@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { JsonFormsAngularService, JsonFormsControl } from '../jsonForms';
-import { and, optionIs, RankedTester, rankWith, uiTypeIs } from '@jsonforms/core';
-import { AutoSizeType } from 'ng-zorro-antd/input/autosize.directive';
+import { and, optionIs, RankedTester, rankWith, uiTypeIs } from '../core';
+import { AutoSizeType } from 'ng-zorro-antd/input';
 
 @Component({
   selector: 'WysiwygRenderer',

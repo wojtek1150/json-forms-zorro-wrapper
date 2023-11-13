@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { JsonFormsAngularService, JsonFormsControl } from '../jsonForms';
-import { isBooleanControl, RankedTester, rankWith } from '@jsonforms/core';
+import { isBooleanControl, RankedTester, rankWith } from '../core';
 
 @Component({
   selector: 'BooleanControlRenderer',

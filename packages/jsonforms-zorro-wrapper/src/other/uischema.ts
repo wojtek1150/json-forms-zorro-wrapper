@@ -1,4 +1,4 @@
-import { Rule } from "@jsonforms/core";
+import { Rule, UISchemaElement } from '../core';
 
 /**
  * @deprecated use JFZControlElement
@@ -14,7 +14,7 @@ type Options = {
   [key: string]: any;
 };
 
-export interface JFZElement {
+export interface JFZElement extends UISchemaElement {
   /**
    * The type of this UI schema element.
    */

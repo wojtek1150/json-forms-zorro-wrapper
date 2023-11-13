@@ -1,4 +1,4 @@
-import { Actions, computeLabel, JsonFormsState, JsonSchema, OwnPropsOfControl, StatePropsOfControl } from '@jsonforms/core';
+import { Actions, computeLabel, JsonFormsState, JsonSchema, OwnPropsOfControl, StatePropsOfControl } from '../core';
 import { ChangeDetectorRef, Directive, Input, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
@@ -29,14 +29,17 @@ export abstract class JsonFormsAbstractControl<Props extends StatePropsOfControl
   error: string | null;
   scopedSchema: JsonSchema;
   rootSchema: JsonSchema;
-  enabled: boolean;
+  isEnabled: boolean;
   hidden: boolean;
   propsPath: string;
   config: Config;
 
   private readonly destroy$ = new Subject<void>();
 
-  constructor(protected jsonFormsService: JsonFormsAngularService, protected changeDetectorRef: ChangeDetectorRef) {
+  constructor(
+    protected jsonFormsService: JsonFormsAngularService,
+    protected changeDetectorRef: ChangeDetectorRef,
+  ) {
     super();
     this.form = new FormControl(
       {
@@ -45,8 +48,8 @@ export abstract class JsonFormsAbstractControl<Props extends StatePropsOfControl
       },
       {
         updateOn: 'change',
-        validators: this.validator.bind(this),
-      }
+        validators: this.validator(),
+      },
     );
   }
 
@@ -80,15 +83,15 @@ export abstract class JsonFormsAbstractControl<Props extends StatePropsOfControl
         this.config = config;
         this.data = data;
         this.error = errors;
-        this.enabled = enabled;
-        this.required = required;
+        this.isEnabled = enabled;
         this.hideColonInLabel = !!config.hideColon;
-        this.isEnabled() ? this.form.enable() : this.form.disable();
+        this.isEnabled ? this.form.enable() : this.form.disable();
         this.hidden = !visible;
         this.scopedSchema = schema;
         this.rootSchema = rootSchema;
         this.description = this.scopedSchema !== undefined ? this.scopedSchema.description : this.uischema.description || '';
         this.id = props.id;
+        this.required = required;
         if (this.form.value !== data) {
           this.form.setValue(data);
         }
@@ -99,11 +102,10 @@ export abstract class JsonFormsAbstractControl<Props extends StatePropsOfControl
     this.jsonFormsService.$submitState.pipe(takeUntil(this.destroy$)).subscribe(value => value && this.triggerValidation());
   }
 
-  validator: ValidatorFn = (_c: AbstractControl): ValidationErrors | null => {
-    return _c.touched && this.error ? { error: this.error } : null;
-  };
+  validator(): ValidatorFn {
+    return (c: AbstractControl): ValidationErrors | null => (c.touched && this.error ? { error: this.error } : null);
+  }
 
-  // @ts-ignore
   mapAdditionalProps(props: Props) {
     this.placeholder = this.uischema.placeholder || '';
     this.showValidationStatus = !!this.uischema.options?.showValidationStatus;
@@ -114,10 +116,6 @@ export abstract class JsonFormsAbstractControl<Props extends StatePropsOfControl
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();
-  }
-
-  isEnabled(): boolean {
-    return this.enabled;
   }
 
   triggerValidation() {

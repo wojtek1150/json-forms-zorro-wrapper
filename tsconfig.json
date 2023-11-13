@@ -16,7 +16,7 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
-    "target": "es2017",
+    "target": "ES2022",
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
     "rootDir": ".",
@@ -30,7 +30,8 @@
         "packages/jsonforms-zorro-wrapper/*",
         "packages/jsonforms-zorro-wrapper"
       ]
-    }
+    },
+    "useDefineForClassFields": false
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

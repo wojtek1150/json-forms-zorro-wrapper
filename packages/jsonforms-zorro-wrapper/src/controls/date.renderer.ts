@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { Actions, isDateControl, RankedTester, rankWith } from '@jsonforms/core';
+import { Actions, isDateControl, RankedTester, rankWith } from '../core';
 import { JsonFormsAngularService, JsonFormsControl } from '../jsonForms';
 import { DatePipe } from '@angular/common';
 
@@ -16,7 +16,7 @@ import { DatePipe } from '@angular/common';
           [id]="id"
           [formControl]="form"
           [nzFormat]="dateFormat"
-          [nzDisabled]="!isEnabled()"
+          [nzDisabled]="!isEnabled"
           (ngModelChange)="onChange($event)"
         ></nz-date-picker>
       </nz-form-control>
@@ -43,7 +43,11 @@ export class DateControlRenderer extends JsonFormsControl {
   readonly dateFormat = 'yyyy-MM-dd';
   selectedDate: string = null;
 
-  constructor(jsonformsService: JsonFormsAngularService, changeDetectorRef: ChangeDetectorRef, private datePipe: DatePipe) {
+  constructor(
+    jsonformsService: JsonFormsAngularService,
+    changeDetectorRef: ChangeDetectorRef,
+    private datePipe: DatePipe,
+  ) {
     super(jsonformsService, changeDetectorRef);
   }
 

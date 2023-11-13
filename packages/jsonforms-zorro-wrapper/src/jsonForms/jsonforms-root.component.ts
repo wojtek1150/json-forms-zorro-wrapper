@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
-import { Actions, JsonFormsI18nState, JsonFormsRendererRegistryEntry, JsonSchema, UISchemaTester, ValidationMode } from '@jsonforms/core';
+import { Actions, JsonFormsI18nState, JsonFormsRendererRegistryEntry, JsonSchema, UISchemaTester, ValidationMode } from '../core';
 import Ajv, { ErrorObject } from 'ajv';
 import { JsonFormsAngularService, USE_STATE_VALUE } from './jsonforms.service';
 import { JFZElement } from '../other/uischema';
@@ -100,8 +100,8 @@ export class JsonForms implements OnChanges, OnInit, OnDestroy {
           this.oldI18N?.translate === this.i18n?.translate ? this.service.getState().jsonforms.i18n.translate : this.i18n?.translate,
           this.oldI18N?.translateError === this.i18n?.translateError
             ? this.service.getState().jsonforms.i18n.translateError
-            : this.i18n?.translateError
-        )
+            : this.i18n?.translateError,
+        ),
       );
       this.oldI18N = this.i18n;
     }
@@ -132,7 +132,7 @@ export class JsonForms implements OnChanges, OnInit, OnDestroy {
         newUiSchema ? newUiSchema.currentValue : USE_STATE_VALUE,
         newAjv ? newAjv.currentValue : USE_STATE_VALUE,
         newValidationMode ? newValidationMode.currentValue : USE_STATE_VALUE,
-        newAdditionalErrors ? newAdditionalErrors.currentValue : USE_STATE_VALUE
+        newAdditionalErrors ? newAdditionalErrors.currentValue : USE_STATE_VALUE,
       );
     }
 
@@ -146,7 +146,7 @@ export class JsonForms implements OnChanges, OnInit, OnDestroy {
 
     if (newI18n && !newI18n.isFirstChange()) {
       this.service.updateI18n(
-        Actions.updateI18n(newI18n.currentValue?.locale, newI18n.currentValue?.translate, newI18n.currentValue?.translateError)
+        Actions.updateI18n(newI18n.currentValue?.locale, newI18n.currentValue?.translate, newI18n.currentValue?.translateError),
       );
     }
 

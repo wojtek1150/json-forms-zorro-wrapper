@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { JsonSchema } from '@jsonforms/core';
-import { JFZVerticalLayout, ngZorroRenderers } from '@wojtek1150/jsonforms-zorro-wrapper';
+import { JFZVerticalLayout, ngZorroRenderers, JsonSchema } from '@wojtek1150/jsonforms-zorro-wrapper';
 
 @Component({
   selector: 'app-toggle-docs',

@@ -1,4 +1,4 @@
-import { RankedTester } from '@jsonforms/core';
+import { RankedTester } from './core';
 
 import { BooleanControlRenderer, BooleanControlTester } from './controls/boolean.renderer';
 import { DateControlRenderer, DateControlRendererTester } from './controls/date.renderer';
@@ -23,6 +23,8 @@ import { MultiselectControlRenderer, MultiselectControlRendererTester } from './
 import { ArrayLayoutRenderer, ArrayLayoutRendererTester } from './layouts/array-layout.renderer';
 import { WysiwygRenderer, WysiwygRendererTester } from './controls/wysiwyg.renderer';
 import { ImageControlRenderer, ImageControlRendererTester } from './complex/image/image.renderer';
+import { GooglePlacesControlRendererTester, GooglePlacesRenderer } from './complex/google-places/google-places.renderer';
+import { MentionControlRenderer, MentionControlRendererTester } from './complex/mention/mention.renderer';
 
 export const ngZorroRenderers: {
   tester: RankedTester;
@@ -43,7 +45,9 @@ export const ngZorroRenderers: {
   // complex controls
   { tester: CheckboxGroupControlRendererTester, renderer: CheckboxGroupControlRenderer },
   { tester: MultiselectControlRendererTester, renderer: MultiselectControlRenderer },
+  { tester: MentionControlRendererTester, renderer: MentionControlRenderer },
   { tester: ImageControlRendererTester, renderer: ImageControlRenderer },
+  { tester: GooglePlacesControlRendererTester, renderer: GooglePlacesRenderer },
   // layouts
   { tester: CategorizationTester, renderer: CategorizationTabLayoutRenderer },
   { tester: StepperTester, renderer: StepperLayoutRenderer },

@@ -1,4 +1,4 @@
-import { JsonSchema } from '@jsonforms/core';
+import { JsonSchema } from '@wojtek1150/jsonforms-zorro-wrapper';
 
 const schema: JsonSchema = {
   properties: {

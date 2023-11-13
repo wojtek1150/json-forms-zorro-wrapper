@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { JFZElement } from '../other/uischema';
-import { JsonSchema } from '@jsonforms/core';
+import { JsonSchema } from '../core';
 
 @Component({
   selector: 'DescriptionRenderer',
@@ -32,7 +32,7 @@ export class DescriptionRenderer<T extends JFZElement> {
   }
 
   get htmlDescription(): boolean {
-    return !!this.uiSchema.options?.html;
+    return this.uiSchema.options?.html;
   }
 
   get sanitizedDescription(): SafeHtml {

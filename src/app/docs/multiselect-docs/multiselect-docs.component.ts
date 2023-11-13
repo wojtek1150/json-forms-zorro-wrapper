@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { JsonSchema } from '@jsonforms/core';
-import { Config, JFZVerticalLayout, ngZorroRenderers } from '@wojtek1150/jsonforms-zorro-wrapper';
+import { Config, JFZVerticalLayout, ngZorroRenderers, JsonSchema } from '@wojtek1150/jsonforms-zorro-wrapper';
 
 @Component({
   selector: 'app-multiselect-docs',
