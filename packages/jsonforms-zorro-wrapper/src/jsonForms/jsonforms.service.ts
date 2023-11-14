@@ -67,7 +67,7 @@ export class JsonFormsAngularService {
 
   init(
     initialState: JsonFormsSubStates = {
-      core: { data: {}, schema: undefined, uischema: undefined, validationMode: 'ValidateAndShow', additionalErrors: undefined },
+      core: { data: undefined, schema: undefined, uischema: undefined, validationMode: 'ValidateAndShow', additionalErrors: undefined },
     }
   ) {
     this._state = initialState;
@@ -224,7 +224,7 @@ export class JsonFormsAngularService {
   }
 
   submitForm(): void {
-    this.submit.next(this._state?.core?.data);
+    this.submit.next(this._state?.core?.data || {});
   }
 
   changeStep(step: number): void {
