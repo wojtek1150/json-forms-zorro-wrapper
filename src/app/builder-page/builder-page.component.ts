@@ -1,12 +1,41 @@
 import { Component } from '@angular/core';
 import { BuilderService } from './builder/builder.service';
 import { JFZBuilderControl, JFZBuilderInputType } from './builder/model';
-import { ngZorroRenderers } from '@wojtek1150/jsonforms-zorro-wrapper';
+import { JsonFormsZorroModule, ngZorroRenderers } from '@wojtek1150/jsonforms-zorro-wrapper';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { ListInputSourceComponent } from './builder/list-input-source.component';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { ListInputTargetComponent } from './builder/list-input-target.component';
+import { AsyncPipe, JsonPipe, NgIf, TitleCasePipe } from '@angular/common';
+import { NzCollapseModule } from 'ng-zorro-antd/collapse';
+import { FormsModule } from '@angular/forms';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { TextRendererEditorComponent } from './builder/controls/text-renderer.editor.component';
+import { NzTabsModule } from 'ng-zorro-antd/tabs';
 
 @Component({
   selector: 'app-builder-page',
   templateUrl: './builder-page.component.html',
   styleUrls: ['./builder-page.component.scss'],
+  standalone: true,
+  imports: [
+    DragDropModule,
+    ListInputSourceComponent,
+    NzButtonModule,
+    NzIconModule,
+    ListInputTargetComponent,
+    TitleCasePipe,
+    NzCollapseModule,
+    NgIf,
+    FormsModule,
+    NzInputModule,
+    TextRendererEditorComponent,
+    NzTabsModule,
+    AsyncPipe,
+    JsonPipe,
+    JsonFormsZorroModule,
+  ],
 })
 export class BuilderPageComponent {
   readonly TYPES = JFZBuilderInputType;

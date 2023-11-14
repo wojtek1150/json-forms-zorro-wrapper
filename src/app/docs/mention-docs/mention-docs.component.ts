@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
-import { Config, JFZVerticalLayout, JsonSchema, ngZorroRenderers } from '@wojtek1150/jsonforms-zorro-wrapper';
+import { Config, JFZVerticalLayout, JsonFormsZorroModule, JsonSchema, ngZorroRenderers } from '@wojtek1150/jsonforms-zorro-wrapper';
+import { NzTableModule } from 'ng-zorro-antd/table';
 
 @Component({
   selector: 'app-mention-docs',
   templateUrl: './mention-docs.component.html',
+  standalone: true,
+  imports: [JsonFormsZorroModule, NzTableModule],
 })
 export class MentionDocsComponent {
   renderers = ngZorroRenderers;

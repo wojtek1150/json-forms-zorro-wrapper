@@ -1,9 +1,13 @@
 import { Component } from '@angular/core';
-import { Config, JFZVerticalLayout, ngZorroRenderers, JsonSchema } from '@wojtek1150/jsonforms-zorro-wrapper';
+import { Config, JFZVerticalLayout, JsonFormsZorroModule, JsonSchema, ngZorroRenderers } from '@wojtek1150/jsonforms-zorro-wrapper';
+import { NzTableModule } from 'ng-zorro-antd/table';
+import { NzAlertModule } from 'ng-zorro-antd/alert';
 
 @Component({
   selector: 'app-multiselect-docs',
   templateUrl: './multiselect-docs.component.html',
+  standalone: true,
+  imports: [JsonFormsZorroModule, NzTableModule, NzAlertModule],
 })
 export class MultiselectDocsComponent {
   renderers = ngZorroRenderers;

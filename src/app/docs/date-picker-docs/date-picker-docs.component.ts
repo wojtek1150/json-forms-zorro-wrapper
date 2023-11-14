@@ -3,20 +3,21 @@ import { JFZVerticalLayout, JsonFormsZorroModule, JsonSchema, ngZorroRenderers }
 import { NzTableModule } from 'ng-zorro-antd/table';
 
 @Component({
-  selector: 'app-texfield-docs',
-  templateUrl: './texfield-docs.component.html',
+  selector: 'app-date-picker-docs',
+  templateUrl: './date-picker-docs.component.html',
   standalone: true,
   imports: [JsonFormsZorroModule, NzTableModule],
 })
-export class TexfieldDocsComponent {
+export class DatePickerDocsComponent {
   renderers = ngZorroRenderers;
+  data = {};
+  data2 = {};
 
   schema: JsonSchema = {
     type: 'object',
     properties: {
-      name: {
+      date: {
         type: 'string',
-        minLength: 3,
       },
     },
   };
@@ -25,24 +26,36 @@ export class TexfieldDocsComponent {
     type: 'VerticalLayout',
     elements: [
       {
-        label: 'First name',
         type: 'Control',
-        scope: '#/properties/name',
+        scope: '#/properties/date',
+        label: 'DatePicker',
+        options: {
+          format: 'date',
+          dateFormat: 'yyyy-MM-dd HH:mm',
+          showTime: true,
+        },
       },
     ],
   };
 
-  uiSchemaArea: JFZVerticalLayout = {
+  schema2: JsonSchema = {
+    type: 'object',
+    properties: {
+      dateRange: {
+        type: 'array',
+      },
+    },
+  };
+
+  uiSchema2: JFZVerticalLayout = {
     type: 'VerticalLayout',
     elements: [
       {
-        label: 'First name',
         type: 'Control',
-        scope: '#/properties/name',
+        scope: '#/properties/dateRange',
+        label: 'DatePicker',
         options: {
-          multi: true,
-          minRows: 3,
-          maxRows: 5,
+          format: 'dateRange',
         },
       },
     ],

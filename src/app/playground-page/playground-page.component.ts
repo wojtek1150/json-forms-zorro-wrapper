@@ -1,5 +1,11 @@
 import { Component } from '@angular/core';
-import { JsonFormsRendererRegistryEntry, JsonSchema, ngZorroRenderers, UISchemaElement } from '@wojtek1150/jsonforms-zorro-wrapper';
+import {
+  JsonFormsRendererRegistryEntry,
+  JsonFormsZorroModule,
+  JsonSchema,
+  ngZorroRenderers,
+  UISchemaElement,
+} from '@wojtek1150/jsonforms-zorro-wrapper';
 import schema from '../demo-page/schema.json';
 import uischema from '../demo-page/uischema.json';
 import { array } from './schemas/array';
@@ -8,10 +14,16 @@ import { listDetails } from './schemas/list-details';
 import { itemArray } from './schemas/item-array';
 import { rule } from './schemas/rule';
 import { jsonformsConfig } from '../demo-page/formdata';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NgForOf } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { NzCodeEditorModule } from 'ng-zorro-antd/code-editor';
 
 @Component({
   selector: 'app-playground-page',
   templateUrl: './playground-page.component.html',
+  standalone: true,
   styles: [
     `
       :host {
@@ -37,6 +49,7 @@ import { jsonformsConfig } from '../demo-page/formdata';
       }
     `,
   ],
+  imports: [NzFormModule, NzSelectModule, NgForOf, FormsModule, NzCodeEditorModule, JsonFormsZorroModule],
 })
 export class PlaygroundPageComponent {
   renderers: JsonFormsRendererRegistryEntry[] = ngZorroRenderers;
