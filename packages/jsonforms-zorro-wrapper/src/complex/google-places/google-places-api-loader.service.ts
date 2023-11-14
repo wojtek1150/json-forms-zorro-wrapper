@@ -1,5 +1,5 @@
 import { Inject, Injectable, InjectionToken } from '@angular/core';
-import { BehaviorSubject, Observable, Observer } from 'rxjs';
+import { BehaviorSubject, Observable, Observer, of } from 'rxjs';
 
 export let JZW_GOOGLE_PLACES_API_KEY: InjectionToken<{ apiKey: string }> = new InjectionToken<{ apiKey: string }>('google-places.config');
 
@@ -15,6 +15,9 @@ export class GooglePlacesApiLoaderService {
   }
 
   private loadGoogleMapsApi(): Observable<boolean> {
+    if (this.mapsLoaded.value === true) {
+      return of(true);
+    }
     return new Observable((observer: Observer<boolean>) => {
       const node = document.createElement('script');
       node.src = `${this.gapiUrl}?key=${this.apiKey}&libraries=places&language=en&callback=console.log`;
