@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
-import { JFZVerticalLayout, ngZorroRenderers, JsonSchema } from '@wojtek1150/jsonforms-zorro-wrapper';
+import { JFZVerticalLayout, JsonFormsZorroModule, JsonSchema, ngZorroRenderers } from '@wojtek1150/jsonforms-zorro-wrapper';
+import { NzTableModule } from 'ng-zorro-antd/table';
 
 @Component({
   selector: 'app-number-docs',
   templateUrl: './number-docs.component.html',
+  standalone: true,
+  imports: [JsonFormsZorroModule, NzTableModule],
 })
 export class NumberDocsComponent {
   renderers = ngZorroRenderers;

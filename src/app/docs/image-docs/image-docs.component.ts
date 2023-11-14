@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
-import { JsonSchema, JFZVerticalLayout, ngZorroRenderers } from '@wojtek1150/jsonforms-zorro-wrapper';
+import { JFZVerticalLayout, JsonFormsZorroModule, JsonSchema, ngZorroRenderers } from '@wojtek1150/jsonforms-zorro-wrapper';
+import { NzTableModule } from 'ng-zorro-antd/table';
 
 @Component({
   selector: 'app-image-docs',
   templateUrl: './image-docs.component.html',
+  standalone: true,
+  imports: [JsonFormsZorroModule, NzTableModule],
   styles: [
     `
       .flex {

@@ -2,12 +2,23 @@ import { Component } from '@angular/core';
 import schema from './schema.json';
 import uischema from './uischema.json';
 import { formData, jsonformsConfig } from './formdata';
-import { ngZorroRenderers, JsonFormsRendererRegistryEntry, JsonSchema, UISchemaElement } from '@wojtek1150/jsonforms-zorro-wrapper';
+import {
+  JsonFormsRendererRegistryEntry,
+  JsonFormsZorroModule,
+  JsonSchema,
+  ngZorroRenderers,
+  UISchemaElement,
+} from '@wojtek1150/jsonforms-zorro-wrapper';
+import { NzAlertModule } from 'ng-zorro-antd/alert';
+import { NzTabsModule } from 'ng-zorro-antd/tabs';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 
 @Component({
   selector: 'app-demo-page',
   templateUrl: './demo-page.component.html',
   styleUrls: ['./demo-page.component.scss'],
+  standalone: true,
+  imports: [NzAlertModule, NzTabsModule, JsonFormsZorroModule, NzIconModule],
 })
 export class DemoPageComponent {
   schema: JsonSchema = schema;

@@ -25,6 +25,7 @@ import { WysiwygRenderer, WysiwygRendererTester } from './controls/wysiwyg.rende
 import { ImageControlRenderer, ImageControlRendererTester } from './complex/image/image.renderer';
 import { GooglePlacesControlRendererTester, GooglePlacesRenderer } from './complex/google-places/google-places.renderer';
 import { MentionControlRenderer, MentionControlRendererTester } from './complex/mention/mention.renderer';
+import { DateRangeControlRenderer, DateRangeControlRendererTester } from './controls/date-range.renderer';
 
 export const ngZorroRenderers: {
   tester: RankedTester;
@@ -34,6 +35,7 @@ export const ngZorroRenderers: {
   { tester: SelectControlTester, renderer: SelectControlRenderer },
   { tester: BooleanControlTester, renderer: BooleanControlRenderer },
   { tester: DateControlRendererTester, renderer: DateControlRenderer },
+  { tester: DateRangeControlRendererTester, renderer: DateRangeControlRenderer },
   { tester: NumberControlRendererTester, renderer: NumberControlRenderer },
   { tester: RangeControlRendererTester, renderer: RangeControlRenderer },
   { tester: RadioControlRendererTester, renderer: RadioControlRenderer },

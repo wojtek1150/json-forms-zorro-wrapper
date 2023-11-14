@@ -1,0 +1,54 @@
+<h1>Date range control</h1>
+<p>Array based control for selecting date ranges.</p>
+
+<article>
+  <jsonforms [(data)]="data" [renderers]="renderers" [schema]="schema" [uischema]="uiSchema"></jsonforms>
+
+  <div class="flex">
+    <div>
+      <p>Schema</p>
+      <pre><code>{{schema.properties | json }}</code></pre>
+
+      <p>Ui Schema</p>
+      <pre><code>{{uiSchema.elements[0] | json }}</code></pre>
+    </div>
+
+    <div>
+      <p>Data</p>
+      <pre><code>{{data | json }}</code></pre>
+    </div>
+  </div>
+</article>
+
+
+<p>UiSchema Options</p>
+<nz-table [nzTemplateMode]="true">
+  <thead>
+  <tr>
+    <th>Property</th>
+    <th>Description</th>
+    <th>Type</th>
+    <th>Default</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>format</td>
+    <td>Set to `dateRange` to enable date range selection</td>
+    <td><code>string</code></td>
+    <td>-</td>
+  </tr>
+  <tr>
+    <td>dateFormat</td>
+    <td>Date format for displaying control (returned value will be Date object)</td>
+    <td><code>string</code></td>
+    <td><code>'yyyy-MM-dd'</code></td>
+  </tr>
+  <tr>
+    <td>showTime</td>
+    <td>Set to true to enable time selection</td>
+    <td><code>boolean</code></td>
+    <td><code>false</code></td>
+  </tr>
+  </tbody>
+</nz-table>

@@ -5,6 +5,7 @@ import { TextControlRenderer } from './controls/text.renderer';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { DateControlRenderer } from './controls/date.renderer';
+import { DateRangeControlRenderer } from './controls/date-range.renderer';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { HorizontalLayoutRenderer } from './layouts/horizontal-layout.renderer';
 import { NzValidationStatusPipe } from './other/validation-status.pipe';
@@ -55,6 +56,7 @@ const controls = [
   BooleanControlRenderer,
   TextControlRenderer,
   DateControlRenderer,
+  DateRangeControlRenderer,
   NumberControlRenderer,
   RangeControlRenderer,
   ToggleControlRenderer,
