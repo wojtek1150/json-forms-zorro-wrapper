@@ -12,13 +12,14 @@ import {
 import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { NzIconModule } from 'ng-zorro-antd/icon';
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-demo-page',
   templateUrl: './demo-page.component.html',
   styleUrls: ['./demo-page.component.scss'],
   standalone: true,
-  imports: [NzAlertModule, NzTabsModule, JsonFormsZorroModule, NzIconModule],
+  imports: [NzAlertModule, NzTabsModule, JsonFormsZorroModule, NzIconModule, JsonPipe],
 })
 export class DemoPageComponent {
   schema: JsonSchema = schema;

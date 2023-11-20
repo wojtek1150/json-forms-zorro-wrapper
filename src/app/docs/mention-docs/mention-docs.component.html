@@ -9,17 +9,27 @@
   <div class="flex">
     <div>
       <p>Schema</p>
-      <pre><code>{{schema.properties | json }}</code></pre>
+      <nz-code-editor
+        (ngModelChange)="updateProperty('schema', $event)"
+        [ngModel]="schema.properties | editorFormatter"
+        [nzEditorOption]="{ language: 'json',automaticLayout: true }"
+        class="editor"></nz-code-editor>
 
       <p>Ui Schema</p>
-      <pre><code>{{uiSchema.elements[0] | json }}</code></pre>
+      <nz-code-editor
+        (ngModelChange)="updateProperty('uiSchema', $event)"
+        [ngModel]="uiSchema.elements[0] | editorFormatter"
+        [nzEditorOption]="{ language: 'json',automaticLayout: true }"
+        class="editor"></nz-code-editor>
     </div>
 
     <div>
-      <p>Config</p>
-      <pre><code>{{jsonformsConfigExternal | json }}</code></pre>
       <p>Data</p>
-      <pre><code>{{data | json }}</code></pre>
+      <nz-code-editor
+        (ngModelChange)="updateProperty('data', $event)"
+        [ngModel]="data | editorFormatter"
+        [nzEditorOption]="{ language: 'json',automaticLayout: true }"
+        class="editor"></nz-code-editor>
     </div>
   </div>
 </article>

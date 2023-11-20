@@ -2,12 +2,13 @@ import { Component } from '@angular/core';
 import { JFZVerticalLayout, JsonFormsZorroModule, JsonSchema, ngZorroRenderers } from '@wojtek1150/jsonforms-zorro-wrapper';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-google-places-docs',
   templateUrl: './google-places-docs.component.html',
   standalone: true,
-  imports: [JsonFormsZorroModule, NzTableModule, NzAlertModule],
+  imports: [JsonFormsZorroModule, NzTableModule, NzAlertModule, JsonPipe],
   styles: [
     `
       nz-alert {

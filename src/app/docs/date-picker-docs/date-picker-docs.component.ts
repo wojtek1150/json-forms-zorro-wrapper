@@ -1,18 +1,18 @@
 import { Component } from '@angular/core';
-import { JFZVerticalLayout, JsonFormsZorroModule, JsonSchema, ngZorroRenderers } from '@wojtek1150/jsonforms-zorro-wrapper';
+import { JFZVerticalLayout, JsonFormsZorroModule, JsonSchema } from '@wojtek1150/jsonforms-zorro-wrapper';
 import { NzTableModule } from 'ng-zorro-antd/table';
+import { NzCodeEditorModule } from 'ng-zorro-antd/code-editor';
+import { FormsModule } from '@angular/forms';
+import { EditorFormatterPipe } from '../../pipes/editor-formatter.pipe';
+import { ControlDocsAbstract } from '../control-docs.abstract';
 
 @Component({
   selector: 'app-date-picker-docs',
   templateUrl: './date-picker-docs.component.html',
   standalone: true,
-  imports: [JsonFormsZorroModule, NzTableModule],
+  imports: [JsonFormsZorroModule, NzTableModule, NzCodeEditorModule, FormsModule, EditorFormatterPipe],
 })
-export class DatePickerDocsComponent {
-  renderers = ngZorroRenderers;
-  data = {};
-  data2 = {};
-
+export class DatePickerDocsComponent extends ControlDocsAbstract {
   schema: JsonSchema = {
     type: 'object',
     properties: {
@@ -31,31 +31,9 @@ export class DatePickerDocsComponent {
         label: 'DatePicker',
         options: {
           format: 'date',
-          dateFormat: 'yyyy-MM-dd HH:mm',
-          showTime: true,
-        },
-      },
-    ],
-  };
-
-  schema2: JsonSchema = {
-    type: 'object',
-    properties: {
-      dateRange: {
-        type: 'array',
-      },
-    },
-  };
-
-  uiSchema2: JFZVerticalLayout = {
-    type: 'VerticalLayout',
-    elements: [
-      {
-        type: 'Control',
-        scope: '#/properties/dateRange',
-        label: 'DatePicker',
-        options: {
-          format: 'dateRange',
+          dateFormat: 'yyyy-MM-dd',
+          saveFormat: 'yyyy-MM-dd',
+          showTime: false,
         },
       },
     ],

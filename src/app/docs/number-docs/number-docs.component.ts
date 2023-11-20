@@ -1,16 +1,19 @@
 import { Component } from '@angular/core';
-import { JFZVerticalLayout, JsonFormsZorroModule, JsonSchema, ngZorroRenderers } from '@wojtek1150/jsonforms-zorro-wrapper';
+import { JFZVerticalLayout, JsonFormsZorroModule, JsonSchema } from '@wojtek1150/jsonforms-zorro-wrapper';
 import { NzTableModule } from 'ng-zorro-antd/table';
+import { JsonPipe } from '@angular/common';
+import { ControlDocsAbstract } from '../control-docs.abstract';
+import { EditorFormatterPipe } from '../../pipes/editor-formatter.pipe';
+import { NzCodeEditorModule } from 'ng-zorro-antd/code-editor';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-number-docs',
   templateUrl: './number-docs.component.html',
   standalone: true,
-  imports: [JsonFormsZorroModule, NzTableModule],
+  imports: [JsonFormsZorroModule, NzTableModule, JsonPipe, EditorFormatterPipe, NzCodeEditorModule, FormsModule],
 })
-export class NumberDocsComponent {
-  renderers = ngZorroRenderers;
-
+export class NumberDocsComponent extends ControlDocsAbstract {
   schema: JsonSchema = {
     type: 'object',
     properties: {

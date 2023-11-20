@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { JFZVerticalLayout, JsonFormsZorroModule, JsonSchema, ngZorroRenderers } from '@wojtek1150/jsonforms-zorro-wrapper';
 import { NzTableModule } from 'ng-zorro-antd/table';
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-select-docs',
   templateUrl: './select-docs.component.html',
   standalone: true,
-  imports: [JsonFormsZorroModule, NzTableModule],
+  imports: [JsonFormsZorroModule, NzTableModule, JsonPipe],
 })
 export class SelectDocsComponent {
   renderers = ngZorroRenderers;

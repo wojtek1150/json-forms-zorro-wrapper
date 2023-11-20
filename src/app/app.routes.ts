@@ -6,7 +6,7 @@ import { ImageRendererService } from './docs/image.service';
 export const APP_ROUTES: Routes = [
   {
     component: DemoPageComponent,
-    path: '',
+    path: 'demo',
   },
   {
     loadComponent: () => import('./playground-page/playground-page.component').then(c => c.PlaygroundPageComponent),
@@ -23,6 +23,6 @@ export const APP_ROUTES: Routes = [
   },
   {
     path: '**',
-    redirectTo: '',
+    redirectTo: 'docs',
   },
 ];

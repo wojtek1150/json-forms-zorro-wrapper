@@ -98,7 +98,7 @@ const controls = [
     AvatarComponent,
   ],
   declarations: [...controls, NzValidationStatusPipe],
-  exports: [...modules],
+  exports: [JsonFormsModule, ReactiveFormsModule, NzFormModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [DatePipe, JFZImageRendererService, GooglePlacesApiLoaderService],
 })
