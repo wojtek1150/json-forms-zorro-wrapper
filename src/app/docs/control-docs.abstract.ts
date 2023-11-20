@@ -18,13 +18,16 @@ export abstract class ControlDocsAbstract {
         this.data = cachedData;
       }
     } else if (schemaToUpdate === 'schema') {
-      const cachedSchema = this.schema.properties;
+      const cachedSchema = this.schema;
       try {
-        this.schema.properties = null;
-        this.schema.properties = JSON.parse($event);
+        this.schema = null;
+        this.schema = {
+          ...cachedSchema,
+          properties: JSON.parse($event),
+        };
         this.data = { ...this.data }; // force rerender
       } catch (e) {
-        this.schema.properties = cachedSchema;
+        this.schema = cachedSchema;
       }
     } else {
       const cachedUiSchema = this.uiSchema.elements[0];
