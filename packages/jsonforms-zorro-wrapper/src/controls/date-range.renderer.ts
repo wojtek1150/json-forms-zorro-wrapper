@@ -42,8 +42,9 @@ import { DatePipe } from '@angular/common';
 })
 export class DateRangeControlRenderer extends JsonFormsControl {
   dateFormat: string = 'yyyy-MM-dd';
+  saveFormat: string | null = null;
   showTime: boolean = false;
-  selectedDate: [string?, string?] = [];
+  selectedDate = [];
 
   constructor(
     jsonformsService: JsonFormsAngularService,
@@ -53,24 +54,22 @@ export class DateRangeControlRenderer extends JsonFormsControl {
     super(jsonformsService, changeDetectorRef);
   }
 
-  override getEventValue = (event: any) => {
-    console.log(event);
-    return event;
-  };
+  override getEventValue = (event: any) => event;
 
   override mapAdditionalProps(props): void {
     super.mapAdditionalProps(props);
     if (this.scopedSchema) {
       this.dateFormat = this.uischema.options?.dateFormat || 'yyyy-MM-dd';
+      this.saveFormat = this.uischema.options?.saveFormat;
       this.showTime = this.uischema.options?.showTime || false;
     }
   }
 
   override onChange(ev: any) {
-    const formattedDates: [string, string] = [this.datePipe.transform(ev[0], this.dateFormat), this.datePipe.transform(ev[1], this.dateFormat)];
+    const formattedDates = this.saveFormat ? [this.datePipe.transform(ev[0], this.dateFormat), this.datePipe.transform(ev[1], this.dateFormat)] : ev;
     if (this.selectedDate !== formattedDates) {
       this.selectedDate = formattedDates;
-      this.jsonFormsService.updateCore(Actions.update(this.propsPath, () => ev));
+      this.jsonFormsService.updateCore(Actions.update(this.propsPath, () => formattedDates));
       this.triggerValidation();
     }
   }

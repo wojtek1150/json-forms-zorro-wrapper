@@ -1,87 +1,106 @@
 <h1>Upload Image control</h1>
-<pre><code>{{schema.properties | json }}</code></pre>
-
-<p>Ui Schema</p>
-<pre><code>{{uiSchema.elements[0] | json }}</code></pre>
+<jsonforms [(data)]="data" [renderers]="renderers" [schema]="schema" [uischema]="uiSchema"></jsonforms>
 
 <div class="flex">
-  <jsonforms [(data)]="data" [renderers]="renderers" [schema]="schema" [uischema]="uiSchema"></jsonforms>
-  <pre>{{ data | json }}</pre>
+  <div>
+    <p>Schema</p>
+    <nz-code-editor
+      (ngModelChange)="updateProperty('schema', $event)"
+      [ngModel]="schema.properties | editorFormatter"
+      [nzEditorOption]="{ language: 'json',automaticLayout: true }"
+      class="editor"></nz-code-editor>
+
+    <p>Ui Schema</p>
+    <nz-code-editor
+      (ngModelChange)="updateProperty('uiSchema', $event)"
+      [ngModel]="uiSchema.elements[0] | editorFormatter"
+      [nzEditorOption]="{ language: 'json',automaticLayout: true }"
+      class="editor"></nz-code-editor>
+  </div>
+
+  <div>
+    <p>Data</p>
+    <nz-code-editor
+      (ngModelChange)="updateProperty('data', $event)"
+      [ngModel]="data | editorFormatter"
+      [nzEditorOption]="{ language: 'json',automaticLayout: true }"
+      class="editor"></nz-code-editor>
+  </div>
 </div>
 
 <p>UiSchema Options</p>
 <nz-table [nzTemplateMode]="true">
   <thead>
-    <tr>
-      <th>Property</th>
-      <th>Description</th>
-      <th>Type</th>
-      <th>Default</th>
-    </tr>
+  <tr>
+    <th>Property</th>
+    <th>Description</th>
+    <th>Type</th>
+    <th>Default</th>
+  </tr>
   </thead>
   <tbody>
-    <tr>
-      <td class="required">format</td>
-      <td>Makes control as image upload</td>
-      <td><code>'image'</code></td>
-      <td>-</td>
-    </tr>
-    <tr>
-      <td class="required">uploadUrl</td>
-      <td>Url to upload files. Set to true if you use custom provider for JFZImageRendererService</td>
-      <td><code>string | true</code></td>
-      <td>-</td>
-    </tr>
-    <tr>
-      <td>hint</td>
-      <td>Uploader hint</td>
-      <td><code>string</code></td>
-      <td>-</td>
-    </tr>
-    <tr>
-      <td>deleteUrl</td>
-      <td>
-        If set enables option to remove image which requests on given url with DELETE method and <code>url: string</code> in body. Set to true if you
-        use custom provider for JFZImageRendererService
-      </td>
-      <td><code>string | true</code></td>
-      <td>-</td>
-    </tr>
-    <tr>
-      <td>minImageWidth</td>
-      <td>Minimum image width in px</td>
-      <td><code>number</code></td>
-      <td><code>300</code></td>
-    </tr>
-    <tr>
-      <td>minImageminImageHeightWidth</td>
-      <td>Minimum image height in px</td>
-      <td><code>number</code></td>
-      <td><code>300</code></td>
-    </tr>
-    <tr>
-      <td>maxImageWidth</td>
-      <td>Maximum image width in px</td>
-      <td><code>number</code></td>
-      <td><code>9999</code></td>
-    </tr>
-    <tr>
-      <td>maxImageHeight</td>
-      <td>Maximum image height in px</td>
-      <td><code>number</code></td>
-      <td><code>9999</code></td>
-    </tr>
-    <tr>
-      <td>maxImageSizeMB</td>
-      <td>Maximum image size in MB</td>
-      <td><code>number</code></td>
-      <td><code>8</code></td>
-    </tr>
-    <tr>
-      <td>allowedExtensions</td>
-      <td>List of allowed file extensions</td>
-      <td><code>string[]</code></td>
-      <td><code>['image/jpeg', 'image/png', 'image/gif']</code></td>
-    </tr>
+  <tr>
+    <td class="required">format</td>
+    <td>Makes control as image upload</td>
+    <td><code>'image'</code></td>
+    <td>-</td>
+  </tr>
+  <tr>
+    <td class="required">uploadUrl</td>
+    <td>Url to upload files. Set to true if you use custom provider for JFZImageRendererService</td>
+    <td><code>string | true</code></td>
+    <td>-</td>
+  </tr>
+  <tr>
+    <td>hint</td>
+    <td>Uploader hint</td>
+    <td><code>string</code></td>
+    <td>-</td>
+  </tr>
+  <tr>
+    <td>deleteUrl</td>
+    <td>
+      If set enables option to remove image which requests on given url with DELETE method and <code>url: string</code> in body. Set to true if you
+      use custom provider for JFZImageRendererService
+    </td>
+    <td><code>string | true</code></td>
+    <td>-</td>
+  </tr>
+  <tr>
+    <td>minImageWidth</td>
+    <td>Minimum image width in px</td>
+    <td><code>number</code></td>
+    <td><code>300</code></td>
+  </tr>
+  <tr>
+    <td>minImageminImageHeightWidth</td>
+    <td>Minimum image height in px</td>
+    <td><code>number</code></td>
+    <td><code>300</code></td>
+  </tr>
+  <tr>
+    <td>maxImageWidth</td>
+    <td>Maximum image width in px</td>
+    <td><code>number</code></td>
+    <td><code>9999</code></td>
+  </tr>
+  <tr>
+    <td>maxImageHeight</td>
+    <td>Maximum image height in px</td>
+    <td><code>number</code></td>
+    <td><code>9999</code></td>
+  </tr>
+  <tr>
+    <td>maxImageSizeMB</td>
+    <td>Maximum image size in MB</td>
+    <td><code>number</code></td>
+    <td><code>8</code></td>
+  </tr>
+  <tr>
+    <td>allowedExtensions</td>
+    <td>List of allowed file extensions</td>
+    <td><code>string[]</code></td>
+    <td><code>['image/jpeg', 'image/png', 'image/gif']</code></td>
+  </tr>
   </tbody>
 </nz-table>

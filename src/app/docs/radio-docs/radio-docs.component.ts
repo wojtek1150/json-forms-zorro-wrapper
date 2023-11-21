@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
 import { JFZVerticalLayout, JsonFormsZorroModule, JsonSchema, ngZorroRenderers } from '@wojtek1150/jsonforms-zorro-wrapper';
 import { NzTableModule } from 'ng-zorro-antd/table';
+import { JsonPipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-radio-docs',
   templateUrl: './radio-docs.component.html',
   standalone: true,
-  imports: [JsonFormsZorroModule, NzTableModule],
+  imports: [JsonFormsZorroModule, NzTableModule, JsonPipe, RouterLink],
 })
 export class RadioDocsComponent {
   renderers = ngZorroRenderers;

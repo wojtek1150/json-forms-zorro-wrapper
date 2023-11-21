@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { Actions, formatIs, optionIs, or, RankedTester, rankWith } from '../core';
+import { Actions, isDateControl, RankedTester, rankWith } from '../core';
 import { JsonFormsAngularService, JsonFormsControl } from '../jsonForms';
 import { DatePipe } from '@angular/common';
 
@@ -42,6 +42,7 @@ import { DatePipe } from '@angular/common';
 })
 export class DateControlRenderer extends JsonFormsControl {
   dateFormat: string = 'yyyy-MM-dd';
+  saveFormat: string | null = null;
   showTime: boolean = false;
   selectedDate: string = null;
 
@@ -53,18 +54,19 @@ export class DateControlRenderer extends JsonFormsControl {
     super(jsonformsService, changeDetectorRef);
   }
 
-  override getEventValue = (event: string) => event;
+  override getEventValue = (ev: string) => this.datePipe.transform(ev, this.dateFormat);
 
   override mapAdditionalProps(props): void {
     super.mapAdditionalProps(props);
     if (this.scopedSchema) {
       this.dateFormat = this.uischema.options?.dateFormat || 'yyyy-MM-dd';
+      this.saveFormat = this.uischema.options?.saveFormat;
       this.showTime = this.uischema.options?.showTime || false;
     }
   }
 
   override onChange(ev: any) {
-    const formattedDate = this.datePipe.transform(ev, this.dateFormat);
+    const formattedDate = this.saveFormat ? this.datePipe.transform(ev, this.saveFormat) : ev;
     if (this.selectedDate !== formattedDate) {
       this.selectedDate = formattedDate;
       this.jsonFormsService.updateCore(Actions.update(this.propsPath, () => formattedDate));
@@ -73,4 +75,4 @@ export class DateControlRenderer extends JsonFormsControl {
   }
 }
 
-export const DateControlRendererTester: RankedTester = rankWith(2, optionIs('format', 'date'));
+export const DateControlRendererTester: RankedTester = rankWith(2, isDateControl);

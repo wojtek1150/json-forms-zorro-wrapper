@@ -15,11 +15,13 @@ export class GooglePlacesApiLoaderService {
   }
 
   private loadGoogleMapsApi(): Observable<boolean> {
-    if (this.mapsLoaded.value === true) {
+    if (document.getElementById('google-places-api-script')) {
+      this.mapsLoaded.next(true);
       return of(true);
     }
     return new Observable((observer: Observer<boolean>) => {
       const node = document.createElement('script');
+      node.id = 'google-places-api-script';
       node.src = `${this.gapiUrl}?key=${this.apiKey}&libraries=places&language=en&callback=console.log`;
       node.type = 'text/javascript';
       document.getElementsByTagName('head')[0].appendChild(node);
