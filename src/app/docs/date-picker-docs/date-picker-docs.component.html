@@ -32,26 +32,6 @@
   </div>
 </article>
 
-<p>Schema Options</p>
-<nz-table [nzTemplateMode]="true">
-  <thead>
-  <tr>
-    <th>Property</th>
-    <th>Description</th>
-    <th>Type</th>
-    <th>Default</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr>
-    <td>type</td>
-    <td>Use <code>string</code> when return format is set or <code>object</code> when you need ISO date as form data value</td>
-    <td><code>string</code></td>
-    <td>-</td>
-  </tr>
-  </tbody>
-</nz-table>
-
 <p>UiSchema Options</p>
 <nz-table [nzTemplateMode]="true">
   <thead>
@@ -77,7 +57,7 @@
   </tr>
   <tr>
     <td>saveFormat</td>
-    <td>Date format of form returned value. If not passed Date object will be returned</td>
+    <td>Date format of form returned value. If not passed ISO string will be returned</td>
     <td><code>string</code></td>
     <td><code>-</code></td>
   </tr>

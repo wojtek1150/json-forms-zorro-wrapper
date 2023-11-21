@@ -56,6 +56,10 @@ export class DateControlRenderer extends JsonFormsControl {
 
   override getEventValue = (ev: string) => this.datePipe.transform(ev, this.dateFormat);
 
+  override setFormValue(value: any) {
+    super.setFormValue(value ? new Date(value) : value);
+  }
+
   override mapAdditionalProps(props): void {
     super.mapAdditionalProps(props);
     if (this.scopedSchema) {
@@ -65,8 +69,8 @@ export class DateControlRenderer extends JsonFormsControl {
     }
   }
 
-  override onChange(ev: any) {
-    const formattedDate = this.saveFormat ? this.datePipe.transform(ev, this.saveFormat) : ev;
+  override onChange(ev: null | Date) {
+    const formattedDate = !ev ? (ev as null) : this.saveFormat ? this.datePipe.transform(ev, this.saveFormat) : ev.toISOString();
     if (this.selectedDate !== formattedDate) {
       this.selectedDate = formattedDate;
       this.jsonFormsService.updateCore(Actions.update(this.propsPath, () => formattedDate));

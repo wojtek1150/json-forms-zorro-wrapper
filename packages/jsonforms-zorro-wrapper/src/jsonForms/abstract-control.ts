@@ -93,13 +93,17 @@ export abstract class JsonFormsAbstractControl<Props extends StatePropsOfControl
         this.id = props.id;
         this.required = required;
         if (this.form.value !== data) {
-          this.form.setValue(data);
+          this.setFormValue(data);
         }
         this.propsPath = path;
         this.mapAdditionalProps(props);
       },
     });
     this.jsonFormsService.$submitState.pipe(takeUntil(this.destroy$)).subscribe(value => value && this.triggerValidation());
+  }
+
+  setFormValue(value: any) {
+    this.form.setValue(value);
   }
 
   validator(): ValidatorFn {
