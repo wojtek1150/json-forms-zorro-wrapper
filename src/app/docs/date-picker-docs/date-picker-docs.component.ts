@@ -34,6 +34,7 @@ export class DatePickerDocsComponent extends ControlDocsAbstract {
           dateFormat: 'yyyy-MM-dd',
           saveFormat: 'yyyy-MM-dd',
           showTime: false,
+          disablePastDates: true,
         },
       },
     ],
