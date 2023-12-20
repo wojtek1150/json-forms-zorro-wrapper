@@ -2,14 +2,15 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
 import { Actions, and, optionIs, RankedTester, rankWith, schemaTypeIs } from '../core';
 import { JsonFormsAngularService, JsonFormsControl } from '../jsonForms';
 import { DatePipe } from '@angular/common';
+import { differenceInCalendarDays } from 'date-fns';
 
 @Component({
   selector: 'DateRangeControlRenderer',
   template: `
     <nz-form-item [class]="additionalClasses" [class.hidden]="hidden">
       <nz-form-label *ngIf="label && label !== '*'" [nzFor]="id" [nzRequired]="required" [nzNoColon]="hideColonInLabel"
-        ><i *ngIf="labelIcon" nz-icon [nzType]="labelIcon" nzTheme="outline"></i> {{ label }}</nz-form-label
-      >
+        ><i *ngIf="labelIcon" nz-icon [nzType]="labelIcon" nzTheme="outline"></i> {{ label }}
+      </nz-form-label>
       <DescriptionRenderer [uiSchema]="uischema" [scopedSchema]="scopedSchema"></DescriptionRenderer>
       <nz-form-control [nzHasFeedback]="showValidationStatus" [nzErrorTip]="errorMessage" [nzValidateStatus]="form.status | nzValidationStatus">
         <nz-range-picker
@@ -18,6 +19,7 @@ import { DatePipe } from '@angular/common';
           [nzFormat]="dateFormat"
           [nzShowTime]="showTime"
           [nzDisabled]="!isEnabled"
+          [nzDisabledDate]="disabledDate"
           (ngModelChange)="onChange($event)"
         ></nz-range-picker>
       </nz-form-control>
@@ -46,6 +48,8 @@ export class DateRangeControlRenderer extends JsonFormsControl {
   showTime: boolean = false;
   selectedDate = [];
 
+  disabledDate: (current: Date) => boolean;
+
   constructor(
     jsonformsService: JsonFormsAngularService,
     changeDetectorRef: ChangeDetectorRef,
@@ -62,6 +66,7 @@ export class DateRangeControlRenderer extends JsonFormsControl {
       this.dateFormat = this.uischema.options?.dateFormat || 'yyyy-MM-dd';
       this.saveFormat = this.uischema.options?.saveFormat;
       this.showTime = this.uischema.options?.showTime || false;
+      this.setDisabledDate();
     }
   }
 
@@ -71,6 +76,12 @@ export class DateRangeControlRenderer extends JsonFormsControl {
       this.selectedDate = formattedDates;
       this.jsonFormsService.updateCore(Actions.update(this.propsPath, () => formattedDates));
       this.triggerValidation();
+    }
+  }
+
+  private setDisabledDate(): void {
+    if (this.uischema.options?.disablePastDates) {
+      this.disabledDate = (current: Date) => differenceInCalendarDays(current, new Date()) < 0;
     }
   }
 }

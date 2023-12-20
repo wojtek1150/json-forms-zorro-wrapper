@@ -31,6 +31,7 @@ export class DateRangePickerDocsComponent extends ControlDocsAbstract {
         label: 'DatePicker',
         options: {
           format: 'dateRange',
+          disablePastDates: true,
         },
       },
     ],
