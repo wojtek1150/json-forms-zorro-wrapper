@@ -9,7 +9,6 @@ import { CommonModule } from '@angular/common';
 @NgModule({
   imports: [CommonModule],
   declarations: [JsonFormsOutlet, UnknownRenderer, JsonForms, DescriptionRenderer],
-  entryComponents: [UnknownRenderer],
   exports: [JsonFormsOutlet, JsonForms, DescriptionRenderer],
 })
 export class JsonFormsModule {}
