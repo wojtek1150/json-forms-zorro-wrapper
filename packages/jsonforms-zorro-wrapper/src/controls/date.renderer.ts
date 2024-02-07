@@ -1,8 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { Actions, isDateControl, RankedTester, rankWith } from '../core';
 import { JsonFormsAngularService, JsonFormsControl } from '../jsonForms';
-import { DatePipe } from '@angular/common';
-import { differenceInCalendarDays } from 'date-fns';
+import { differenceInCalendarDays, format, parse, parseISO } from 'date-fns';
 
 @Component({
   selector: 'DateControlRenderer',
@@ -46,22 +45,17 @@ export class DateControlRenderer extends JsonFormsControl {
   dateFormat: string = 'yyyy-MM-dd';
   saveFormat: string | null = null;
   showTime: boolean = false;
-  selectedDate: string = null;
+  selectedDate: string | Date = null;
 
   disabledDate: (current: Date) => boolean;
 
-  constructor(
-    jsonformsService: JsonFormsAngularService,
-    changeDetectorRef: ChangeDetectorRef,
-    private datePipe: DatePipe,
-  ) {
+  constructor(jsonformsService: JsonFormsAngularService, changeDetectorRef: ChangeDetectorRef) {
     super(jsonformsService, changeDetectorRef);
   }
 
-  override getEventValue = (ev: string) => this.datePipe.transform(ev, this.dateFormat);
-
   override setFormValue(value: any) {
-    super.setFormValue(value ? new Date(value) : value);
+    const parsed = this.saveFormat ? parse(value, this.saveFormat, new Date()) : parseISO(value);
+    this.form.setValue(value ? parsed : value);
   }
 
   override mapAdditionalProps(props): void {
@@ -75,7 +69,7 @@ export class DateControlRenderer extends JsonFormsControl {
   }
 
   override onChange(ev: null | Date) {
-    const formattedDate = !ev ? (ev as null) : this.saveFormat ? this.datePipe.transform(ev, this.saveFormat) : ev.toISOString();
+    const formattedDate = !ev ? null : this.saveFormat ? format(ev, this.saveFormat) : ev.toISOString();
     if (this.selectedDate !== formattedDate) {
       this.selectedDate = formattedDate;
       this.jsonFormsService.updateCore(Actions.update(this.propsPath, () => formattedDate));
