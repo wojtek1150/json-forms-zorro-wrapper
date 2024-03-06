@@ -31,6 +31,8 @@ export class DateRangePickerDocsComponent extends ControlDocsAbstract {
         label: 'DatePicker',
         options: {
           format: 'dateRange',
+          dateFormat: 'yyyy-MM-dd HH:mm',
+          saveFormat: "yyyy-MM-dd'T'HH:mm:ss",
           disablePastDates: true,
         },
       },

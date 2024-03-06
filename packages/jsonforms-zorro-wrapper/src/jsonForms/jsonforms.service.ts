@@ -5,6 +5,7 @@ import {
   coreReducer,
   generateDefaultUISchema,
   generateJsonSchema,
+  getData,
   I18nActions,
   i18nReducer,
   JsonFormsRendererRegistryEntry,
@@ -21,7 +22,7 @@ import {
   updateI18n,
   ValidationMode,
 } from '../core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, map, Observable } from 'rxjs';
 import { JsonFormsBaseRenderer } from './base.renderer';
 
 import { cloneDeep } from 'lodash-es';
@@ -65,10 +66,17 @@ export class JsonFormsAngularService {
     return this.stepChange.asObservable();
   }
 
+  get $formValue(): Observable<any> {
+    if (!this.state) {
+      throw new Error('Please call init first!');
+    }
+    return this.state.asObservable().pipe(map(state => getData(state)));
+  }
+
   init(
     initialState: JsonFormsSubStates = {
       core: { data: undefined, schema: undefined, uischema: undefined, validationMode: 'ValidateAndShow', additionalErrors: undefined },
-    }
+    },
   ) {
     this._state = initialState;
     this._state.config = configReducer(undefined, setConfig(this._state.config));

@@ -32,6 +32,7 @@ import { JsonPipe } from '@angular/common';
 })
 export class GooglePlacesDocsComponent {
   renderers = ngZorroRenderers;
+  readonly configuration = `{\n  provide: JZW_GOOGLE_PLACES_API_KEY,\n  useValue: 'YOUR_API_KEY',\n};`;
 
   schema: JsonSchema = {
     type: 'object',
@@ -42,8 +43,6 @@ export class GooglePlacesDocsComponent {
       },
     },
   };
-
-  configuration = `{\n  provide: JZW_GOOGLE_PLACES_API_KEY,\n  useValue: 'YOUR_API_KEY',\n};`;
 
   uiSchema: JFZVerticalLayout = {
     type: 'VerticalLayout',
@@ -58,8 +57,56 @@ export class GooglePlacesDocsComponent {
       },
     ],
   };
+
+  schema1: JsonSchema = {
+    type: 'object',
+    properties: {
+      test: {
+        type: 'object',
+        properties: {
+          country: {
+            title: 'Country',
+            type: 'string',
+          },
+        },
+      },
+      city: {
+        title: 'Google Places Autocomplete',
+        type: 'string',
+      },
+    },
+  };
+
+  uiSchema1: JFZVerticalLayout = {
+    type: 'VerticalLayout',
+    elements: [
+      {
+        label: 'Country',
+        type: 'Control',
+        scope: '#/properties/test/properties/country',
+      },
+      {
+        label: 'City',
+        type: 'Control',
+        scope: '#/properties/city',
+        options: {
+          format: 'google-places',
+          countryRestrictionField: '#/properties/test/properties/country',
+        },
+      },
+    ],
+  };
+
   data = {
     city: 'Warsaw',
     cityPlaceId: 'ChIJAZ-GmmbMHkcR_NPqiCq-8HI',
+  };
+
+  data1 = {
+    city: 'Washington, DC',
+    cityPlaceId: 'ChIJW-T2Wt7Gt4kRKl2I1CJFUsI',
+    test: {
+      country: 'us',
+    },
   };
 }

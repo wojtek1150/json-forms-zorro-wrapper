@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { Actions, and, optionIs, RankedTester, rankWith, schemaTypeIs } from '../core';
 import { JsonFormsAngularService, JsonFormsControl } from '../jsonForms';
-import { DatePipe } from '@angular/common';
-import { differenceInCalendarDays } from 'date-fns';
+import { differenceInCalendarDays, format, parse, parseISO } from 'date-fns';
+
+type DateRange = [Date | string, Date | string] | null;
 
 @Component({
   selector: 'DateRangeControlRenderer',
@@ -46,19 +47,26 @@ export class DateRangeControlRenderer extends JsonFormsControl {
   dateFormat: string = 'yyyy-MM-dd';
   saveFormat: string | null = null;
   showTime: boolean = false;
-  selectedDate = [];
+  selectedDates: DateRange = null;
 
   disabledDate: (current: Date) => boolean;
 
-  constructor(
-    jsonformsService: JsonFormsAngularService,
-    changeDetectorRef: ChangeDetectorRef,
-    private datePipe: DatePipe,
-  ) {
+  constructor(jsonformsService: JsonFormsAngularService, changeDetectorRef: ChangeDetectorRef) {
     super(jsonformsService, changeDetectorRef);
   }
 
   override getEventValue = (event: any) => event;
+
+  override setFormValue(value: any) {
+    if (!value) {
+      this.form.setValue(value);
+    } else {
+      const parsedDates = this.saveFormat
+        ? [parse(value[0], this.saveFormat, new Date()), parse(value[1], this.saveFormat, new Date())]
+        : [parseISO(value[0]), parseISO(value[1])];
+      this.form.setValue(parsedDates, { emitEvent: false });
+    }
+  }
 
   override mapAdditionalProps(props): void {
     super.mapAdditionalProps(props);
@@ -71,9 +79,14 @@ export class DateRangeControlRenderer extends JsonFormsControl {
   }
 
   override onChange(ev: any) {
-    const formattedDates = this.saveFormat ? [this.datePipe.transform(ev[0], this.dateFormat), this.datePipe.transform(ev[1], this.dateFormat)] : ev;
-    if (this.selectedDate !== formattedDates) {
-      this.selectedDate = formattedDates;
+    const formattedDates: DateRange = !ev
+      ? null
+      : this.saveFormat
+      ? [format(ev[0], this.saveFormat), format(ev[1], this.saveFormat)]
+      : [ev[0].toISOString(), ev[1].toISOString()];
+
+    if (!this.isRangeEqual(this.selectedDates, formattedDates)) {
+      this.selectedDates = formattedDates;
       this.jsonFormsService.updateCore(Actions.update(this.propsPath, () => formattedDates));
       this.triggerValidation();
     }
@@ -83,6 +96,17 @@ export class DateRangeControlRenderer extends JsonFormsControl {
     if (this.uischema.options?.disablePastDates) {
       this.disabledDate = (current: Date) => differenceInCalendarDays(current, new Date()) < 0;
     }
+  }
+
+  private isRangeEqual(a: DateRange, b: DateRange): boolean {
+    if (!a && !b) {
+      return true;
+    }
+    if (!a || !b) {
+      return false;
+    }
+
+    return a[0] === b[0] && b[1] === b[1];
   }
 }
 

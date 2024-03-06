@@ -34,7 +34,7 @@ export abstract class JsonFormsAbstractControl<Props extends StatePropsOfControl
   propsPath: string;
   config: Config;
 
-  private readonly destroy$ = new Subject<void>();
+  readonly destroy$ = new Subject<void>();
 
   constructor(
     protected jsonFormsService: JsonFormsAngularService,
