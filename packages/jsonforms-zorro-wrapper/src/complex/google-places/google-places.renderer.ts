@@ -2,9 +2,11 @@
 
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, NgZone, ViewChild } from '@angular/core';
 import { JsonFormsAngularService, JsonFormsControl } from '../../jsonForms';
-import { Actions, and, optionIs, RankedTester, rankWith, schemaTypeIs, uiTypeIs } from '../../core';
+import { Actions, and, optionIs, RankedTester, rankWith, schemaTypeIs, toDataPathSegments, uiTypeIs } from '../../core';
 import { GooglePlaceFormatterHelper } from './google-places.helper';
 import { GooglePlacesApiLoaderService } from './google-places-api-loader.service';
+import { takeUntil } from 'rxjs';
+import { get } from 'lodash-es';
 
 @Component({
   selector: 'GooglePlacesRenderer',
@@ -16,6 +18,7 @@ export class GooglePlacesRenderer extends JsonFormsControl implements AfterViewI
   private autocomplete: google.maps.places.Autocomplete;
   private mapsEventListener: google.maps.MapsEventListener;
   private place: google.maps.places.PlaceResult;
+  private countryRestrictionField: string;
 
   constructor(
     jsonformsService: JsonFormsAngularService,
@@ -30,6 +33,15 @@ export class GooglePlacesRenderer extends JsonFormsControl implements AfterViewI
     return event.target.value || undefined;
   };
 
+  override mapAdditionalProps(props): void {
+    super.mapAdditionalProps(props);
+    if (this.scopedSchema) {
+      this.countryRestrictionField = this.uischema.options?.countryRestrictionField
+        ? toDataPathSegments(this.uischema.options?.countryRestrictionField).join('.')
+        : null;
+    }
+  }
+
   override onChange(event: string) {
     // Reset both fields if cleared
     if (!this.getEventValue(event)) {
@@ -40,7 +52,7 @@ export class GooglePlacesRenderer extends JsonFormsControl implements AfterViewI
   }
 
   ngAfterViewInit(): void {
-    this.gpaLoader.mapsLoaded.subscribe(loaded => {
+    this.gpaLoader.mapsLoaded.pipe(takeUntil(this.destroy$)).subscribe(loaded => {
       if (loaded) {
         if (this.googleLibNotFound()) {
           throw new Error('Google maps library cannot be found');
@@ -52,6 +64,17 @@ export class GooglePlacesRenderer extends JsonFormsControl implements AfterViewI
         this.autocomplete = new google.maps.places.Autocomplete(this.inputElement.nativeElement, {
           types: ['(cities)'],
         });
+
+        if (this.countryRestrictionField) {
+          this.jsonFormsService.$formValue.pipe(takeUntil(this.destroy$)).subscribe(formData => {
+            const value = get(formData, this.countryRestrictionField);
+            this.autocomplete.setComponentRestrictions({
+              country: typeof value === 'string' ? [value] : value,
+            });
+            this.onPlaceSelected({ placeId: null, formattedCityName: null });
+          });
+        }
+
         this.mapsEventListener = google.maps.event.addListener(this.autocomplete, 'place_changed', () => this.handleChangeEvent());
 
         this.inputElement.nativeElement.addEventListener('keydown', (event: KeyboardEvent) => {

@@ -54,8 +54,11 @@ export class DateControlRenderer extends JsonFormsControl {
   }
 
   override setFormValue(value: any) {
-    const parsed = this.saveFormat ? parse(value, this.saveFormat, new Date()) : parseISO(value);
-    this.form.setValue(value ? parsed : value);
+    if (!value) {
+      this.form.setValue(value);
+    } else {
+      this.form.setValue(this.saveFormat ? parse(value, this.saveFormat, new Date()) : parseISO(value));
+    }
   }
 
   override mapAdditionalProps(props): void {

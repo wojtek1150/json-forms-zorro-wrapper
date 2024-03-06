@@ -3,10 +3,15 @@
   This control allows you to select a city from google places library. It also adds additional property suffixed by <code>PlaceId</code> to your form
   data to help you save the right spot.
 </p>
-<pre><code>{{schema.properties | json }}</code></pre>
+
+<p>Api key configuration</p>
+<pre><code>{{ configuration }}</code></pre>
+
+<p>Form Schema</p>
+<pre><code>{{ schema.properties | json }}</code></pre>
 
 <p>Ui Schema</p>
-<pre><code>{{uiSchema.elements[0] | json }}</code></pre>
+<pre><code>{{ uiSchema.elements[0] | json }}</code></pre>
 
 <div class="flex">
   <div>
@@ -17,25 +22,45 @@
   <pre>{{ data | json }}</pre>
 </div>
 
-<p>Api key configuration</p>
-<pre><code>{{configuration }}</code></pre>
+<hr>
+<p>With country restriction</p>
+<p>Form Schema</p>
+<pre><code>{{ schema1.properties | json }}</code></pre>
+
+<p>Ui Schema</p>
+<pre><code>{{ uiSchema1.elements[0] | json }}</code></pre>
+
+<div class="flex">
+  <div>
+    <jsonforms [(data)]="data1" [renderers]="renderers" [schema]="schema1" [uischema]="uiSchema1"></jsonforms>
+    <nz-alert nzMessage="This field requires google places api key to work. Here is how it will looks like:" nzShowIcon nzType="warning"></nz-alert>
+    <img alt="" src="assets/images/places-demo.png" />
+  </div>
+  <pre>{{ data1 | json }}</pre>
+</div>
 
 <p>UiSchema Options</p>
 <nz-table [nzTemplateMode]="true">
   <thead>
-    <tr>
-      <th>Property</th>
-      <th>Description</th>
-      <th>Type</th>
-      <th>Default</th>
-    </tr>
+  <tr>
+    <th>Property</th>
+    <th>Description</th>
+    <th>Type</th>
+    <th>Default</th>
+  </tr>
   </thead>
   <tbody>
-    <tr>
-      <td class="required">format</td>
-      <td>Makes control as GP autocomplete</td>
-      <td><code>'google-places'</code></td>
-      <td>-</td>
-    </tr>
+  <tr>
+    <td class="required">format</td>
+    <td>Makes control as GP autocomplete</td>
+    <td><code>'google-places'</code></td>
+    <td>-</td>
+  </tr>
+  <tr>
+    <td>countryRestrictionField</td>
+    <td>scope of field with country restriction for selector you want to pass</td>
+    <td><code>string</code></td>
+    <td>-</td>
+  </tr>
   </tbody>
 </nz-table>
