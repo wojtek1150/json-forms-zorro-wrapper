@@ -5,7 +5,7 @@ import { JsonFormsAngularService, JsonFormsControl } from '../../jsonForms';
 import { Actions, and, optionIs, RankedTester, rankWith, schemaTypeIs, toDataPathSegments, uiTypeIs } from '../../core';
 import { GooglePlaceFormatterHelper } from './google-places.helper';
 import { GooglePlacesApiLoaderService } from './google-places-api-loader.service';
-import { takeUntil } from 'rxjs';
+import { debounceTime, takeUntil } from 'rxjs';
 import { get } from 'lodash-es';
 
 @Component({
@@ -19,6 +19,7 @@ export class GooglePlacesRenderer extends JsonFormsControl implements AfterViewI
   private mapsEventListener: google.maps.MapsEventListener;
   private place: google.maps.places.PlaceResult;
   private countryRestrictionField: string;
+  private countryRestrictionFieldValue: string[] = [];
 
   constructor(
     jsonformsService: JsonFormsAngularService,
@@ -66,12 +67,17 @@ export class GooglePlacesRenderer extends JsonFormsControl implements AfterViewI
         });
 
         if (this.countryRestrictionField) {
-          this.jsonFormsService.$formValue.pipe(takeUntil(this.destroy$)).subscribe(formData => {
+          this.jsonFormsService.$formValue.pipe(takeUntil(this.destroy$), debounceTime(1_000)).subscribe(formData => {
             const value = get(formData, this.countryRestrictionField);
-            this.autocomplete.setComponentRestrictions({
-              country: typeof value === 'string' ? [value] : value,
-            });
-            this.onPlaceSelected({ placeId: null, formattedCityName: null });
+            const fieldValueToSet = !value ? [] : typeof value === 'string' ? [value] : value;
+
+            if (this.countryRestrictionFieldValue.toString() !== fieldValueToSet.toString()) {
+              this.autocomplete.setComponentRestrictions({
+                country: !value ? [] : typeof value === 'string' ? [value] : value,
+              });
+              this.onPlaceSelected({ placeId: null, formattedCityName: null });
+            }
+            this.countryRestrictionFieldValue = fieldValueToSet;
           });
         }
 
