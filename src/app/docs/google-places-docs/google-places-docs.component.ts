@@ -61,7 +61,7 @@ export class GooglePlacesDocsComponent {
   schema1: JsonSchema = {
     type: 'object',
     properties: {
-      test: {
+      scoped: {
         type: 'object',
         properties: {
           country: {
@@ -83,7 +83,7 @@ export class GooglePlacesDocsComponent {
       {
         label: 'Country',
         type: 'Control',
-        scope: '#/properties/test/properties/country',
+        scope: '#/properties/scoped/properties/country',
       },
       {
         label: 'City',
@@ -91,7 +91,7 @@ export class GooglePlacesDocsComponent {
         scope: '#/properties/city',
         options: {
           format: 'google-places',
-          countryRestrictionField: '#/properties/test/properties/country',
+          countryRestrictionField: '#/properties/scoped/properties/country',
         },
       },
     ],
