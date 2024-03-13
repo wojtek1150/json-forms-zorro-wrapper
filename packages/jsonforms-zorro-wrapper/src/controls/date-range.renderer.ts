@@ -79,11 +79,12 @@ export class DateRangeControlRenderer extends JsonFormsControl {
   }
 
   override onChange(ev: any) {
-    const formattedDates: DateRange = !ev
-      ? null
-      : this.saveFormat
-      ? [format(ev[0], this.saveFormat), format(ev[1], this.saveFormat)]
-      : [ev[0].toISOString(), ev[1].toISOString()];
+    const formattedDates: DateRange =
+      !ev || !ev[0]
+        ? null
+        : this.saveFormat
+        ? [format(ev[0], this.saveFormat), format(ev[1], this.saveFormat)]
+        : [ev[0].toISOString(), ev[1].toISOString()];
 
     if (!this.isRangeEqual(this.selectedDates, formattedDates)) {
       this.selectedDates = formattedDates;
