@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
 import { Actions, isDateControl, RankedTester, rankWith } from '../core';
 import { JsonFormsAngularService, JsonFormsControl } from '../jsonForms';
 import { differenceInCalendarDays, format, parse, parseISO } from 'date-fns';
+import { SupportTimeOptions } from "ng-zorro-antd/date-picker";
 
 @Component({
   selector: 'DateControlRenderer',
@@ -44,7 +45,7 @@ import { differenceInCalendarDays, format, parse, parseISO } from 'date-fns';
 export class DateControlRenderer extends JsonFormsControl {
   dateFormat: string = 'yyyy-MM-dd';
   saveFormat: string | null = null;
-  showTime: boolean = false;
+  showTime: boolean | SupportTimeOptions = false;
   selectedDate: string | Date = null;
 
   disabledDate: (current: Date) => boolean;
