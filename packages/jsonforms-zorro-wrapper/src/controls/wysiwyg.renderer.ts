@@ -1,21 +1,32 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { JsonFormsAngularService, JsonFormsControl } from '../jsonForms';
+import { DescriptionRenderer, JsonFormsAngularService, JsonFormsControl } from '../jsonForms';
 import { and, optionIs, RankedTester, rankWith, uiTypeIs } from '../core';
 import { AutoSizeType } from 'ng-zorro-antd/input';
+import { NzFormControlComponent, NzFormItemComponent, NzFormLabelComponent } from 'ng-zorro-antd/form';
+import { NzIconDirective } from 'ng-zorro-antd/icon';
+import { QuillEditorComponent } from 'ngx-quill';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NzValidationStatusPipe } from '../other/validation-status.pipe';
 
 @Component({
   selector: 'WysiwygRenderer',
   template: `
     <nz-form-item [class]="additionalClasses" [class.hidden]="hidden">
-      <nz-form-label *ngIf="label && label !== '*'" [nzFor]="id" [nzRequired]="required" [nzNoColon]="hideColonInLabel"
-        ><i *ngIf="labelIcon" nz-icon [nzType]="labelIcon" nzTheme="outline"></i> {{ label }}</nz-form-label
-      >
+      @if (label && label !== '*') {
+        <nz-form-label [nzFor]="id" [nzRequired]="required" [nzNoColon]="hideColonInLabel">
+          @if (labelIcon) {
+            <i nz-icon [nzType]="labelIcon" nzTheme="outline"></i>
+          }
+          {{ label }}
+        </nz-form-label>
+      }
       <DescriptionRenderer [uiSchema]="uischema" [scopedSchema]="scopedSchema"></DescriptionRenderer>
       <nz-form-control [nzHasFeedback]="showValidationStatus" [nzErrorTip]="errorMessage" [nzValidateStatus]="form.status | nzValidationStatus">
         <quill-editor
           [id]="id"
           [formControl]="form"
           [modules]="editorModules"
+          [formats]="formats"
           linkPlaceholder="Paste your link here"
           [placeholder]="placeholder"
           (ngModelChange)="onChange($event)"
@@ -41,12 +52,24 @@ import { AutoSizeType } from 'ng-zorro-antd/input';
     `,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    NzFormItemComponent,
+    NzFormLabelComponent,
+    NzIconDirective,
+    DescriptionRenderer,
+    NzFormControlComponent,
+    QuillEditorComponent,
+    ReactiveFormsModule,
+    NzValidationStatusPipe,
+  ],
+  standalone: true,
 })
 export class WysiwygRenderer extends JsonFormsControl {
   autosize: string | boolean | AutoSizeType;
   editorModules = {
     toolbar: [],
   };
+  formats = null;
 
   constructor(jsonformsService: JsonFormsAngularService, changeDetectorRef: ChangeDetectorRef) {
     super(jsonformsService, changeDetectorRef);
@@ -62,6 +85,7 @@ export class WysiwygRenderer extends JsonFormsControl {
         ['link'],
         [{ list: 'ordered' }, { list: 'bullet' }],
       ];
+      this.formats = this.uischema.options.formats || null;
     }
   }
 }

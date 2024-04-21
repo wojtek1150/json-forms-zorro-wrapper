@@ -1,18 +1,21 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { RankedTester, rankWith, uiTypeIs } from '../core';
 import { LayoutRenderer } from './layout.renderer';
-import { JsonFormsAngularService } from '../jsonForms';
+import { DescriptionRenderer, JsonFormsAngularService, JsonFormsOutlet } from '../jsonForms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { JFZCardGroupLayout } from '../other/uischema';
+import { NzCardComponent } from 'ng-zorro-antd/card';
 
 @Component({
   selector: 'CardGroupLayoutRenderer',
   template: `
     <nz-card [nzTitle]="uischema.label" [class.hidden]="hidden">
       <DescriptionRenderer [uiSchema]="uischema" [scopedSchema]="schema"></DescriptionRenderer>
-      <div *ngFor="let props of renderProps; trackBy: trackElement" class="control-wrapper">
-        <jsonforms-outlet [renderProps]="props"></jsonforms-outlet>
-      </div>
+      @for (props of renderProps; track trackElement($index, props)) {
+        <div class="control-wrapper">
+          <jsonforms-outlet [renderProps]="props"></jsonforms-outlet>
+        </div>
+      }
     </nz-card>
   `,
   styles: [
@@ -27,6 +30,8 @@ import { JFZCardGroupLayout } from '../other/uischema';
     `,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [DescriptionRenderer, NzCardComponent, JsonFormsOutlet],
 })
 export class CardGroupLayoutRenderer extends LayoutRenderer<JFZCardGroupLayout> {
   constructor(jsonFormsService: JsonFormsAngularService, changeDetectionRef: ChangeDetectorRef, sanitizer: DomSanitizer) {

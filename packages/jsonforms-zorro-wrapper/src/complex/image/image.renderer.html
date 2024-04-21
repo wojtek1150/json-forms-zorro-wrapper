@@ -1,26 +1,36 @@
-<nz-form-item *ngIf="scopedSchema" [class.hidden]="hidden" [class]="additionalClasses">
-  <nz-form-label *ngIf="label" [nzFor]="id" [nzNoColon]="hideColonInLabel" [nzRequired]="required"
-    ><i *ngIf="labelIcon" [nzType]="labelIcon" nz-icon nzTheme="outline"></i> {{ label }}
-  </nz-form-label>
-  <DescriptionRenderer [scopedSchema]="schema" [uiSchema]="scopedSchema"></DescriptionRenderer>
-  <nz-upload
-    (nzChange)="handleChange($event)"
-    [nzAccept]="allowedExtensions.join(',')"
-    [nzBeforeUpload]="beforeUpload"
-    [nzCustomRequest]="request"
-    [nzDisabled]="isLoading"
-    [nzFileList]="fileList"
-    [nzRemove]="handleRemoveFile"
-    [nzShowUploadList]="previewButtonsConfig"
-    nzListType="picture"
-    nzType="drag">
-    <ng-container>
-      <p class="ant-upload-drag-icon">
-        <i nz-icon nzType="inbox"></i>
-      </p>
-      <p class="ant-upload-text">Drop image here or click to select</p>
-      <p *ngIf="hint" class="ant-upload-hint">{{hint}}</p>
-    </ng-container>
-  </nz-upload>
-  <div *ngIf="errorMessage" class="alert ant-form-item-explain-error">{{errorMessage}}</div>
-</nz-form-item>
+@if (scopedSchema) {
+  <nz-form-item [class.hidden]="hidden" [class]="additionalClasses">
+    @if (label) {
+      <nz-form-label [nzFor]="id" [nzNoColon]="hideColonInLabel" [nzRequired]="required"
+        >@if (labelIcon) {
+        <i [nzType]="labelIcon" nz-icon nzTheme="outline"></i>
+        } {{ label }}
+      </nz-form-label>
+    }
+    <DescriptionRenderer [scopedSchema]="schema" [uiSchema]="scopedSchema"></DescriptionRenderer>
+    <nz-upload
+      (nzChange)="handleChange($event)"
+      [nzAccept]="allowedExtensions.join(',')"
+      [nzBeforeUpload]="beforeUpload"
+      [nzCustomRequest]="request"
+      [nzDisabled]="isLoading"
+      [nzFileList]="fileList"
+      [nzRemove]="handleRemoveFile"
+      [nzShowUploadList]="previewButtonsConfig"
+      nzListType="picture"
+      nzType="drag">
+      <ng-container>
+        <p class="ant-upload-drag-icon">
+          <i nz-icon nzType="inbox"></i>
+        </p>
+        <p class="ant-upload-text">Drop image here or click to select</p>
+        @if (hint) {
+          <p class="ant-upload-hint">{{hint}}</p>
+        }
+      </ng-container>
+    </nz-upload>
+    @if (errorMessage) {
+      <div class="alert ant-form-item-explain-error">{{errorMessage}}</div>
+    }
+  </nz-form-item>
+}

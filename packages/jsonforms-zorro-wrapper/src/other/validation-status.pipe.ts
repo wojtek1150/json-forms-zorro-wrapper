@@ -3,6 +3,7 @@ import { NzFormControlStatusType } from 'ng-zorro-antd/form';
 
 @Pipe({
   name: 'nzValidationStatus',
+  standalone: true,
 })
 export class NzValidationStatusPipe implements PipeTransform {
   transform(formControlStatus: string): NzFormControlStatusType {

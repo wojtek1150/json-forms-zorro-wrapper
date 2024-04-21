@@ -1,14 +1,24 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { JsonFormsAngularService, JsonFormsControl } from '../jsonForms';
+import { DescriptionRenderer, JsonFormsAngularService, JsonFormsControl } from '../jsonForms';
 import { Actions, isIntegerControl, isNumberControl, or, RankedTester, rankWith, StatePropsOfControl } from '../core';
+import { NzFormControlComponent, NzFormItemComponent, NzFormLabelComponent } from 'ng-zorro-antd/form';
+import { NzIconDirective } from 'ng-zorro-antd/icon';
+import { NzInputNumberComponent } from 'ng-zorro-antd/input-number';
+import { NzValidationStatusPipe } from '../other/validation-status.pipe';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'NumberControlRenderer',
   template: `
     <nz-form-item [class]="additionalClasses" [class.hidden]="hidden">
-      <nz-form-label *ngIf="label && label !== '*'" [nzFor]="id" [nzRequired]="required" [nzNoColon]="hideColonInLabel"
-        ><i *ngIf="labelIcon" nz-icon [nzType]="labelIcon" nzTheme="outline"></i> {{ label }}</nz-form-label
-      >
+      @if (label && label !== '*') {
+        <nz-form-label [nzFor]="id" [nzRequired]="required" [nzNoColon]="hideColonInLabel">
+          @if (labelIcon) {
+            <i nz-icon [nzType]="labelIcon" nzTheme="outline"></i>
+          }
+          {{ label }}
+        </nz-form-label>
+      }
       <DescriptionRenderer [uiSchema]="uischema" [scopedSchema]="scopedSchema"></DescriptionRenderer>
       <nz-form-control [nzHasFeedback]="showValidationStatus" [nzErrorTip]="errorMessage" [nzValidateStatus]="form.status | nzValidationStatus">
         <nz-input-number
@@ -37,6 +47,17 @@ import { Actions, isIntegerControl, isNumberControl, or, RankedTester, rankWith,
     `,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    NzFormItemComponent,
+    NzFormLabelComponent,
+    NzIconDirective,
+    DescriptionRenderer,
+    NzFormControlComponent,
+    NzInputNumberComponent,
+    NzValidationStatusPipe,
+    ReactiveFormsModule,
+  ],
+  standalone: true,
 })
 export class NumberControlRenderer extends JsonFormsControl {
   oldValue: string;

@@ -1,22 +1,35 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { JsonFormsAngularService, JsonFormsControl } from '../jsonForms';
+import { DescriptionRenderer, JsonFormsAngularService, JsonFormsControl } from '../jsonForms';
 import { Actions, and, hasType, JsonSchema, RankedTester, rankWith, schemaMatches, schemaSubPathMatches, uiTypeIs } from '../core';
 import { hasEnumItems, hasOneOfItems } from '../other/complex.helper';
+import { NzFormControlComponent, NzFormItemComponent, NzFormLabelComponent } from 'ng-zorro-antd/form';
+import { NzIconDirective } from 'ng-zorro-antd/icon';
+import { NzCheckboxComponent, NzCheckboxWrapperComponent } from 'ng-zorro-antd/checkbox';
+import { NzValidationStatusPipe } from '../other/validation-status.pipe';
 
 @Component({
   selector: 'CheckboxGroupControlRenderer',
   template: `
-    <nz-form-item *ngIf="scopedSchema" [class]="additionalClasses" [class.hidden]="hidden">
-      <nz-form-label *ngIf="label" [nzFor]="id" [nzRequired]="required" [nzNoColon]="hideColonInLabel"
-        ><i *ngIf="labelIcon" nz-icon [nzType]="labelIcon" nzTheme="outline"></i> {{ label }}
-      </nz-form-label>
-      <DescriptionRenderer [uiSchema]="uischema" [scopedSchema]="scopedSchema"></DescriptionRenderer>
-      <nz-form-control [nzHasFeedback]="showValidationStatus" [nzErrorTip]="errorMessage" [nzValidateStatus]="form.status | nzValidationStatus">
-        <nz-checkbox-wrapper (nzOnChange)="onChange($event)">
-          <label nz-checkbox *ngFor="let option of options" [nzValue]="option.value" [nzChecked]="option.checked">{{ option.label }}</label>
-        </nz-checkbox-wrapper>
-      </nz-form-control>
-    </nz-form-item>
+    @if (scopedSchema) {
+      <nz-form-item [class]="additionalClasses" [class.hidden]="hidden">
+        @if (label) {
+          <nz-form-label [nzFor]="id" [nzRequired]="required" [nzNoColon]="hideColonInLabel">
+            @if (labelIcon) {
+              <i nz-icon [nzType]="labelIcon" nzTheme="outline"></i>
+            }
+            {{ label }}
+          </nz-form-label>
+        }
+        <DescriptionRenderer [uiSchema]="uischema" [scopedSchema]="scopedSchema"></DescriptionRenderer>
+        <nz-form-control [nzHasFeedback]="showValidationStatus" [nzErrorTip]="errorMessage" [nzValidateStatus]="form.status | nzValidationStatus">
+          <nz-checkbox-wrapper (nzOnChange)="onChange($event)">
+            @for (option of options; track option) {
+              <label nz-checkbox [nzValue]="option.value" [nzChecked]="option.checked">{{ option.label }}</label>
+            }
+          </nz-checkbox-wrapper>
+        </nz-form-control>
+      </nz-form-item>
+    }
   `,
   styles: [
     `
@@ -30,6 +43,17 @@ import { hasEnumItems, hasOneOfItems } from '../other/complex.helper';
     `,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    NzFormItemComponent,
+    NzFormLabelComponent,
+    NzIconDirective,
+    DescriptionRenderer,
+    NzFormControlComponent,
+    NzCheckboxWrapperComponent,
+    NzCheckboxComponent,
+    NzValidationStatusPipe,
+  ],
 })
 export class CheckboxGroupControlRenderer extends JsonFormsControl {
   options: { label: string; value: string; checked?: boolean }[];

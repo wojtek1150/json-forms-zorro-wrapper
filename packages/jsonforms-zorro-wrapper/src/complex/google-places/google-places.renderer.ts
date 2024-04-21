@@ -1,17 +1,33 @@
 /// <reference types="google.maps" />
 
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, NgZone, ViewChild } from '@angular/core';
-import { JsonFormsAngularService, JsonFormsControl } from '../../jsonForms';
+import { DescriptionRenderer, JsonFormsAngularService, JsonFormsControl } from '../../jsonForms';
 import { Actions, and, optionIs, RankedTester, rankWith, schemaTypeIs, toDataPathSegments, uiTypeIs } from '../../core';
 import { GooglePlaceFormatterHelper } from './google-places.helper';
 import { GooglePlacesApiLoaderService } from './google-places-api-loader.service';
 import { debounceTime, takeUntil } from 'rxjs';
 import { get } from 'lodash-es';
+import { NzFormControlComponent, NzFormItemComponent, NzFormLabelComponent } from 'ng-zorro-antd/form';
+import { NzIconDirective } from 'ng-zorro-antd/icon';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NzValidationStatusPipe } from '../../other/validation-status.pipe';
+import { NzInputDirective } from 'ng-zorro-antd/input';
 
 @Component({
   selector: 'GooglePlacesRenderer',
   templateUrl: './google-places.renderer.html',
   styleUrls: ['./google-places.renderer.scss'],
+  standalone: true,
+  imports: [
+    NzFormItemComponent,
+    NzFormLabelComponent,
+    NzIconDirective,
+    DescriptionRenderer,
+    NzFormControlComponent,
+    ReactiveFormsModule,
+    NzValidationStatusPipe,
+    NzInputDirective,
+  ],
 })
 export class GooglePlacesRenderer extends JsonFormsControl implements AfterViewInit {
   @ViewChild('inputElement', { static: false }) inputElement: ElementRef;

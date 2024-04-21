@@ -6,10 +6,16 @@ import { JsonSchema } from '../core';
 @Component({
   selector: 'DescriptionRenderer',
   template: `
-    <div class="description" *ngIf="description">
-      <p *ngIf="!htmlDescription">{{ description }}</p>
-      <div *ngIf="htmlDescription" [innerHTML]="sanitizedDescription"></div>
-    </div>
+    @if (description) {
+      <div class="description">
+        @if (!htmlDescription) {
+          <p>{{ description }}</p>
+        }
+        @if (htmlDescription) {
+          <div [innerHTML]="sanitizedDescription"></div>
+        }
+      </div>
+    }
   `,
   styles: [
     `
@@ -20,6 +26,7 @@ import { JsonSchema } from '../core';
     `,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
 })
 export class DescriptionRenderer<T extends JFZElement> {
   @Input() uiSchema: T;

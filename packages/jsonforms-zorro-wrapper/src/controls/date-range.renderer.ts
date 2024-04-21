@@ -1,8 +1,12 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { Actions, and, optionIs, RankedTester, rankWith, schemaTypeIs } from '../core';
-import { JsonFormsAngularService, JsonFormsControl } from '../jsonForms';
+import { DescriptionRenderer, JsonFormsAngularService, JsonFormsControl } from '../jsonForms';
 import { differenceInCalendarDays, format, parse, parseISO } from 'date-fns';
-import { SupportTimeOptions } from "ng-zorro-antd/date-picker";
+import { NzDatePickerComponent, NzRangePickerComponent, SupportTimeOptions } from 'ng-zorro-antd/date-picker';
+import { NzFormControlComponent, NzFormItemComponent, NzFormLabelComponent } from 'ng-zorro-antd/form';
+import { NzIconDirective } from 'ng-zorro-antd/icon';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NzValidationStatusPipe } from '../other/validation-status.pipe';
 
 type DateRange = [Date | string, Date | string] | null;
 
@@ -10,9 +14,14 @@ type DateRange = [Date | string, Date | string] | null;
   selector: 'DateRangeControlRenderer',
   template: `
     <nz-form-item [class]="additionalClasses" [class.hidden]="hidden">
-      <nz-form-label *ngIf="label && label !== '*'" [nzFor]="id" [nzRequired]="required" [nzNoColon]="hideColonInLabel"
-        ><i *ngIf="labelIcon" nz-icon [nzType]="labelIcon" nzTheme="outline"></i> {{ label }}
-      </nz-form-label>
+      @if (label && label !== '*') {
+        <nz-form-label [nzFor]="id" [nzRequired]="required" [nzNoColon]="hideColonInLabel">
+          @if (labelIcon) {
+            <i nz-icon [nzType]="labelIcon" nzTheme="outline"></i>
+          }
+          {{ label }}
+        </nz-form-label>
+      }
       <DescriptionRenderer [uiSchema]="uischema" [scopedSchema]="scopedSchema"></DescriptionRenderer>
       <nz-form-control [nzHasFeedback]="showValidationStatus" [nzErrorTip]="errorMessage" [nzValidateStatus]="form.status | nzValidationStatus">
         <nz-range-picker
@@ -43,6 +52,18 @@ type DateRange = [Date | string, Date | string] | null;
     `,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    NzFormItemComponent,
+    NzFormLabelComponent,
+    NzIconDirective,
+    DescriptionRenderer,
+    NzFormControlComponent,
+    NzRangePickerComponent,
+    ReactiveFormsModule,
+    NzValidationStatusPipe,
+    NzDatePickerComponent,
+  ],
+  standalone: true,
 })
 export class DateRangeControlRenderer extends JsonFormsControl {
   dateFormat: string = 'yyyy-MM-dd';
@@ -84,8 +105,8 @@ export class DateRangeControlRenderer extends JsonFormsControl {
       !ev || !ev[0]
         ? null
         : this.saveFormat
-        ? [format(ev[0], this.saveFormat), format(ev[1], this.saveFormat)]
-        : [ev[0].toISOString(), ev[1].toISOString()];
+          ? [format(ev[0], this.saveFormat), format(ev[1], this.saveFormat)]
+          : [ev[0].toISOString(), ev[1].toISOString()];
 
     if (!this.isRangeEqual(this.selectedDates, formattedDates)) {
       this.selectedDates = formattedDates;

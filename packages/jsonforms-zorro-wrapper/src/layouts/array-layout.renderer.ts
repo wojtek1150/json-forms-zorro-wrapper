@@ -18,7 +18,11 @@ import {
   unsetReadonly,
 } from '../core';
 import { JsonFormsAbstractControl } from '../jsonForms/abstract-control';
-import { JsonFormsAngularService } from '../jsonForms';
+import { DescriptionRenderer, JsonFormsAngularService, JsonFormsOutlet } from '../jsonForms';
+import { NgClass } from '@angular/common';
+import { NzBadgeComponent } from 'ng-zorro-antd/badge';
+import { NzButtonComponent } from 'ng-zorro-antd/button';
+import { NzIconDirective } from 'ng-zorro-antd/icon';
 
 @Component({
   selector: 'ArrayLayoutRenderer',
@@ -33,19 +37,25 @@ import { JsonFormsAngularService } from '../jsonForms';
         </button>
       </div>
       <DescriptionRenderer [uiSchema]="uischema" [scopedSchema]="schema"></DescriptionRenderer>
-      <p *ngIf="noData">{{ noDataMessage }}</p>
-      <div *ngFor="let item of [].constructor(data); let idx = index; trackBy: trackByFn; last as last">
-        <div class="row">
-          <div class="content">
-            <jsonforms-outlet [renderProps]="getProps(idx)"></jsonforms-outlet>
-          </div>
-          <div class="actions" *ngIf="isEnabled">
-            <button nz-button nzDanger (click)="remove(idx)" title="{{ removeTooltip }}">
-              <i nz-icon nzType="delete" nzTheme="outline"></i>
-            </button>
+      @if (noData) {
+        <p>{{ noDataMessage }}</p>
+      }
+      @for (item of [].constructor(data); track trackByFn(idx); let idx = $index; let last = $last) {
+        <div>
+          <div class="row">
+            <div class="content">
+              <jsonforms-outlet [renderProps]="getProps(idx)"></jsonforms-outlet>
+            </div>
+            @if (isEnabled) {
+              <div class="actions">
+                <button nz-button nzDanger (click)="remove(idx)" title="{{ removeTooltip }}">
+                  <i nz-icon nzType="delete" nzTheme="outline"></i>
+                </button>
+              </div>
+            }
           </div>
         </div>
-      </div>
+      }
     </div>
   `,
   styles: [
@@ -67,6 +77,8 @@ import { JsonFormsAngularService } from '../jsonForms';
     `,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [NgClass, NzBadgeComponent, NzButtonComponent, NzIconDirective, DescriptionRenderer, JsonFormsOutlet],
 })
 export class ArrayLayoutRenderer extends JsonFormsAbstractControl<StatePropsOfArrayLayout> implements OnInit, OnDestroy {
   addTooltip: string;

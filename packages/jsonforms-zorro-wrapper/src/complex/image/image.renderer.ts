@@ -1,16 +1,20 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
-import { JsonFormsAngularService, JsonFormsControl } from '../../jsonForms';
+import { DescriptionRenderer, JsonFormsAngularService, JsonFormsControl } from '../../jsonForms';
 import { Actions, and, optionIs, RankedTester, rankWith, uiTypeIs } from '../../core';
-import { NzUploadChangeParam, NzUploadFile } from 'ng-zorro-antd/upload';
+import { NzUploadChangeParam, NzUploadComponent, NzUploadFile } from 'ng-zorro-antd/upload';
 import { catchError, finalize, Observable, Observer, of, Subscription, tap } from 'rxjs';
 import { NzShowUploadList, NzUploadXHRArgs } from 'ng-zorro-antd/upload/interface';
 import { hasOption } from '../../other/complex.helper';
 import { JFZImageRendererService } from './image.renderer.service';
+import { NzFormItemComponent, NzFormLabelComponent } from 'ng-zorro-antd/form';
+import { NzIconDirective } from 'ng-zorro-antd/icon';
 
 @Component({
   selector: 'ImageUploadRenderer',
   templateUrl: './image.renderer.html',
   styleUrls: ['./image.renderer.scss'],
+  standalone: true,
+  imports: [NzFormItemComponent, NzFormLabelComponent, NzIconDirective, DescriptionRenderer, NzUploadComponent],
 })
 export class ImageControlRenderer extends JsonFormsControl {
   public fileList: NzUploadFile[] = [];

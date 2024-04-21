@@ -1,6 +1,10 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { JsonFormsAngularService, JsonFormsControl } from '../jsonForms';
+import { DescriptionRenderer, JsonFormsAngularService, JsonFormsControl } from '../jsonForms';
 import { isBooleanControl, RankedTester, rankWith } from '../core';
+import { NzFormControlComponent, NzFormItemComponent } from 'ng-zorro-antd/form';
+import { NzCheckboxComponent } from 'ng-zorro-antd/checkbox';
+import { NzValidationStatusPipe } from '../other/validation-status.pipe';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'BooleanControlRenderer',
@@ -26,6 +30,8 @@ import { isBooleanControl, RankedTester, rankWith } from '../core';
     `,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [NzFormItemComponent, DescriptionRenderer, NzFormControlComponent, NzCheckboxComponent, NzValidationStatusPipe, ReactiveFormsModule],
 })
 export class BooleanControlRenderer extends JsonFormsControl {
   constructor(jsonformsService: JsonFormsAngularService, changeDetectorRef: ChangeDetectorRef) {

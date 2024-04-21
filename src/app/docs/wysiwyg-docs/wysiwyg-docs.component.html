@@ -1,8 +1,8 @@
 <h1>WYSIWYG control</h1>
-<pre><code>{{schema.properties | json }}</code></pre>
+<pre><code>{{ schema.properties | json }}</code></pre>
 
 <p>Ui Schema</p>
-<pre><code>{{uiSchemaWysiwyg.elements[0] | json }}</code></pre>
+<pre><code>{{ uiSchemaWysiwyg.elements[0] | json }}</code></pre>
 
 <div class="flex">
   <jsonforms [(data)]="data" [renderers]="renderers" [schema]="schema" [uischema]="uiSchemaWysiwyg"></jsonforms>
@@ -12,25 +12,31 @@
 <p>UiSchema Options</p>
 <nz-table [nzTemplateMode]="true">
   <thead>
-    <tr>
-      <th>Property</th>
-      <th>Description</th>
-      <th>Type</th>
-      <th>Default</th>
-    </tr>
+  <tr>
+    <th>Property</th>
+    <th>Description</th>
+    <th>Type</th>
+    <th>Default</th>
+  </tr>
   </thead>
   <tbody>
-    <tr>
-      <td>wysiwyg</td>
-      <td>Determines if should be displayed as WYSIWYG editor</td>
-      <td><code>boolean</code></td>
-      <td>-</td>
-    </tr>
-    <tr>
-      <td>toolbar</td>
-      <td>Configure toolbar options in WYSIWYG editor</td>
-      <td><code>QuillToolbarConfig</code></td>
-      <td><code>bold,italic,underline,link,ordered list,unordered list</code></td>
-    </tr>
+  <tr>
+    <td>wysiwyg</td>
+    <td>Determines if should be displayed as WYSIWYG editor</td>
+    <td><code>boolean</code></td>
+    <td>-</td>
+  </tr>
+  <tr>
+    <td>toolbar</td>
+    <td>Configure toolbar options in WYSIWYG editor</td>
+    <td><code>QuillToolbarConfig</code></td>
+    <td><code>bold,italic,underline,link,ordered list,unordered list</code></td>
+  </tr>
+  <tr>
+    <td>formats</td>
+    <td>Configure allowed formats</td>
+    <td><code>string[]</code></td>
+    <td><code>null</code> - all html tags are allowed</td>
+  </tr>
   </tbody>
 </nz-table>

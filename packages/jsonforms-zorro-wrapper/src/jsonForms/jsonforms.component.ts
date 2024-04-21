@@ -33,6 +33,7 @@ const areEqual = (prevProps: StatePropsOfJsonFormsRenderer, nextProps: StateProp
 
 @Directive({
   selector: 'jsonforms-outlet',
+  standalone: true,
 })
 export class JsonFormsOutlet extends JsonFormsBaseRenderer<JFZElement> implements OnInit, OnDestroy {
   private previousProps: StatePropsOfJsonFormsRenderer;

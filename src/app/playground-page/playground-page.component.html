@@ -1,37 +1,40 @@
 <div nz-row nzGutter="20">
   <div nz-col nzSpan="12">
     <nz-select (ngModelChange)="selectTemplate($event)" ngModel="demo" nzPlaceHolder="Use demo template">
-      <nz-option *ngFor="let option of options" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
+      @for (option of options; track option) {
+        <nz-option [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
+      }
     </nz-select>
     <h2>Schema editor</h2>
     <nz-code-editor
       (ngModelChange)="updateSchema($event)"
       [ngModel]="schemaCode"
       [nzEditorOption]="{ language: 'json', theme: 'vs-dark' }"
-      class="editor"></nz-code-editor>
+    class="editor"></nz-code-editor>
     <h2>UI Schema editor</h2>
     <nz-code-editor
       (ngModelChange)="updateUiSchema($event)"
       [ngModel]="uischemaCode"
       [nzEditorOption]="{ language: 'json', theme: 'vs-dark' }"
-      class="editor"></nz-code-editor>
+    class="editor"></nz-code-editor>
     <h2>Config editor</h2>
     <nz-code-editor
       (ngModelChange)="updateConfig($event)"
       [ngModel]="jsonformsConfigCode"
       [nzEditorOption]="{ language: 'json', theme: 'vs-dark' }"
-      class="editor"></nz-code-editor>
+    class="editor"></nz-code-editor>
   </div>
   <div nz-col nzSpan="12">
-    <jsonforms
-      (dataChange)="log('dataChange', $event)"
-      (submitted)="submitted('submitted',$event)"
-      *ngIf="schema && uischema"
-      [(data)]="formData"
-      [config]="jsonformsConfig"
-      [renderers]="renderers"
-      [schema]="schema"
-      [submitLoading]="loading"
+    @if (schema && uischema) {
+      <jsonforms
+        (dataChange)="log('dataChange', $event)"
+        (submitted)="submitted('submitted',$event)"
+        [(data)]="formData"
+        [config]="jsonformsConfig"
+        [renderers]="renderers"
+        [schema]="schema"
+        [submitLoading]="loading"
       [uischema]="uischema"></jsonforms>
+    }
   </div>
 </div>

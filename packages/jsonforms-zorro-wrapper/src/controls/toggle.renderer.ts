@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { JsonFormsAngularService, JsonFormsControl } from '../jsonForms';
+import { DescriptionRenderer, JsonFormsAngularService, JsonFormsControl } from '../jsonForms';
 import { Actions, and, isBooleanControl, optionIs, RankedTester, rankWith } from '../core';
+import { NzSwitchComponent } from 'ng-zorro-antd/switch';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'ToggleControlRenderer',
@@ -8,7 +10,9 @@ import { Actions, and, isBooleanControl, optionIs, RankedTester, rankWith } from
     <DescriptionRenderer [uiSchema]="uischema" [scopedSchema]="scopedSchema"></DescriptionRenderer>
     <label class="switch" [class]="additionalClasses">
       <nz-switch [id]="id" [formControl]="form" [nzDisabled]="!isEnabled" (ngModelChange)="onChange($event)"></nz-switch>
-      <span *ngIf="label">{{ label }}</span>
+      @if (label) {
+        <span>{{ label }}</span>
+      }
     </label>
   `,
   styles: [
@@ -29,6 +33,8 @@ import { Actions, and, isBooleanControl, optionIs, RankedTester, rankWith } from
     `,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [DescriptionRenderer, NzSwitchComponent, ReactiveFormsModule],
 })
 export class ToggleControlRenderer extends JsonFormsControl {
   private selectedState: boolean = false;

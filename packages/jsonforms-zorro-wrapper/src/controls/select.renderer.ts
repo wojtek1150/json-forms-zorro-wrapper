@@ -1,29 +1,43 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { JsonFormsAngularService, JsonFormsControl } from '../jsonForms';
+import { DescriptionRenderer, JsonFormsAngularService, JsonFormsControl } from '../jsonForms';
 import { Actions, isEnumControl, isOneOfControl, or, RankedTester, rankWith, StatePropsOfControl } from '../core';
+import { NzFormControlComponent, NzFormItemComponent, NzFormLabelComponent } from 'ng-zorro-antd/form';
+import { NzIconDirective } from 'ng-zorro-antd/icon';
+import { NzOptionComponent, NzSelectComponent } from 'ng-zorro-antd/select';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NzValidationStatusPipe } from '../other/validation-status.pipe';
 
 @Component({
   selector: 'SelectControlRenderer',
   template: `
-    <nz-form-item *ngIf="scopedSchema" [class]="additionalClasses" [class.hidden]="hidden">
-      <nz-form-label *ngIf="label && label !== '*'" [nzFor]="id" [nzRequired]="required" [nzNoColon]="hideColonInLabel"
-        ><i *ngIf="labelIcon" nz-icon [nzType]="labelIcon" nzTheme="outline"></i> {{ label }}</nz-form-label
-      >
-      <DescriptionRenderer [uiSchema]="uischema" [scopedSchema]="scopedSchema"></DescriptionRenderer>
-      <nz-form-control [nzHasFeedback]="showValidationStatus" [nzErrorTip]="errorMessage" [nzValidateStatus]="form.status | nzValidationStatus">
-        <nz-select
-          nzShowSearch
-          nzAllowClear
-          [id]="id"
-          [formControl]="form"
-          [nzPlaceHolder]="placeholder"
-          (ngModelChange)="onChange($event)"
-          (blur)="triggerValidation()"
-        >
-          <nz-option *ngFor="let option of options" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
-        </nz-select>
-      </nz-form-control>
-    </nz-form-item>
+    @if (scopedSchema) {
+      <nz-form-item [class]="additionalClasses" [class.hidden]="hidden">
+        @if (label && label !== '*') {
+          <nz-form-label [nzFor]="id" [nzRequired]="required" [nzNoColon]="hideColonInLabel">
+            @if (labelIcon) {
+              <i nz-icon [nzType]="labelIcon" nzTheme="outline"></i>
+            }
+            {{ label }}
+          </nz-form-label>
+        }
+        <DescriptionRenderer [uiSchema]="uischema" [scopedSchema]="scopedSchema"></DescriptionRenderer>
+        <nz-form-control [nzHasFeedback]="showValidationStatus" [nzErrorTip]="errorMessage" [nzValidateStatus]="form.status | nzValidationStatus">
+          <nz-select
+            nzShowSearch
+            nzAllowClear
+            [id]="id"
+            [formControl]="form"
+            [nzPlaceHolder]="placeholder"
+            (ngModelChange)="onChange($event)"
+            (blur)="triggerValidation()"
+          >
+            @for (option of options; track option) {
+              <nz-option [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
+            }
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    }
   `,
   styles: [
     `
@@ -37,6 +51,18 @@ import { Actions, isEnumControl, isOneOfControl, or, RankedTester, rankWith, Sta
     `,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    NzFormItemComponent,
+    NzFormLabelComponent,
+    NzIconDirective,
+    DescriptionRenderer,
+    NzFormControlComponent,
+    NzSelectComponent,
+    ReactiveFormsModule,
+    NzOptionComponent,
+    NzValidationStatusPipe,
+  ],
+  standalone: true,
 })
 export class SelectControlRenderer extends JsonFormsControl {
   options: {

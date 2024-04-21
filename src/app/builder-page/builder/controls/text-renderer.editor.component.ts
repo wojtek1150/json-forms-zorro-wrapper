@@ -5,17 +5,17 @@ import { JFZBuilderControl } from '../model';
 import { BuilderService } from '../builder.service';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
-import { NgIf } from '@angular/common';
+
 import set from 'lodash-es/set';
 
 @Component({
   standalone: true,
-  imports: [NzInputModule, FormsModule, NzInputNumberModule, NzCheckboxModule, NgIf],
+  imports: [NzInputModule, FormsModule, NzInputNumberModule, NzCheckboxModule],
   selector: 'text-renderer-editor',
   template: `
     <h3>Additional options</h3>
     <label nz-checkbox [ngModel]="control.uiSchema.options?.multi" (ngModelChange)="textarea($event)">As textarea</label>
-    <ng-container *ngIf="control.uiSchema.options?.multi">
+    @if (control.uiSchema.options?.multi) {
       <nz-input-group nzAddOnBefore="Min Rows">
         <nz-input-number
           [nzMin]="0"
@@ -32,8 +32,8 @@ import set from 'lodash-es/set';
           (ngModelChange)="updateOption('maxRows', $event)"
         ></nz-input-number>
       </nz-input-group>
-    </ng-container>
-  `,
+    }
+    `,
   styles: [':host {display: block;}'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
