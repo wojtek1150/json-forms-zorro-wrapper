@@ -1,21 +1,34 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { JsonFormsAngularService, JsonFormsControl } from '../jsonForms';
+import { DescriptionRenderer, JsonFormsAngularService, JsonFormsControl } from '../jsonForms';
 import { Actions, and, isEnumControl, optionIs, RankedTester, rankWith } from '../core';
+import { NzFormControlComponent, NzFormItemComponent, NzFormLabelComponent } from 'ng-zorro-antd/form';
+import { NzIconDirective } from 'ng-zorro-antd/icon';
+import { NzRadioComponent, NzRadioGroupComponent } from 'ng-zorro-antd/radio';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'RadioControlRenderer',
   template: `
-    <nz-form-item *ngIf="scopedSchema" [class]="additionalClasses" [class.hidden]="hidden">
-      <nz-form-label *ngIf="label && label !== '*'" [nzFor]="id" [nzRequired]="required" [nzNoColon]="hideColonInLabel"
-        ><i *ngIf="labelIcon" nz-icon [nzType]="labelIcon" nzTheme="outline"></i> {{ label }}</nz-form-label
-      >
-      <DescriptionRenderer [uiSchema]="uischema" [scopedSchema]="scopedSchema"></DescriptionRenderer>
-      <nz-form-control [nzErrorTip]="errorMessage">
-        <nz-radio-group [id]="id" [formControl]="form" (ngModelChange)="onChange($event)" nzButtonStyle="solid">
-          <label nz-radio-button *ngFor="let option of scopedSchema.enum" [nzValue]="option">{{ option }}</label>
-        </nz-radio-group>
-      </nz-form-control>
-    </nz-form-item>
+    @if (scopedSchema) {
+      <nz-form-item [class]="additionalClasses" [class.hidden]="hidden">
+        @if (label && label !== '*') {
+          <nz-form-label [nzFor]="id" [nzRequired]="required" [nzNoColon]="hideColonInLabel">
+            @if (labelIcon) {
+              <i nz-icon [nzType]="labelIcon" nzTheme="outline"></i>
+            }
+            {{ label }}
+          </nz-form-label>
+        }
+        <DescriptionRenderer [uiSchema]="uischema" [scopedSchema]="scopedSchema"></DescriptionRenderer>
+        <nz-form-control [nzErrorTip]="errorMessage">
+          <nz-radio-group [id]="id" [formControl]="form" (ngModelChange)="onChange($event)" nzButtonStyle="solid">
+            @for (option of scopedSchema.enum; track option) {
+              <label nz-radio-button [nzValue]="option">{{ option }}</label>
+            }
+          </nz-radio-group>
+        </nz-form-control>
+      </nz-form-item>
+    }
   `,
   styles: [
     `
@@ -29,6 +42,17 @@ import { Actions, and, isEnumControl, optionIs, RankedTester, rankWith } from '.
     `,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    NzFormItemComponent,
+    NzFormLabelComponent,
+    NzIconDirective,
+    DescriptionRenderer,
+    NzFormControlComponent,
+    NzRadioGroupComponent,
+    NzRadioComponent,
+    ReactiveFormsModule,
+  ],
+  standalone: true,
 })
 export class RadioButtonControlRenderer extends JsonFormsControl {
   private selectedValue: string;

@@ -1,24 +1,32 @@
-<nz-form-item *ngIf="scopedSchema" [class.hidden]="hidden" [class]="additionalClasses">
-  <nz-form-label *ngIf="label" [nzFor]="id" [nzNoColon]="hideColonInLabel" [nzRequired]="required"
-  ><i *ngIf="labelIcon" [nzType]="labelIcon" nz-icon nzTheme="outline"></i> {{ label }}
-  </nz-form-label>
-  <DescriptionRenderer [scopedSchema]="scopedSchema" [uiSchema]="uischema"></DescriptionRenderer>
-  <nz-form-control [nzErrorTip]="errorMessage" [nzHasFeedback]="showValidationStatus" [nzValidateStatus]="form.status | nzValidationStatus">
-    <nz-select
-      (blur)="triggerValidation()"
-      (ngModelChange)="onChange($event)"
-      [formControl]="form"
-      [id]="id"
-      [nzMaxTagCount]="uischema.options.nzMaxTagCount"
-      [nzPlaceHolder]="placeholder"
-      nzMode="multiple">
-      <nz-option *ngFor="let item of selectOptions" [nzLabel]="item.user.name" [nzValue]="item.value" nzCustomContent>
-        <div class="item-user">
-          <jsonforms-avatar [url]="item.user.avatar"></jsonforms-avatar>
-          <strong>{{ item.user.name }}</strong>
-          <span>({{ item.user.email }})</span>
-        </div>
-      </nz-option>
-    </nz-select>
-  </nz-form-control>
-</nz-form-item>
+@if (scopedSchema) {
+  <nz-form-item [class.hidden]="hidden" [class]="additionalClasses">
+    @if (label) {
+      <nz-form-label [nzFor]="id" [nzNoColon]="hideColonInLabel" [nzRequired]="required"
+        >@if (labelIcon) {
+        <i [nzType]="labelIcon" nz-icon nzTheme="outline"></i>
+        } {{ label }}
+      </nz-form-label>
+    }
+    <DescriptionRenderer [scopedSchema]="scopedSchema" [uiSchema]="uischema"></DescriptionRenderer>
+    <nz-form-control [nzErrorTip]="errorMessage" [nzHasFeedback]="showValidationStatus" [nzValidateStatus]="form.status | nzValidationStatus">
+      <nz-select
+        (blur)="triggerValidation()"
+        (ngModelChange)="onChange($event)"
+        [formControl]="form"
+        [id]="id"
+        [nzMaxTagCount]="uischema.options.nzMaxTagCount"
+        [nzPlaceHolder]="placeholder"
+        nzMode="multiple">
+        @for (item of selectOptions; track item) {
+          <nz-option [nzLabel]="item.user.name" [nzValue]="item.value" nzCustomContent>
+            <div class="item-user">
+              <jsonforms-avatar [url]="item.user.avatar"></jsonforms-avatar>
+              <strong>{{ item.user.name }}</strong>
+              <span>({{ item.user.email }})</span>
+            </div>
+          </nz-option>
+        }
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+}

@@ -16,7 +16,7 @@ import { rule } from './schemas/rule';
 import { jsonformsConfig } from '../demo-page/formdata';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzSelectModule } from 'ng-zorro-antd/select';
-import { NgForOf, NgIf } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { NzCodeEditorModule } from 'ng-zorro-antd/code-editor';
 
@@ -49,7 +49,7 @@ import { NzCodeEditorModule } from 'ng-zorro-antd/code-editor';
       }
     `,
   ],
-  imports: [NzFormModule, NzSelectModule, NgForOf, FormsModule, NzCodeEditorModule, JsonFormsZorroModule, NgIf],
+  imports: [NzFormModule, NzSelectModule, FormsModule, NzCodeEditorModule, JsonFormsZorroModule],
 })
 export class PlaygroundPageComponent {
   renderers: JsonFormsRendererRegistryEntry[] = ngZorroRenderers;

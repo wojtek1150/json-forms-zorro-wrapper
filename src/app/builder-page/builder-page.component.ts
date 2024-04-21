@@ -7,7 +7,7 @@ import { ListInputSourceComponent } from './builder/list-input-source.component'
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { ListInputTargetComponent } from './builder/list-input-target.component';
-import { AsyncPipe, JsonPipe, NgIf, TitleCasePipe } from '@angular/common';
+import { AsyncPipe, JsonPipe, TitleCasePipe } from '@angular/common';
 import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 import { FormsModule } from '@angular/forms';
 import { NzInputModule } from 'ng-zorro-antd/input';
@@ -27,15 +27,14 @@ import { NzTabsModule } from 'ng-zorro-antd/tabs';
     ListInputTargetComponent,
     TitleCasePipe,
     NzCollapseModule,
-    NgIf,
     FormsModule,
     NzInputModule,
     TextRendererEditorComponent,
     NzTabsModule,
     AsyncPipe,
     JsonPipe,
-    JsonFormsZorroModule,
-  ],
+    JsonFormsZorroModule
+],
 })
 export class BuilderPageComponent {
   readonly TYPES = JFZBuilderInputType;

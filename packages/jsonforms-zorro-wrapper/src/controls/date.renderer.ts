@@ -1,16 +1,25 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { Actions, isDateControl, RankedTester, rankWith } from '../core';
-import { JsonFormsAngularService, JsonFormsControl } from '../jsonForms';
+import { DescriptionRenderer, JsonFormsAngularService, JsonFormsControl } from '../jsonForms';
 import { differenceInCalendarDays, format, parse, parseISO } from 'date-fns';
-import { SupportTimeOptions } from "ng-zorro-antd/date-picker";
+import { NzDatePickerComponent, SupportTimeOptions } from 'ng-zorro-antd/date-picker';
+import { NzFormControlComponent, NzFormItemComponent, NzFormLabelComponent } from 'ng-zorro-antd/form';
+import { NzIconDirective } from 'ng-zorro-antd/icon';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NzValidationStatusPipe } from '../other/validation-status.pipe';
 
 @Component({
   selector: 'DateControlRenderer',
   template: `
     <nz-form-item [class]="additionalClasses" [class.hidden]="hidden">
-      <nz-form-label *ngIf="label && label !== '*'" [nzFor]="id" [nzRequired]="required" [nzNoColon]="hideColonInLabel"
-        ><i *ngIf="labelIcon" nz-icon [nzType]="labelIcon" nzTheme="outline"></i> {{ label }}
-      </nz-form-label>
+      @if (label && label !== '*') {
+        <nz-form-label [nzFor]="id" [nzRequired]="required" [nzNoColon]="hideColonInLabel">
+          @if (labelIcon) {
+            <i nz-icon [nzType]="labelIcon" nzTheme="outline"></i>
+          }
+          {{ label }}
+        </nz-form-label>
+      }
       <DescriptionRenderer [uiSchema]="uischema" [scopedSchema]="scopedSchema"></DescriptionRenderer>
       <nz-form-control [nzHasFeedback]="showValidationStatus" [nzErrorTip]="errorMessage" [nzValidateStatus]="form.status | nzValidationStatus">
         <nz-date-picker
@@ -41,6 +50,17 @@ import { SupportTimeOptions } from "ng-zorro-antd/date-picker";
     `,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    NzFormItemComponent,
+    NzFormLabelComponent,
+    NzIconDirective,
+    DescriptionRenderer,
+    NzFormControlComponent,
+    NzDatePickerComponent,
+    ReactiveFormsModule,
+    NzValidationStatusPipe,
+  ],
 })
 export class DateControlRenderer extends JsonFormsControl {
   dateFormat: string = 'yyyy-MM-dd';

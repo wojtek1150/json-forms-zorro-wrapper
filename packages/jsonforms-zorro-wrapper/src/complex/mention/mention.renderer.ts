@@ -1,6 +1,12 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { JsonFormsAngularService, JsonFormsControl } from '../../jsonForms';
+import { DescriptionRenderer, JsonFormsAngularService, JsonFormsControl } from '../../jsonForms';
 import { Actions, and, hasOption, hasType, optionIs, RankedTester, rankWith, schemaMatches, uiTypeIs } from '../../core';
+import { NzFormControlComponent, NzFormItemComponent, NzFormLabelComponent } from 'ng-zorro-antd/form';
+import { NzIconDirective } from 'ng-zorro-antd/icon';
+import { NzValidationStatusPipe } from '../../other/validation-status.pipe';
+import { NzOptionComponent, NzSelectComponent } from 'ng-zorro-antd/select';
+import { ReactiveFormsModule } from '@angular/forms';
+import { AvatarComponent } from '../../components/avatar.component';
 
 interface Person {
   name: string;
@@ -13,6 +19,19 @@ interface Person {
   templateUrl: './mention.renderer.html',
   styleUrls: ['./mention.renderer.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    NzFormItemComponent,
+    NzFormLabelComponent,
+    NzIconDirective,
+    DescriptionRenderer,
+    NzFormControlComponent,
+    NzValidationStatusPipe,
+    NzSelectComponent,
+    ReactiveFormsModule,
+    NzOptionComponent,
+    AvatarComponent,
+  ],
 })
 export class MentionControlRenderer extends JsonFormsControl {
   selectOptions: { user: Person; value: string | Person; checked?: boolean }[] = [];

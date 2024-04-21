@@ -17,26 +17,29 @@
     </ng-template>
 
     <ng-template #item let-it>
-      <nz-collapse *ngIf="it.item.uiSchema as schema" class="item-data">
-        <nz-collapse-panel (nzActiveChange)="openEditor(it.item)" [nzActive]="it.item.editor" [nzExtra]="extraTpl" [nzHeader]="titleTpl">
-          <nz-input-group nzAddOnBefore="Scope">
-            <input (ngModelChange)="updateUiSchema(it.item, 'scope', $event)" [disabled]="true" [ngModel]="schema.scope" nz-input type="text" />
-          </nz-input-group>
-          <nz-input-group nzAddOnBefore="Field Name">
-            <input (ngModelChange)="updateControlName(it.item, $event)" [ngModel]="it.item.name" nz-input type="text" />
-          </nz-input-group>
-          <nz-input-group nzAddOnBefore="Label">
-            <input (ngModelChange)="updateUiSchema(it.item, 'label', $event)" [ngModel]="schema.label" nz-input type="text" />
-          </nz-input-group>
-          <nz-input-group nzAddOnBefore="Placeholder">
-            <input (ngModelChange)="updateUiSchema(it.item, 'placeholder', $event)" [ngModel]="schema.placeholder" nz-input type="text" />
-          </nz-input-group>
-          <text-renderer-editor
-            (controlChange)="updateControl($event)"
-            *ngIf="it.item.type === TYPES.TEXT && inputsTemp[it.item.key]"
-            [control]="inputsTemp[it.item.key]"></text-renderer-editor>
-        </nz-collapse-panel>
-      </nz-collapse>
+      @if (it.item.uiSchema; as schema) {
+        <nz-collapse class="item-data">
+          <nz-collapse-panel (nzActiveChange)="openEditor(it.item)" [nzActive]="it.item.editor" [nzExtra]="extraTpl" [nzHeader]="titleTpl">
+            <nz-input-group nzAddOnBefore="Scope">
+              <input (ngModelChange)="updateUiSchema(it.item, 'scope', $event)" [disabled]="true" [ngModel]="schema.scope" nz-input type="text" />
+            </nz-input-group>
+            <nz-input-group nzAddOnBefore="Field Name">
+              <input (ngModelChange)="updateControlName(it.item, $event)" [ngModel]="it.item.name" nz-input type="text" />
+            </nz-input-group>
+            <nz-input-group nzAddOnBefore="Label">
+              <input (ngModelChange)="updateUiSchema(it.item, 'label', $event)" [ngModel]="schema.label" nz-input type="text" />
+            </nz-input-group>
+            <nz-input-group nzAddOnBefore="Placeholder">
+              <input (ngModelChange)="updateUiSchema(it.item, 'placeholder', $event)" [ngModel]="schema.placeholder" nz-input type="text" />
+            </nz-input-group>
+            @if (it.item.type === TYPES.TEXT && inputsTemp[it.item.key]) {
+              <text-renderer-editor
+                (controlChange)="updateControl($event)"
+              [control]="inputsTemp[it.item.key]"></text-renderer-editor>
+            }
+          </nz-collapse-panel>
+        </nz-collapse>
+      }
       <ng-template #titleTpl>
         <span [nzType]="it.item.icon" class="type-icon" nz-icon nzTheme="outline"></span>
         <span>[{{ it.item.name }}] - {{ it.item.uiSchema.label }}</span>
@@ -60,7 +63,7 @@
         [(data)]="formData"
         [renderers]="renderers"
         [schema]="service.formSchema$ | async"
-        [uischema]="service.uiSchema$ | async"></jsonforms>
+      [uischema]="service.uiSchema$ | async"></jsonforms>
     </nz-tab>
     <nz-tab nzTitle="JsonUiSchema">
       <pre>{{ service.uiSchema$ | async | json }}</pre>

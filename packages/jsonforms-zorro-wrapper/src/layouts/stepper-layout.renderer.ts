@@ -1,38 +1,52 @@
 import { and, categorizationHasCategory, JsonFormsState, mapStateToLayoutProps, optionIs, RankedTester, rankWith, uiTypeIs } from '../core';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { JsonFormsAngularService, JsonFormsBaseRenderer } from '../jsonForms';
+import { DescriptionRenderer, JsonFormsAngularService, JsonFormsBaseRenderer, JsonFormsOutlet } from '../jsonForms';
 import { Subject, takeUntil } from 'rxjs';
 import { JFZCategoryLayout } from '../other/uischema';
+import { NzStepComponent, NzStepsComponent } from 'ng-zorro-antd/steps';
+import { NzButtonComponent } from 'ng-zorro-antd/button';
 
 @Component({
   selector: 'jsonforms-stepper-layout',
   template: `
     <aside>
-      <h2 *ngIf="uischema.label">{{ uischema.label }}</h2>
+      @if (uischema.label) {
+        <h2>{{ uischema.label }}</h2>
+      }
       <DescriptionRenderer [uiSchema]="uischema" [scopedSchema]="schema"></DescriptionRenderer>
       <nz-steps [nzCurrent]="step" [nzDirection]="stepperDirection" nzSize="small" (nzIndexChange)="onIndexChange($event)">
-        <nz-step *ngFor="let category of uischema.elements" [nzTitle]="category.label"></nz-step>
+        @for (category of uischema.elements; track category) {
+          <nz-step [nzTitle]="category.label"></nz-step>
+        }
       </nz-steps>
     </aside>
     <div class="step-content">
-      <ng-container *ngFor="let category of uischema.elements; let index = index">
-        <ng-container *ngIf="step === index">
-          <div *ngFor="let element of category.elements">
-            <jsonforms-outlet [uischema]="element" [path]="path" [schema]="schema"></jsonforms-outlet>
-          </div>
-        </ng-container>
-      </ng-container>
-      <div class="steps-action" *ngIf="showButtons">
-        <button nz-button nzType="default" [disabled]="step === 0" (click)="previous()">
-          <span>{{ previousLabel }}</span>
-        </button>
-        <button nz-button nzType="default" *ngIf="step < uischema.elements.length - 1" (click)="next()">
-          <span>{{ nextLabel }}</span>
-        </button>
-        <button nz-button nzType="primary" *ngIf="step === uischema.elements.length - 1" (click)="submit()" [nzLoading]="submitLoading">
-          <span>{{ submitLabel }}</span>
-        </button>
-      </div>
+      @for (category of uischema.elements; track category; let index = $index) {
+        @if (step === index) {
+          @for (element of category.elements; track element) {
+            <div>
+              <jsonforms-outlet [uischema]="element" [path]="path" [schema]="schema"></jsonforms-outlet>
+            </div>
+          }
+        }
+      }
+      @if (showButtons) {
+        <div class="steps-action">
+          <button nz-button nzType="default" [disabled]="step === 0" (click)="previous()">
+            <span>{{ previousLabel }}</span>
+          </button>
+          @if (step < uischema.elements.length - 1) {
+            <button nz-button nzType="default" (click)="next()">
+              <span>{{ nextLabel }}</span>
+            </button>
+          }
+          @if (step === uischema.elements.length - 1) {
+            <button nz-button nzType="primary" (click)="submit()" [nzLoading]="submitLoading">
+              <span>{{ submitLabel }}</span>
+            </button>
+          }
+        </div>
+      }
     </div>
   `,
   styles: [
@@ -59,6 +73,8 @@ import { JFZCategoryLayout } from '../other/uischema';
       }
     `,
   ],
+  imports: [DescriptionRenderer, NzStepsComponent, NzStepComponent, JsonFormsOutlet, NzButtonComponent],
+  standalone: true,
 })
 export class StepperLayoutRenderer extends JsonFormsBaseRenderer<JFZCategoryLayout> implements OnInit, OnDestroy {
   showButtons = false;

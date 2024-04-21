@@ -1,25 +1,32 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { RankedTester, rankWith, uiTypeIs } from '../core';
 import { LayoutRenderer } from './layout.renderer';
-import { JsonFormsAngularService } from '../jsonForms';
+import { DescriptionRenderer, JsonFormsAngularService, JsonFormsOutlet } from '../jsonForms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { JFZHorizontalLayout } from '../other/uischema';
+import { NzButtonComponent } from 'ng-zorro-antd/button';
 
 @Component({
   selector: 'HorizontalLayoutRenderer',
   template: `
     <div class="horizontal-layout" [class.hidden]="hidden">
-      <h2 *ngIf="uischema.label">{{ uischema.label }}</h2>
+      @if (uischema.label) {
+        <h2>{{ uischema.label }}</h2>
+      }
       <DescriptionRenderer [uiSchema]="uischema" [scopedSchema]="schema"></DescriptionRenderer>
-      <div *ngFor="let props of renderProps; trackBy: trackElement" class="control-wrapper">
-        <jsonforms-outlet [renderProps]="props"></jsonforms-outlet>
+      @for (props of renderProps; track trackElement($index, props)) {
+        <div class="control-wrapper">
+          <jsonforms-outlet [renderProps]="props"></jsonforms-outlet>
+        </div>
+      }
+    </div>
+    @if (submitLabel) {
+      <div class="submit-wrapper">
+        <button nz-button nzType="primary" (click)="submit()" [nzLoading]="submitLoading">
+          <span>{{ submitLabel }}</span>
+        </button>
       </div>
-    </div>
-    <div class="submit-wrapper" *ngIf="submitLabel">
-      <button nz-button nzType="primary" (click)="submit()" [nzLoading]="submitLoading">
-        <span>{{ submitLabel }}</span>
-      </button>
-    </div>
+    }
   `,
   styles: [
     `
@@ -41,6 +48,8 @@ import { JFZHorizontalLayout } from '../other/uischema';
     `,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [DescriptionRenderer, JsonFormsOutlet, NzButtonComponent],
 })
 export class HorizontalLayoutRenderer extends LayoutRenderer<JFZHorizontalLayout> {
   constructor(jsonFormsService: JsonFormsAngularService, changeDetectionRef: ChangeDetectorRef, sanitizer: DomSanitizer) {

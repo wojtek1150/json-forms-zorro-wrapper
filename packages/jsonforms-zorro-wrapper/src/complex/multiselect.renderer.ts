@@ -1,30 +1,44 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { JsonFormsAngularService, JsonFormsControl } from '../jsonForms';
+import { DescriptionRenderer, JsonFormsAngularService, JsonFormsControl } from '../jsonForms';
 import { Actions, and, hasType, JsonSchema, optionIs, RankedTester, rankWith, schemaMatches, schemaSubPathMatches, uiTypeIs } from '../core';
 import { hasEnumItems, hasOneOfItems } from '../other/complex.helper';
+import { NzFormControlComponent, NzFormItemComponent, NzFormLabelComponent } from 'ng-zorro-antd/form';
+import { NzIconDirective } from 'ng-zorro-antd/icon';
+import { NzOptionComponent, NzSelectComponent } from 'ng-zorro-antd/select';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NzValidationStatusPipe } from '../other/validation-status.pipe';
 
 @Component({
   selector: 'MultiselectControlRenderer',
   template: `
-    <nz-form-item *ngIf="scopedSchema" [class]="additionalClasses" [class.hidden]="hidden">
-      <nz-form-label *ngIf="label" [nzFor]="id" [nzRequired]="required" [nzNoColon]="hideColonInLabel"
-        ><i *ngIf="labelIcon" nz-icon [nzType]="labelIcon" nzTheme="outline"></i> {{ label }}
-      </nz-form-label>
-      <DescriptionRenderer [uiSchema]="uischema" [scopedSchema]="scopedSchema"></DescriptionRenderer>
-      <nz-form-control [nzHasFeedback]="showValidationStatus" [nzErrorTip]="errorMessage" [nzValidateStatus]="form.status | nzValidationStatus">
-        <nz-select
-          nzMode="multiple"
-          [id]="id"
-          [formControl]="form"
-          [nzMaxTagCount]="uischema.options.nzMaxTagCount"
-          [nzPlaceHolder]="placeholder"
-          (ngModelChange)="onChange($event)"
-          (blur)="triggerValidation()"
-        >
-          <nz-option *ngFor="let item of options" [nzLabel]="item.label" [nzValue]="item.value"></nz-option>
-        </nz-select>
-      </nz-form-control>
-    </nz-form-item>
+    @if (scopedSchema) {
+      <nz-form-item [class]="additionalClasses" [class.hidden]="hidden">
+        @if (label) {
+          <nz-form-label [nzFor]="id" [nzRequired]="required" [nzNoColon]="hideColonInLabel">
+            @if (labelIcon) {
+              <i nz-icon [nzType]="labelIcon" nzTheme="outline"></i>
+            }
+            {{ label }}
+          </nz-form-label>
+        }
+        <DescriptionRenderer [uiSchema]="uischema" [scopedSchema]="scopedSchema"></DescriptionRenderer>
+        <nz-form-control [nzHasFeedback]="showValidationStatus" [nzErrorTip]="errorMessage" [nzValidateStatus]="form.status | nzValidationStatus">
+          <nz-select
+            nzMode="multiple"
+            [id]="id"
+            [formControl]="form"
+            [nzMaxTagCount]="uischema.options.nzMaxTagCount"
+            [nzPlaceHolder]="placeholder"
+            (ngModelChange)="onChange($event)"
+            (blur)="triggerValidation()"
+          >
+            @for (item of options; track item) {
+              <nz-option [nzLabel]="item.label" [nzValue]="item.value"></nz-option>
+            }
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    }
   `,
   styles: [
     `
@@ -38,6 +52,18 @@ import { hasEnumItems, hasOneOfItems } from '../other/complex.helper';
     `,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    NzFormItemComponent,
+    NzFormLabelComponent,
+    NzIconDirective,
+    DescriptionRenderer,
+    NzFormControlComponent,
+    NzSelectComponent,
+    ReactiveFormsModule,
+    NzValidationStatusPipe,
+    NzOptionComponent,
+  ],
 })
 export class MultiselectControlRenderer extends JsonFormsControl {
   options: { label: string; value: string; checked?: boolean }[];

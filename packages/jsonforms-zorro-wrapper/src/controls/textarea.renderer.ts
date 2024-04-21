@@ -1,15 +1,24 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { JsonFormsAngularService, JsonFormsControl } from '../jsonForms';
+import { DescriptionRenderer, JsonFormsAngularService, JsonFormsControl } from '../jsonForms';
 import { isMultiLineControl, RankedTester, rankWith } from '../core';
-import { AutoSizeType } from 'ng-zorro-antd/input';
+import { AutoSizeType, NzAutosizeDirective, NzInputDirective } from 'ng-zorro-antd/input';
+import { NzFormControlComponent, NzFormItemComponent, NzFormLabelComponent } from 'ng-zorro-antd/form';
+import { NzIconDirective } from 'ng-zorro-antd/icon';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NzValidationStatusPipe } from '../other/validation-status.pipe';
 
 @Component({
   selector: 'TextAreaRenderer',
   template: `
     <nz-form-item [class]="additionalClasses" [class.hidden]="hidden">
-      <nz-form-label *ngIf="label && label !== '*'" [nzFor]="id" [nzRequired]="required" [nzNoColon]="hideColonInLabel"
-        ><i *ngIf="labelIcon" nz-icon [nzType]="labelIcon" nzTheme="outline"></i> {{ label }}</nz-form-label
-      >
+      @if (label && label !== '*') {
+        <nz-form-label [nzFor]="id" [nzRequired]="required" [nzNoColon]="hideColonInLabel">
+          @if (labelIcon) {
+            <i nz-icon [nzType]="labelIcon" nzTheme="outline"></i>
+          }
+          {{ label }}
+        </nz-form-label>
+      }
       <DescriptionRenderer [uiSchema]="uischema" [scopedSchema]="scopedSchema"></DescriptionRenderer>
       <nz-form-control [nzHasFeedback]="showValidationStatus" [nzErrorTip]="errorMessage" [nzValidateStatus]="form.status | nzValidationStatus">
         <textarea
@@ -36,6 +45,18 @@ import { AutoSizeType } from 'ng-zorro-antd/input';
     `,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    NzFormItemComponent,
+    NzFormLabelComponent,
+    NzIconDirective,
+    DescriptionRenderer,
+    NzFormControlComponent,
+    NzInputDirective,
+    ReactiveFormsModule,
+    NzValidationStatusPipe,
+    NzAutosizeDirective,
+  ],
+  standalone: true,
 })
 export class TextAreaRenderer extends JsonFormsControl {
   autosize: string | boolean | AutoSizeType;

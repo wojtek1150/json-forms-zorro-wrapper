@@ -1,14 +1,24 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { JsonFormsAngularService, JsonFormsControl } from '../jsonForms';
+import { DescriptionRenderer, JsonFormsAngularService, JsonFormsControl } from '../jsonForms';
 import { isStringControl, RankedTester, rankWith } from '../core';
+import { NzFormControlComponent, NzFormItemComponent, NzFormLabelComponent } from 'ng-zorro-antd/form';
+import { NzIconDirective } from 'ng-zorro-antd/icon';
+import { NzInputDirective } from 'ng-zorro-antd/input';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NzValidationStatusPipe } from '../other/validation-status.pipe';
 
 @Component({
   selector: 'TextControlRenderer',
   template: `
     <nz-form-item [class]="additionalClasses" [class.hidden]="hidden">
-      <nz-form-label *ngIf="label && label !== '*'" [nzFor]="id" [nzRequired]="required" [nzNoColon]="hideColonInLabel"
-        ><i *ngIf="labelIcon" nz-icon [nzType]="labelIcon" nzTheme="outline"></i> {{ label }}</nz-form-label
-      >
+      @if (label && label !== '*') {
+        <nz-form-label [nzFor]="id" [nzRequired]="required" [nzNoColon]="hideColonInLabel">
+          @if (labelIcon) {
+            <i nz-icon [nzType]="labelIcon" nzTheme="outline"></i>
+          }
+          {{ label }}
+        </nz-form-label>
+      }
       <DescriptionRenderer [uiSchema]="uischema" [scopedSchema]="scopedSchema"></DescriptionRenderer>
       <nz-form-control [nzHasFeedback]="showValidationStatus" [nzErrorTip]="errorMessage" [nzValidateStatus]="form.status | nzValidationStatus">
         <input
@@ -35,6 +45,17 @@ import { isStringControl, RankedTester, rankWith } from '../core';
     `,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    NzFormItemComponent,
+    NzFormLabelComponent,
+    NzIconDirective,
+    DescriptionRenderer,
+    NzFormControlComponent,
+    NzInputDirective,
+    ReactiveFormsModule,
+    NzValidationStatusPipe,
+  ],
+  standalone: true,
 })
 export class TextControlRenderer extends JsonFormsControl {
   constructor(jsonformsService: JsonFormsAngularService, changeDetectorRef: ChangeDetectorRef) {

@@ -1,12 +1,12 @@
 import { CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop';
 import { ChangeDetectionStrategy, Component, ContentChild, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
-import { NgForOf, NgIf, NgTemplateOutlet } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 import { BuilderService } from './builder.service';
 import { JFZBuilderControl } from './model';
 
 @Component({
   standalone: true,
-  imports: [DragDropModule, NgTemplateOutlet, NgForOf, NgIf],
+  imports: [DragDropModule, NgTemplateOutlet],
   selector: 'dnd-list-input-target',
   template: `
     <div
@@ -18,37 +18,40 @@ import { JFZBuilderControl } from './model';
       (cdkDropListEntered)="_forcePreviewIconContainerHidden = true"
       (cdkDropListExited)="_forcePreviewIconContainerHidden = false"
       (cdkDropListDropped)="drop($event)"
-    >
-      <div
-        cdkDrag
-        *ngFor="let item of service.dropInputs; let isLast = last; let index = index"
-        (mouseenter)="_mouserOverItemIndex = index"
-        (mouseleave)="_mouserOverItemIndex = -1"
-        [cdkDragData]="item"
-        [class]="itemContainerClass"
       >
-        <span cdkDragHandle *ngIf="dragHandleRef">
-          <ng-container [ngTemplateOutlet]="dragHandleRef"></ng-container>
-        </span>
-        <ng-template
-          [ngTemplateOutlet]="itemRef || null"
+      @for (item of service.dropInputs; track item; let isLast = $last; let index = $index) {
+        <div
+          cdkDrag
+          (mouseenter)="_mouserOverItemIndex = index"
+          (mouseleave)="_mouserOverItemIndex = -1"
+          [cdkDragData]="item"
+          [class]="itemContainerClass"
+          >
+          @if (dragHandleRef) {
+            <span cdkDragHandle>
+              <ng-container [ngTemplateOutlet]="dragHandleRef"></ng-container>
+            </span>
+          }
+          <ng-template
+            [ngTemplateOutlet]="itemRef || null"
           [ngTemplateOutletContext]="{
             $implicit: {
               item,
               isHovered: _mouserOverItemIndex === index
             }
           }"
-        >
+          >
         </ng-template>
       </div>
-
-      <ng-container *ngIf="!_forcePreviewIconContainerHidden && service.dropInputs.length < 1">
-        <ng-template [ngTemplateOutlet]="placeholderRef || null"></ng-template>
-      </ng-container>
+    }
+    
+    @if (!_forcePreviewIconContainerHidden && service.dropInputs.length < 1) {
+      <ng-template [ngTemplateOutlet]="placeholderRef || null"></ng-template>
+    }
     </div>
-
+    
     <ng-template #body></ng-template>
-  `,
+    `,
   styles: [':host {display: block;}'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

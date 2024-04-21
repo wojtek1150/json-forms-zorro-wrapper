@@ -3,13 +3,16 @@ import { Actions, JsonFormsI18nState, JsonFormsRendererRegistryEntry, JsonSchema
 import Ajv, { ErrorObject } from 'ajv';
 import { JsonFormsAngularService, USE_STATE_VALUE } from './jsonforms.service';
 import { JFZElement } from '../other/uischema';
-import {filter, Subject, takeUntil} from 'rxjs';
+import { filter, Subject, takeUntil } from 'rxjs';
 import { Config } from '../other/config';
+import { JsonFormsOutlet } from './jsonforms.component';
 
 @Component({
   selector: 'jsonforms',
   template: '<jsonforms-outlet></jsonforms-outlet>',
   providers: [JsonFormsAngularService],
+  standalone: true,
+  imports: [JsonFormsOutlet],
 })
 export class JsonForms implements OnChanges, OnInit, OnDestroy {
   @Input() uischema: JFZElement;
@@ -76,14 +79,18 @@ export class JsonForms implements OnChanges, OnInit, OnDestroy {
     });
     this.oldI18N = this.i18n;
     this.initialized = true;
-    this.service.$submitState.pipe(
-      filter(value => value !== null),
-      takeUntil(this.destroy$)
-    ).subscribe(value => this.submitted.emit(value));
-    this.service.$stepChangeState.pipe(
-      filter(value => value !== null),
-      takeUntil(this.destroy$)
-    ).subscribe(value => this.stepChanged.emit(value));
+    this.service.$submitState
+      .pipe(
+        filter(value => value !== null),
+        takeUntil(this.destroy$),
+      )
+      .subscribe(value => this.submitted.emit(value));
+    this.service.$stepChangeState
+      .pipe(
+        filter(value => value !== null),
+        takeUntil(this.destroy$),
+      )
+      .subscribe(value => this.stepChanged.emit(value));
   }
 
   ngDoCheck(): void {
