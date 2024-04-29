@@ -16,13 +16,16 @@
         [id]="id"
         [nzMaxTagCount]="uischema.options.nzMaxTagCount"
         [nzPlaceHolder]="placeholder"
+        [nzOptionHeightPx]="42"
         nzMode="multiple">
         @for (item of selectOptions; track item) {
           <nz-option [nzLabel]="item.user.name" [nzValue]="item.value" nzCustomContent>
             <div class="item-user">
               <jsonforms-avatar [url]="item.user.avatar"></jsonforms-avatar>
               <strong>{{ item.user.name }}</strong>
-              <span>({{ item.user.email }})</span>
+              @if (item.user.email) {
+                <span>({{ item.user.email }})</span>
+              }
             </div>
           </nz-option>
         }

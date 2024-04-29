@@ -10,7 +10,7 @@ import { AvatarComponent } from '../../components/avatar.component';
 
 interface Person {
   name: string;
-  email: string;
+  email?: string;
   avatar?: string;
 }
 
