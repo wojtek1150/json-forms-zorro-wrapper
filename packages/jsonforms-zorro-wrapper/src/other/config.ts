@@ -8,7 +8,7 @@ export type MultiselectExternalDictionaryItem = {
 
 export interface MentionDictionaryItem {
   avatar?: string;
-  email: string;
+  email?: string;
   name: string;
 
   [key: string]: any;
