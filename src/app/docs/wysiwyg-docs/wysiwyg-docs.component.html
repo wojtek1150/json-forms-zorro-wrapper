@@ -1,12 +1,24 @@
 <h1>WYSIWYG control</h1>
-<pre><code>{{ schema.properties | json }}</code></pre>
+<nz-code-editor
+  (ngModelChange)="updateProperty('schema', $event)"
+  [ngModel]="schema.properties | editorFormatter"
+  [nzEditorOption]="{ language: 'json',automaticLayout: true }"
+  class="editor"></nz-code-editor>
 
 <p>Ui Schema</p>
-<pre><code>{{ uiSchemaWysiwyg.elements[0] | json }}</code></pre>
+<nz-code-editor
+  (ngModelChange)="updateProperty('uiSchema', $event)"
+  [ngModel]="uiSchema.elements[0] | editorFormatter"
+  [nzEditorOption]="{ language: 'json',automaticLayout: true }"
+  class="editor"></nz-code-editor>
 
 <div class="flex">
-  <jsonforms [(data)]="data" [renderers]="renderers" [schema]="schema" [uischema]="uiSchemaWysiwyg"></jsonforms>
-  <pre>{{ data | json }}</pre>
+  <jsonforms [(data)]="data" [renderers]="renderers" [schema]="schema" [uischema]="uiSchema"></jsonforms>
+  <nz-code-editor
+    (ngModelChange)="updateProperty('data', $event)"
+    [ngModel]="data | editorFormatter"
+    [nzEditorOption]="{ language: 'json',automaticLayout: true }"
+    class="editor"></nz-code-editor>
 </div>
 
 <p>UiSchema Options</p>

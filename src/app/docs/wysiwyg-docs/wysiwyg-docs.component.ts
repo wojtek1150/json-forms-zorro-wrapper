@@ -1,13 +1,17 @@
 import { Component } from '@angular/core';
-import { JFZVerticalLayout, JsonFormsZorroModule, JsonSchema, ngZorroRenderers } from '@wojtek1150/jsonforms-zorro-wrapper';
+import { JFZVerticalLayout, JsonFormsZorroModule, JsonSchema } from '@wojtek1150/jsonforms-zorro-wrapper';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { JsonPipe } from '@angular/common';
+import { EditorFormatterPipe } from '../../pipes/editor-formatter.pipe';
+import { NzCodeEditorComponent } from 'ng-zorro-antd/code-editor';
+import { FormsModule } from '@angular/forms';
+import { ControlDocsAbstract } from '../control-docs.abstract';
 
 @Component({
   selector: 'app-wysiwyg-docs',
   templateUrl: './wysiwyg-docs.component.html',
   standalone: true,
-  imports: [JsonFormsZorroModule, NzTableModule, JsonPipe],
+  imports: [JsonFormsZorroModule, NzTableModule, JsonPipe, EditorFormatterPipe, NzCodeEditorComponent, FormsModule],
   styles: [
     `
       .flex {
@@ -20,9 +24,8 @@ import { JsonPipe } from '@angular/common';
     `,
   ],
 })
-export class WysiwygDocsComponent {
-  renderers = ngZorroRenderers;
-  data = {
+export class WysiwygDocsComponent extends ControlDocsAbstract {
+  override data = {
     comment: '<p>Enter comment here</p>',
   };
 
@@ -35,7 +38,7 @@ export class WysiwygDocsComponent {
     },
   };
 
-  uiSchemaWysiwyg: JFZVerticalLayout = {
+  uiSchema: JFZVerticalLayout = {
     type: 'VerticalLayout',
     elements: [
       {
@@ -44,6 +47,7 @@ export class WysiwygDocsComponent {
         scope: '#/properties/comment',
         options: {
           wysiwyg: true,
+          formats: ['bold,italic,underline,link,list'],
         },
       },
     ],
