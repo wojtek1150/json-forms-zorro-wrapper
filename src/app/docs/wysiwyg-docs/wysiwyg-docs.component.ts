@@ -47,7 +47,7 @@ export class WysiwygDocsComponent extends ControlDocsAbstract {
         scope: '#/properties/comment',
         options: {
           wysiwyg: true,
-          formats: ['bold,italic,underline,link,list'],
+          formats: ['bold', 'italic', 'underline', 'link', 'list'],
         },
       },
     ],
