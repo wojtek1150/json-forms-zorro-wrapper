@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { Actions, and, optionIs, RankedTester, rankWith, schemaTypeIs } from '../core';
 import { DescriptionRenderer, JsonFormsAngularService, JsonFormsControl } from '../jsonForms';
-import { differenceInCalendarDays, format, parse, parseISO } from 'date-fns';
+import { isSameDay, differenceInCalendarDays, format, parse, parseISO } from 'date-fns';
 import { NzDatePickerComponent, NzRangePickerComponent, SupportTimeOptions } from 'ng-zorro-antd/date-picker';
 import { NzFormControlComponent, NzFormItemComponent, NzFormLabelComponent } from 'ng-zorro-antd/form';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
@@ -117,7 +117,10 @@ export class DateRangeControlRenderer extends JsonFormsControl {
 
   private setDisabledDate(): void {
     if (this.uischema.options?.disablePastDates) {
-      this.disabledDate = (current: Date) => differenceInCalendarDays(current, new Date()) < 0;
+      this.disabledDate = (current: Date) =>
+        differenceInCalendarDays(current, new Date()) < 0 &&
+        (!this.data ||
+          ((!this.data[0] || !isSameDay(new Date(this.data[0]), current)) && (!this.data[1] || !isSameDay(new Date(this.data[1]), current))));
     }
   }
 

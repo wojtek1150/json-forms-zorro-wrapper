@@ -115,8 +115,8 @@ export class StepperLayoutRenderer extends JsonFormsBaseRenderer<JFZCategoryLayo
   }
 
   onIndexChange(index: number): void {
-    this.jsonFormsService.changeStep(this.step);
     this.step = index;
+    this.jsonFormsService.changeStep(this.step);
   }
 
   previous() {
