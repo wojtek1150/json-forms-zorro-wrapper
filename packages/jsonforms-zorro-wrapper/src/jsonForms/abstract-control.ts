@@ -1,4 +1,4 @@
-import { Actions, computeLabel, JsonFormsState, JsonSchema, OwnPropsOfControl, StatePropsOfControl } from '../core';
+import { Actions, computeLabel, JsonFormsState, JsonSchema, OwnPropsOfControl, removeId, StatePropsOfControl } from '../core';
 import { ChangeDetectorRef, Directive, Input, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
@@ -120,6 +120,8 @@ export abstract class JsonFormsAbstractControl<Props extends StatePropsOfControl
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();
+
+    removeId(this.id);
   }
 
   triggerValidation() {
