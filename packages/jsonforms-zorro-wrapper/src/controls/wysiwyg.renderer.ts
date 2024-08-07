@@ -1,12 +1,13 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { DescriptionRenderer, JsonFormsAngularService, JsonFormsControl } from '../jsonForms';
-import { and, optionIs, RankedTester, rankWith, uiTypeIs } from '../core';
-import { AutoSizeType } from 'ng-zorro-antd/input';
+import { Actions, and, optionIs, RankedTester, rankWith, uiTypeIs, ValidationError } from '../core';
 import { NzFormControlComponent, NzFormItemComponent, NzFormLabelComponent } from 'ng-zorro-antd/form';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { QuillEditorComponent } from 'ngx-quill';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NzValidationStatusPipe } from '../other/validation-status.pipe';
+import { ContentChange } from 'ngx-quill/lib/quill-editor.component';
+import { takeUntil } from 'rxjs';
 
 @Component({
   selector: 'WysiwygRenderer',
@@ -21,19 +22,39 @@ import { NzValidationStatusPipe } from '../other/validation-status.pipe';
         </nz-form-label>
       }
       <DescriptionRenderer [uiSchema]="uischema" [scopedSchema]="scopedSchema"></DescriptionRenderer>
-      <nz-form-control [nzHasFeedback]="showValidationStatus" [nzErrorTip]="errorMessage" [nzValidateStatus]="form.status | nzValidationStatus">
-        <quill-editor
-          [id]="id"
-          [formControl]="form"
-          [modules]="editorModules"
-          [formats]="formats"
-          linkPlaceholder="Paste your link here"
-          [placeholder]="placeholder"
-          (ngModelChange)="onChange($event)"
-          [styles]="{ minHeight: '100px' }"
-          (blur)="triggerValidation()"
-        ></quill-editor>
-      </nz-form-control>
+      @if (hasExternalValidation) {
+        <nz-form-control
+          [nzHasFeedback]="showValidationStatus"
+          [nzErrorTip]="stringFieldErrorMessages.join(', ')"
+          [nzValidateStatus]="stringFieldErrorMessages.length ? 'error' : 'success'"
+        >
+          <quill-editor
+            [id]="id"
+            [formControl]="form"
+            [modules]="editorModules"
+            [formats]="formats"
+            linkPlaceholder="Paste your link here"
+            [placeholder]="placeholder"
+            (onContentChanged)="onChange($event)"
+            [styles]="{ minHeight: '100px' }"
+            (blur)="triggerValidation()"
+          ></quill-editor>
+        </nz-form-control>
+      } @else {
+        <nz-form-control [nzHasFeedback]="showValidationStatus" [nzErrorTip]="errorMessage" [nzValidateStatus]="form.status | nzValidationStatus">
+          <quill-editor
+            [id]="id"
+            [formControl]="form"
+            [modules]="editorModules"
+            [formats]="formats"
+            linkPlaceholder="Paste your link here"
+            [placeholder]="placeholder"
+            (onContentChanged)="onChange($event)"
+            [styles]="{ minHeight: '100px' }"
+            (blur)="triggerValidation()"
+          ></quill-editor>
+        </nz-form-control>
+      }
     </nz-form-item>
   `,
   styles: [
@@ -65,11 +86,13 @@ import { NzValidationStatusPipe } from '../other/validation-status.pipe';
   standalone: true,
 })
 export class WysiwygRenderer extends JsonFormsControl {
-  autosize: string | boolean | AutoSizeType;
+  hasExternalValidation: boolean;
+  stringFieldPostfix = '_plain_text';
   editorModules = {
     toolbar: [],
   };
   formats = null;
+  stringFieldErrorMessages: string[] = [];
 
   constructor(jsonformsService: JsonFormsAngularService, changeDetectorRef: ChangeDetectorRef) {
     super(jsonformsService, changeDetectorRef);
@@ -86,6 +109,26 @@ export class WysiwygRenderer extends JsonFormsControl {
         [{ list: 'ordered' }, { list: 'bullet' }],
       ];
       this.formats = this.uischema.options.formats || null;
+    }
+  }
+
+  override onChange(content: ContentChange) {
+    this.jsonFormsService.updateCore(Actions.update(this.propsPath, () => content.html));
+    if (this.uischema?.options.withStringValidation) {
+      this.jsonFormsService.updateCore(Actions.update(this.propsPath + this.stringFieldPostfix, () => content.text));
+    }
+    this.triggerValidation();
+  }
+
+  override ngOnInit() {
+    super.ngOnInit();
+    if (this.uischema?.options.withStringValidation) {
+      this.hasExternalValidation = true;
+      this.stringFieldPostfix = this.uischema.options.withStringValidation === true ? '_plain_text' : this.uischema.options.withStringValidation;
+      const stringFieldPath = this.instancePath + this.stringFieldPostfix;
+      this.jsonFormsService.$allErrors.pipe(takeUntil(this.destroy$)).subscribe((errors: ValidationError[]) => {
+        this.stringFieldErrorMessages = errors.filter(err => err.instancePath === stringFieldPath).map(err => err.message);
+      });
     }
   }
 }

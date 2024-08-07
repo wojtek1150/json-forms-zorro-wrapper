@@ -33,6 +33,7 @@ export abstract class JsonFormsAbstractControl<Props extends StatePropsOfControl
   hidden: boolean;
   propsPath: string;
   config: Config;
+  instancePath: string;
 
   readonly destroy$ = new Subject<void>();
 
@@ -89,6 +90,7 @@ export abstract class JsonFormsAbstractControl<Props extends StatePropsOfControl
         this.hidden = !visible;
         this.scopedSchema = schema;
         this.rootSchema = rootSchema;
+        this.instancePath = '/' + path.replace('.', '/');
         this.description = this.scopedSchema !== undefined ? this.scopedSchema.description : this.uischema.description || '';
         this.id = props.id;
         this.required = required;

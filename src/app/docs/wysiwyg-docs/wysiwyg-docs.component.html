@@ -21,6 +21,33 @@
     class="editor"></nz-code-editor>
 </div>
 
+<hr />
+
+<h2>WYSIWYG control with only text validation</h2>
+<p>NOTE: Editor changes will be not applied</p>
+<nz-code-editor
+  [ngModel]="schemaComplex.properties | editorFormatter"
+  [nzEditorOption]="{ language: 'json',automaticLayout: true }"
+  class="editor"
+  disabled></nz-code-editor>
+
+<p>Ui Schema</p>
+<nz-code-editor
+  [ngModel]="uiSchemaComplex.elements[0] | editorFormatter"
+  [nzEditorOption]="{ language: 'json',automaticLayout: true }"
+  class="editor"
+  disabled></nz-code-editor>
+
+<div class="flex">
+  <jsonforms [(data)]="dataComplex" [renderers]="renderers" [schema]="schemaComplex" [uischema]="uiSchemaComplex"></jsonforms>
+  <nz-code-editor
+    [ngModel]="dataComplex | editorFormatter"
+    [nzEditorOption]="{ language: 'json',automaticLayout: true }"
+    class="editor"
+    disabled></nz-code-editor>
+</div>
+
+
 <p>UiSchema Options</p>
 <nz-table [nzTemplateMode]="true">
   <thead>
@@ -49,6 +76,12 @@
     <td>Configure allowed formats</td>
     <td><code>string[]</code></td>
     <td><code>null</code> - all html tags are allowed</td>
+  </tr>
+  <tr>
+    <td>withStringValidation</td>
+    <td>Enables plain text validation instead of full body. You can also pass string to enable and set suffix. When set tu <code>true</code> it will use <code>_plain_text</code></td>
+    <td><code>boolean | string</code></td>
+    <td><code>false</code></td>
   </tr>
   </tbody>
 </nz-table>
