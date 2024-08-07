@@ -28,6 +28,11 @@ export class WysiwygDocsComponent extends ControlDocsAbstract {
   override data = {
     comment: '<p>Enter comment here</p>',
   };
+  dataComplex = {
+    personalData: {
+      description: '<p>Enter comment here: <b>with some ipsum</b></p>',
+    },
+  };
 
   schema: JsonSchema = {
     type: 'object',
@@ -47,6 +52,40 @@ export class WysiwygDocsComponent extends ControlDocsAbstract {
         scope: '#/properties/comment',
         options: {
           wysiwyg: true,
+          formats: ['bold', 'italic', 'underline', 'link', 'list'],
+        },
+      },
+    ],
+  };
+
+  schemaComplex: JsonSchema = {
+    type: 'object',
+    properties: {
+      personalData: {
+        type: 'object',
+        properties: {
+          description: {
+            type: 'string',
+          },
+          description_text: {
+            type: 'string',
+            maxLength: 30,
+          },
+        },
+      },
+    },
+  };
+
+  uiSchemaComplex: JFZVerticalLayout = {
+    type: 'VerticalLayout',
+    elements: [
+      {
+        label: 'Description',
+        type: 'Control',
+        scope: '#/properties/personalData/properties/description',
+        options: {
+          wysiwyg: true,
+          withStringValidation: '_text',
           formats: ['bold', 'italic', 'underline', 'link', 'list'],
         },
       },
