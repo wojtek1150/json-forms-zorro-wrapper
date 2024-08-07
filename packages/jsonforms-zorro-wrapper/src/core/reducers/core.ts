@@ -291,6 +291,7 @@ export const extractData = (state: JsonFormsCore) => get(state, 'data');
 export const extractSchema = (state: JsonFormsCore) => get(state, 'schema');
 export const extractUiSchema = (state: JsonFormsCore) => get(state, 'uischema');
 export const extractAjv = (state: JsonFormsCore) => get(state, 'ajv');
+export const extractErrors = (state: JsonFormsCore) => get(state, 'errors');
 
 export const getInvalidProperty = (error: ErrorObject): string | undefined => {
   switch (error.keyword) {

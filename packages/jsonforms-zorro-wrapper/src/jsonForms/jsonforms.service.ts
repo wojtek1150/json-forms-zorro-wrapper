@@ -6,6 +6,7 @@ import {
   generateDefaultUISchema,
   generateJsonSchema,
   getData,
+  getErrors,
   I18nActions,
   i18nReducer,
   JsonFormsRendererRegistryEntry,
@@ -71,6 +72,13 @@ export class JsonFormsAngularService {
       throw new Error('Please call init first!');
     }
     return this.state.asObservable().pipe(map(state => getData(state)));
+  }
+
+  get $allErrors(): Observable<any> {
+    if (!this.state) {
+      throw new Error('Please call init first!');
+    }
+    return this.state.asObservable().pipe(map(state => getErrors(state)));
   }
 
   init(
