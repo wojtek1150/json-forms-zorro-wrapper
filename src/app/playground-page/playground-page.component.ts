@@ -19,6 +19,7 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 
 import { FormsModule } from '@angular/forms';
 import { NzCodeEditorModule } from 'ng-zorro-antd/code-editor';
+import { wysiwygForm } from './schemas/wysiwyg-form';
 
 @Component({
   selector: 'app-playground-page',
@@ -70,6 +71,7 @@ export class PlaygroundPageComponent {
     { label: 'Simple array with one property', value: 'item-array' },
     { label: 'List with details', value: 'listDetails' },
     { label: 'Rule', value: 'rule' },
+    { label: 'Wysiwyg Form', value: 'wysiwygForm' },
   ];
   loading: boolean;
 
@@ -110,6 +112,10 @@ export class PlaygroundPageComponent {
       case 'rule':
         this.schema = rule.schema;
         this.uischema = rule.uiSchema;
+        break;
+      case 'wysiwygForm':
+        this.schema = wysiwygForm.schema;
+        this.uischema = wysiwygForm.uiSchema;
         break;
       default:
         this.schema = schema;

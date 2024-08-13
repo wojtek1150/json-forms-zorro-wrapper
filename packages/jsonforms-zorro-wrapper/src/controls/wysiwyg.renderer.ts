@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { DescriptionRenderer, JsonFormsAngularService, JsonFormsControl } from '../jsonForms';
-import { Actions, and, getAjv, isRequired, isVisible, optionIs, RankedTester, rankWith, uiTypeIs, ValidationError } from '../core';
+import { Actions, and, type JsonSchema, optionIs, RankedTester, rankWith, Resolve, uiTypeIs, ValidationError } from '../core';
 import { NzFormControlComponent, NzFormItemComponent, NzFormLabelComponent } from 'ng-zorro-antd/form';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { QuillEditorComponent } from 'ngx-quill';
@@ -23,11 +23,7 @@ import Quill from 'quill/core/quill';
         </nz-form-label>
       }
       <DescriptionRenderer [uiSchema]="uischema" [scopedSchema]="scopedSchema"></DescriptionRenderer>
-      <nz-form-control
-        [nzHasFeedback]="showValidationStatus"
-        [nzErrorTip]="hasExternalValidation ? stringFieldErrorMessages.join(', ') : errorMessage"
-        [nzValidateStatus]="hasExternalValidation ? (stringFieldErrorMessages.length ? 'error' : 'success') : (form.status | nzValidationStatus)"
-      >
+      <nz-form-control [nzHasFeedback]="showValidationStatus" [nzErrorTip]="errorMessage" [nzValidateStatus]="errorStatus | nzValidationStatus">
         <quill-editor
           [id]="id"
           [formControl]="form"
@@ -72,19 +68,33 @@ import Quill from 'quill/core/quill';
   standalone: true,
 })
 export class WysiwygRenderer extends JsonFormsControl {
-  hasExternalValidation: boolean;
+  hasExternalValidation: boolean = false;
   stringFieldPostfix = '_plain_text';
   editorModules = {
     toolbar: [],
   };
   formats = null;
   stringFieldErrorMessages: string[] = [];
+  externalFieldSchema: JsonSchema;
 
   constructor(jsonformsService: JsonFormsAngularService, changeDetectorRef: ChangeDetectorRef) {
     super(jsonformsService, changeDetectorRef);
   }
 
-  override getEventValue = (event: any) => event;
+  get errorStatus(): string {
+    return this.hasExternalValidation && this.stringFieldErrorMessages.length ? 'INVALID' : this.form.status;
+  }
+
+  override get errorMessage(): string | null {
+    if (this.hasExternalValidation && this.stringFieldErrorMessages.length) {
+      return this.stringFieldErrorMessages.join(', ');
+    }
+    const schemaError = this.hasExternalValidation ? this.externalFieldSchema['errorMessage'] : this.scopedSchema['errorMessage'];
+
+    return schemaError || this.error;
+  }
+
+  override getEventValue = (event: any) => (event === '<p></p>' ? undefined : event);
 
   override mapAdditionalProps(props): void {
     super.mapAdditionalProps(props);
@@ -99,9 +109,9 @@ export class WysiwygRenderer extends JsonFormsControl {
   }
 
   override onChange(content: ContentChange): void {
-    this.jsonFormsService.updateCore(Actions.update(this.propsPath, () => content.html));
+    this.jsonFormsService.updateCore(Actions.update(this.propsPath, () => this.getEventValue(content.html)));
     if (this.uischema?.options.withStringValidation) {
-      this.jsonFormsService.updateCore(Actions.update(this.propsPath + this.stringFieldPostfix, () => content.text.trim()));
+      this.jsonFormsService.updateCore(Actions.update(this.propsPath + this.stringFieldPostfix, () => content.text.trim() || undefined));
     }
     this.triggerValidation();
   }
@@ -111,9 +121,20 @@ export class WysiwygRenderer extends JsonFormsControl {
     if (this.uischema?.options.withStringValidation) {
       this.hasExternalValidation = true;
       this.stringFieldPostfix = this.uischema.options.withStringValidation === true ? '_plain_text' : this.uischema.options.withStringValidation;
-      const stringFieldPath = this.instancePath + this.stringFieldPostfix;
+
+      this.externalFieldSchema = Resolve.schema(
+        this.jsonFormsService.getState().jsonforms.core.schema,
+        this.uischema.scope + this.stringFieldPostfix,
+        this.rootSchema,
+      );
+
       this.jsonFormsService.$allErrors.pipe(takeUntil(this.destroy$)).subscribe((errors: ValidationError[]) => {
-        this.stringFieldErrorMessages = errors.filter(err => err.instancePath === stringFieldPath).map(err => err.message);
+        this.stringFieldErrorMessages = errors
+          .filter(err => err.instancePath === this.instancePath + this.stringFieldPostfix)
+          .map(err => err.message);
+        if (this.stringFieldErrorMessages.length) {
+          this.form.setErrors(this.stringFieldErrorMessages);
+        }
       });
     }
   }
