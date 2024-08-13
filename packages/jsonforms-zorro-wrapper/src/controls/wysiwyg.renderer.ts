@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { DescriptionRenderer, JsonFormsAngularService, JsonFormsControl } from '../jsonForms';
-import { Actions, and, optionIs, RankedTester, rankWith, uiTypeIs, ValidationError } from '../core';
+import { Actions, and, getAjv, isRequired, isVisible, optionIs, RankedTester, rankWith, uiTypeIs, ValidationError } from '../core';
 import { NzFormControlComponent, NzFormItemComponent, NzFormLabelComponent } from 'ng-zorro-antd/form';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { QuillEditorComponent } from 'ngx-quill';
@@ -119,7 +119,7 @@ export class WysiwygRenderer extends JsonFormsControl {
   }
 
   created(quill: Quill): void {
-    if (this.uischema?.options.withStringValidation) {
+    if (this.uischema?.options.withStringValidation && !this.hidden && quill.getText().trim()) {
       this.jsonFormsService.updateCore(Actions.update(this.propsPath + this.stringFieldPostfix, () => quill.getText().trim()));
     }
   }
