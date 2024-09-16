@@ -23,10 +23,10 @@
   THE SOFTWARE.
 */
 
-import { get, find } from 'lodash-es';
+import { find, get } from 'lodash-es';
 import { ControlElement, isLabelable, JsonSchema, LabelElement, UISchemaElement } from '../models';
+import type { JsonFormsCellRendererRegistryEntry, JsonFormsRendererRegistryEntry, JsonFormsUISchemaRegistryEntry } from '../reducers';
 import {
-  getUISchemas,
   getAjv,
   getCells,
   getConfig,
@@ -38,8 +38,8 @@ import {
   getSubErrorsAt,
   getTranslator,
   getUiSchema,
+  getUISchemas,
 } from '../reducers';
-import type { JsonFormsCellRendererRegistryEntry, JsonFormsRendererRegistryEntry, JsonFormsUISchemaRegistryEntry } from '../reducers';
 import type { RankedTester } from '../testers';
 import { hasShowRule, isInherentlyEnabled, isRuleFulfilled, isVisible } from './runtime';
 import { createLabelDescriptionFrom } from './label';
@@ -53,11 +53,11 @@ import type { ErrorObject } from 'ajv';
 import type { JsonFormsState } from '../store';
 import {
   deriveLabelForUISchemaElement,
+  getArrayTranslations,
   getCombinedErrorMessage,
   getI18nKey,
   getI18nKeyPrefix,
   getI18nKeyPrefixBySchema,
-  getArrayTranslations,
   Translator,
 } from '../i18n';
 import { arrayDefaultTranslations, ArrayTranslations } from '../i18n/arrayTranslations';
@@ -424,9 +424,14 @@ export const mapStateToControlProps = (state: JsonFormsState, ownProps: OwnProps
     path,
     errors,
   });
-  const i18nDescription = t(getI18nKey(schema, uischema, path, 'description'), description, { schema, uischema, path, errors });
-  const i18nErrorMessage = getCombinedErrorMessage(errors, te, t, schema, uischema, path);
-
+  const errorsWithCustomMessageFromSchema = errors.map(er => ({ ...er, message: er.parentSchema.errorMessage || er.message }));
+  const i18nDescription = t(getI18nKey(schema, uischema, path, 'description'), description, {
+    schema,
+    uischema,
+    path,
+    errorsWithCustomMessageFromSchema,
+  });
+  const i18nErrorMessage = getCombinedErrorMessage(errorsWithCustomMessageFromSchema, te, t, schema, uischema, path);
   return {
     data,
     description: i18nDescription,
