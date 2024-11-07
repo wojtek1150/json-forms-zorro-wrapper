@@ -86,12 +86,17 @@ export class WysiwygRenderer extends JsonFormsControl {
   }
 
   override get errorMessage(): string | null {
+    const schemaError = this.hasExternalValidation ? this.externalFieldSchema['errorMessage'] : this.scopedSchema['errorMessage'];
+
+    if (schemaError) {
+      return schemaError;
+    }
+
     if (this.hasExternalValidation && this.stringFieldErrorMessages.length) {
       return this.stringFieldErrorMessages.join(', ');
     }
-    const schemaError = this.hasExternalValidation ? this.externalFieldSchema['errorMessage'] : this.scopedSchema['errorMessage'];
 
-    return schemaError || this.error;
+    return this.error;
   }
 
   override getEventValue = (event: any) => (event === '<p></p>' ? undefined : event);
