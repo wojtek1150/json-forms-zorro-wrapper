@@ -2,86 +2,83 @@
   "type": "VerticalLayout",
   "elements": [
     {
-      "type": "Control",
-      "scope": "#/properties/mentionField",
-      "label": "User selection",
-      "options": {
-        "format": "mention",
-        "mentionKey": "users",
-        "returnValueKey": "email"
-      }
-    },
-    {
-      "type": "Control",
-      "label": "Completed",
-      "scope": "#/properties/done"
-    },
-    {
-      "type": "Control",
-      "scope": "#/properties/name"
-    },
-    {
-      "type": "Control",
-      "scope": "#/properties/programmingLanguages",
-      "label": "What programming languages are you most comfortable with?"
-    },
-    {
-      "type": "Control",
-      "scope": "#/properties/programmingLanguages",
-      "label": "What programming languages are you most comfortable with?",
-      "options": {
-        "format": "multiselect"
-      }
-    },
-    {
-      "type": "HorizontalLayout",
+      "label": "Personal Details",
+      "type": "Group",
       "elements": [
         {
-          "type": "Control",
-          "scope": "#/properties/due_date"
+          "scope": "#/properties/firstName",
+          "label": "First name",
+          "options": {
+            "readonly": true
+          },
+          "type": "Control"
+        }, {
+          "scope": "#/properties/lastName",
+          "label": "Last name",
+          "options": {
+            "readonly": true
+          },
+          "type": "Control"
+        }, {
+          "scope": "#/properties/email",
+          "label": "Email",
+          "type": "Control"
+        }, {
+          "scope": "#/properties/country",
+          "label": "Country",
+          "type": "Control"
+        }, {
+          "scope": "#/properties/personalDetails/properties/jobTitle",
+          "label": "Job Title and Company",
+          "description": "Example: Senior Backend Engineer @ Gitlab",
+          "type": "Control"
+        }, {
+          "scope": "#/properties/personalDetails/properties/bio",
+          "label": "Please provide a short bio that describes who you are, what you do and what you're passionate about.",
+          "description": "Minimum 400 characters or 2-minute video. You may choose to write this in your native language.",
+          "options": {
+            "wysiwyg": true,
+            "withStringValidation": true,
+            "toolbar": [
+              ["bold", "italic", "underline", "strike"], ["link"], [
+                {
+                  "list": "ordered"
+                }, {
+                  "list": "bullet"
+                }
+              ]
+            ],
+            "formats": ["bold", "italic", "underline", "strike", "link", "list"]
+          },
+          "type": "Control"
+        }, {
+          "scope": "#/properties/personalDetails/properties/programmingLanguages",
+          "label": "What programming languages can you code in?",
+          "description": "Select up to 5, pick your strongest.",
+          "options": {
+            "format": "multiselect"
+          },
+          "type": "Control"
         },
         {
           "type": "Control",
-          "scope": "#/properties/rating"
-        }
-      ]
-    },
-    {
-      "type": "HorizontalLayout",
-      "elements": [
-        {
+          "scope": "#/properties/mentionField",
+          "label": "Mentioned by",
+          "options": {
+            "format": "mention",
+            "mentionKey": "users",
+            "returnValueKey": "email"
+          }
+        }, {
           "type": "Control",
-          "scope": "#/properties/recurrence"
-        },
-        {
-          "type": "Control",
-          "scope": "#/properties/recurrence_interval",
-          "rule": {
-            "effect": "HIDE",
-            "condition": {
-              "type": "LEAF",
-              "scope": "#/properties/recurrence",
-              "expectedValue": "Never"
-            }
+          "scope": "#/properties/externalField",
+          "label": "Multiselect that use external value",
+          "options": {
+            "format": "multiselect",
+            "dictionaryKey": "tags"
           }
         }
       ]
-    },
-    {
-      "type": "Control",
-      "scope": "#/properties/description",
-      "options": {
-        "multi": true
-      }
-    },
-    {
-      "type": "Control",
-      "scope": "#/properties/externalField",
-      "label": "Multiselect that use external value",
-      "options": {
-        "format": "multiselect",
-        "dictionaryKey": "tags"
-      }
     }
   ]
 }

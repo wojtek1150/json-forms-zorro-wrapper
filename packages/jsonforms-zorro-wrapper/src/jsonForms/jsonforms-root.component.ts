@@ -41,6 +41,11 @@ export class JsonForms implements OnChanges, OnInit, OnDestroy {
 
   constructor(private service: JsonFormsAngularService) {}
 
+  // noinspection JSUnusedGlobalSymbols
+  public get isInitialized(): boolean {
+    return this.initialized;
+  }
+
   @Input()
   set initStepIndex(index: number) {
     if (this.service) {

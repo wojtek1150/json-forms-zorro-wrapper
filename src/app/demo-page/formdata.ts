@@ -1,17 +1,11 @@
 import { Config } from '@wojtek1150/jsonforms-zorro-wrapper';
 
 export const formData = {
-  bio: 'Lorem Ipsum',
-  vegetarian: false,
-  birthDate: '2022-06-01',
-  personalData: {
-    age: 34,
+  firstName: 'Jane',
+  lastName: 'Doe',
+  personalDetails: {
+    bio: '<p>Lorem<a href="http://google.com" rel="noopener noreferrer" target="_blank">Ipsum</a></p>',
   },
-  nationality: 'DE',
-  toggle: true,
-  slider: 2,
-  enum: 'Two',
-  mentionField: ['jane.doe@gmail.com'],
 };
 
 export const jsonformsConfig: Config = {
