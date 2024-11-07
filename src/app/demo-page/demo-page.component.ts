@@ -39,7 +39,7 @@ export class DemoPageComponent {
 
   log($event: any) {
     console.log('======');
-    console.log($event);
+    console.log('dataChange', $event);
     console.log('======');
   }
 }

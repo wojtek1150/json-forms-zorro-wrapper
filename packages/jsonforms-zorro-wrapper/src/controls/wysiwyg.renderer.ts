@@ -8,7 +8,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NzValidationStatusPipe } from '../other/validation-status.pipe';
 import { ContentChange } from 'ngx-quill/lib/quill-editor.component';
 import { takeUntil } from 'rxjs';
-import Quill from 'quill/core/quill';
 
 @Component({
   selector: 'WysiwygRenderer',
@@ -31,7 +30,6 @@ import Quill from 'quill/core/quill';
           [formats]="formats"
           linkPlaceholder="Paste your link here"
           [placeholder]="placeholder"
-          (onEditorCreated)="created($event)"
           (onContentChanged)="onChange($event)"
           [styles]="{ minHeight: '100px' }"
           (blur)="triggerValidation()"
@@ -141,12 +139,6 @@ export class WysiwygRenderer extends JsonFormsControl {
           this.form.setErrors(this.stringFieldErrorMessages);
         }
       });
-    }
-  }
-
-  created(quill: Quill): void {
-    if (this.uischema?.options.withStringValidation && !this.hidden && quill.getText().trim()) {
-      this.jsonFormsService.updateCore(Actions.update(this.propsPath + this.stringFieldPostfix, () => quill.getText().trim()));
     }
   }
 }

@@ -13,6 +13,7 @@ import {
   JsonFormsState,
   JsonFormsSubStates,
   JsonSchema,
+  Layout,
   RankedTester,
   setConfig,
   SetConfigAction,
@@ -98,7 +99,40 @@ export class JsonFormsAngularService {
     const data = initialState.core.data;
     const schema = initialState.core.schema ?? generateJsonSchema(data);
     const uischema = initialState.core.uischema ?? generateDefaultUISchema(schema);
-    this.updateCore(Actions.init(data, schema, uischema));
+    this.updateCore(Actions.init(this.updateDataWithPlainTextFields(data, uischema), schema, uischema));
+  }
+
+  updateDataWithPlainTextFields(data: Object, uiSchema: UISchemaElement): Object {
+    const updatedData = { ...data };
+    const processObject = (obj, schema: any) => {
+      schema.elements?.forEach(element => {
+        // Check if this is a control with `withStringValidation` in options
+        if (element.type === 'Control' && element.options?.withStringValidation) {
+          const fieldPath = element.scope.replace('#/properties/', '').split('/properties/');
+          const fieldKey = fieldPath.pop(); // The actual key of the field
+          const nestedKey = fieldPath.reduce((acc, part) => acc && acc[part], obj);
+
+          // Check if this field exists in the `data`
+          if (nestedKey && nestedKey[fieldKey]) {
+            // Extract plain text from HTML
+            const plainTextValue = nestedKey[fieldKey].replace(/<\/?[^>]+(>|$)/g, '');
+
+            // Add a new field with "_plain_text" suffix
+            nestedKey[`${fieldKey}_plain_text`] = plainTextValue;
+          }
+        }
+
+        // If nested elements are present, recurse
+        if (element.elements) {
+          processObject(obj, element);
+        }
+      });
+    };
+
+    // Start processing the data object based on the uiSchema
+    processObject(updatedData, uiSchema);
+
+    return updatedData;
   }
 
   /**
