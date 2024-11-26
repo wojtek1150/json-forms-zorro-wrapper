@@ -37,7 +37,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [DescriptionRenderer, NzSwitchComponent, ReactiveFormsModule],
 })
 export class ToggleControlRenderer extends JsonFormsControl {
-  private selectedState: boolean = false;
+  private selectedState: boolean;
 
   constructor(jsonformsService: JsonFormsAngularService, changeDetectorRef: ChangeDetectorRef) {
     super(jsonformsService, changeDetectorRef);
