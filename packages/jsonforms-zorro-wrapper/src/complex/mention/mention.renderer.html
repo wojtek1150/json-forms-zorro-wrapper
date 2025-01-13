@@ -14,7 +14,7 @@
         (ngModelChange)="onChange($event)"
         [formControl]="form"
         [id]="id"
-        [nzMaxTagCount]="uischema.options.nzMaxTagCount"
+        [nzMaxTagCount]="uischema.options.nzMaxTagCount || INFINITY"
         [nzPlaceHolder]="placeholder"
         [nzOptionHeightPx]="42"
         nzMode="multiple">
