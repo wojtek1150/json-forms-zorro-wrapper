@@ -23,7 +23,7 @@
   THE SOFTWARE.
 */
 
-import { ControlElement, UISchemaElement, JsonSchema } from '../models';
+import { ControlElement, JsonSchema, UISchemaElement } from '../models';
 import { coreReducer, errorAt, subErrorsAt } from './core';
 import { defaultDataReducer } from './default-data';
 import { rendererReducer } from './renderers';
@@ -36,9 +36,9 @@ import { Generate } from '../generators';
 
 import { cellReducer } from './cells';
 import { configReducer } from './config';
-import get from 'lodash/get';
 import { fetchTranslator } from '.';
 import type { ErrorTranslator, Translator } from '../i18n';
+import { get } from 'lodash-es';
 
 export const jsonFormsReducerConfig = {
   core: coreReducer,

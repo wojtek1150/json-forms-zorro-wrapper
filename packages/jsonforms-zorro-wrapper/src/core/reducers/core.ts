@@ -23,7 +23,7 @@
   THE SOFTWARE.
 */
 
-import { cloneDeep, filter, get, isEqual, isFunction } from 'lodash-es';
+import { cloneDeep, filter, get, isEqual, isFunction, set } from 'lodash-es';
 import setFp from 'lodash/fp/set';
 import type Ajv from 'ajv';
 import type { ErrorObject, ValidateFunction } from 'ajv';

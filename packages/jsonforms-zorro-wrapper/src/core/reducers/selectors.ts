@@ -23,15 +23,15 @@
   THE SOFTWARE.
 */
 
-import get from "lodash/get";
-import type Ajv from "ajv";
-import type { JsonFormsState } from "../store";
-import type { JsonSchema, UISchemaElement } from "../models";
-import { extractAjv, extractData, extractErrors, extractSchema, extractUiSchema } from "./core";
-import { extractDefaultData, JsonFormsDefaultDataRegistryEntry } from "./default-data";
-import type { JsonFormsRendererRegistryEntry } from "./renderers";
-import type { JsonFormsCellRendererRegistryEntry } from "./cells";
-import type { JsonFormsUISchemaRegistryEntry } from "./uischemas";
+import type Ajv from 'ajv';
+import type { JsonFormsState } from '../store';
+import type { JsonSchema, UISchemaElement } from '../models';
+import { extractAjv, extractData, extractErrors, extractSchema, extractUiSchema } from './core';
+import { extractDefaultData, JsonFormsDefaultDataRegistryEntry } from './default-data';
+import type { JsonFormsRendererRegistryEntry } from './renderers';
+import type { JsonFormsCellRendererRegistryEntry } from './cells';
+import type { JsonFormsUISchemaRegistryEntry } from './uischemas';
+import { get } from 'lodash-es';
 
 export const getData = (state: JsonFormsState) => extractData(get(state, 'jsonforms.core'));
 export const getErrors = (state: JsonFormsState) => extractErrors(get(state, 'jsonforms.core'));

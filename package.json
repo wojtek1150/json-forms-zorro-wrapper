@@ -28,6 +28,7 @@
     "ajv": "8.12.0",
     "ajv-formats": "2.1.1",
     "lodash-es": "4.17.21",
+    "lodash": "4.17.21",
     "monaco-editor": "0.47.0",
     "ng-zorro-antd": "18.2.1",
     "ngx-quill": "26.0.9",

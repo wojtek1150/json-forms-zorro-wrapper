@@ -17,7 +17,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { JsonFormsControl } from './control';
 import { JsonFormsAngularService } from './jsonforms.service';
 
-import { get, isEqual } from 'lodash';
+import { get, isEqual } from 'lodash-es';
 import { JFZElement } from '../other/uischema';
 
 const areEqual = (prevProps: StatePropsOfJsonFormsRenderer, nextProps: StatePropsOfJsonFormsRenderer) => {
