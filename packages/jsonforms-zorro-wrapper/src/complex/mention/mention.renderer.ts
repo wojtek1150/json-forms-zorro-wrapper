@@ -34,6 +34,8 @@ interface Person {
   ],
 })
 export class MentionControlRenderer extends JsonFormsControl {
+  readonly INFINITY = Infinity;
+
   selectOptions: { user: Person; value: string | Person; checked?: boolean }[] = [];
   returnValueKey: string = 'email';
 

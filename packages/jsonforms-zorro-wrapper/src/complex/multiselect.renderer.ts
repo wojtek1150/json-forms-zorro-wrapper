@@ -27,7 +27,7 @@ import { NzValidationStatusPipe } from '../other/validation-status.pipe';
             nzMode="multiple"
             [id]="id"
             [formControl]="form"
-            [nzMaxTagCount]="uischema.options.nzMaxTagCount"
+            [nzMaxTagCount]="uischema.options.nzMaxTagCount || INFINITY"
             [nzPlaceHolder]="placeholder"
             (ngModelChange)="onChange($event)"
             (blur)="triggerValidation()"
@@ -66,6 +66,8 @@ import { NzValidationStatusPipe } from '../other/validation-status.pipe';
   ],
 })
 export class MultiselectControlRenderer extends JsonFormsControl {
+  readonly INFINITY = Infinity;
+
   options: { label: string; value: string; checked?: boolean }[];
 
   constructor(jsonformsService: JsonFormsAngularService, changeDetectorRef: ChangeDetectorRef) {
