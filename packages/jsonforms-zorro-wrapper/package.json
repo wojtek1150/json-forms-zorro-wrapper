@@ -28,6 +28,7 @@
     "ajv-formats": "^2.1.1",
     "ng-zorro-antd": "18",
     "ngx-quill": "26",
+    "quill": "2.0.2",
     "lodash-es": "^4.17"
   }
 }
