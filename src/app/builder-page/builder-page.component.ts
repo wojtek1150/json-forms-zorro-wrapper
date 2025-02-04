@@ -18,7 +18,6 @@ import { NzTabsModule } from 'ng-zorro-antd/tabs';
   selector: 'app-builder-page',
   templateUrl: './builder-page.component.html',
   styleUrls: ['./builder-page.component.scss'],
-  standalone: true,
   imports: [
     DragDropModule,
     ListInputSourceComponent,

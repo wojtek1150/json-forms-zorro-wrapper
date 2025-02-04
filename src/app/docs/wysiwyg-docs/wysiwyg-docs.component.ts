@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { JFZVerticalLayout, JsonFormsZorroModule, JsonSchema } from '@wojtek1150/jsonforms-zorro-wrapper';
 import { NzTableModule } from 'ng-zorro-antd/table';
-import { JsonPipe } from '@angular/common';
 import { EditorFormatterPipe } from '../../pipes/editor-formatter.pipe';
 import { NzCodeEditorComponent } from 'ng-zorro-antd/code-editor';
 import { FormsModule } from '@angular/forms';
@@ -10,8 +9,7 @@ import { ControlDocsAbstract } from '../control-docs.abstract';
 @Component({
   selector: 'app-wysiwyg-docs',
   templateUrl: './wysiwyg-docs.component.html',
-  standalone: true,
-  imports: [JsonFormsZorroModule, NzTableModule, JsonPipe, EditorFormatterPipe, NzCodeEditorComponent, FormsModule],
+  imports: [JsonFormsZorroModule, NzTableModule, EditorFormatterPipe, NzCodeEditorComponent, FormsModule],
   styles: [
     `
       .flex {

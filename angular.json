@@ -18,13 +18,22 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular/build:application",
           "options": {
-            "outputPath": "",
-            "allowedCommonJsDependencies": ["lodash", "quill-delta", "ajv", "ajv-formats"],
+            "deleteOutputPath": false,
+            "outputPath": {
+              "base": "dist/json-forms-zorro-wrapper"
+            },
+            "allowedCommonJsDependencies": [
+              "lodash",
+              "quill-delta",
+              "ajv",
+              "ajv-formats"
+            ],
             "index": "src/index.html",
-            "main": "src/main.ts",
-            "polyfills": "src/polyfills.ts",
+            "polyfills": [
+              "src/polyfills.ts"
+            ],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
@@ -41,12 +50,18 @@
               "src/favicon.ico",
               "src/assets"
             ],
-            "styles": ["./node_modules/ng-zorro-antd/ng-zorro-antd.variable.min.css", "src/styles.scss"],
-            "scripts": []
+            "styles": [
+              "./node_modules/ng-zorro-antd/ng-zorro-antd.variable.min.css",
+              "src/styles.scss"
+            ],
+            "scripts": [],
+            "browser": "src/main.ts"
           },
           "configurations": {
             "production": {
-              "outputPath": "docs",
+              "outputPath": {
+                "base": "docs"
+              },
               "baseHref": "/json-forms-zorro-wrapper/",
               "budgets": [
                 {
@@ -69,9 +84,7 @@
               "outputHashing": "all"
             },
             "development": {
-              "buildOptimizer": false,
               "optimization": false,
-              "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
@@ -80,7 +93,7 @@
           "defaultConfiguration": "production"
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
               "buildTarget": "json-forms:build:production"
@@ -92,7 +105,7 @@
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "builder": "@angular/build:extract-i18n",
           "options": {
             "buildTarget": "json-forms:build"
           }
@@ -106,7 +119,7 @@
       "prefix": "",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "builder": "@angular/build:ng-packagr",
           "options": {
             "tsConfig": "packages/jsonforms-zorro-wrapper/tsconfig.lib.json",
             "project": "packages/jsonforms-zorro-wrapper/ng-package.json"

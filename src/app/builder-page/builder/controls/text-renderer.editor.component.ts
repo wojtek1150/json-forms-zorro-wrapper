@@ -9,7 +9,6 @@ import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import set from 'lodash-es/set';
 
 @Component({
-  standalone: true,
   imports: [NzInputModule, FormsModule, NzInputNumberModule, NzCheckboxModule],
   selector: 'text-renderer-editor',
   template: `

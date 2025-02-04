@@ -1,12 +1,11 @@
 import { Component, ContentChild, Input, TemplateRef } from '@angular/core';
 import { BuilderService } from './builder.service';
 import { CdkDragExit, DragDropModule } from '@angular/cdk/drag-drop';
-import { JsonPipe, NgTemplateOutlet } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 import { JFZBuilderControl } from './model';
 
 @Component({
-  standalone: true,
-  imports: [DragDropModule, NgTemplateOutlet, JsonPipe],
+  imports: [DragDropModule, NgTemplateOutlet],
   selector: 'dnd-list-input-source',
   template: `
     <div

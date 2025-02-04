@@ -9,7 +9,6 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-date-range-picker-docs',
   templateUrl: './date-range-picker-docs.component.html',
-  standalone: true,
   imports: [JsonFormsZorroModule, NzTableModule, EditorFormatterPipe, NzCodeEditorModule, FormsModule],
 })
 export class DateRangePickerDocsComponent extends ControlDocsAbstract {

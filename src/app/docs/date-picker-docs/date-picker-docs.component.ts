@@ -9,7 +9,6 @@ import { ControlDocsAbstract } from '../control-docs.abstract';
 @Component({
   selector: 'app-date-picker-docs',
   templateUrl: './date-picker-docs.component.html',
-  standalone: true,
   imports: [JsonFormsZorroModule, NzTableModule, NzCodeEditorModule, FormsModule, EditorFormatterPipe],
 })
 export class DatePickerDocsComponent extends ControlDocsAbstract {

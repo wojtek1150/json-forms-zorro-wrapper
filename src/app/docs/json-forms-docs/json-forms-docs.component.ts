@@ -4,7 +4,6 @@ import { NzTableModule } from 'ng-zorro-antd/table';
 @Component({
   selector: 'app-jsonforms-docs',
   templateUrl: './json-forms-docs.component.html',
-  standalone: true,
   imports: [NzTableModule],
 })
 export class JsonFormsDocsComponent {

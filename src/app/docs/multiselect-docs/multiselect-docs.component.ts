@@ -7,7 +7,6 @@ import { JsonPipe } from '@angular/common';
 @Component({
   selector: 'app-multiselect-docs',
   templateUrl: './multiselect-docs.component.html',
-  standalone: true,
   imports: [JsonFormsZorroModule, NzTableModule, NzAlertModule, JsonPipe],
 })
 export class MultiselectDocsComponent {

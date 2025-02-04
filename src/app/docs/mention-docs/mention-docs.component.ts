@@ -10,7 +10,6 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-mention-docs',
   templateUrl: './mention-docs.component.html',
-  standalone: true,
   imports: [JsonFormsZorroModule, NzTableModule, JsonPipe, EditorFormatterPipe, NzCodeEditorModule, FormsModule],
 })
 export class MentionDocsComponent extends ControlDocsAbstract {
