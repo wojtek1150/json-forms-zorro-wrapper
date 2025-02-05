@@ -6,7 +6,6 @@ import { JsonPipe } from '@angular/common';
 @Component({
   selector: 'app-select-docs',
   templateUrl: './select-docs.component.html',
-  standalone: true,
   imports: [JsonFormsZorroModule, NzTableModule, JsonPipe],
 })
 export class SelectDocsComponent {

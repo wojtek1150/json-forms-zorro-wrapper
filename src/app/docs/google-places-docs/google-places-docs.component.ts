@@ -7,7 +7,6 @@ import { JsonPipe } from '@angular/common';
 @Component({
   selector: 'app-google-places-docs',
   templateUrl: './google-places-docs.component.html',
-  standalone: true,
   imports: [JsonFormsZorroModule, NzTableModule, NzAlertModule, JsonPipe],
   styles: [
     `

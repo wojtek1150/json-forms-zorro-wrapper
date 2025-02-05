@@ -10,7 +10,6 @@ import { ControlDocsAbstract } from '../control-docs.abstract';
 @Component({
   selector: 'app-toggle-docs',
   templateUrl: './toggle-docs.component.html',
-  standalone: true,
   imports: [JsonFormsZorroModule, NzTableModule, JsonPipe, EditorFormatterPipe, NzCodeEditorModule, FormsModule],
 })
 export class ToggleDocsComponent extends ControlDocsAbstract {

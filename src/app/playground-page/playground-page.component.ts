@@ -24,7 +24,6 @@ import { wysiwygForm } from './schemas/wysiwyg-form';
 @Component({
   selector: 'app-playground-page',
   templateUrl: './playground-page.component.html',
-  standalone: true,
   styles: [
     `
       :host {

@@ -7,7 +7,6 @@ import { RouterLink, RouterOutlet } from '@angular/router';
   selector: 'app-docs',
   templateUrl: './docs.component.html',
   styleUrls: ['./docs.component.scss'],
-  standalone: true,
   imports: [NzLayoutModule, NzMenuModule, RouterLink, RouterOutlet],
 })
 export class DocsComponent {}

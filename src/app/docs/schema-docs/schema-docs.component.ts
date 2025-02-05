@@ -5,7 +5,6 @@ import { NzAlertModule } from 'ng-zorro-antd/alert';
 @Component({
   selector: 'app-schema-docs',
   templateUrl: './schema-docs.component.html',
-  standalone: true,
   imports: [NzTableModule, NzAlertModule],
 })
 export class SchemaDocsComponent {

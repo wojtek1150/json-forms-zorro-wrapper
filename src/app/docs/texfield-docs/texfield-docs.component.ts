@@ -6,7 +6,6 @@ import { JsonPipe } from '@angular/common';
 @Component({
   selector: 'app-texfield-docs',
   templateUrl: './texfield-docs.component.html',
-  standalone: true,
   imports: [JsonFormsZorroModule, NzTableModule, JsonPipe],
 })
 export class TexfieldDocsComponent {

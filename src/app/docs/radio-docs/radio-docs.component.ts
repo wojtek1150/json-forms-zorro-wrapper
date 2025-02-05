@@ -7,7 +7,6 @@ import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-radio-docs',
   templateUrl: './radio-docs.component.html',
-  standalone: true,
   imports: [JsonFormsZorroModule, NzTableModule, JsonPipe, RouterLink],
 })
 export class RadioDocsComponent {

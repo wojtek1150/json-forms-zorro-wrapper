@@ -5,7 +5,6 @@ import { BuilderService } from './builder.service';
 import { JFZBuilderControl } from './model';
 
 @Component({
-  standalone: true,
   imports: [DragDropModule, NgTemplateOutlet],
   selector: 'dnd-list-input-target',
   template: `
@@ -44,12 +43,12 @@ import { JFZBuilderControl } from './model';
         </ng-template>
       </div>
     }
-    
+
     @if (!_forcePreviewIconContainerHidden && service.dropInputs.length < 1) {
       <ng-template [ngTemplateOutlet]="placeholderRef || null"></ng-template>
     }
     </div>
-    
+
     <ng-template #body></ng-template>
     `,
   styles: [':host {display: block;}'],
