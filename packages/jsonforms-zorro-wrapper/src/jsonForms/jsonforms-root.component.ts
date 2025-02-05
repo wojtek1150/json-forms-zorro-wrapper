@@ -11,7 +11,6 @@ import { JsonFormsOutlet } from './jsonforms.component';
   selector: 'jsonforms',
   template: '<jsonforms-outlet></jsonforms-outlet>',
   providers: [JsonFormsAngularService],
-  standalone: true,
   imports: [JsonFormsOutlet],
 })
 export class JsonForms implements OnChanges, OnInit, OnDestroy {

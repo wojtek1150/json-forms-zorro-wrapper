@@ -33,7 +33,6 @@ import { ReactiveFormsModule } from '@angular/forms';
     `,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
   imports: [DescriptionRenderer, NzSwitchComponent, ReactiveFormsModule],
 })
 export class ToggleControlRenderer extends JsonFormsControl {

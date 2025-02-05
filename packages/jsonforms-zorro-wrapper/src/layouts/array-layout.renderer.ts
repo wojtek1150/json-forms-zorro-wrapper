@@ -33,7 +33,7 @@ import { NzIconDirective } from 'ng-zorro-antd/icon';
           <h2>{{ label }}</h2>
         </nz-badge>
         <button nz-button title="{{ addTooltip }}" [disabled]="!isEnabled" (click)="add()">
-          <i nz-icon nzType="plus" nzTheme="outline"></i>
+          <nz-icon nzType="plus" nzTheme="outline" />
         </button>
       </div>
       <DescriptionRenderer [uiSchema]="uischema" [scopedSchema]="schema"></DescriptionRenderer>
@@ -49,7 +49,7 @@ import { NzIconDirective } from 'ng-zorro-antd/icon';
             @if (isEnabled) {
               <div class="actions">
                 <button nz-button nzDanger (click)="remove(idx)" title="{{ removeTooltip }}">
-                  <i nz-icon nzType="delete" nzTheme="outline"></i>
+                  <nz-icon nzType="delete" nzTheme="outline" />
                 </button>
               </div>
             }
@@ -77,7 +77,6 @@ import { NzIconDirective } from 'ng-zorro-antd/icon';
     `,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
   imports: [NgClass, NzBadgeComponent, NzButtonComponent, NzIconDirective, DescriptionRenderer, JsonFormsOutlet],
 })
 export class ArrayLayoutRenderer extends JsonFormsAbstractControl<StatePropsOfArrayLayout> implements OnInit, OnDestroy {

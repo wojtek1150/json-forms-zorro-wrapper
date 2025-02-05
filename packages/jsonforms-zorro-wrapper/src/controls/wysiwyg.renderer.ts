@@ -16,7 +16,7 @@ import { takeUntil } from 'rxjs';
       @if (label && label !== '*') {
         <nz-form-label [nzFor]="id" [nzRequired]="required" [nzNoColon]="hideColonInLabel">
           @if (labelIcon) {
-            <i nz-icon [nzType]="labelIcon" nzTheme="outline"></i>
+            <nz-icon [nzType]="labelIcon" nzTheme="outline" />
           }
           {{ label }}
         </nz-form-label>
@@ -63,7 +63,6 @@ import { takeUntil } from 'rxjs';
     ReactiveFormsModule,
     NzValidationStatusPipe,
   ],
-  standalone: true,
 })
 export class WysiwygRenderer extends JsonFormsControl {
   hasExternalValidation: boolean = false;

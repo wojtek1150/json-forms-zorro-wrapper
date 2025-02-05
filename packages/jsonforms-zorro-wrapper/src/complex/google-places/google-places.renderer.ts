@@ -17,7 +17,6 @@ import { NzInputDirective } from 'ng-zorro-antd/input';
   selector: 'GooglePlacesRenderer',
   templateUrl: './google-places.renderer.html',
   styleUrls: ['./google-places.renderer.scss'],
-  standalone: true,
   imports: [
     NzFormItemComponent,
     NzFormLabelComponent,

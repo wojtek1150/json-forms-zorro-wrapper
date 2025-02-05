@@ -1,9 +1,9 @@
 @if (scopedSchema) {
   <nz-form-item [class.hidden]="hidden" [class]="additionalClasses">
     @if (label) {
-      <nz-form-label [nzFor]="id" [nzNoColon]="hideColonInLabel" [nzRequired]="required"
-        >@if (labelIcon) {
-        <i [nzType]="labelIcon" nz-icon nzTheme="outline"></i>
+      <nz-form-label [nzFor]="id" [nzNoColon]="hideColonInLabel" [nzRequired]="required">
+        @if (labelIcon) {
+          <nz-icon [nzType]="labelIcon" nzTheme="outline" />
         } {{ label }}
       </nz-form-label>
     }
@@ -21,7 +21,7 @@
       nzType="drag">
       <ng-container>
         <p class="ant-upload-drag-icon">
-          <i nz-icon nzType="inbox"></i>
+          <nz-icon nzType="inbox" />
         </p>
         <p class="ant-upload-text">Drop image here or click to select</p>
         @if (hint) {

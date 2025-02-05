@@ -30,7 +30,6 @@ import { ReactiveFormsModule } from '@angular/forms';
     `,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
   imports: [NzFormItemComponent, DescriptionRenderer, NzFormControlComponent, NzCheckboxComponent, NzValidationStatusPipe, ReactiveFormsModule],
 })
 export class BooleanControlRenderer extends JsonFormsControl {

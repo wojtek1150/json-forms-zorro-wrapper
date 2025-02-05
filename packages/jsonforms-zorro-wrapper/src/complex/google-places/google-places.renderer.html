@@ -1,20 +1,21 @@
 <nz-form-item [class.hidden]="hidden" [class]="additionalClasses">
   @if (label && label !== '*') {
-    <nz-form-label [nzFor]="id" [nzNoColon]="hideColonInLabel" [nzRequired]="required"
-      >@if (labelIcon) {
-      <i [nzType]="labelIcon" nz-icon nzTheme="outline"></i>
-      } {{ label }}</nz-form-label
-      >
-    }
-    <DescriptionRenderer [scopedSchema]="scopedSchema" [uiSchema]="uischema"></DescriptionRenderer>
-    <nz-form-control [nzErrorTip]="errorMessage" [nzHasFeedback]="showValidationStatus" [nzValidateStatus]="form.status | nzValidationStatus">
-      <input
-        #inputElement
-        (blur)="triggerValidation()"
-        (input)="onChange($event)"
-        [formControl]="form"
-        [id]="id"
-        [placeholder]="placeholder"
-        nz-input />
-    </nz-form-control>
-  </nz-form-item>
+    <nz-form-label [nzFor]="id" [nzNoColon]="hideColonInLabel" [nzRequired]="required">
+      @if (labelIcon) {
+        <nz-icon [nzType]="labelIcon" nzTheme="outline"/>
+      } {{ label }}
+    </nz-form-label>
+  }
+  <DescriptionRenderer [scopedSchema]="scopedSchema" [uiSchema]="uischema"></DescriptionRenderer>
+  <nz-form-control [nzErrorTip]="errorMessage" [nzHasFeedback]="showValidationStatus"
+                   [nzValidateStatus]="form.status | nzValidationStatus">
+    <input
+      #inputElement
+      (blur)="triggerValidation()"
+      (input)="onChange($event)"
+      [formControl]="form"
+      [id]="id"
+      [placeholder]="placeholder"
+      nz-input/>
+  </nz-form-control>
+</nz-form-item>
