@@ -13,7 +13,6 @@ import { NzIconDirective } from 'ng-zorro-antd/icon';
   selector: 'ImageUploadRenderer',
   templateUrl: './image.renderer.html',
   styleUrls: ['./image.renderer.scss'],
-  standalone: true,
   imports: [NzFormItemComponent, NzFormLabelComponent, NzIconDirective, DescriptionRenderer, NzUploadComponent],
 })
 export class ImageControlRenderer extends JsonFormsControl {

@@ -74,7 +74,6 @@ import { NzButtonComponent } from 'ng-zorro-antd/button';
     `,
   ],
   imports: [DescriptionRenderer, NzStepsComponent, NzStepComponent, JsonFormsOutlet, NzButtonComponent],
-  standalone: true,
 })
 export class StepperLayoutRenderer extends JsonFormsBaseRenderer<JFZCategoryLayout> implements OnInit, OnDestroy {
   showButtons = false;

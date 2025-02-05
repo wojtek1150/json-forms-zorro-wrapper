@@ -4,8 +4,9 @@ import { Actions, and, hasType, JsonSchema, RankedTester, rankWith, schemaMatche
 import { hasEnumItems, hasOneOfItems } from '../other/complex.helper';
 import { NzFormControlComponent, NzFormItemComponent, NzFormLabelComponent } from 'ng-zorro-antd/form';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
-import { NzCheckboxComponent, NzCheckboxWrapperComponent } from 'ng-zorro-antd/checkbox';
+import { NzCheckboxGroupComponent } from 'ng-zorro-antd/checkbox';
 import { NzValidationStatusPipe } from '../other/validation-status.pipe';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'CheckboxGroupControlRenderer',
@@ -15,18 +16,14 @@ import { NzValidationStatusPipe } from '../other/validation-status.pipe';
         @if (label) {
           <nz-form-label [nzFor]="id" [nzRequired]="required" [nzNoColon]="hideColonInLabel">
             @if (labelIcon) {
-              <i nz-icon [nzType]="labelIcon" nzTheme="outline"></i>
+              <nz-icon [nzType]="labelIcon" nzTheme="outline" />
             }
             {{ label }}
           </nz-form-label>
         }
         <DescriptionRenderer [uiSchema]="uischema" [scopedSchema]="scopedSchema"></DescriptionRenderer>
         <nz-form-control [nzHasFeedback]="showValidationStatus" [nzErrorTip]="errorMessage" [nzValidateStatus]="form.status | nzValidationStatus">
-          <nz-checkbox-wrapper (nzOnChange)="onChange($event)">
-            @for (option of options; track option) {
-              <label nz-checkbox [nzValue]="option.value" [nzChecked]="option.checked">{{ option.label }}</label>
-            }
-          </nz-checkbox-wrapper>
+          <nz-checkbox-group [nzOptions]="options" [formControl]="form" (ngModelChange)="onChange($event)"></nz-checkbox-group>
         </nz-form-control>
       </nz-form-item>
     }
@@ -43,16 +40,15 @@ import { NzValidationStatusPipe } from '../other/validation-status.pipe';
     `,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
   imports: [
     NzFormItemComponent,
     NzFormLabelComponent,
     NzIconDirective,
     DescriptionRenderer,
     NzFormControlComponent,
-    NzCheckboxWrapperComponent,
-    NzCheckboxComponent,
     NzValidationStatusPipe,
+    ReactiveFormsModule,
+    NzCheckboxGroupComponent,
   ],
 })
 export class CheckboxGroupControlRenderer extends JsonFormsControl {

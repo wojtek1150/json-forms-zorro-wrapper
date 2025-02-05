@@ -15,9 +15,9 @@ For UI docs, see the documentation on [ngzorro website](https://ng.ant.design/do
 This plugin requires the following dependencies:
 
 ```
-"angular": "18 || 19",
-"ng-zorro-antd": "18 || 19",
-"ngx-quill": "26 || 27"
+"angular": "19",
+"ng-zorro-antd": "19",
+"ngx-quill": "27"
 ```
 
 They should be installed automatically as they are peer dependencies. However, if for some reason you are using `legacy-peer-deps = true` you need to add them to the package.json manually

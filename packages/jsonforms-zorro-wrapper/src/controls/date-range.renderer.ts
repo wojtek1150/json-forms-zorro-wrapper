@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { Actions, and, optionIs, RankedTester, rankWith, schemaTypeIs } from '../core';
 import { DescriptionRenderer, JsonFormsAngularService, JsonFormsControl } from '../jsonForms';
-import { isSameDay, differenceInCalendarDays, format, parse, parseISO } from 'date-fns';
+import { differenceInCalendarDays, format, isSameDay, parse, parseISO } from 'date-fns';
 import { NzDatePickerComponent, NzRangePickerComponent, SupportTimeOptions } from 'ng-zorro-antd/date-picker';
 import { NzFormControlComponent, NzFormItemComponent, NzFormLabelComponent } from 'ng-zorro-antd/form';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
@@ -17,7 +17,7 @@ type DateRange = [Date | string, Date | string] | null;
       @if (label && label !== '*') {
         <nz-form-label [nzFor]="id" [nzRequired]="required" [nzNoColon]="hideColonInLabel">
           @if (labelIcon) {
-            <i nz-icon [nzType]="labelIcon" nzTheme="outline"></i>
+            <nz-icon [nzType]="labelIcon" nzTheme="outline" />
           }
           {{ label }}
         </nz-form-label>
@@ -63,7 +63,6 @@ type DateRange = [Date | string, Date | string] | null;
     NzValidationStatusPipe,
     NzDatePickerComponent,
   ],
-  standalone: true,
 })
 export class DateRangeControlRenderer extends JsonFormsControl {
   dateFormat: string = 'yyyy-MM-dd';

@@ -1,4 +1,4 @@
-import { maxBy } from 'lodash-es';
+import { get, isEqual, maxBy } from 'lodash-es';
 import { Directive, Input, OnDestroy, OnInit, Type, ViewContainerRef } from '@angular/core';
 import {
   createId,
@@ -16,8 +16,6 @@ import { JsonFormsBaseRenderer } from './base.renderer';
 import { Subject, takeUntil } from 'rxjs';
 import { JsonFormsControl } from './control';
 import { JsonFormsAngularService } from './jsonforms.service';
-
-import { get, isEqual } from 'lodash-es';
 import { JFZElement } from '../other/uischema';
 
 const areEqual = (prevProps: StatePropsOfJsonFormsRenderer, nextProps: StatePropsOfJsonFormsRenderer) => {
@@ -31,10 +29,7 @@ const areEqual = (prevProps: StatePropsOfJsonFormsRenderer, nextProps: StateProp
   );
 };
 
-@Directive({
-  selector: 'jsonforms-outlet',
-  standalone: true,
-})
+@Directive({ selector: 'jsonforms-outlet' })
 export class JsonFormsOutlet extends JsonFormsBaseRenderer<JFZElement> implements OnInit, OnDestroy {
   private previousProps: StatePropsOfJsonFormsRenderer;
   private readonly destroy$ = new Subject<void>();

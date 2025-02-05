@@ -26,7 +26,6 @@ import { JsonSchema } from '../core';
     `,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
 })
 export class DescriptionRenderer<T extends JFZElement> {
   @Input() uiSchema: T;

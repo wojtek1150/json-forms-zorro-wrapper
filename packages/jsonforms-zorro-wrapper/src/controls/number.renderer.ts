@@ -14,7 +14,7 @@ import { ReactiveFormsModule } from '@angular/forms';
       @if (label && label !== '*') {
         <nz-form-label [nzFor]="id" [nzRequired]="required" [nzNoColon]="hideColonInLabel">
           @if (labelIcon) {
-            <i nz-icon [nzType]="labelIcon" nzTheme="outline"></i>
+            <nz-icon [nzType]="labelIcon" nzTheme="outline" />
           }
           {{ label }}
         </nz-form-label>
@@ -57,7 +57,6 @@ import { ReactiveFormsModule } from '@angular/forms';
     NzValidationStatusPipe,
     ReactiveFormsModule,
   ],
-  standalone: true,
 })
 export class NumberControlRenderer extends JsonFormsControl {
   oldValue: string;

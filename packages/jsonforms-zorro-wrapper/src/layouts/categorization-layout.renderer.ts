@@ -29,7 +29,6 @@ import { NzTabComponent, NzTabSetComponent } from 'ng-zorro-antd/tabs';
     `,
   ],
   imports: [NzTabSetComponent, NzTabComponent, DescriptionRenderer, JsonFormsOutlet],
-  standalone: true,
 })
 export class CategorizationTabLayoutRenderer extends JsonFormsBaseRenderer<JFZCategorizationSchema> implements OnInit, OnDestroy {
   hidden = false;

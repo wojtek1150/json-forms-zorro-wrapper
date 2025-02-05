@@ -19,7 +19,6 @@ interface Person {
   templateUrl: './mention.renderer.html',
   styleUrls: ['./mention.renderer.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
   imports: [
     NzFormItemComponent,
     NzFormLabelComponent,

@@ -37,7 +37,6 @@ import { NzButtonComponent } from 'ng-zorro-antd/button';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [DescriptionRenderer, JsonFormsOutlet, NzButtonComponent],
-  standalone: true,
 })
 export class VerticalLayoutRenderer extends LayoutRenderer<JFZVerticalLayout> {
   constructor(jsonFormsService: JsonFormsAngularService, changeDetectionRef: ChangeDetectorRef, sanitizer: DomSanitizer) {

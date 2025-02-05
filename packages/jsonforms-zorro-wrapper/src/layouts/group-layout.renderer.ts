@@ -39,7 +39,6 @@ import { NzButtonComponent } from 'ng-zorro-antd/button';
       }
     `,
   ],
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [DescriptionRenderer, JsonFormsOutlet, NzButtonComponent],
 })

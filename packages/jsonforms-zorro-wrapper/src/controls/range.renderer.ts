@@ -13,7 +13,7 @@ import { ReactiveFormsModule } from '@angular/forms';
       @if (label && label !== '*') {
         <nz-form-label [nzFor]="id" [nzRequired]="required" [nzNoColon]="hideColonInLabel">
           @if (labelIcon) {
-            <i nz-icon [nzType]="labelIcon" nzTheme="outline"></i>
+            <nz-icon [nzType]="labelIcon" nzTheme="outline" />
           }
           {{ label }}
         </nz-form-label>
@@ -45,7 +45,6 @@ import { ReactiveFormsModule } from '@angular/forms';
     NzSliderComponent,
     ReactiveFormsModule,
   ],
-  standalone: true,
 })
 export class RangeControlRenderer extends JsonFormsControl {
   min: number;

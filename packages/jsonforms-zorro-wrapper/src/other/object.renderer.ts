@@ -7,7 +7,6 @@ import { isEmpty, startCase } from 'lodash-es';
   selector: 'ObjectRenderer',
   template: ` <jsonforms-outlet [uischema]="detailUiSchema" [schema]="scopedSchema" [path]="propsPath"></jsonforms-outlet> `,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
   imports: [JsonFormsOutlet],
 })
 export class ObjectControlRenderer extends JsonFormsControlWithDetail {

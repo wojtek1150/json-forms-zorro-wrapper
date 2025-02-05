@@ -30,7 +30,6 @@ import { NzCardComponent } from 'ng-zorro-antd/card';
     `,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
   imports: [DescriptionRenderer, NzCardComponent, JsonFormsOutlet],
 })
 export class CardGroupLayoutRenderer extends LayoutRenderer<JFZCardGroupLayout> {

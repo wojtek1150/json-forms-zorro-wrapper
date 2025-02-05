@@ -14,7 +14,7 @@ import { NzValidationStatusPipe } from '../other/validation-status.pipe';
       @if (label && label !== '*') {
         <nz-form-label [nzFor]="id" [nzRequired]="required" [nzNoColon]="hideColonInLabel">
           @if (labelIcon) {
-            <i nz-icon [nzType]="labelIcon" nzTheme="outline"></i>
+            <nz-icon [nzType]="labelIcon" nzTheme="outline" />
           }
           {{ label }}
         </nz-form-label>
@@ -55,7 +55,6 @@ import { NzValidationStatusPipe } from '../other/validation-status.pipe';
     ReactiveFormsModule,
     NzValidationStatusPipe,
   ],
-  standalone: true,
 })
 export class TextControlRenderer extends JsonFormsControl {
   constructor(jsonformsService: JsonFormsAngularService, changeDetectorRef: ChangeDetectorRef) {
