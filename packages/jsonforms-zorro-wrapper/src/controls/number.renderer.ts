@@ -87,8 +87,8 @@ export class NumberControlRenderer extends JsonFormsControl {
         config: props.config,
       };
       const defaultStep = isNumberControl(this.uischema, this.rootSchema, testerContext) ? 0.1 : 1;
-      this.min = this.scopedSchema.minimum;
-      this.max = this.scopedSchema.maximum;
+      this.min = this.scopedSchema.minimum ?? Number.MIN_SAFE_INTEGER;
+      this.max = this.scopedSchema.maximum ?? Number.MAX_SAFE_INTEGER;
       this.stepper = this.scopedSchema.multipleOf || defaultStep;
     }
   }
