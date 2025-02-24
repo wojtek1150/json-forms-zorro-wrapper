@@ -33,7 +33,12 @@ import { NzValidationStatusPipe } from '../other/validation-status.pipe';
             (blur)="triggerValidation()"
           >
             @for (item of options; track item) {
-              <nz-option [nzLabel]="item.label" [nzValue]="item.value"></nz-option>
+              <nz-option nzCustomContent [nzLabel]="item.label" [nzValue]="item.value" [nzDisabled]="item.disabled">
+                {{ item.label }}
+                @if (item.hint) {
+                  <span class="hint">{{ item.hint }}</span>
+                }
+              </nz-option>
             }
           </nz-select>
         </nz-form-control>
@@ -48,6 +53,11 @@ import { NzValidationStatusPipe } from '../other/validation-status.pipe';
 
       .hidden {
         display: none;
+      }
+
+      .hint {
+        display: block;
+        font-size: 10px;
       }
     `,
   ],
@@ -67,7 +77,7 @@ import { NzValidationStatusPipe } from '../other/validation-status.pipe';
 export class MultiselectControlRenderer extends JsonFormsControl {
   readonly INFINITY = Infinity;
 
-  options: { label: string; value: string; checked?: boolean }[];
+  options: { label: string; value: string; checked?: boolean; disabled?: boolean; hint?: string }[];
 
   constructor(jsonformsService: JsonFormsAngularService, changeDetectorRef: ChangeDetectorRef) {
     super(jsonformsService, changeDetectorRef);
@@ -94,18 +104,17 @@ export class MultiselectControlRenderer extends JsonFormsControl {
     }
   }
 
-  private getOptions(): { label: string; value: string }[] {
+  private getOptions(): { label: string; value: string; checked?: boolean; disabled?: boolean; hint?: string }[] {
     const items = this.scopedSchema.items as JsonSchema;
-    const formValue = this.form.value;
     const dictionaryKey = this.uischema.options?.dictionaryKey;
     if (dictionaryKey) {
       return this.config.multiselectExternalDictionary[dictionaryKey] || [];
     }
     if (hasEnumItems(items)) {
-      return items['enum'].map(label => ({ label, value: label, checked: formValue?.includes(label) }));
+      return items['enum'].map(label => ({ label, value: label }));
     }
     if (hasOneOfItems(items)) {
-      return items['oneOf'].map(item => ({ label: item.title, value: item.const, checked: formValue?.includes(item.const) }));
+      return items['oneOf'].map(item => ({ label: item.title, value: item.const }));
     }
     return [];
   }
