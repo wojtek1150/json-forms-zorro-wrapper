@@ -154,7 +154,13 @@ export class MultiselectDocsComponent {
 
   jsonformsConfigExternal: Config = {
     multiselectExternalDictionary: {
-      tags: ['foo', 'bar', 'tar', 'some', 'value'].map(label => ({ label, value: label })),
+      tags: [
+        { label: 'foo', value: 'foo', inactive: true },
+        { label: 'bar', value: 'bar' },
+        { label: 'tar', value: 'tar' },
+        { label: 'some', value: 'some', inactive: true },
+        { label: 'value', value: 'value' },
+      ],
     },
   };
 }
