@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, computed, signal } from '@angular/core';
 import { DescriptionRenderer, JsonFormsAngularService, JsonFormsControl } from '../jsonForms';
 import { Actions, and, hasType, JsonSchema, optionIs, RankedTester, rankWith, schemaMatches, schemaSubPathMatches, uiTypeIs } from '../core';
 import { hasEnumItems, hasOneOfItems } from '../other/complex.helper';
@@ -7,6 +7,7 @@ import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { NzOptionComponent, NzSelectComponent } from 'ng-zorro-antd/select';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NzValidationStatusPipe } from '../other/validation-status.pipe';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'MultiselectControlRenderer',
@@ -22,20 +23,35 @@ import { NzValidationStatusPipe } from '../other/validation-status.pipe';
           </nz-form-label>
         }
         <DescriptionRenderer [uiSchema]="uischema" [scopedSchema]="scopedSchema"></DescriptionRenderer>
-        <nz-form-control [nzHasFeedback]="showValidationStatus" [nzErrorTip]="errorMessage" [nzValidateStatus]="form.status | nzValidationStatus">
+        <nz-form-control [nzHasFeedback]="showValidationStatus" [nzErrorTip]="errorMessage" [nzValidateStatus]="errorStatus | nzValidationStatus">
           <nz-select
             nzMode="multiple"
             [id]="id"
             [formControl]="form"
             [nzMaxTagCount]="uischema.options.nzMaxTagCount || INFINITY"
             [nzPlaceHolder]="placeholder"
+            [nzCustomTemplate]="selectedValueTemplate"
             (ngModelChange)="onChange($event)"
             (blur)="triggerValidation()"
           >
-            @for (item of options; track item) {
-              <nz-option [nzLabel]="item.label" [nzValue]="item.value"></nz-option>
+            @for (item of options(); track item) {
+              <nz-option nzCustomContent [nzLabel]="item.label" [nzValue]="item.value">
+                {{ item.label }}
+                @if (item.inactive) {
+                  <span class="inactive">inactive</span>
+                }
+              </nz-option>
             }
           </nz-select>
+          <ng-template #selectedValueTemplate let-selected>
+            <div class="ant-select-selection-item-content">
+              {{ selected.nzLabel }}
+              @let option = optionsEntities()[selected.nzValue];
+              @if (option?.inactive) {
+                <span class="inactive">inactive</span>
+              }
+            </div>
+          </ng-template>
         </nz-form-control>
       </nz-form-item>
     }
@@ -48,6 +64,10 @@ import { NzValidationStatusPipe } from '../other/validation-status.pipe';
 
       .hidden {
         display: none;
+      }
+
+      .inactive {
+        color: var(--ant-error-color);
       }
     `,
   ],
@@ -67,22 +87,37 @@ import { NzValidationStatusPipe } from '../other/validation-status.pipe';
 export class MultiselectControlRenderer extends JsonFormsControl {
   readonly INFINITY = Infinity;
 
-  options: { label: string; value: string; checked?: boolean }[];
+  options = signal<{ label: string; value: string; inactive?: boolean }[]>([]);
+  optionsEntities = computed(() =>
+    this.options().reduce((acc, option) => {
+      acc[option.value] = option;
+      return acc;
+    }, {}),
+  );
+  value = toSignal<string[] | undefined>(this.form.valueChanges);
+  hasInactiveValueSelected = computed(() => this.value()?.some(el => this.optionsEntities()[el]?.inactive));
 
   constructor(jsonformsService: JsonFormsAngularService, changeDetectorRef: ChangeDetectorRef) {
     super(jsonformsService, changeDetectorRef);
   }
 
-  override getEventValue = (event: any) => event;
+  get errorStatus(): string {
+    return this.hasInactiveValueSelected() ? 'INVALID' : this.form.status;
+  }
+
+  override get errorMessage(): string | null {
+    if (this.scopedSchema['errorMessage']) {
+      return this.scopedSchema['errorMessage'];
+    }
+
+    if (this.hasInactiveValueSelected()) {
+      return this.scopedSchema['containsInactiveValuesErrorMessage'] || 'This field cannot contain inactive values';
+    }
+
+    return this.error;
+  }
 
   override onChange(event: string[]) {
-    this.options = this.options.map(option => {
-      return {
-        label: option.label,
-        value: option.value,
-        checked: event.includes(option.value),
-      };
-    });
     this.jsonFormsService.updateCore(Actions.update(this.propsPath, () => event));
     this.triggerValidation();
   }
@@ -90,22 +125,22 @@ export class MultiselectControlRenderer extends JsonFormsControl {
   override mapAdditionalProps(props) {
     super.mapAdditionalProps(props);
     if (this.scopedSchema) {
-      this.options = this.getOptions();
+      this.options.set(this.getOptions());
     }
   }
 
-  private getOptions(): { label: string; value: string }[] {
-    const items = this.scopedSchema.items as JsonSchema;
-    const formValue = this.form.value;
+  private getOptions(): { label: string; value: string; inactive?: boolean }[] {
     const dictionaryKey = this.uischema.options?.dictionaryKey;
     if (dictionaryKey) {
       return this.config.multiselectExternalDictionary[dictionaryKey] || [];
     }
+
+    const items = this.scopedSchema.items as JsonSchema;
     if (hasEnumItems(items)) {
-      return items['enum'].map(label => ({ label, value: label, checked: formValue?.includes(label) }));
+      return items['enum'].map(label => ({ label, value: label }));
     }
     if (hasOneOfItems(items)) {
-      return items['oneOf'].map(item => ({ label: item.title, value: item.const, checked: formValue?.includes(item.const) }));
+      return items['oneOf'].map(item => ({ label: item.title, value: item.const }));
     }
     return [];
   }
