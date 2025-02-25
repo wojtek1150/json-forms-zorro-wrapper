@@ -106,12 +106,12 @@ export class MultiselectControlRenderer extends JsonFormsControl {
   }
 
   override get errorMessage(): string | null {
-    if (this.scopedSchema['errorMessage']) {
-      return this.scopedSchema['errorMessage'];
-    }
-
     if (this.hasInactiveValueSelected()) {
       return this.scopedSchema['containsInactiveValuesErrorMessage'] || 'This field cannot contain inactive values';
+    }
+
+    if (this.scopedSchema['errorMessage']) {
+      return this.scopedSchema['errorMessage'];
     }
 
     return this.error;
