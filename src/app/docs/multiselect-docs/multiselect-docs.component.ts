@@ -155,10 +155,10 @@ export class MultiselectDocsComponent {
   jsonformsConfigExternal: Config = {
     multiselectExternalDictionary: {
       tags: [
-        { label: 'foo', value: 'foo', inactive: true },
-        { label: 'bar', value: 'bar' },
+        { label: 'foo', value: 'foo', unsupported: true, additionalLabel: 'unsupported', additionalLabelColor: 'var(--ant-error-color)' },
+        { label: 'bar', value: 'bar', additionalLabel: 'recommended', additionalLabelColor: 'var(--ant-primary-color)' },
         { label: 'tar', value: 'tar' },
-        { label: 'some', value: 'some', inactive: true },
+        { label: 'some', value: 'some', unsupported: true, additionalLabel: 'inactive', additionalLabelColor: 'var(--ant-error-color)' },
         { label: 'value', value: 'value' },
       ],
     },
