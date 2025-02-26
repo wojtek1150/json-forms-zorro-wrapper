@@ -1,7 +1,9 @@
 export type MultiselectExternalDictionaryItem = {
   label: string;
   value: string;
-  checked?: boolean;
+  unsupported?: boolean;
+  additionalLabel?: string;
+  additionalLabelColor?: string;
 
   [key: string]: any;
 };

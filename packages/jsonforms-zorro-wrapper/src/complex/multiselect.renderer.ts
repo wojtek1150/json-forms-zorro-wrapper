@@ -7,6 +7,7 @@ import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { NzOptionComponent, NzSelectComponent } from 'ng-zorro-antd/select';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NzValidationStatusPipe } from '../other/validation-status.pipe';
+import { MultiselectExternalDictionaryItem } from '../other/config';
 import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
@@ -37,8 +38,8 @@ import { toSignal } from '@angular/core/rxjs-interop';
             @for (item of options(); track item) {
               <nz-option nzCustomContent [nzLabel]="item.label" [nzValue]="item.value">
                 {{ item.label }}
-                @if (item.inactive) {
-                  <span class="inactive">inactive</span>
+                @if (item.additionalLabel) {
+                  <span [style.color]="item.additionalLabelColor">{{ item.additionalLabel }}</span>
                 }
               </nz-option>
             }
@@ -47,8 +48,8 @@ import { toSignal } from '@angular/core/rxjs-interop';
             <div class="ant-select-selection-item-content">
               {{ selected.nzLabel }}
               @let option = optionsEntities()[selected.nzValue];
-              @if (option?.inactive) {
-                <span class="inactive">inactive</span>
+              @if (option.additionalLabel) {
+                <span [style.color]="option.additionalLabelColor">{{ option.additionalLabel }}</span>
               }
             </div>
           </ng-template>
@@ -64,10 +65,6 @@ import { toSignal } from '@angular/core/rxjs-interop';
 
       .hidden {
         display: none;
-      }
-
-      .inactive {
-        color: var(--ant-error-color);
       }
     `,
   ],
@@ -87,7 +84,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 export class MultiselectControlRenderer extends JsonFormsControl {
   readonly INFINITY = Infinity;
 
-  options = signal<{ label: string; value: string; inactive?: boolean }[]>([]);
+  options = signal<MultiselectExternalDictionaryItem[]>([]);
   optionsEntities = computed(() =>
     this.options().reduce((acc, option) => {
       acc[option.value] = option;
@@ -95,19 +92,19 @@ export class MultiselectControlRenderer extends JsonFormsControl {
     }, {}),
   );
   value = toSignal<string[] | undefined>(this.form.valueChanges);
-  hasInactiveValueSelected = computed(() => this.value()?.some(el => this.optionsEntities()[el]?.inactive));
+  hasUnsupportedValueSelected = computed(() => this.value()?.some(el => this.optionsEntities()[el]?.unsupported));
 
   constructor(jsonformsService: JsonFormsAngularService, changeDetectorRef: ChangeDetectorRef) {
     super(jsonformsService, changeDetectorRef);
   }
 
   get errorStatus(): string {
-    return this.hasInactiveValueSelected() ? 'INVALID' : this.form.status;
+    return this.hasUnsupportedValueSelected() ? 'INVALID' : this.form.status;
   }
 
   override get errorMessage(): string | null {
-    if (this.hasInactiveValueSelected()) {
-      return this.scopedSchema['containsInactiveValuesErrorMessage'] || 'This field cannot contain inactive values';
+    if (this.hasUnsupportedValueSelected()) {
+      return this.scopedSchema['unsupportedValuesErrorMessage'] || 'This field cannot contain unsupported values';
     }
 
     if (this.scopedSchema['errorMessage']) {
@@ -129,7 +126,7 @@ export class MultiselectControlRenderer extends JsonFormsControl {
     }
   }
 
-  private getOptions(): { label: string; value: string; inactive?: boolean }[] {
+  private getOptions(): MultiselectExternalDictionaryItem[] {
     const dictionaryKey = this.uischema.options?.dictionaryKey;
     if (dictionaryKey) {
       return this.config.multiselectExternalDictionary[dictionaryKey] || [];
