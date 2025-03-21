@@ -21,6 +21,7 @@ import { ReactiveFormsModule } from '@angular/forms';
         align-items: center;
         cursor: pointer;
         display: flex;
+        margin-bottom: 10px;
       }
 
       .switch span {
