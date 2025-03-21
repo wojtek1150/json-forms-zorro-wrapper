@@ -18,4 +18,12 @@ nz-upload ::ng-deep {
   p {
     margin: 0;
   }
+
+  .ant-upload.ant-upload-drag .ant-upload {
+    padding: 0;
+  }
+
+  .ant-upload.ant-upload-drag .ant-upload-drag-container {
+    padding: 16px 0;
+  }
 }

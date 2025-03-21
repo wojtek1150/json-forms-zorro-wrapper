@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, HostBinding, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Actions, JsonFormsI18nState, JsonFormsRendererRegistryEntry, JsonSchema, UISchemaTester, ValidationMode } from '../core';
 import Ajv, { ErrorObject } from 'ajv';
 import { JsonFormsAngularService, USE_STATE_VALUE } from './jsonforms.service';
@@ -11,6 +11,7 @@ import { JsonFormsOutlet } from './jsonforms.component';
   selector: 'jsonforms',
   template: '<jsonforms-outlet></jsonforms-outlet>',
   providers: [JsonFormsAngularService],
+  styleUrls: ['./jsonforms-root.component.scss'],
   imports: [JsonFormsOutlet],
 })
 export class JsonForms implements OnChanges, OnInit, OnDestroy {
@@ -26,6 +27,9 @@ export class JsonForms implements OnChanges, OnInit, OnDestroy {
   @Input() config: Config;
   @Input() i18n: JsonFormsI18nState;
   @Input() additionalErrors: ErrorObject[];
+  @HostBinding('class.loading-skeleton')
+  @Input()
+  loadingSkeleton: boolean = false;
   @Output() dataChange = new EventEmitter<any>();
   @Output() errors = new EventEmitter<ErrorObject[]>();
   @Output() submitted = new EventEmitter<any>();

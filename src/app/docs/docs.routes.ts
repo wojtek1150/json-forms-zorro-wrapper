@@ -63,6 +63,10 @@ export const DOCS_ROUTES: Routes = [
         path: 'google-places',
       },
       {
+        loadComponent: () => import('./skeleton-docs/skeleton-docs.component').then(c => c.SkeletonDocsComponent),
+        path: 'skeleton',
+      },
+      {
         path: '**',
         redirectTo: 'schema',
       },

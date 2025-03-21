@@ -1,0 +1,59 @@
+:host.loading-skeleton ::ng-deep {
+  label:not(.switch) {
+    background-clip: content-box, border-box;
+    background-image: linear-gradient(#fff, #fff), linear-gradient(90deg, var(--jsfw-skeleton-control-gradient-start, #5462fb), var(--jsfw-skeleton-control-gradient-end, #549ffb));
+    background-origin: border-box;
+    border: double 1px transparent;
+    border-radius: 10px;
+    color: transparent;
+    height: 16px;
+    margin-bottom: 10px;
+
+    &::before {
+      display: none !important;
+    }
+  }
+
+  .actions, .submit-wrapper, .steps-action {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  nz-form-control, label.switch, .ant-upload.ant-upload-drag .ant-upload {
+    animation: spin 2s linear infinite;
+    background-clip: content-box, border-box;
+    background-image: linear-gradient(var(--jsfw-skeleton-control-background, #fafafa), var(--jsfw-skeleton-control-background, #fafafa)), linear-gradient(45deg, var(--jsfw-skeleton-control-gradient-start, #5462fb), var(--jsfw-skeleton-control-gradient-end, #549ffb));
+    background-origin: border-box;
+    border: double 1px transparent;
+    border-radius: 10px;
+    color: transparent;
+    min-height: var(--jsfw-skeleton-min-control-height, 32px);
+    overflow: hidden;
+
+    @keyframes spin {
+      0% {
+        background-image: linear-gradient(var(--jsfw-skeleton-control-background, #fafafa), var(--jsfw-skeleton-control-background, #fafafa)), linear-gradient(0deg, var(--jsfw-skeleton-control-gradient-start, #5462fb), var(--jsfw-skeleton-control-gradient-end, #549ffb));
+      }
+
+      25% {
+        background-image: linear-gradient(var(--jsfw-skeleton-control-background, #fafafa), var(--jsfw-skeleton-control-background, #fafafa)), linear-gradient(90deg, var(--jsfw-skeleton-control-gradient-start, #5462fb), var(--jsfw-skeleton-control-gradient-end, #549ffb));
+      }
+
+      50% {
+        background-image: linear-gradient(var(--jsfw-skeleton-control-background, #fafafa), var(--jsfw-skeleton-control-background, #fafafa)), linear-gradient(180deg, var(--jsfw-skeleton-control-gradient-start, #5462fb), var(--jsfw-skeleton-control-gradient-end, #549ffb));
+      }
+
+      75% {
+        background-image: linear-gradient(var(--jsfw-skeleton-control-background, #fafafa), var(--jsfw-skeleton-control-background, #fafafa)), linear-gradient(270deg, var(--jsfw-skeleton-control-gradient-start, #5462fb), var(--jsfw-skeleton-control-gradient-end, #549ffb));
+      }
+
+      100% {
+        background-image: linear-gradient(var(--jsfw-skeleton-control-background, #fafafa), var(--jsfw-skeleton-control-background, #fafafa)), linear-gradient(360deg, var(--jsfw-skeleton-control-gradient-start, #5462fb), var(--jsfw-skeleton-control-gradient-end, #549ffb));
+      }
+    }
+
+    > * {
+      opacity: 0;
+    }
+  }
+}
