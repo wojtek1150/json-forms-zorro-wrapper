@@ -96,7 +96,7 @@ export class WysiwygRenderer extends JsonFormsControl {
     return this.error;
   }
 
-  override getEventValue = (event: any) => (event === '<p></p>' ? undefined : event);
+  override getEventValue = (event: any) => (event === '<p></p>' || !event ? undefined : event);
 
   override mapAdditionalProps(props): void {
     super.mapAdditionalProps(props);
