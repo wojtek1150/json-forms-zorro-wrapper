@@ -63,11 +63,14 @@ export class WysiwygDocsComponent extends ControlDocsAbstract {
         type: 'object',
         properties: {
           description: {
+            minLength: 20,
+            maxLength: 2000,
             type: 'string',
           },
-          description_text: {
+          description_plain_text: {
+            minLength: 20,
+            maxLength: 2000,
             type: 'string',
-            maxLength: 30,
           },
         },
       },
@@ -83,7 +86,7 @@ export class WysiwygDocsComponent extends ControlDocsAbstract {
         scope: '#/properties/personalData/properties/description',
         options: {
           wysiwyg: true,
-          withStringValidation: '_text',
+          withStringValidation: true,
           formats: ['bold', 'italic', 'underline', 'link', 'list'],
         },
       },
