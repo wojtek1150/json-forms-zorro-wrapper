@@ -1,11 +1,10 @@
-import { HttpClientModule } from '@angular/common/http';
-import { importProvidersFrom } from '@angular/core';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { provideHttpClient } from '@angular/common/http';
+import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter, withInMemoryScrolling } from '@angular/router';
 import { JZW_GOOGLE_PLACES_API_KEY } from '@wojtek1150/jsonforms-zorro-wrapper';
 import { en_US, NZ_I18N } from 'ng-zorro-antd/i18n';
 import { APP_ROUTES } from './app.routes';
-import { ApplicationConfig } from '@angular/platform-browser';
+import { ApplicationConfig } from '@angular/core';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -15,6 +14,7 @@ export const appConfig: ApplicationConfig = {
       useValue: 'YOUR_API_KEY',
     },
     provideRouter(APP_ROUTES, withInMemoryScrolling({ anchorScrolling: 'enabled' })),
-    importProvidersFrom(HttpClientModule, BrowserAnimationsModule),
+    provideAnimations(),
+    provideHttpClient(),
   ],
 };
