@@ -81,6 +81,7 @@ export class NumberControlRenderer extends JsonFormsControl {
   }
 
   override mapAdditionalProps(props: StatePropsOfControl) {
+    super.mapAdditionalProps(props);
     if (this.scopedSchema) {
       const testerContext = {
         rootSchema: this.rootSchema,
