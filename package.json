@@ -41,7 +41,7 @@
     "@angular/build": "^19.1.5",
     "@angular/cli": "19.1.5",
     "@angular/compiler-cli": "19.1.4",
-    "@types/google.maps": "3.55.7",
+    "@types/google.maps": "3.58.1",
     "@types/jasmine": "5.1.4",
     "@types/lodash-es": "4.17.12",
     "@types/node": "20.12.7",
