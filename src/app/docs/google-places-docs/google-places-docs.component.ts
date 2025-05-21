@@ -104,7 +104,7 @@ export class GooglePlacesDocsComponent {
   data1 = {
     city: 'Washington, DC',
     cityPlaceId: 'ChIJW-T2Wt7Gt4kRKl2I1CJFUsI',
-    test: {
+    scoped: {
       country: 'us',
     },
   };

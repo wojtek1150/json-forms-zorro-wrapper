@@ -10,12 +10,26 @@
   <nz-form-control [nzErrorTip]="errorMessage" [nzHasFeedback]="showValidationStatus"
                    [nzValidateStatus]="form.status | nzValidationStatus">
     <input
-      #inputElement
       (blur)="triggerValidation()"
       (input)="onChange($event)"
       [formControl]="form"
+      (ngModelChange)="autocomplete.refetchAutocompleteSuggestions(form.value)"
       [id]="id"
       [placeholder]="placeholder"
-      nz-input/>
+      nz-input
+      #autocomplete="autocomplete"
+      googlePlacesAutocomplete
+      [includedPrimaryTypes]="[AUTOCOMPLETE_CITY_PRIMARY_TYPE]"
+      [countryIsoCode]="countryIsoCodes()"
+      [nzAutocomplete]="auto"
+    />
+    <nz-autocomplete #auto (selectionChange)="onPlaceSelected($event)">
+      @for (suggestion of autocomplete.suggestions(); track suggestion.placeId) {
+        <nz-auto-option [nzValue]="suggestion.placeId" [nzLabel]="suggestion.mainText">
+          <strong>{{ suggestion.mainText }}</strong>
+          <span class="city-secondary-text">{{ suggestion.secondaryText }}</span>
+        </nz-auto-option>
+      }
+    </nz-autocomplete>
   </nz-form-control>
 </nz-form-item>

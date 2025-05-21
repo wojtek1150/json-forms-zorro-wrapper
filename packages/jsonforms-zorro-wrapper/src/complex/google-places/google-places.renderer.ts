@@ -1,9 +1,7 @@
 /// <reference types="google.maps" />
-
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, NgZone, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, signal } from '@angular/core';
 import { DescriptionRenderer, JsonFormsAngularService, JsonFormsControl } from '../../jsonForms';
 import { Actions, and, optionIs, RankedTester, rankWith, schemaTypeIs, toDataPathSegments, uiTypeIs } from '../../core';
-import { GooglePlaceFormatterHelper } from './google-places.helper';
 import { GooglePlacesApiLoaderService } from './google-places-api-loader.service';
 import { debounceTime, takeUntil } from 'rxjs';
 import { get } from 'lodash-es';
@@ -12,6 +10,9 @@ import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NzValidationStatusPipe } from '../../other/validation-status.pipe';
 import { NzInputDirective } from 'ng-zorro-antd/input';
+import { NzAutocompleteComponent, NzAutocompleteOptionComponent, NzAutocompleteTriggerDirective } from 'ng-zorro-antd/auto-complete';
+import { AUTOCOMPLETE_CITY_PRIMARY_TYPE } from './google-places';
+import { GooglePlacesAutocompleteDirective } from './google-places-autocomplete.directive';
 
 @Component({
   selector: 'GooglePlacesRenderer',
@@ -26,20 +27,22 @@ import { NzInputDirective } from 'ng-zorro-antd/input';
     ReactiveFormsModule,
     NzValidationStatusPipe,
     NzInputDirective,
+    NzAutocompleteComponent,
+    NzAutocompleteOptionComponent,
+    GooglePlacesAutocompleteDirective,
+    NzAutocompleteTriggerDirective,
   ],
 })
 export class GooglePlacesRenderer extends JsonFormsControl implements AfterViewInit {
-  @ViewChild('inputElement', { static: false }) inputElement: ElementRef;
-  private autocomplete: google.maps.places.Autocomplete;
-  private mapsEventListener: google.maps.MapsEventListener;
-  private place: google.maps.places.PlaceResult;
   private countryRestrictionField: string;
-  private countryRestrictionFieldValue: string[] = [];
+
+  readonly countryIsoCodes = signal<string[]>([]);
+
+  readonly AUTOCOMPLETE_CITY_PRIMARY_TYPE = AUTOCOMPLETE_CITY_PRIMARY_TYPE;
 
   constructor(
     jsonformsService: JsonFormsAngularService,
     changeDetectorRef: ChangeDetectorRef,
-    private ngZone: NgZone,
     private gpaLoader: GooglePlacesApiLoaderService,
   ) {
     super(jsonformsService, changeDetectorRef);
@@ -73,60 +76,24 @@ export class GooglePlacesRenderer extends JsonFormsControl implements AfterViewI
         if (this.googleLibNotFound()) {
           throw new Error('Google maps library cannot be found');
         }
-        if (this.mapsEventListener) {
-          this.mapsEventListener.remove();
-        }
-
-        this.autocomplete = new google.maps.places.Autocomplete(this.inputElement.nativeElement, {
-          types: ['(cities)'],
-        });
 
         if (this.countryRestrictionField) {
           this.jsonFormsService.$formValue.pipe(takeUntil(this.destroy$), debounceTime(1_000)).subscribe(formData => {
             const value = get(formData, this.countryRestrictionField);
-            const fieldValueToSet = !value ? [] : typeof value === 'string' ? [value] : value;
-
-            if (this.countryRestrictionFieldValue.toString() !== fieldValueToSet.toString()) {
-              this.autocomplete.setComponentRestrictions({
-                country: !value ? [] : typeof value === 'string' ? [value] : value,
-              });
-              this.onPlaceSelected({ placeId: null, formattedCityName: null });
-            }
-            this.countryRestrictionFieldValue = fieldValueToSet;
+            this.countryIsoCodes.set(!value ? [] : typeof value === 'string' ? [value] : value);
           });
         }
-
-        this.mapsEventListener = google.maps.event.addListener(this.autocomplete, 'place_changed', () => this.handleChangeEvent());
-
-        this.inputElement.nativeElement.addEventListener('keydown', (event: KeyboardEvent) => {
-          if (event.key && event.key.toLowerCase() === 'enter' && event.target === this.inputElement.nativeElement) {
-            event.preventDefault();
-            event.stopPropagation();
-          }
-        });
       }
     });
+  }
+
+  onPlaceSelected(option: NzAutocompleteOptionComponent) {
+    this.jsonFormsService.updateCore(Actions.update(this.propsPath, () => option.nzLabel));
+    this.jsonFormsService.updateCore(Actions.update(this.propsPath + 'PlaceId', () => option.nzValue));
   }
 
   private googleLibNotFound(): boolean {
     return !google || !google.maps || !google.maps.places;
-  }
-
-  private handleChangeEvent(): void {
-    this.ngZone.run(() => {
-      this.place = this.autocomplete.getPlace();
-
-      if (this.place && this.place.place_id) {
-        this.onPlaceSelected(GooglePlaceFormatterHelper.getFormattedPlace(this.place));
-      } else {
-        this.onPlaceSelected({ placeId: null, formattedCityName: null });
-      }
-    });
-  }
-
-  private onPlaceSelected(place: { placeId: string; formattedCityName: string }) {
-    this.jsonFormsService.updateCore(Actions.update(this.propsPath, () => place.formattedCityName));
-    this.jsonFormsService.updateCore(Actions.update(this.propsPath + 'PlaceId', () => place.placeId));
   }
 }
 
