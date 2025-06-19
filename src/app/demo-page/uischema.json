@@ -1,5 +1,9 @@
 {
   "type": "VerticalLayout",
+  "options": {
+    "submitLabel": "Submit",
+    "cancelLabel": "Cancel"
+  },
   "elements": [
     {
       "label": "Personal Details",

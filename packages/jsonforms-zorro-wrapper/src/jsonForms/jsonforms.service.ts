@@ -12,9 +12,7 @@ import {
   JsonFormsRendererRegistryEntry,
   JsonFormsState,
   JsonFormsSubStates,
-  JsonSchema,
-  Layout,
-  RankedTester,
+  JsonSchema, RankedTester,
   setConfig,
   SetConfigAction,
   UISchemaActions,
@@ -22,7 +20,7 @@ import {
   uischemaRegistryReducer,
   UISchemaTester,
   updateI18n,
-  ValidationMode,
+  ValidationMode
 } from '../core';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { JsonFormsBaseRenderer } from './base.renderer';
@@ -39,6 +37,7 @@ export class JsonFormsAngularService {
   private _state: JsonFormsSubStates;
   private state: BehaviorSubject<JsonFormsState>;
   private submit: BehaviorSubject<any>;
+  private cancel: BehaviorSubject<void>;
   private stepChange: BehaviorSubject<{ step: number; data: null }>;
 
   private _step = 0;
@@ -59,6 +58,13 @@ export class JsonFormsAngularService {
       throw new Error('Please call init first!');
     }
     return this.submit.asObservable();
+  }
+
+  get $cancelState(): Observable<void> {
+    if (!this.cancel) {
+      throw new Error('Please call init first!');
+    }
+    return this.cancel.asObservable();
   }
 
   get $stepChangeState(): Observable<any> {
@@ -95,6 +101,7 @@ export class JsonFormsAngularService {
     );
     this.state = new BehaviorSubject({ jsonforms: this._state });
     this.submit = new BehaviorSubject(null);
+    this.cancel = new BehaviorSubject(null);
     this.stepChange = new BehaviorSubject({ step: this._step, data: null });
     const data = initialState.core.data;
     const schema = initialState.core.schema ?? generateJsonSchema(data);
@@ -275,6 +282,10 @@ export class JsonFormsAngularService {
 
   submitForm(): void {
     this.submit.next(this._state?.core?.data || {});
+  }
+
+  cancelForm(): void {
+    this.cancel.next();
   }
 
   changeStep(step: number): void {

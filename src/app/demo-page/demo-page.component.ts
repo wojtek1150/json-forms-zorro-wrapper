@@ -41,4 +41,16 @@ export class DemoPageComponent {
     console.log('dataChange', $event);
     console.log('======');
   }
+
+  onSubmit($event: any) {
+    console.log('======');
+    console.log('submitted', $event);
+    console.log('======');
+  }
+
+  onCancel() {
+    console.log('======');
+    console.log('canceled');
+    console.log('======');
+  }
 }

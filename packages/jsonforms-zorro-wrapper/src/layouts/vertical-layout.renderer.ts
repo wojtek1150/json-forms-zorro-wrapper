@@ -20,11 +20,18 @@ import { NzButtonComponent } from 'ng-zorro-antd/button';
         </div>
       }
     </div>
-    @if (submitLabel) {
+    @if (submitLabel || cancelLabel) {
       <div class="submit-wrapper">
-        <button nz-button nzType="primary" (click)="submit()" [nzLoading]="submitLoading">
-          <span>{{ submitLabel }}</span>
-        </button>
+        @if (cancelLabel) {
+          <button nz-button nzType="default" (click)="cancel()" [nzLoading]="cancelLoading">
+            <span>{{ cancelLabel }}</span>
+          </button>
+        }
+        @if (submitLabel) {
+          <button nz-button nzType="primary" (click)="submit()" [nzLoading]="submitLoading">
+            <span>{{ submitLabel }}</span>
+          </button>
+        }
       </div>
     }
   `,
@@ -32,6 +39,11 @@ import { NzButtonComponent } from 'ng-zorro-antd/button';
     `
       .hidden {
         display: none;
+      }
+
+      .submit-wrapper {
+        display: flex;
+        gap: 10px;
       }
     `,
   ],
