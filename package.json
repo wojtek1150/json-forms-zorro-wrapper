@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build && cp docs/index.html docs/404.html",
+    "build": "rm -rf docs && ng build && mv docs/browser/* docs/ && cp docs/index.html docs/404.html && rm -rf docs/browser",
     "build:package": "ng build jsonforms-zorro-wrapper --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
