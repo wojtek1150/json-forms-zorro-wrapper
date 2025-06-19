@@ -33,6 +33,7 @@ export class JsonForms implements OnChanges, OnInit, OnDestroy {
   @Output() dataChange = new EventEmitter<any>();
   @Output() errors = new EventEmitter<ErrorObject[]>();
   @Output() submitted = new EventEmitter<any>();
+  @Output() canceled = new EventEmitter<void>();
   @Output() stepChanged = new EventEmitter<{ step: number; data: any }>();
   oldI18N: JsonFormsI18nState;
   private previousData: any;
@@ -93,6 +94,12 @@ export class JsonForms implements OnChanges, OnInit, OnDestroy {
         takeUntil(this.destroy$),
       )
       .subscribe(value => this.submitted.emit(value));
+    this.service.$cancelState
+      .pipe(
+        filter(value => value !== null),
+        takeUntil(this.destroy$),
+      )
+      .subscribe(value => this.canceled.emit(value));
     this.service.$stepChangeState
       .pipe(
         filter(value => value !== null),

@@ -8,6 +8,7 @@ import { JFZLayout } from '../other/uischema';
 @Directive()
 export class LayoutRenderer<T extends JFZLayout> extends JsonFormsBaseRenderer<T> implements OnInit, OnDestroy {
   submitLabel: string = null;
+  cancelLabel: string = null;
   submitLoading: boolean = false;
   htmlDescription: boolean = false;
   hidden = false;
@@ -51,12 +52,17 @@ export class LayoutRenderer<T extends JFZLayout> extends JsonFormsBaseRenderer<T
   // @ts-ignore
   mapSchemaOptions(options: Record<string, any>) {
     this.submitLabel = options?.submitLabel || null;
+    this.cancelLabel = options?.cancelLabel || null;
     this.htmlDescription = !!options?.html;
     // do nothing by default
   }
 
   submit() {
     this.jsonFormsService.submitForm();
+  }
+
+  cancel() {
+    this.jsonFormsService.cancelForm();
   }
 
   trackElement(_index: number, renderProp: OwnPropsOfRenderer): string | null {

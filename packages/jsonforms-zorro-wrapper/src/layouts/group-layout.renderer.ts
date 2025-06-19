@@ -19,13 +19,20 @@ import { NzButtonComponent } from 'ng-zorro-antd/button';
           <jsonforms-outlet [renderProps]="props"></jsonforms-outlet>
         </div>
       }
-      @if (submitLabel) {
-        <div class="submit-wrapper">
+    @if (submitLabel || cancelLabel) {
+      <div class="submit-wrapper">
+        @if (cancelLabel) {
+          <button nz-button nzType="default" (click)="cancel()" [nzLoading]="cancelLoading">
+            <span>{{ cancelLabel }}</span>
+          </button>
+        }
+        @if (submitLabel) {
           <button nz-button nzType="primary" (click)="submit()" [nzLoading]="submitLoading">
             <span>{{ submitLabel }}</span>
           </button>
-        </div>
-      }
+        }
+      </div>
+    }
     </div>
   `,
   styles: [
@@ -36,6 +43,11 @@ import { NzButtonComponent } from 'ng-zorro-antd/button';
 
       .hidden {
         display: none;
+      }
+
+      .submit-wrapper {
+        display: flex;
+        gap: 10px;
       }
     `,
   ],
