@@ -293,6 +293,11 @@ export interface StatePropsOfScopedRenderer extends StatePropsOfRenderer {
   errors: string;
 
   /**
+   * The keys of the errors that are caused by the data to be rendered.
+   */
+  errorKeys?: string[];
+
+  /**
    * The data to be rendered.
    */
   data: any;
@@ -406,6 +411,7 @@ export const mapStateToControlProps = (state: JsonFormsState, ownProps: OwnProps
       : controlElement.scope !== undefined && isRequired(ownProps.schema, controlElement.scope, rootSchema);
   const resolvedSchema = Resolve.schema(ownProps.schema || rootSchema, controlElement.scope, rootSchema);
   const errors = getErrorAt(path, resolvedSchema)(state);
+  const errorKeys = errors.map(er => er.keyword);
 
   const description = resolvedSchema !== undefined ? resolvedSchema.description : '';
   const data = Resolve.data(rootData, path);
@@ -436,6 +442,7 @@ export const mapStateToControlProps = (state: JsonFormsState, ownProps: OwnProps
     data,
     description: i18nDescription,
     errors: i18nErrorMessage,
+    errorKeys,
     label: i18nLabel,
     visible,
     enabled,

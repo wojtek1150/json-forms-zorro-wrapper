@@ -27,6 +27,7 @@ export abstract class JsonFormsAbstractControl<Props extends StatePropsOfControl
   showValidationStatus: boolean;
   description: string;
   error: string | null;
+  errorKeys: string[];
   scopedSchema: JsonSchema;
   rootSchema: JsonSchema;
   isEnabled: boolean;
@@ -59,7 +60,16 @@ export abstract class JsonFormsAbstractControl<Props extends StatePropsOfControl
   }
 
   get errorMessage(): string | null {
-    return this.scopedSchema['errorMessage'] || this.error;
+    const errorMessageSchema = this.scopedSchema['errorMessage'];
+    if (errorMessageSchema) {
+      if (typeof errorMessageSchema === 'string') {
+        return errorMessageSchema;
+      }
+      if (typeof errorMessageSchema === 'object') {
+        return this.errorKeys.map(key => errorMessageSchema[key]).join('\n');
+      }
+    }
+    return this.error;
   }
 
   getEventValue = (event: any) => event.value;
@@ -79,11 +89,12 @@ export abstract class JsonFormsAbstractControl<Props extends StatePropsOfControl
     this.jsonFormsService.$state.pipe(takeUntil(this.destroy$)).subscribe({
       next: (state: JsonFormsState) => {
         const props = this.mapToProps(state);
-        const { data, enabled, errors, label, required, schema, rootSchema, visible, path, config } = props;
+        const { data, enabled, errors, label, required, schema, rootSchema, visible, path, config, errorKeys } = props;
         this.label = computeLabel(label, required, config ? !config.showRequiredAsterisk : true);
         this.config = config;
         this.data = data;
         this.error = errors;
+        this.errorKeys = errorKeys || [];
         this.isEnabled = enabled;
         this.hideColonInLabel = !!config.hideColon;
         this.isEnabled ? this.form.enable() : this.form.disable();

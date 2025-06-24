@@ -17,8 +17,13 @@ export class TexfieldDocsComponent {
       name: {
         type: 'string',
         minLength: 3,
+        errorMessage: {
+          minLength: 'This is custom message for minLength',
+          required: 'This is custom message for required error',
+        },
       },
     },
+    required: ['name'],
   };
 
   uiSchema: JFZVerticalLayout = {
