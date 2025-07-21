@@ -30,6 +30,7 @@ import { ReactiveFormsModule } from '@angular/forms';
           [nzPlaceHolder]="placeholder || ''"
           [nzDisabled]="!isEnabled"
           (ngModelChange)="onChange($event)"
+          [nzFormatter]="formatValue"
           (blur)="triggerValidation()"
         ></nz-input-number>
       </nz-form-control>
@@ -43,6 +44,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 
       .hidden {
         display: none;
+      }
+
+      :host ::ng-deep .ant-input-number-out-of-range input {
+        color: initial;
       }
     `,
   ],
@@ -92,6 +97,10 @@ export class NumberControlRenderer extends JsonFormsControl {
       this.max = this.scopedSchema.maximum ?? Number.MAX_SAFE_INTEGER;
       this.stepper = this.scopedSchema.multipleOf || defaultStep;
     }
+  }
+
+  formatValue(value: number) {
+    return value ? value.toString() : '';
   }
 }
 
