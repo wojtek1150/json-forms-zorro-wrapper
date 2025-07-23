@@ -1,9 +1,8 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { DescriptionRenderer, JsonFormsAngularService, JsonFormsControl } from '../../jsonForms';
 import { Actions, and, optionIs, RankedTester, rankWith, uiTypeIs } from '../../core';
-import { NzUploadChangeParam, NzUploadComponent, NzUploadFile } from 'ng-zorro-antd/upload';
+import { NzShowUploadList, NzUploadChangeParam, NzUploadComponent, NzUploadFile, NzUploadXHRArgs } from 'ng-zorro-antd/upload';
 import { catchError, finalize, Observable, Observer, of, Subscription, tap } from 'rxjs';
-import { NzShowUploadList, NzUploadXHRArgs } from 'ng-zorro-antd/upload/interface';
 import { hasOption } from '../../other/complex.helper';
 import { JFZImageRendererService } from './image.renderer.service';
 import { NzFormItemComponent, NzFormLabelComponent } from 'ng-zorro-antd/form';
