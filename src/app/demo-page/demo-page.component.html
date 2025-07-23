@@ -1,6 +1,6 @@
 <nz-alert nzDescription="npm run install @wojtek1150/jsonforms-zorro-wrapper" nzMessage="Instalation" nzShowIcon nzType="info"></nz-alert>
 
-<nz-tabset nzTabPosition="left">
+<nz-tabs nzTabPosition="left">
   <nz-tab [nzTitle]="titleTemplate">
     <ng-template #titleTemplate>
       <nz-icon nzType="check-circle" />
@@ -29,4 +29,4 @@
   <nz-tab nzTitle="UI Schema">
     <pre><code>{{uischema | json }}</code></pre>
   </nz-tab>
-</nz-tabset>
+</nz-tabs>

@@ -3,10 +3,9 @@ import { DescriptionRenderer, JsonFormsAngularService, JsonFormsControl } from '
 import { Actions, and, type JsonSchema, optionIs, RankedTester, rankWith, Resolve, uiTypeIs, ValidationError } from '../core';
 import { NzFormControlComponent, NzFormItemComponent, NzFormLabelComponent } from 'ng-zorro-antd/form';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
-import { QuillEditorComponent } from 'ngx-quill';
+import { ContentChange, QuillEditorComponent } from 'ngx-quill';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NzValidationStatusPipe } from '../other/validation-status.pipe';
-import { ContentChange } from 'ngx-quill/lib/quill-editor.component';
 import { takeUntil } from 'rxjs';
 
 @Component({

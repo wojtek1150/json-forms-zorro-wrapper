@@ -10,7 +10,7 @@ import {
   UISchemaElement,
 } from '@wojtek1150/jsonforms-zorro-wrapper';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
-import { NzTabsModule } from 'ng-zorro-antd/tabs';
+import { NzTabComponent, NzTabsComponent } from 'ng-zorro-antd/tabs';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { JsonPipe } from '@angular/common';
 
@@ -18,7 +18,7 @@ import { JsonPipe } from '@angular/common';
   selector: 'app-demo-page',
   templateUrl: './demo-page.component.html',
   styleUrls: ['./demo-page.component.scss'],
-  imports: [NzAlertModule, NzTabsModule, JsonFormsZorroModule, NzIconModule, JsonPipe],
+  imports: [NzAlertModule, NzTabsComponent, JsonFormsZorroModule, NzIconModule, JsonPipe, NzTabComponent],
 })
 export class DemoPageComponent {
   schema: JsonSchema = schema;

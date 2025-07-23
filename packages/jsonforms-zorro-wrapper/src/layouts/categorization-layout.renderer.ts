@@ -3,12 +3,12 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { DescriptionRenderer, JsonFormsAngularService, JsonFormsBaseRenderer, JsonFormsOutlet } from '../jsonForms';
 import { JFZCategorizationSchema } from '../other/uischema';
 import { Subject, takeUntil } from 'rxjs';
-import { NzTabComponent, NzTabSetComponent } from 'ng-zorro-antd/tabs';
+import { NzTabComponent, NzTabsComponent } from 'ng-zorro-antd/tabs';
 
 @Component({
   selector: 'jsonforms-categorization-layout',
   template: `
-    <nz-tabset [class.hidden]="hidden">
+    <nz-tabs [class.hidden]="hidden">
       @for (category of uischema.elements; track category) {
         <nz-tab [nzTitle]="category.label">
           <DescriptionRenderer [uiSchema]="uischema" [scopedSchema]="schema"></DescriptionRenderer>
@@ -19,7 +19,7 @@ import { NzTabComponent, NzTabSetComponent } from 'ng-zorro-antd/tabs';
           }
         </nz-tab>
       }
-    </nz-tabset>
+    </nz-tabs>
   `,
   styles: [
     `
@@ -28,7 +28,7 @@ import { NzTabComponent, NzTabSetComponent } from 'ng-zorro-antd/tabs';
       }
     `,
   ],
-  imports: [NzTabSetComponent, NzTabComponent, DescriptionRenderer, JsonFormsOutlet],
+  imports: [NzTabsComponent, NzTabComponent, DescriptionRenderer, JsonFormsOutlet],
 })
 export class CategorizationTabLayoutRenderer extends JsonFormsBaseRenderer<JFZCategorizationSchema> implements OnInit, OnDestroy {
   hidden = false;
