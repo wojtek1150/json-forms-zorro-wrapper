@@ -63,6 +63,10 @@ export const DOCS_ROUTES: Routes = [
         path: 'google-places',
       },
       {
+        loadComponent: () => import('./country-iso-docs/country-iso-docs.component').then(c => c.CountryIsoDocsComponent),
+        path: 'country-iso',
+      },
+      {
         loadComponent: () => import('./skeleton-docs/skeleton-docs.component').then(c => c.SkeletonDocsComponent),
         path: 'skeleton',
       },

@@ -1,0 +1,28 @@
+@if (scopedSchema) {
+  <nz-form-item [class]="additionalClasses" [class.hidden]="hidden">
+    @if (label && label !== '*') {
+      <nz-form-label [nzFor]="id" [nzRequired]="required" [nzNoColon]="hideColonInLabel">
+        @if (labelIcon) {
+          <nz-icon [nzType]="labelIcon" nzTheme="outline" />
+        }
+        {{ label }}
+      </nz-form-label>
+    }
+    <DescriptionRenderer [uiSchema]="uischema" [scopedSchema]="scopedSchema"></DescriptionRenderer>
+    <nz-form-control [nzHasFeedback]="showValidationStatus" [nzErrorTip]="errorMessage" [nzValidateStatus]="form.status | nzValidationStatus">
+      <nz-select
+        nzShowSearch
+        nzAllowClear
+        [id]="id"
+        [formControl]="form"
+        [nzPlaceHolder]="placeholder"
+        (ngModelChange)="onChange($event)"
+        (blur)="triggerValidation()"
+      >
+        @for (option of options; track option) {
+          <nz-option [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
+        }
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+}

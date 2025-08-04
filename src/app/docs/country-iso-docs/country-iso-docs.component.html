@@ -1,0 +1,48 @@
+<h1>Country ISO control</h1>
+<p>A country ISO control can be achieved by using a oneOf in the JSON schema.</p>
+
+<article>
+  <h2>Country ISO</h2>
+  <jsonforms [(data)]="data" [renderers]="renderers" [schema]="schema" [uischema]="uiSchema"></jsonforms>
+
+  <div class="flex">
+    <div>
+      <p>Schema</p>
+      <pre><code>{{schema.properties | json }}</code></pre>
+      <p>Ui Schema</p>
+      <pre><code>{{uiSchema.elements[0] | json }}</code></pre>
+    </div>
+
+    <div>
+      <p>Data</p>
+      <pre><code>{{data | json }}</code></pre>
+    </div>
+  </div>
+</article>
+
+
+<p>UiSchema Options</p>
+<nz-table [nzTemplateMode]="true">
+  <thead>
+    <tr>
+      <th>Property</th>
+      <th>Description</th>
+      <th>Type</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>isoKey</td>
+      <td>Postfix for the ISO code hidden field in the data. For example, if field name is 'country' and isoKey is 'Iso', the ISO code will be stored in 'countryIso'. Default is 'iso'</td>
+      <td><code>string</code></td>
+      <td>Iso</td>
+    </tr>
+    <tr>
+      <td>countriesList</td>
+      <td>Array of country objects with country/iso structure. If not provided, the renderer will use the enum from the schema.</td>
+      <td><code>array</code></td>
+      <td>-</td>
+    </tr>
+  </tbody>
+</nz-table>

@@ -26,6 +26,7 @@ import { ImageControlRenderer, ImageControlRendererTester } from './complex/imag
 import { GooglePlacesControlRendererTester, GooglePlacesRenderer } from './complex/google-places/google-places.renderer';
 import { MentionControlRenderer, MentionControlRendererTester } from './complex/mention/mention.renderer';
 import { DateRangeControlRenderer, DateRangeControlRendererTester } from './controls/date-range.renderer';
+import { CountryIsoControlRenderer, CountryIsoControlRendererTester } from './complex/country-iso/country-iso.renderer';
 
 export const ngZorroRenderers: {
   tester: RankedTester;
@@ -50,6 +51,7 @@ export const ngZorroRenderers: {
   { tester: MentionControlRendererTester, renderer: MentionControlRenderer },
   { tester: ImageControlRendererTester, renderer: ImageControlRenderer },
   { tester: GooglePlacesControlRendererTester, renderer: GooglePlacesRenderer },
+  { tester: CountryIsoControlRendererTester, renderer: CountryIsoControlRenderer },
   // layouts
   { tester: CategorizationTester, renderer: CategorizationTabLayoutRenderer },
   { tester: StepperTester, renderer: StepperLayoutRenderer },
