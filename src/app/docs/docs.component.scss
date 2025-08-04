@@ -11,6 +11,13 @@
   margin-left: 350px;
 }
 
+.with-tag {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
 nz-sider {
   overflow: auto;
   height: 100%;
