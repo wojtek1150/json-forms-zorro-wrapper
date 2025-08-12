@@ -8,6 +8,7 @@
       </nz-form-label>
     }
     <DescriptionRenderer [scopedSchema]="schema" [uiSchema]="scopedSchema"></DescriptionRenderer>
+    <nz-form-control [nzErrorTip]="errorMessage" [nzHasFeedback]="showValidationStatus" [nzValidateStatus]="form.status | nzValidationStatus">
     <nz-upload
       (nzChange)="handleChange($event)"
       [nzAccept]="allowedExtensions.join(',')"
@@ -29,8 +30,6 @@
         }
       </ng-container>
     </nz-upload>
-    @if (errorMessage) {
-      <div class="alert ant-form-item-explain-error">{{errorMessage}}</div>
-    }
+    </nz-form-control>
   </nz-form-item>
 }

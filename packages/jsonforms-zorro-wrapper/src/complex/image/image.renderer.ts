@@ -5,14 +5,15 @@ import { NzShowUploadList, NzUploadChangeParam, NzUploadComponent, NzUploadFile,
 import { catchError, finalize, Observable, Observer, of, Subscription, tap } from 'rxjs';
 import { hasOption } from '../../other/complex.helper';
 import { JFZImageRendererService } from './image.renderer.service';
-import { NzFormItemComponent, NzFormLabelComponent } from 'ng-zorro-antd/form';
+import { NzFormControlComponent, NzFormItemComponent, NzFormLabelComponent } from 'ng-zorro-antd/form';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
+import { NzValidationStatusPipe } from '../../other/validation-status.pipe';
 
 @Component({
   selector: 'ImageUploadRenderer',
   templateUrl: './image.renderer.html',
   styleUrls: ['./image.renderer.scss'],
-  imports: [NzFormItemComponent, NzFormLabelComponent, NzIconDirective, DescriptionRenderer, NzUploadComponent],
+  imports: [NzFormItemComponent, NzFormLabelComponent, NzFormControlComponent, NzValidationStatusPipe,NzIconDirective, DescriptionRenderer, NzUploadComponent],
 })
 export class ImageControlRenderer extends JsonFormsControl {
   public fileList: NzUploadFile[] = [];
@@ -107,11 +108,14 @@ export class ImageControlRenderer extends JsonFormsControl {
       .pipe(
         tap((response: { url: string }) => {
           this.imageUrl = response.url;
+          this.error = null; // Clear any previous errors
+          this.triggerValidation();
           // @ts-ignore
           item.onSuccess();
         }),
         catchError(err => {
           this.error = err.error?.message || 'Sorry, your image cannot be uploaded. Please, try again later.';
+          this.triggerValidation();
           // @ts-ignore
           item.onError();
           this.imageUrl = '';
@@ -130,6 +134,8 @@ export class ImageControlRenderer extends JsonFormsControl {
   handleRemoveFile = (): boolean => {
     this.imageUrl = '';
     this.fileList = [];
+    this.error = null; // Clear any previous errors
+    this.triggerValidation();
     return true;
   };
 
@@ -156,6 +162,7 @@ export class ImageControlRenderer extends JsonFormsControl {
       if (!hasValidExtension) {
         this.error = 'File has incorrect extension.';
         this.changeDetectorRef.detectChanges();
+        this.triggerValidation();
         observer.complete();
         return;
       }
@@ -164,6 +171,7 @@ export class ImageControlRenderer extends JsonFormsControl {
       if (!hasValidSize) {
         this.error = `Image has to be smaller than ${this.maxImageSizeMB}MB.`;
         this.changeDetectorRef.detectChanges();
+        this.triggerValidation();
         observer.complete();
         return;
       }
@@ -178,6 +186,7 @@ export class ImageControlRenderer extends JsonFormsControl {
           if (!hasValidMinDimensions) {
             this.error = `Image has to be bigger than ${this.minImageHeight}x${this.minImageWidth}.`;
             this.changeDetectorRef.detectChanges();
+            this.triggerValidation();
             observer.complete();
             return;
           }
@@ -185,12 +194,14 @@ export class ImageControlRenderer extends JsonFormsControl {
           if (!hasValidMaxDimensions) {
             this.error = `Image has to be smaller than ${this.maxImageHeight}x${this.maxImageWidth}.`;
             this.changeDetectorRef.detectChanges();
+            this.triggerValidation();
             observer.complete();
             return;
           }
 
           this.changeDetectorRef.detectChanges();
           this.error = null;
+          this.triggerValidation();
           observer.next(event.target.result as string);
           observer.complete();
         };
