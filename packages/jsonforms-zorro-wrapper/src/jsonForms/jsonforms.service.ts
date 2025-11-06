@@ -12,7 +12,8 @@ import {
   JsonFormsRendererRegistryEntry,
   JsonFormsState,
   JsonFormsSubStates,
-  JsonSchema, RankedTester,
+  JsonSchema,
+  RankedTester,
   setConfig,
   SetConfigAction,
   UISchemaActions,
@@ -20,7 +21,7 @@ import {
   uischemaRegistryReducer,
   UISchemaTester,
   updateI18n,
-  ValidationMode
+  ValidationMode,
 } from '../core';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { JsonFormsBaseRenderer } from './base.renderer';

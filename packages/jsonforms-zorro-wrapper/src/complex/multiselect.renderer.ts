@@ -24,7 +24,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
           </nz-form-label>
         }
         <DescriptionRenderer [uiSchema]="uischema" [scopedSchema]="scopedSchema"></DescriptionRenderer>
-        <nz-form-control [nzHasFeedback]="showValidationStatus" [nzErrorTip]="errorMessage" [nzValidateStatus]="errorStatus | nzValidationStatus">
+        <nz-form-control [nzHasFeedback]="showValidationStatus" [nzErrorTip]="errorMessage" [nzWarningTip]="warningHint()" [nzValidateStatus]="errorStatus | nzValidationStatus">
           <nz-select
             nzMode="multiple"
             [id]="id"
@@ -32,6 +32,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
             [nzMaxTagCount]="uischema.options.nzMaxTagCount || INFINITY"
             [nzPlaceHolder]="placeholder"
             [nzCustomTemplate]="selectedValueTemplate"
+            [nzAllowClear]="true"
             (ngModelChange)="onChange($event)"
             (blur)="triggerValidation()"
           >
@@ -98,8 +99,8 @@ export class MultiselectControlRenderer extends JsonFormsControl {
     super(jsonformsService, changeDetectorRef);
   }
 
-  get errorStatus(): string {
-    return this.hasUnsupportedValueSelected() ? 'INVALID' : this.form.status;
+  override get errorStatus(): string {
+    return this.hasUnsupportedValueSelected() ? 'INVALID' : super.errorStatus;
   }
 
   override get errorMessage(): string | null {

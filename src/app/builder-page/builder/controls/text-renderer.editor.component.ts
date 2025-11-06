@@ -32,7 +32,7 @@ import set from 'lodash-es/set';
         ></nz-input-number>
       </nz-input-group>
     }
-    `,
+  `,
   styles: [':host {display: block;}'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

@@ -59,6 +59,10 @@ export const DOCS_ROUTES: Routes = [
         path: 'radio',
       },
       {
+        loadComponent: () => import('./slider-docs/slider-docs.component').then(c => c.SliderDocsComponent),
+        path: 'slider',
+      },
+      {
         loadComponent: () => import('./google-places-docs/google-places-docs.component').then(c => c.GooglePlacesDocsComponent),
         path: 'google-places',
       },

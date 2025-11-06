@@ -7,6 +7,8 @@ export class NzValidationStatusPipe implements PipeTransform {
     switch (formControlStatus) {
       case 'PENDING':
         return 'validating';
+      case 'WARNING':
+        return 'warning';
       case 'INVALID':
         return 'error';
       case 'VALID':

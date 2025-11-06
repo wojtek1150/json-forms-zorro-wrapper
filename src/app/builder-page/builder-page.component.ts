@@ -32,8 +32,8 @@ import { NzTabsModule } from 'ng-zorro-antd/tabs';
     NzTabsModule,
     AsyncPipe,
     JsonPipe,
-    JsonFormsZorroModule
-],
+    JsonFormsZorroModule,
+  ],
 })
 export class BuilderPageComponent {
   readonly TYPES = JFZBuilderInputType;

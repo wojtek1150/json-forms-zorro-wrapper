@@ -11,7 +11,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   template: `
     <nz-form-item [class]="additionalClasses" [class.hidden]="hidden">
       <DescriptionRenderer [uiSchema]="uischema" [scopedSchema]="scopedSchema"></DescriptionRenderer>
-      <nz-form-control [nzErrorTip]="errorMessage" [nzValidateStatus]="form.status | nzValidationStatus">
+      <nz-form-control [nzErrorTip]="errorMessage" [nzWarningTip]="warningHint()" [nzValidateStatus]="errorStatus | nzValidationStatus">
         <label nz-checkbox [id]="id" [formControl]="form" (nzCheckedChange)="onChange($event)">
           <span>{{ label }}</span>
         </label>

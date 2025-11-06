@@ -1,14 +1,14 @@
 @if (scopedSchema) {
-  <nz-form-item [class.hidden]="hidden" [class]="additionalClasses">
-    @if (label) {
-      <nz-form-label [nzFor]="id" [nzNoColon]="hideColonInLabel" [nzRequired]="required">
-        @if (labelIcon) {
-          <nz-icon [nzType]="labelIcon" nzTheme="outline" />
-        } {{ label }}
-      </nz-form-label>
-    }
-    <DescriptionRenderer [scopedSchema]="schema" [uiSchema]="scopedSchema"></DescriptionRenderer>
-    <nz-form-control [nzErrorTip]="errorMessage" [nzHasFeedback]="showValidationStatus" [nzValidateStatus]="form.status | nzValidationStatus">
+<nz-form-item [class.hidden]="hidden" [class]="additionalClasses">
+  @if (label) {
+  <nz-form-label [nzFor]="id" [nzNoColon]="hideColonInLabel" [nzRequired]="required">
+    @if (labelIcon) {
+    <nz-icon [nzType]="labelIcon" nzTheme="outline" />
+    } {{ label }}
+  </nz-form-label>
+  }
+  <DescriptionRenderer [scopedSchema]="schema" [uiSchema]="scopedSchema"></DescriptionRenderer>
+  <nz-form-control [nzErrorTip]="errorMessage" [nzHasFeedback]="showValidationStatus" [nzValidateStatus]="form.status | nzValidationStatus">
     <nz-upload
       (nzChange)="handleChange($event)"
       [nzAccept]="allowedExtensions.join(',')"
@@ -26,10 +26,10 @@
         </p>
         <p class="ant-upload-text">Drop image here or click to select</p>
         @if (hint) {
-          <p class="ant-upload-hint">{{hint}}</p>
+        <p class="ant-upload-hint">{{hint}}</p>
         }
       </ng-container>
     </nz-upload>
-    </nz-form-control>
-  </nz-form-item>
+  </nz-form-control>
+</nz-form-item>
 }

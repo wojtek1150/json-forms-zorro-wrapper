@@ -9,6 +9,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "prettierCheck": "prettier '**/*' --check --ignore-unknown",
+    "prettierWrite": "prettier '**/*' --write --ignore-unknown",
     "audit-ci": "npx audit-ci@6 --config audit-ci.json -h",
     "check-updates": "npx npm-check-updates -i"
   },

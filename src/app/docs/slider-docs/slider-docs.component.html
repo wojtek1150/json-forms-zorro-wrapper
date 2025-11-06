@@ -1,0 +1,64 @@
+<h1>Range control</h1>
+
+<article>
+  <jsonforms [(data)]="data" [renderers]="renderers" [schema]="schema" [uischema]="uiSchema"></jsonforms>
+
+  <div class="flex">
+    <div>
+      <p>Schema</p>
+      <nz-code-editor
+        (ngModelChange)="updateProperty('schema', $event)"
+        [ngModel]="schema.properties | editorFormatter"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
+        class="editor"></nz-code-editor>
+
+      <p>Ui Schema</p>
+      <nz-code-editor
+        (ngModelChange)="updateProperty('uiSchema', $event)"
+        [ngModel]="uiSchema.elements[0] | editorFormatter"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
+        class="editor"></nz-code-editor>
+    </div>
+
+    <div>
+      <p>Data</p>
+      <nz-code-editor
+        (ngModelChange)="updateProperty('data', $event)"
+        [ngModel]="data | editorFormatter"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
+        class="editor"></nz-code-editor>
+    </div>
+  </div>
+</article>
+
+<p>Schema</p>
+<nz-table [nzTemplateMode]="true">
+  <thead>
+    <tr>
+      <th>Property</th>
+      <th>Description</th>
+      <th>Type</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>minimum</td>
+      <td>Set to validate minimum number</td>
+      <td><code>number</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>maximum</td>
+      <td>Set to validate maximum number</td>
+      <td><code>number</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>multipleOf</td>
+      <td>Set to choose stepper</td>
+      <td><code>boolean</code></td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</nz-table>

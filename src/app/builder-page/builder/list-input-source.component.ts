@@ -16,28 +16,24 @@ import { JFZBuilderControl } from './model';
       [cdkDropListEnterPredicate]="_alwaysPreventDropPredicate"
       (cdkDropListExited)="addTemporaryInput($event)"
       (cdkDropListEntered)="cleanupTmeporaryInputs()"
-      >
+    >
       @for (input of service.copyFromInputs; track input; let isLast = $last; let index = $index) {
-        <div
-          [class]="itemContainerClass"
-          [cdkDragData]="input"
-          cdkDrag
-          >
+        <div [class]="itemContainerClass" [cdkDragData]="input" cdkDrag>
           <ng-template
             [ngTemplateOutlet]="itemRef || null"
-          [ngTemplateOutletContext]="{
-            $implicit: {
-              input,
-              index,
-              isLast
-            }
-          }"
+            [ngTemplateOutletContext]="{
+              $implicit: {
+                input,
+                index,
+                isLast
+              }
+            }"
           >
-        </ng-template>
-      </div>
-    }
+          </ng-template>
+        </div>
+      }
     </div>
-    `,
+  `,
   styles: [
     `
       :host {

@@ -13,7 +13,15 @@ import { NzValidationStatusPipe } from '../../other/validation-status.pipe';
   selector: 'ImageUploadRenderer',
   templateUrl: './image.renderer.html',
   styleUrls: ['./image.renderer.scss'],
-  imports: [NzFormItemComponent, NzFormLabelComponent, NzFormControlComponent, NzValidationStatusPipe,NzIconDirective, DescriptionRenderer, NzUploadComponent],
+  imports: [
+    NzFormItemComponent,
+    NzFormLabelComponent,
+    NzFormControlComponent,
+    NzValidationStatusPipe,
+    NzIconDirective,
+    DescriptionRenderer,
+    NzUploadComponent,
+  ],
 })
 export class ImageControlRenderer extends JsonFormsControl {
   public fileList: NzUploadFile[] = [];

@@ -23,5 +23,6 @@ export interface Config {
   hideColon?: boolean;
   multiselectExternalDictionary?: Record<string, MultiselectExternalDictionaryItem[]>;
   mentionDictionary?: Record<string, MentionDictionaryItem[]>;
+  fieldsWithWarningHint?: Record<string, string>;
   disabledDateFn?: Record<string, (current: Date) => boolean>;
 }

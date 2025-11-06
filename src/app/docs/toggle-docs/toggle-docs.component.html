@@ -10,14 +10,14 @@
       <nz-code-editor
         (ngModelChange)="updateProperty('schema', $event)"
         [ngModel]="schema.properties | editorFormatter"
-        [nzEditorOption]="{ language: 'json',automaticLayout: true }"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
         class="editor"></nz-code-editor>
 
       <p>Ui Schema</p>
       <nz-code-editor
         (ngModelChange)="updateProperty('uiSchema', $event)"
         [ngModel]="uiSchema.elements[0] | editorFormatter"
-        [nzEditorOption]="{ language: 'json',automaticLayout: true }"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
         class="editor"></nz-code-editor>
     </div>
 
@@ -26,7 +26,7 @@
       <nz-code-editor
         (ngModelChange)="updateProperty('data', $event)"
         [ngModel]="data | editorFormatter"
-        [nzEditorOption]="{ language: 'json',automaticLayout: true }"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
         class="editor"></nz-code-editor>
     </div>
   </div>
@@ -55,19 +55,19 @@
 <p>UiSchema options</p>
 <nz-table [nzTemplateMode]="true">
   <thead>
-  <tr>
-    <th>Property</th>
-    <th>Description</th>
-    <th>Type</th>
-    <th>Default</th>
-  </tr>
+    <tr>
+      <th>Property</th>
+      <th>Description</th>
+      <th>Type</th>
+      <th>Default</th>
+    </tr>
   </thead>
   <tbody>
-  <tr>
-    <td>toggle</td>
-    <td>Enable/disable toggle mode</td>
-    <td><code>boolean</code></td>
-    <td><code>false</code></td>
-  </tr>
+    <tr>
+      <td>toggle</td>
+      <td>Enable/disable toggle mode</td>
+      <td><code>boolean</code></td>
+      <td><code>false</code></td>
+    </tr>
   </tbody>
 </nz-table>

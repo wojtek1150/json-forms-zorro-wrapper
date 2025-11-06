@@ -1,5 +1,5 @@
 import { Actions, computeLabel, JsonFormsState, JsonSchema, OwnPropsOfControl, removeId, StatePropsOfControl } from '../core';
-import { ChangeDetectorRef, Directive, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Directive, Input, OnDestroy, OnInit, signal } from '@angular/core';
 import { AbstractControl, FormControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
 
@@ -17,6 +17,8 @@ export abstract class JsonFormsAbstractControl<Props extends StatePropsOfControl
   @Input() id: string;
   @Input() disabled: boolean;
   @Input() visible: boolean;
+
+  warningHint = signal<string | null>(null);
 
   form: FormControl;
   data: any;
@@ -57,6 +59,10 @@ export abstract class JsonFormsAbstractControl<Props extends StatePropsOfControl
 
   get labelIcon(): string | undefined {
     return this.uischema.labelIcon;
+  }
+
+  get errorStatus(): string {
+    return this.warningHint() ? 'WARNING' : this.form.status;
   }
 
   get errorMessage(): string | null {
@@ -123,7 +129,9 @@ export abstract class JsonFormsAbstractControl<Props extends StatePropsOfControl
     return (c: AbstractControl): ValidationErrors | null => (c.touched && this.error ? { error: this.error } : null);
   }
 
-  mapAdditionalProps(props: Props) {
+  mapAdditionalProps(_: Props) {
+    this.warningHint.set(this.config.fieldsWithWarningHint?.[this.propsPath] ? this.config.fieldsWithWarningHint[this.propsPath] : null);
+
     this.placeholder = this.uischema.placeholder || '';
     this.showValidationStatus = !!this.uischema.options?.showValidationStatus;
     this.changeDetectorRef.markForCheck();

@@ -20,15 +20,9 @@
     "rootDir": ".",
     "target": "ES2022",
     "module": "ES2022",
-    "lib": [
-      "ES2022",
-      "dom"
-    ],
+    "lib": ["ES2022", "dom"],
     "paths": {
-      "@wojtek1150/jsonforms-zorro-wrapper": [
-        "packages/jsonforms-zorro-wrapper/*",
-        "packages/jsonforms-zorro-wrapper"
-      ]
+      "@wojtek1150/jsonforms-zorro-wrapper": ["packages/jsonforms-zorro-wrapper/*", "packages/jsonforms-zorro-wrapper"]
     },
     "useDefineForClassFields": false
   },
