@@ -20,7 +20,15 @@ import { ReactiveFormsModule } from '@angular/forms';
       }
       <DescriptionRenderer [uiSchema]="uischema" [scopedSchema]="scopedSchema"></DescriptionRenderer>
       <nz-form-control>
-        <nz-slider [id]="id" [formControl]="form" [nzDisabled]="!isEnabled" [nzMin]="min" [nzMax]="max" [nzStep]="multipleOf"></nz-slider>
+        <nz-slider
+          [id]="id"
+          [formControl]="form"
+          [nzDisabled]="!isEnabled"
+          [nzMin]="min"
+          [nzMax]="max"
+          [nzStep]="multipleOf"
+          (ngModelChange)="onChange($event)"
+        ></nz-slider>
       </nz-form-control>
     </nz-form-item>
   `,
@@ -55,7 +63,7 @@ export class RangeControlRenderer extends JsonFormsControl {
     super(jsonformsService, changeDetectorRef);
   }
 
-  override getEventValue = (event: any) => Number(event.value);
+  override getEventValue = (event: any) => event;
 
   override mapAdditionalProps() {
     if (this.scopedSchema) {

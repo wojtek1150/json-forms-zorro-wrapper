@@ -17,7 +17,7 @@ import { JFZBuilderControl } from './model';
       (cdkDropListEntered)="_forcePreviewIconContainerHidden = true"
       (cdkDropListExited)="_forcePreviewIconContainerHidden = false"
       (cdkDropListDropped)="drop($event)"
-      >
+    >
       @for (item of service.dropInputs; track item; let isLast = $last; let index = $index) {
         <div
           cdkDrag
@@ -25,7 +25,7 @@ import { JFZBuilderControl } from './model';
           (mouseleave)="_mouserOverItemIndex = -1"
           [cdkDragData]="item"
           [class]="itemContainerClass"
-          >
+        >
           @if (dragHandleRef) {
             <span cdkDragHandle>
               <ng-container [ngTemplateOutlet]="dragHandleRef"></ng-container>
@@ -33,24 +33,24 @@ import { JFZBuilderControl } from './model';
           }
           <ng-template
             [ngTemplateOutlet]="itemRef || null"
-          [ngTemplateOutletContext]="{
-            $implicit: {
-              item,
-              isHovered: _mouserOverItemIndex === index
-            }
-          }"
+            [ngTemplateOutletContext]="{
+              $implicit: {
+                item,
+                isHovered: _mouserOverItemIndex === index
+              }
+            }"
           >
-        </ng-template>
-      </div>
-    }
+          </ng-template>
+        </div>
+      }
 
-    @if (!_forcePreviewIconContainerHidden && service.dropInputs.length < 1) {
-      <ng-template [ngTemplateOutlet]="placeholderRef || null"></ng-template>
-    }
+      @if (!_forcePreviewIconContainerHidden && service.dropInputs.length < 1) {
+        <ng-template [ngTemplateOutlet]="placeholderRef || null"></ng-template>
+      }
     </div>
 
     <ng-template #body></ng-template>
-    `,
+  `,
   styles: [':host {display: block;}'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

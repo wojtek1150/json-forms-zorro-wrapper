@@ -16,27 +16,32 @@
             "readonly": true
           },
           "type": "Control"
-        }, {
+        },
+        {
           "scope": "#/properties/lastName",
           "label": "Last name",
           "options": {
             "readonly": true
           },
           "type": "Control"
-        }, {
+        },
+        {
           "scope": "#/properties/email",
           "label": "Email",
           "type": "Control"
-        }, {
+        },
+        {
           "scope": "#/properties/country",
           "label": "Country",
           "type": "Control"
-        }, {
+        },
+        {
           "scope": "#/properties/personalDetails/properties/jobTitle",
           "label": "Job Title and Company",
           "description": "Example: Senior Backend Engineer @ Gitlab",
           "type": "Control"
-        }, {
+        },
+        {
           "scope": "#/properties/personalDetails/properties/bio",
           "label": "Please provide a short bio that describes who you are, what you do and what you're passionate about.",
           "description": "Minimum 400 characters or 2-minute video. You may choose to write this in your native language.",
@@ -44,10 +49,13 @@
             "wysiwyg": true,
             "withStringValidation": true,
             "toolbar": [
-              ["bold", "italic", "underline", "strike"], ["link"], [
+              ["bold", "italic", "underline", "strike"],
+              ["link"],
+              [
                 {
                   "list": "ordered"
-                }, {
+                },
+                {
                   "list": "bullet"
                 }
               ]
@@ -55,7 +63,8 @@
             "formats": ["bold", "italic", "underline", "strike", "link", "list"]
           },
           "type": "Control"
-        }, {
+        },
+        {
           "scope": "#/properties/personalDetails/properties/programmingLanguages",
           "label": "What programming languages can you code in?",
           "description": "Select up to 5, pick your strongest.",
@@ -73,7 +82,8 @@
             "mentionKey": "users",
             "returnValueKey": "email"
           }
-        }, {
+        },
+        {
           "type": "Control",
           "scope": "#/properties/externalField",
           "label": "Multiselect that use external value",

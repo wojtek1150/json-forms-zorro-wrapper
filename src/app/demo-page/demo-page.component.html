@@ -14,8 +14,7 @@
       [schema]="schema"
       [uischema]="uischema"
       (submitted)="onSubmit($event)"
-      (canceled)="onCancel()"
-      ></jsonforms>
+      (canceled)="onCancel()"></jsonforms>
   </nz-tab>
   <nz-tab nzTitle="Form Data">
     <pre><code>{{formData | json }}</code></pre>

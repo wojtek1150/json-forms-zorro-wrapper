@@ -488,12 +488,7 @@ export const isPrimitiveArrayControl = and(
 export const isRangeControl = and(
   uiTypeIs('Control'),
   or(schemaTypeIs('number'), schemaTypeIs('integer')),
-  schemaMatches(
-    schema =>
-      Object.prototype.hasOwnProperty.call(schema, 'maximum') &&
-      Object.prototype.hasOwnProperty.call(schema, 'minimum') &&
-      Object.prototype.hasOwnProperty.call(schema, 'default'),
-  ),
+  schemaMatches(schema => Object.prototype.hasOwnProperty.call(schema, 'maximum') && Object.prototype.hasOwnProperty.call(schema, 'minimum')),
   optionIs('slider', true),
 );
 

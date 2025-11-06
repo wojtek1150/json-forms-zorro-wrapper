@@ -3,7 +3,7 @@
   <dnd-list-input-source class="dnd-source" itemContainerClass="dnd-item" listContainerClass="dnd-container">
     <ng-template #input let-it>
       <button nz-button nzShape="round">
-        <nz-icon [nzType]="it.input.icon" nzTheme="outline"/>
+        <nz-icon [nzType]="it.input.icon" nzTheme="outline" />
         {{ it.input.type | titlecase }}
       </button>
     </ng-template>
@@ -12,7 +12,7 @@
   <dnd-list-input-target class="dnd-placeholder" itemContainerClass="dnd-item" listContainerClass="dnd-container">
     <ng-template #dragHandle>
       <div class="drag-icon">
-        <nz-icon nzTheme="outline" nzType="drag"/>
+        <nz-icon nzTheme="outline" nzType="drag" />
       </div>
     </ng-template>
 
@@ -33,9 +33,7 @@
               <input (ngModelChange)="updateUiSchema(it.item, 'placeholder', $event)" [ngModel]="schema.placeholder" nz-input type="text" />
             </nz-input-group>
             @if (it.item.type === TYPES.TEXT && inputsTemp[it.item.key]) {
-              <text-renderer-editor
-                (controlChange)="updateControl($event)"
-              [control]="inputsTemp[it.item.key]"></text-renderer-editor>
+              <text-renderer-editor (controlChange)="updateControl($event)" [control]="inputsTemp[it.item.key]"></text-renderer-editor>
             }
           </nz-collapse-panel>
         </nz-collapse>
@@ -63,7 +61,7 @@
         [(data)]="formData"
         [renderers]="renderers"
         [schema]="service.formSchema$ | async"
-      [uischema]="service.uiSchema$ | async"></jsonforms>
+        [uischema]="service.uiSchema$ | async"></jsonforms>
     </nz-tab>
     <nz-tab nzTitle="JsonUiSchema">
       <pre>{{ service.uiSchema$ | async | json }}</pre>

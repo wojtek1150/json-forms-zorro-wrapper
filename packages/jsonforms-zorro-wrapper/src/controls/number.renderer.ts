@@ -20,7 +20,12 @@ import { ReactiveFormsModule } from '@angular/forms';
         </nz-form-label>
       }
       <DescriptionRenderer [uiSchema]="uischema" [scopedSchema]="scopedSchema"></DescriptionRenderer>
-      <nz-form-control [nzHasFeedback]="showValidationStatus" [nzErrorTip]="errorMessage" [nzValidateStatus]="form.status | nzValidationStatus">
+      <nz-form-control
+        [nzHasFeedback]="showValidationStatus"
+        [nzErrorTip]="errorMessage"
+        [nzWarningTip]="warningHint()"
+        [nzValidateStatus]="errorStatus | nzValidationStatus"
+      >
         <nz-input-number
           [id]="id"
           [formControl]="form"

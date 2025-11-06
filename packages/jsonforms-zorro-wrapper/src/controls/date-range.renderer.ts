@@ -23,7 +23,12 @@ type DateRange = [Date | string, Date | string] | null;
         </nz-form-label>
       }
       <DescriptionRenderer [uiSchema]="uischema" [scopedSchema]="scopedSchema"></DescriptionRenderer>
-      <nz-form-control [nzHasFeedback]="showValidationStatus" [nzErrorTip]="errorMessage" [nzValidateStatus]="form.status | nzValidationStatus">
+      <nz-form-control
+        [nzHasFeedback]="showValidationStatus"
+        [nzErrorTip]="errorMessage"
+        [nzWarningTip]="warningHint()"
+        [nzValidateStatus]="errorStatus | nzValidationStatus"
+      >
         <nz-range-picker
           [id]="id"
           [formControl]="form"

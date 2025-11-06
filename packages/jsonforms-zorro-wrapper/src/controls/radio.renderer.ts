@@ -20,7 +20,7 @@ import { ReactiveFormsModule } from '@angular/forms';
           </nz-form-label>
         }
         <DescriptionRenderer [uiSchema]="uischema" [scopedSchema]="scopedSchema"></DescriptionRenderer>
-        <nz-form-control [nzErrorTip]="errorMessage">
+        <nz-form-control [nzErrorTip]="errorMessage" [nzWarningTip]="warningHint()">
           <nz-radio-group [id]="id" [formControl]="form" (ngModelChange)="onChange($event)">
             @for (option of scopedSchema.enum; track option) {
               <label nz-radio [nzValue]="option">{{ option }}</label>

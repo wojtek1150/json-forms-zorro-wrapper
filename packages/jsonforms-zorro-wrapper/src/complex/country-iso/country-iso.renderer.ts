@@ -49,14 +49,14 @@ export class CountryIsoControlRenderer extends JsonFormsControl {
     if (this.selectedValue !== event) {
       this.selectedValue = event;
       this.jsonFormsService.updateCore(Actions.update(this.propsPath, () => event));
-      
+
       if (this.countriesList && event) {
         const selectedCountry = this.countriesList.find(country => country.country === event);
         if (selectedCountry) {
           this.jsonFormsService.updateCore(Actions.update(this.propsPath + this.isoKey, () => selectedCountry.iso));
         }
       }
-      
+
       this.triggerValidation();
     }
   }
@@ -64,30 +64,32 @@ export class CountryIsoControlRenderer extends JsonFormsControl {
   override mapAdditionalProps(props: StatePropsOfControl) {
     super.mapAdditionalProps(props);
     this.isoKey = this.uischema.options?.isoKey || 'Iso';
-    
+
     if (this.uischema.options?.countriesList) {
       this.countriesList = this.uischema.options.countriesList;
       this.options = this.countriesList.map(country => ({
         label: country.country,
         value: country.country,
-        iso: country.iso
+        iso: country.iso,
       }));
 
       // Generate oneOf schema for proper  validation
       const oneOfSchema = this.countriesList.map(country => ({
         const: country.country,
-        title: country.country
+        title: country.country,
       }));
-      
+
       // Update the schema to include oneOf validation
       this.scopedSchema = {
         ...this.scopedSchema,
         type: 'string',
-        oneOf: oneOfSchema
+        oneOf: oneOfSchema,
       };
-    } else if (this.scopedSchema.enum) { // Fallback when no countriesList is provided
+    } else if (this.scopedSchema.enum) {
+      // Fallback when no countriesList is provided
       this.options = this.scopedSchema.enum.map(option => ({ label: option, value: option }));
-    } else { // Oneof support
+    } else {
+      // Oneof support
       this.options = this.scopedSchema.oneOf.map(option => ({ label: option.title, value: option.const }));
     }
   }
@@ -101,7 +103,7 @@ export const CountryIsoControlRendererTester: RankedTester = rankWith(
       optionIs('format', 'country-iso'),
       or(
         schemaMatches(schema => hasType(schema, 'array') && !Array.isArray(schema.items) && schema.uniqueItems === true),
-        schemaMatches(schema => hasType(schema, 'string'))
+        schemaMatches(schema => hasType(schema, 'string')),
       ),
     ),
   ),

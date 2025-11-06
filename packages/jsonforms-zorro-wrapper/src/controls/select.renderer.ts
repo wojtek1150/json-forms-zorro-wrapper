@@ -21,10 +21,15 @@ import { NzValidationStatusPipe } from '../other/validation-status.pipe';
           </nz-form-label>
         }
         <DescriptionRenderer [uiSchema]="uischema" [scopedSchema]="scopedSchema"></DescriptionRenderer>
-        <nz-form-control [nzHasFeedback]="showValidationStatus" [nzErrorTip]="errorMessage" [nzValidateStatus]="form.status | nzValidationStatus">
+        <nz-form-control
+          [nzHasFeedback]="showValidationStatus"
+          [nzErrorTip]="errorMessage"
+          [nzWarningTip]="warningHint()"
+          [nzValidateStatus]="errorStatus | nzValidationStatus"
+        >
           <nz-select
-            nzShowSearch
-            nzAllowClear
+            [nzShowSearch]="true"
+            [nzAllowClear]="true"
             [id]="id"
             [formControl]="form"
             [nzPlaceHolder]="placeholder"

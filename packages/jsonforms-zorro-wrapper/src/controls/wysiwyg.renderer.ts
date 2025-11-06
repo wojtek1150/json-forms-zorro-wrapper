@@ -77,8 +77,8 @@ export class WysiwygRenderer extends JsonFormsControl {
     super(jsonformsService, changeDetectorRef);
   }
 
-  get errorStatus(): string {
-    return this.hasExternalValidation && this.stringFieldErrorMessages.length ? 'INVALID' : this.form.status;
+  override get errorStatus(): string {
+    return this.hasExternalValidation && this.stringFieldErrorMessages.length ? 'INVALID' : super.errorStatus;
   }
 
   override get errorMessage(): string | null {
