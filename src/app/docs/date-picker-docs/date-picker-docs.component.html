@@ -1,7 +1,7 @@
 <h1>Date picker control</h1>
-<p>A single date picker control</p>
 
 <article>
+  <p>A single date picker control</p>
   <jsonforms [(data)]="data" [renderers]="renderers" [schema]="schema" [uischema]="uiSchema"></jsonforms>
 
   <div class="flex">
@@ -26,6 +26,38 @@
       <nz-code-editor
         (ngModelChange)="updateProperty('data', $event)"
         [ngModel]="data | editorFormatter"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
+        class="editor"></nz-code-editor>
+    </div>
+  </div>
+</article>
+
+<article>
+  <p>With AJV validators between 2 fields - used when next field depends of previous</p>
+  <jsonforms [(data)]="dataGroup" [renderers]="renderers" [schema]="schemaGroup" [uischema]="uiSchemaGroup"></jsonforms>
+
+  <div class="flex">
+    <div>
+      <p>Schema</p>
+      <nz-code-editor
+        (ngModelChange)="updateProperty('schemaGroup', $event)"
+        [ngModel]="schemaGroup.properties | editorFormatter"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
+        class="editor"></nz-code-editor>
+
+      <p>Ui Schema</p>
+      <nz-code-editor
+        (ngModelChange)="updateProperty('uiSchemaGroup', $event)"
+        [ngModel]="uiSchemaGroup.elements[0] | editorFormatter"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
+        class="editor"></nz-code-editor>
+    </div>
+
+    <div>
+      <p>Data</p>
+      <nz-code-editor
+        (ngModelChange)="updateProperty('dataGroup', $event)"
+        [ngModel]="dataGroup | editorFormatter"
         [nzEditorOption]="{ language: 'json', automaticLayout: true }"
         class="editor"></nz-code-editor>
     </div>
@@ -81,6 +113,60 @@
       <td>Key of <code>disabledDateFn</code> object passed to global options. With that you can add your own disableDate function</td>
       <td><code>string</code></td>
       <td><code>-</code></td>
+    </tr>
+    <tr>
+      <td>formatMaximum</td>
+      <td>
+        The maximum allowed value for a date/time string, following the control's <code>format</code>. Can be a string or an object with
+        <code>$data</code> for dynamic comparisons.<br />
+        <a
+          href="https://ajv.js.org/packages/ajv-formats.html#keywords-to-compare-values-formatmaximum-formatminimum-and-formatexclusivemaximum-formatexclusiveminimum"
+          target="_blank"
+          >AJV format comparison docs</a
+        >
+      </td>
+      <td><code>string &#124; &#123; $data: string &#125;</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>formatMinimum</td>
+      <td>
+        The minimum allowed value for a date/time string, following the control's <code>format</code>. Can be a string or an object with
+        <code>$data</code> for dynamic comparisons.<br />
+        <a
+          href="https://ajv.js.org/packages/ajv-formats.html#keywords-to-compare-values-formatmaximum-formatminimum-and-formatexclusivemaximum-formatexclusiveminimum"
+          target="_blank"
+          >AJV format comparison docs</a
+        >
+      </td>
+      <td><code>string &#124; &#123; $data: string &#125;</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>formatExclusiveMaximum</td>
+      <td>
+        Exclusive upper limit for date/time (the value must be strictly less). Follow <code>formatMaximum</code> usage.<br />
+        <a
+          href="https://ajv.js.org/packages/ajv-formats.html#keywords-to-compare-values-formatmaximum-formatminimum-and-formatexclusivemaximum-formatexclusiveminimum"
+          target="_blank"
+          >Docs</a
+        >
+      </td>
+      <td><code>string &#124; &#123; $data: string &#125;</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>formatExclusiveMinimum</td>
+      <td>
+        Exclusive lower limit for date/time (the value must be strictly greater). Follow <code>formatMinimum</code> usage.<br />
+        <a
+          href="https://ajv.js.org/packages/ajv-formats.html#keywords-to-compare-values-formatmaximum-formatminimum-and-formatexclusivemaximum-formatexclusiveminimum"
+          target="_blank"
+          >Docs</a
+        >
+      </td>
+      <td><code>string &#124; &#123; $data: string &#125;</code></td>
+      <td>-</td>
     </tr>
   </tbody>
 </nz-table>
