@@ -38,4 +38,53 @@ export class DatePickerDocsComponent extends ControlDocsAbstract {
       },
     ],
   };
+
+  dataGroup = {};
+  schemaGroup: JsonSchema = {
+    type: 'object',
+    properties: {
+      endDate: {
+        type: 'string',
+        format: 'date-time',
+      },
+      date: {
+        type: 'string',
+        format: 'date-time',
+        formatMaximum: { $data: '1/endDate' },
+        errorMessage: {
+          formatMaximum: 'should be before the end date',
+        },
+      },
+    },
+  };
+
+  uiSchemaGroup: JFZVerticalLayout = {
+    type: 'VerticalLayout',
+    elements: [
+      {
+        type: 'Control',
+        scope: '#/properties/endDate',
+        label: 'End date',
+        options: {
+          format: 'date',
+          dateFormat: 'yyyy-MM-dd HH:mm',
+          saveFormat: "yyyy-MM-dd'T'HH:mm:ss",
+          showTime: false,
+          disablePastDates: true,
+        },
+      },
+      {
+        type: 'Control',
+        scope: '#/properties/date',
+        label: 'This date must be before the end date',
+        options: {
+          format: 'date',
+          dateFormat: 'yyyy-MM-dd HH:mm',
+          saveFormat: "yyyy-MM-dd'T'HH:mm:ss",
+          showTime: false,
+          disablePastDates: true,
+        },
+      },
+    ],
+  };
 }

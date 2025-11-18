@@ -23,14 +23,14 @@
   THE SOFTWARE.
 */
 
-import type { JsonSchema4 } from '../models';
+import type { JsonSchema } from '../models';
 
 const ADDITIONAL_PROPERTIES = 'additionalProperties';
 const REQUIRED_PROPERTIES = 'required';
 
-type Properties = { [property: string]: JsonSchema4 };
+type Properties = { [property: string]: JsonSchema };
 
-export const distinct = (properties: any[], discriminator: (item: any) => string): JsonSchema4[] => {
+export const distinct = (properties: any[], discriminator: (item: any) => string): JsonSchema[] => {
   const known: { [property: string]: boolean } = {};
 
   return properties.filter(item => {
@@ -49,9 +49,9 @@ export class Gen {
 
   // TODO fix @typescript-eslint/ban-types
   // eslint-disable-next-line @typescript-eslint/ban-types
-  schemaObject = (data: Object): JsonSchema4 => {
+  schemaObject = (data: Object): JsonSchema => {
     const props: Properties = this.properties(data);
-    const schema: JsonSchema4 = {
+    const schema: JsonSchema = {
       type: 'object',
       properties: props,
       additionalProperties: this.findOption(props)(ADDITIONAL_PROPERTIES),
@@ -74,7 +74,7 @@ export class Gen {
     }, emptyProps);
   };
 
-  property = (data: any): JsonSchema4 => {
+  property = (data: any): JsonSchema => {
     switch (typeof data) {
       case 'string':
         return { type: 'string' };
@@ -97,7 +97,7 @@ export class Gen {
     }
   };
 
-  schemaObjectOrArray = (data: any): JsonSchema4 => {
+  schemaObjectOrArray = (data: any): JsonSchema => {
     if (data instanceof Array) {
       return this.schemaArray(data as any[]);
     } else {
@@ -105,9 +105,9 @@ export class Gen {
     }
   };
 
-  schemaArray = (data: any[]): JsonSchema4 => {
+  schemaArray = (data: any[]): JsonSchema => {
     if (data.length > 0) {
-      const allProperties: JsonSchema4[] = data.map(this.property);
+      const allProperties: JsonSchema[] = data.map(this.property);
       const uniqueProperties = distinct(allProperties, prop => JSON.stringify(prop));
       if (uniqueProperties.length === 1) {
         return {
@@ -142,7 +142,7 @@ export const generateJsonSchema = (
   // eslint-disable-next-line @typescript-eslint/ban-types
   instance: Object,
   options: any = {},
-): JsonSchema4 => {
+): JsonSchema => {
   const findOption =
     (props: Properties) =>
     (optionName: string): boolean | string[] => {

@@ -7,7 +7,7 @@ import { JsonPipe } from '@angular/common';
 @Component({
   selector: 'app-multiselect-docs',
   templateUrl: './multiselect-docs.component.html',
-  imports: [JsonFormsZorroModule, NzTableModule, NzAlertModule, JsonPipe]
+  imports: [JsonFormsZorroModule, NzTableModule, NzAlertModule, JsonPipe],
 })
 export class MultiselectDocsComponent {
   renderers = ngZorroRenderers;
@@ -26,10 +26,10 @@ export class MultiselectDocsComponent {
         uniqueItems: true,
         items: {
           type: 'string',
-          enum: ['Solidity', 'Wasm', 'Go', ' C++', 'JavaScript', 'Python', 'Ruby']
-        }
-      }
-    }
+          enum: ['Solidity', 'Wasm', 'Go', ' C++', 'JavaScript', 'Python', 'Ruby'],
+        },
+      },
+    },
   };
 
   uiSchema: JFZVerticalLayout = {
@@ -41,10 +41,10 @@ export class MultiselectDocsComponent {
         label: 'What programming languages are you most comfortable with?',
         options: {
           format: 'multiselect',
-          nzMaxTagCount: 2
-        }
-      }
-    ]
+          nzMaxTagCount: 2,
+        },
+      },
+    ],
   };
 
   schemaOne: JsonSchema = {
@@ -60,24 +60,24 @@ export class MultiselectDocsComponent {
           oneOf: [
             {
               const: 'NONE',
-              title: 'Never'
+              title: 'Never',
             },
             {
               const: 'DAILY',
-              title: 'Daily'
+              title: 'Daily',
             },
             {
               const: 'WEEKLY',
-              title: 'Weekly'
+              title: 'Weekly',
             },
             {
               const: 'MONTLY',
-              title: 'Monthly'
-            }
-          ]
-        }
-      }
-    }
+              title: 'Monthly',
+            },
+          ],
+        },
+      },
+    },
   };
 
   uiSchemaOne: JFZVerticalLayout = {
@@ -88,10 +88,10 @@ export class MultiselectDocsComponent {
         type: 'Control',
         scope: '#/properties/oneOf',
         options: {
-          format: 'multiselect'
-        }
-      }
-    ]
+          format: 'multiselect',
+        },
+      },
+    ],
   };
 
   schemaCheckbox: JsonSchema = {
@@ -104,10 +104,10 @@ export class MultiselectDocsComponent {
         uniqueItems: true,
         items: {
           type: 'string',
-          enum: ['Solidity', 'Wasm', 'Go', ' C++', 'JavaScript', 'Python', 'Ruby']
-        }
-      }
-    }
+          enum: ['Solidity', 'Wasm', 'Go', ' C++', 'JavaScript', 'Python', 'Ruby'],
+        },
+      },
+    },
   };
 
   uiSchemaCheckbox: JFZVerticalLayout = {
@@ -116,9 +116,9 @@ export class MultiselectDocsComponent {
       {
         type: 'Control',
         scope: '#/properties/checkbox',
-        label: 'What programming languages are you most comfortable with?'
-      }
-    ]
+        label: 'What programming languages are you most comfortable with?',
+      },
+    ],
   };
 
   schemaExternal: JsonSchema = {
@@ -131,10 +131,10 @@ export class MultiselectDocsComponent {
         uniqueItems: true,
         items: {
           type: 'string',
-          enum: ['Anything to trigger validation']
-        }
-      }
-    }
+          enum: ['Anything to trigger validation'],
+        },
+      },
+    },
   };
 
   uiSchemaExternal: JFZVerticalLayout = {
@@ -146,10 +146,10 @@ export class MultiselectDocsComponent {
         scope: '#/properties/tags',
         options: {
           format: 'multiselect',
-          dictionaryKey: 'tags'
-        }
-      }
-    ]
+          dictionaryKey: 'tags',
+        },
+      },
+    ],
   };
 
   jsonformsConfigExternal: Config = {
@@ -159,8 +159,8 @@ export class MultiselectDocsComponent {
         { label: 'bar', value: 'bar', additionalLabel: 'recommended', additionalLabelColor: 'var(--ant-primary-color)' },
         { label: 'tar', value: 'tar' },
         { label: 'some', value: 'some', unsupported: true, additionalLabel: 'inactive', additionalLabelColor: 'var(--ant-error-color)' },
-        { label: 'value', value: 'value' }
-      ]
-    }
+        { label: 'value', value: 'value' },
+      ],
+    },
   };
 }

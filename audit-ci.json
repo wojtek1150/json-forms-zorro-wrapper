@@ -1,4 +1,4 @@
 {
   "high": true,
-  "allowlist": []
+  "allowlist": ["GHSA-5j98-mcp5-4vw2"]
 }

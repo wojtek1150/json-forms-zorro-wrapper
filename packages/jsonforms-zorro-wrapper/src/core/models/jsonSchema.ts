@@ -1,29 +1,31 @@
-/*
-  The MIT License
-  
-  Copyright (c) 2017-2019 EclipseSource Munich
-  https://github.com/eclipsesource/jsonforms
-  
-  Permission is hereby granted, free of charge, to any person obtaining a copy
-  of this software and associated documentation files (the "Software"), to deal
-  in the Software without restriction, including without limitation the rights
-  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-  copies of the Software, and to permit persons to whom the Software is
-  furnished to do so, subject to the following conditions:
-  
-  The above copyright notice and this permission notice shall be included in
-  all copies or substantial portions of the Software.
-  
-  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-  THE SOFTWARE.
-*/
+import type { JsonSchema7NonRecursive } from './jsonSchema7';
 
-import type { JsonSchema4 } from './jsonSchema4';
-import type { JsonSchema7 } from './jsonSchema7';
+export type FormatRangeValue = string | { $data: string };
 
-export type JsonSchema = JsonSchema4 | JsonSchema7;
+export interface AjvFormatRangeKeywords {
+  formatMaximum?: FormatRangeValue;
+  formatMinimum?: FormatRangeValue;
+  formatExclusiveMaximum?: FormatRangeValue;
+  formatExclusiveMinimum?: FormatRangeValue;
+}
+
+type JsonSchema7RecursiveOverrides = {
+  items?: JsonSchema | JsonSchema[];
+  additionalItems?: boolean | JsonSchema;
+  additionalProperties?: boolean | JsonSchema;
+  definitions?: { [key: string]: JsonSchema };
+  properties?: { [property: string]: JsonSchema };
+  patternProperties?: { [pattern: string]: JsonSchema };
+  dependencies?: { [key: string]: JsonSchema | string[] };
+  contains?: JsonSchema;
+  propertyNames?: JsonSchema;
+  allOf?: JsonSchema[];
+  anyOf?: JsonSchema[];
+  oneOf?: JsonSchema[];
+  not?: JsonSchema;
+  if?: JsonSchema;
+  then?: JsonSchema;
+  else?: JsonSchema;
+};
+
+export type JsonSchema = JsonSchema7NonRecursive & JsonSchema7RecursiveOverrides & AjvFormatRangeKeywords;
