@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
 import { Actions, isDateControl, RankedTester, rankWith } from '../core';
 import { DescriptionRenderer, JsonFormsAngularService, JsonFormsControl } from '../jsonForms';
 import { differenceInCalendarDays, format, parse, parseISO } from 'date-fns';
-import { NzDatePickerComponent, SupportTimeOptions } from 'ng-zorro-antd/date-picker';
+import { DisabledTimeConfig, DisabledTimeFn, NzDatePickerComponent, SupportTimeOptions } from 'ng-zorro-antd/date-picker';
 import { NzFormControlComponent, NzFormItemComponent, NzFormLabelComponent } from 'ng-zorro-antd/form';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -35,6 +35,7 @@ import { DateControlUISchemaOptions } from '../models/controls/date-renderer.mod
           [nzShowTime]="showTime"
           [nzDisabled]="!isEnabled"
           [nzDisabledDate]="disabledDate"
+          [nzDisabledTime]="disabledTime"
           (ngModelChange)="onChange($event)"
         ></nz-date-picker>
       </nz-form-control>
@@ -74,6 +75,7 @@ export class DateControlRenderer extends JsonFormsControl<DateControlUISchemaOpt
   selectedDate: string | Date = null;
 
   disabledDate: (current: Date) => boolean;
+  disabledTime: DisabledTimeFn | undefined;
 
   constructor(jsonformsService: JsonFormsAngularService, changeDetectorRef: ChangeDetectorRef) {
     super(jsonformsService, changeDetectorRef);
@@ -94,6 +96,7 @@ export class DateControlRenderer extends JsonFormsControl<DateControlUISchemaOpt
       this.saveFormat = this.uischema.options?.saveFormat;
       this.showTime = this.uischema.options?.showTime || false;
       this.setDisabledDate();
+      this.setDisabledTime();
     }
   }
 
@@ -135,6 +138,103 @@ export class DateControlRenderer extends JsonFormsControl<DateControlUISchemaOpt
         return disable;
       };
     }
+  }
+
+  private setDisabledTime(): void {
+    const options = this.uischema.options || {};
+    const disabledTimeFnKey = options.disabledTimeFnKey;
+    const minDate = options.minDate ? new Date(options.minDate) : null;
+    const maxDate = options.maxDate ? new Date(options.maxDate) : null;
+
+    if (disabledTimeFnKey && this.config.disabledTimeFn?.[disabledTimeFnKey]) {
+      this.disabledTime = this.config.disabledTimeFn[disabledTimeFnKey];
+      return;
+    }
+
+    if (!this.showTime || (!minDate && !maxDate)) {
+      this.disabledTime = undefined;
+      return;
+    }
+
+    const isSameDay = (dateA: Date, dateB: Date) => differenceInCalendarDays(dateA, dateB) === 0;
+
+    const createDisabledUnits = (current: Date): DisabledTimeConfig | undefined => {
+      if (!current) {
+        return undefined;
+      }
+
+      const disabledHours = () => {
+        const hours: number[] = [];
+
+        if (minDate && isSameDay(current, minDate)) {
+          for (let h = 0; h < minDate.getHours(); h++) {
+            hours.push(h);
+          }
+        }
+
+        if (maxDate && isSameDay(current, maxDate)) {
+          for (let h = maxDate.getHours() + 1; h < 24; h++) {
+            hours.push(h);
+          }
+        }
+
+        return hours;
+      };
+
+      const disabledMinutes = (hour: number) => {
+        const minutes: number[] = [];
+
+        if (minDate && isSameDay(current, minDate) && hour === minDate.getHours()) {
+          for (let m = 0; m < minDate.getMinutes(); m++) {
+            minutes.push(m);
+          }
+        }
+
+        if (maxDate && isSameDay(current, maxDate) && hour === maxDate.getHours()) {
+          for (let m = maxDate.getMinutes() + 1; m < 60; m++) {
+            minutes.push(m);
+          }
+        }
+
+        return minutes;
+      };
+
+      const disabledSeconds = (hour: number, minute: number) => {
+        const seconds: number[] = [];
+
+        if (
+          minDate &&
+          isSameDay(current, minDate) &&
+          hour === minDate.getHours() &&
+          minute === minDate.getMinutes()
+        ) {
+          for (let s = 0; s < minDate.getSeconds(); s++) {
+            seconds.push(s);
+          }
+        }
+
+        if (
+          maxDate &&
+          isSameDay(current, maxDate) &&
+          hour === maxDate.getHours() &&
+          minute === maxDate.getMinutes()
+        ) {
+          for (let s = maxDate.getSeconds() + 1; s < 60; s++) {
+            seconds.push(s);
+          }
+        }
+
+        return seconds;
+      };
+
+      return {
+        nzDisabledHours: disabledHours,
+        nzDisabledMinutes: disabledMinutes,
+        nzDisabledSeconds: disabledSeconds,
+      };
+    };
+
+    this.disabledTime = (current: Date) => createDisabledUnits(current);
   }
 }
 
