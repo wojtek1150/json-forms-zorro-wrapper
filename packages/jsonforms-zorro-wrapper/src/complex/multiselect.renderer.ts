@@ -7,7 +7,7 @@ import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { NzOptionComponent, NzSelectComponent } from 'ng-zorro-antd/select';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NzValidationStatusPipe } from '../other/validation-status.pipe';
-import { MultiselectExternalDictionaryItem } from '../other/config';
+import { MultiselectExternalDictionaryItem } from '../models/config';
 import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({

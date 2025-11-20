@@ -3,7 +3,7 @@ import { JsonFormsAngularService, JsonFormsBaseRenderer } from '../jsonForms';
 import { JsonFormsState, mapStateToLayoutProps, OwnPropsOfRenderer, UISchemaElement } from '../core';
 import { Subject, takeUntil } from 'rxjs';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { JFZLayout } from '../other/uischema';
+import { JFZLayout } from '../models/uischema';
 
 @Directive()
 export class LayoutRenderer<T extends JFZLayout> extends JsonFormsBaseRenderer<T> implements OnInit, OnDestroy {

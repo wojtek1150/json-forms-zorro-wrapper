@@ -7,6 +7,7 @@ import { NzFormControlComponent, NzFormItemComponent, NzFormLabelComponent } fro
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NzValidationStatusPipe } from '../other/validation-status.pipe';
+import { DateControlUISchemaOptions } from '../models/controls/date-renderer.model';
 
 @Component({
   selector: 'DateControlRenderer',
@@ -66,7 +67,7 @@ import { NzValidationStatusPipe } from '../other/validation-status.pipe';
     NzValidationStatusPipe,
   ],
 })
-export class DateControlRenderer extends JsonFormsControl {
+export class DateControlRenderer extends JsonFormsControl<DateControlUISchemaOptions> {
   dateFormat: string = 'yyyy-MM-dd';
   saveFormat: string | null = null;
   showTime: boolean | SupportTimeOptions = false;
@@ -106,12 +107,33 @@ export class DateControlRenderer extends JsonFormsControl {
   }
 
   private setDisabledDate(): void {
-    const disabledDateFnKey = this.uischema.options?.disabledDateFnKey;
+    const options = this.uischema.options || {};
+    const disabledDateFnKey = options.disabledDateFnKey;
+    const minDate = options.minDate ? new Date(options.minDate) : null;
+    const maxDate = options.maxDate ? new Date(options.maxDate) : null;
 
-    if (disabledDateFnKey) {
+    if (disabledDateFnKey && this.config.disabledDateFn?.[disabledDateFnKey]) {
       this.disabledDate = this.config.disabledDateFn[disabledDateFnKey];
-    } else if (this.uischema.options?.disablePastDates) {
-      this.disabledDate = (current: Date) => differenceInCalendarDays(current, new Date()) < 0;
+    } else {
+      this.disabledDate = (current: Date) => {
+        let disable = false;
+
+        if (options.disablePastDates) {
+          disable = disable || differenceInCalendarDays(current, new Date()) < 0;
+        }
+
+        // Handle minDate (inclusive)
+        if (minDate) {
+          disable = disable || differenceInCalendarDays(current, minDate) < 0;
+        }
+
+        // Handle maxDate (inclusive)
+        if (maxDate) {
+          disable = disable || differenceInCalendarDays(current, maxDate) > 0;
+        }
+
+        return disable;
+      };
     }
   }
 }

@@ -1,7 +1,7 @@
 import { and, categorizationHasCategory, JsonFormsState, mapStateToLayoutProps, RankedTester, rankWith, uiTypeIs } from '../core';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { DescriptionRenderer, JsonFormsAngularService, JsonFormsBaseRenderer, JsonFormsOutlet } from '../jsonForms';
-import { JFZCategorizationSchema } from '../other/uischema';
+import { JFZCategorizationSchema } from '../models/uischema';
 import { Subject, takeUntil } from 'rxjs';
 import { NzTabComponent, NzTabsComponent } from 'ng-zorro-antd/tabs';
 

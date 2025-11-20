@@ -7,8 +7,9 @@ import {
 } from '../core';
 import { OnDestroy, OnInit } from '@angular/core';
 import { JsonFormsAbstractControl } from './abstract-control';
+import { UiSchemaControlBaseOptions } from '../models/uischema';
 
-export class JsonFormsControl extends JsonFormsAbstractControl<StatePropsOfControl> implements OnInit, OnDestroy {
+export class JsonFormsControl<ControlOptions = UiSchemaControlBaseOptions> extends JsonFormsAbstractControl<StatePropsOfControl, ControlOptions> implements OnInit, OnDestroy {
   protected mapToProps(state: JsonFormsState): StatePropsOfControl {
     const props = mapStateToControlProps(state, this.getOwnProps());
     return { ...props };

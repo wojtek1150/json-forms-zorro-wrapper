@@ -16,7 +16,7 @@ import { JsonFormsBaseRenderer } from './base.renderer';
 import { Subject, takeUntil } from 'rxjs';
 import { JsonFormsControl } from './control';
 import { JsonFormsAngularService } from './jsonforms.service';
-import { JFZElement } from '../other/uischema';
+import { JFZElement } from '../models/uischema';
 
 const areEqual = (prevProps: StatePropsOfJsonFormsRenderer, nextProps: StatePropsOfJsonFormsRenderer) => {
   return (

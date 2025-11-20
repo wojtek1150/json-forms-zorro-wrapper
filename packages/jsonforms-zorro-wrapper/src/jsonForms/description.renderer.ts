@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { JFZElement } from '../other/uischema';
+import { JFZElement } from '../models/uischema';
 import { JsonSchema } from '../core';
 
 @Component({

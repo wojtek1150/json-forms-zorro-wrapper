@@ -29,7 +29,7 @@ import { JsonFormsBaseRenderer } from './base.renderer';
 import { cloneDeep } from 'lodash-es';
 import Ajv, { ErrorObject } from 'ajv';
 import { Injectable } from '@angular/core';
-import { JFZElement } from '../other/uischema';
+import { JFZElement } from '../models/uischema';
 
 export const USE_STATE_VALUE = Symbol('Marker to use state value');
 

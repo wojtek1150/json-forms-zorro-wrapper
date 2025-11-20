@@ -5,16 +5,34 @@ import { Rule, UISchemaElement } from '../core';
  */
 export interface ZorroControlElement extends JFZControlElement {}
 
-type Options = {
+export interface UiSchemaLayoutBaseOptions extends Record<string, any> {
   /**
    * Determines if description should be parsed as html
    */
   html?: boolean;
 
-  [key: string]: any;
+  /**
+   * If set displays submit button with given label
+   */
+  submitLabel?: string;
 };
 
-export interface JFZElement extends UISchemaElement {
+export interface UiSchemaControlBaseOptions extends Record<string, any> {
+  /**
+   /**
+    * If true, show the validation status for the control.
+    * The status values are mapped from NzValidationStatusPipe:
+    * 'PENDING' => 'validating', 'WARNING' => 'warning', 'INVALID' => 'error', 'VALID' => 'success'
+    */
+  showValidationStatus?: boolean;
+
+  /**
+   * Determines if description should be parsed as html
+   */
+  html?: boolean;
+}
+
+export interface JFZElement<ControlOptions extends UiSchemaControlBaseOptions = UiSchemaControlBaseOptions> extends UISchemaElement {
   /**
    * The type of this UI schema element.
    */
@@ -28,7 +46,7 @@ export interface JFZElement extends UISchemaElement {
   /**
    * Any additional options.
    */
-  options?: Options;
+  options?: ControlOptions;
 
   /**
    * Label for UI schema element.
@@ -47,7 +65,7 @@ export interface JFZElement extends UISchemaElement {
  * A control element. The scope property of the control determines
  * to which part of the schema the control should be bound.
  */
-export interface JFZControlElement extends JFZElement {
+export interface JFZControlElement<ControlOptions = UiSchemaControlBaseOptions> extends JFZElement<ControlOptions> {
   /**
    * The type of this UI schema element.
    */
@@ -89,11 +107,6 @@ export interface JFZControlElement extends JFZElement {
    * An optional rule.
    */
   rule?: Rule;
-
-  /**
-   * Any additional options.
-   */
-  options?: { showValidationStatus?: boolean } & Options;
 }
 
 /**
@@ -119,12 +132,7 @@ export interface JFZLayout extends JFZElement {
   /**
    * Any additional options.
    */
-  options?: {
-    /**
-     * If set displays submit button with given label
-     */
-    submitLabel?: string;
-  } & Options;
+  options?: UiSchemaLayoutBaseOptions;
 }
 
 /**
@@ -138,9 +146,7 @@ export interface JFZVerticalLayout extends JFZLayout {
   description?: string;
   type: 'VerticalLayout';
   elements: JFZControlElement[] | JFZLayout[];
-  options?: {
-    submitLabel?: string;
-  } & Options;
+  options?: UiSchemaLayoutBaseOptions;
 }
 
 /**
@@ -151,9 +157,7 @@ export interface JFZHorizontalLayout extends JFZLayout {
   description?: string;
   type: 'HorizontalLayout';
   elements: JFZControlElement[] | JFZLayout[];
-  options?: {
-    submitLabel?: string;
-  } & Options;
+  options?: UiSchemaLayoutBaseOptions;
 }
 
 /**
@@ -165,9 +169,7 @@ export interface JFZGroupLayout extends JFZLayout {
   label?: string;
   description?: string;
   elements: JFZControlElement[] | JFZLayout[];
-  options?: {
-    submitLabel?: string;
-  } & Options;
+  options?: UiSchemaLayoutBaseOptions;
 }
 
 export interface JFZCardGroupLayout extends JFZLayout {
@@ -175,7 +177,7 @@ export interface JFZCardGroupLayout extends JFZLayout {
   label: string;
   description?: string;
   elements: JFZControlElement[] | JFZLayout[];
-  options?: Options;
+  options?: UiSchemaLayoutBaseOptions;
 }
 
 /**
@@ -186,7 +188,7 @@ export interface JFZCategoryLayout extends JFZLayout {
   label: string;
   description?: string;
   elements: JFZGroupLayout[] | JFZLayout[];
-  options?: Options;
+  options?: UiSchemaLayoutBaseOptions;
 }
 
 export interface JFZCategorizationSchema extends JFZLayout {
@@ -196,7 +198,6 @@ export interface JFZCategorizationSchema extends JFZLayout {
     showNavButtons?: boolean;
     nextLabel?: string; // default "Next"
     previousLabel?: string; // default "Previous"
-    submitLabel?: string; // default "Submit"
-  } & Options;
+  } & UiSchemaLayoutBaseOptions;
   elements: JFZCategoryLayout[] | JFZLayout[];
 }
