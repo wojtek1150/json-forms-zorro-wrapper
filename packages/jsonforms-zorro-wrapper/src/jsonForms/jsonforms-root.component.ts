@@ -2,9 +2,9 @@ import { Component, EventEmitter, HostBinding, Input, OnChanges, OnDestroy, OnIn
 import { Actions, JsonFormsI18nState, JsonFormsRendererRegistryEntry, JsonSchema, UISchemaTester, ValidationMode } from '../core';
 import Ajv, { ErrorObject } from 'ajv';
 import { JsonFormsAngularService, USE_STATE_VALUE } from './jsonforms.service';
-import { JFZElement } from '../other/uischema';
+import { JFZElement } from '../models/uischema';
 import { filter, Subject, takeUntil } from 'rxjs';
-import { Config } from '../other/config';
+import { Config } from '../models/config';
 import { JsonFormsOutlet } from './jsonforms.component';
 
 @Component({

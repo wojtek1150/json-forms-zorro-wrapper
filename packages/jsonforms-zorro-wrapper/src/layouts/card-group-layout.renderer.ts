@@ -3,7 +3,7 @@ import { RankedTester, rankWith, uiTypeIs } from '../core';
 import { LayoutRenderer } from './layout.renderer';
 import { DescriptionRenderer, JsonFormsAngularService, JsonFormsOutlet } from '../jsonForms';
 import { DomSanitizer } from '@angular/platform-browser';
-import { JFZCardGroupLayout } from '../other/uischema';
+import { JFZCardGroupLayout } from '../models/uischema';
 import { NzCardComponent } from 'ng-zorro-antd/card';
 
 @Component({

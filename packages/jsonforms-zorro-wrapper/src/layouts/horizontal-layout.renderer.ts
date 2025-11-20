@@ -3,7 +3,7 @@ import { RankedTester, rankWith, uiTypeIs } from '../core';
 import { LayoutRenderer } from './layout.renderer';
 import { DescriptionRenderer, JsonFormsAngularService, JsonFormsOutlet } from '../jsonForms';
 import { DomSanitizer } from '@angular/platform-browser';
-import { JFZHorizontalLayout } from '../other/uischema';
+import { JFZHorizontalLayout } from '../models/uischema';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
 
 @Component({

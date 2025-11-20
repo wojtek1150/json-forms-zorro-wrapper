@@ -2,7 +2,7 @@ import { and, categorizationHasCategory, JsonFormsState, mapStateToLayoutProps, 
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { DescriptionRenderer, JsonFormsAngularService, JsonFormsBaseRenderer, JsonFormsOutlet } from '../jsonForms';
 import { Subject, takeUntil } from 'rxjs';
-import { JFZCategoryLayout } from '../other/uischema';
+import { JFZCategoryLayout } from '../models/uischema';
 import { NzStepComponent, NzStepsComponent } from 'ng-zorro-antd/steps';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
 

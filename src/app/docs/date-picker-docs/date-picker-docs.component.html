@@ -64,7 +64,8 @@
   </div>
 </article>
 
-<p>UiSchema Options</p>
+
+<p>JsonSchema Options</p>
 <nz-table [nzTemplateMode]="true">
   <thead>
     <tr>
@@ -75,45 +76,6 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td>format</td>
-      <td>Set to `date` to enable date picker selection</td>
-      <td><code>string</code></td>
-      <td>-</td>
-    </tr>
-    <tr>
-      <td>dateFormat</td>
-      <td>Date format displayed in the control</td>
-      <td><code>string</code></td>
-      <td><code>'yyyy-MM-dd'</code></td>
-    </tr>
-    <tr>
-      <td>saveFormat</td>
-      <td>Date format of form returned value. If not passed ISO string will be returned</td>
-      <td><code>string</code></td>
-      <td><code>-</code></td>
-    </tr>
-    <tr>
-      <td>showTime</td>
-      <td>
-        Set to true to enable time selection or pass object containing
-        <a href="https://ng.ant.design/components/time-picker/en#api">TimePicker Options</a>
-      </td>
-      <td><code>object | boolean</code></td>
-      <td><code>false</code></td>
-    </tr>
-    <tr>
-      <td>disablePastDates</td>
-      <td>Set to true to disable past date selection</td>
-      <td><code>boolean</code></td>
-      <td><code>false</code></td>
-    </tr>
-    <tr>
-      <td>disabledDateFnKey</td>
-      <td>Key of <code>disabledDateFn</code> object passed to global options. With that you can add your own disableDate function</td>
-      <td><code>string</code></td>
-      <td><code>-</code></td>
-    </tr>
     <tr>
       <td>formatMaximum</td>
       <td>
@@ -167,6 +129,72 @@
       </td>
       <td><code>string &#124; &#123; $data: string &#125;</code></td>
       <td>-</td>
+    </tr>
+  </tbody>
+</nz-table>
+
+
+<p>UiSchema Options</p>
+<nz-table [nzTemplateMode]="true">
+  <thead>
+    <tr>
+      <th>Property</th>
+      <th>Description</th>
+      <th>Type</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>format</td>
+      <td>Set to `date` to enable date picker selection</td>
+      <td><code>string</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>dateFormat</td>
+      <td>Date format displayed in the control</td>
+      <td><code>string</code></td>
+      <td><code>'yyyy-MM-dd'</code></td>
+    </tr>
+    <tr>
+      <td>saveFormat</td>
+      <td>Date format of form returned value. If not passed ISO string will be returned</td>
+      <td><code>string</code></td>
+      <td><code>-</code></td>
+    </tr>
+    <tr>
+      <td>showTime</td>
+      <td>
+        Set to true to enable time selection or pass object containing
+        <a href="https://ng.ant.design/components/time-picker/en#api">TimePicker Options</a>
+      </td>
+      <td><code>object | boolean</code></td>
+      <td><code>false</code></td>
+    </tr>
+    <tr>
+      <td>disablePastDates</td>
+      <td>Set to true to disable past date selection</td>
+      <td><code>boolean</code></td>
+      <td><code>false</code></td>
+    </tr>
+    <tr>
+      <td>disabledDateFnKey</td>
+      <td>Key of <code>disabledDateFn</code> object passed to global options. With that you can add your own disableDate function</td>
+      <td><code>string</code></td>
+      <td><code>-</code></td>
+    </tr>
+    <tr>
+      <td>minDate</td>
+      <td>The minimum allowed date (inclusive) for selection. Should be a valid date string. eg. '2023-01-01'</td>
+      <td><code>string</code></td>
+      <td><code>-</code></td>
+    </tr>
+    <tr>
+      <td>maxDate</td>
+      <td>The maximum allowed date (inclusive) for selection. Should be a valid date string. eg. '2024-12-31'</td>
+      <td><code>string</code></td>
+      <td><code>-</code></td>
     </tr>
   </tbody>
 </nz-table>

@@ -1,6 +1,6 @@
 import { Directive, Input } from '@angular/core';
 import { JsonSchema, OwnPropsOfRenderer } from '../core';
-import { JFZElement } from '../other/uischema';
+import { JFZElement } from '../models/uischema';
 
 @Directive()
 export class JsonFormsBaseRenderer<T extends JFZElement> {

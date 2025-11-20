@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { JFZVerticalLayout, JsonFormsZorroModule, JsonSchema } from '@wojtek1150/jsonforms-zorro-wrapper';
+import { DateControlUISchemaOptions, JFZVerticalLayout, JsonFormsZorroModule, JsonSchema } from '@wojtek1150/jsonforms-zorro-wrapper';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzCodeEditorModule } from 'ng-zorro-antd/code-editor';
 import { FormsModule } from '@angular/forms';
@@ -34,7 +34,8 @@ export class DatePickerDocsComponent extends ControlDocsAbstract {
           saveFormat: "yyyy-MM-dd'T'HH:mm:ss",
           showTime: false,
           disablePastDates: true,
-        },
+          maxDate: '2025-12-31',
+        } as DateControlUISchemaOptions,
       },
     ],
   };
