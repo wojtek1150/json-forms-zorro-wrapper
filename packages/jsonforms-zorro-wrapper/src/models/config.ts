@@ -16,6 +16,8 @@ export interface MentionDictionaryItem {
   [key: string]: any;
 }
 
+import { DisabledTimeFn } from 'ng-zorro-antd/date-picker';
+
 export interface Config {
   restrict?: boolean;
   trim?: boolean;
@@ -25,4 +27,5 @@ export interface Config {
   mentionDictionary?: Record<string, MentionDictionaryItem[]>;
   fieldsWithWarningHint?: Record<string, string>;
   disabledDateFn?: Record<string, (current: Date) => boolean>;
+  disabledTimeFn?: Record<string, DisabledTimeFn>;
 }

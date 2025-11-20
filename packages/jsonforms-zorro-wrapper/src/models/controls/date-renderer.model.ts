@@ -39,6 +39,11 @@ export interface DateControlUISchemaOptions extends UiSchemaControlBaseOptions {
   disabledDateFnKey?: string;
 
   /**
+   * Key for a custom time disabling function from config.disabledTimeFn.
+   */
+  disabledTimeFnKey?: string;
+
+  /**
    * The minimum allowed date (inclusive) for selection. Should be an ISO string (e.g. '2023-01-01').
    */
   minDate?: string;

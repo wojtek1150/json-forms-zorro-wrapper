@@ -32,9 +32,9 @@ export class DatePickerDocsComponent extends ControlDocsAbstract {
           format: 'date',
           dateFormat: 'yyyy-MM-dd HH:mm',
           saveFormat: "yyyy-MM-dd'T'HH:mm:ss",
-          showTime: false,
+          showTime: true,
           disablePastDates: true,
-          maxDate: '2025-12-31',
+          maxDate: this.getMaxDate().toISOString(),
         } as DateControlUISchemaOptions,
       },
     ],
@@ -88,4 +88,11 @@ export class DatePickerDocsComponent extends ControlDocsAbstract {
       },
     ],
   };
+
+  private getMaxDate(): Date {
+    const date = new Date();
+    date.setDate(date.getDate() + 21); // +3 weeks
+    date.setHours(14, 30, 0, 0); // set time to 14:30
+    return date;
+  }
 }
