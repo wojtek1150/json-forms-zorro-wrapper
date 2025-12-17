@@ -7,6 +7,26 @@
 main {
   padding: 16px;
   display: flex;
+  flex-direction: column;
+}
+
+.builder-toolbar {
+  padding: 8px 16px;
+  border-bottom: 1px solid #f0f0f0;
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.toolbar-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.builder-content {
+  display: flex;
+  flex: 1;
+  gap: 16px;
 }
 
 aside {
@@ -15,10 +35,16 @@ aside {
 }
 
 .dnd-source {
+
+  ::ng-deep .cdk-drop-list{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+  }
+
   button {
     cursor: grabbing;
     margin: 0 0 5px;
-    width: 100%;
   }
 }
 
@@ -89,4 +115,21 @@ dnd-list-input-target {
   cursor: pointer;
   margin-right: 5px;
   font-size: 20px;
+}
+
+.layout-item {
+  border-left: 3px solid #1890ff;
+  background-color: #f0f7ff;
+}
+
+.layout-info {
+  margin-top: 16px;
+  padding: 12px;
+  background-color: #fafafa;
+  border-radius: 4px;
+  
+  p {
+    margin: 4px 0;
+    font-size: 12px;
+  }
 }
