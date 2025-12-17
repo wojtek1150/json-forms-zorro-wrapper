@@ -1,57 +1,284 @@
 <main cdkDropListGroup>
-  <!-- drag from list -->
-  <dnd-list-input-source class="dnd-source" itemContainerClass="dnd-item" listContainerClass="dnd-container">
-    <ng-template #input let-it>
-      <button nz-button nzShape="round">
-        <nz-icon [nzType]="it.input.icon" nzTheme="outline" />
-        {{ it.input.type | titlecase }}
+  <!-- Toolbar with Undo/Redo -->
+  <div class="builder-toolbar">
+    <div class="toolbar-actions">
+      <button nz-button nzType="default" [disabled]="!(service.canUndo$ | async)" (click)="undo()" title="Undo (Ctrl+Z)">
+        <nz-icon nzType="undo" nzTheme="outline"></nz-icon>
+        Undo
       </button>
-    </ng-template>
-  </dnd-list-input-source>
-  <!-- drop list -->
-  <dnd-list-input-target class="dnd-placeholder" itemContainerClass="dnd-item" listContainerClass="dnd-container">
-    <ng-template #dragHandle>
-      <div class="drag-icon">
-        <nz-icon nzTheme="outline" nzType="drag" />
-      </div>
-    </ng-template>
+      <button nz-button nzType="default" [disabled]="!(service.canRedo$ | async)" (click)="redo()" title="Redo (Ctrl+Y)">
+        <nz-icon nzType="redo" nzTheme="outline"></nz-icon>
+        Redo
+      </button>
+    </div>
+  </div>
 
-    <ng-template #item let-it>
-      @if (it.item.uiSchema; as schema) {
-        <nz-collapse class="item-data">
-          <nz-collapse-panel (nzActiveChange)="openEditor(it.item)" [nzActive]="it.item.editor" [nzExtra]="extraTpl" [nzHeader]="titleTpl">
-            <nz-input-group nzAddOnBefore="Scope">
-              <input (ngModelChange)="updateUiSchema(it.item, 'scope', $event)" [disabled]="true" [ngModel]="schema.scope" nz-input type="text" />
-            </nz-input-group>
-            <nz-input-group nzAddOnBefore="Field Name">
-              <input (ngModelChange)="updateControlName(it.item, $event)" [ngModel]="it.item.name" nz-input type="text" />
-            </nz-input-group>
-            <nz-input-group nzAddOnBefore="Label">
-              <input (ngModelChange)="updateUiSchema(it.item, 'label', $event)" [ngModel]="schema.label" nz-input type="text" />
-            </nz-input-group>
-            <nz-input-group nzAddOnBefore="Placeholder">
-              <input (ngModelChange)="updateUiSchema(it.item, 'placeholder', $event)" [ngModel]="schema.placeholder" nz-input type="text" />
-            </nz-input-group>
-            @if (it.item.type === TYPES.TEXT && inputsTemp[it.item.key]) {
-              <text-renderer-editor (controlChange)="updateControl($event)" [control]="inputsTemp[it.item.key]"></text-renderer-editor>
-            }
-          </nz-collapse-panel>
-        </nz-collapse>
-      }
-      <ng-template #titleTpl>
-        <nz-icon [nzType]="it.item.icon" class="type-icon" nzTheme="outline" />
-        <span>[{{ it.item.name }}] - {{ it.item.uiSchema.label }}</span>
+  <div class="builder-content">
+    <!-- drag from list -->
+    <dnd-list-input-source class="dnd-source" itemContainerClass="dnd-item" listContainerClass="dnd-container">
+      <ng-template #input let-it>
+        <button nz-button nzType="default" nz-tooltip [nzTooltipTitle]="titleTpl" nzSize="large">
+          <nz-icon [nzType]="it.item.icon" nzTheme="outline" />
+          <ng-template #titleTpl>
+            <span> @if (isControl(it.item)) {
+              {{ it.item.type | titlecase }}
+            } @else if (isLayout(it.item)) {
+              {{ it.item.label }}
+            }</span>
+          </ng-template>
+        </button>
       </ng-template>
-      <ng-template #extraTpl>
-        <nz-icon (click)="removeField(it.item.key)" class="remove-icon" nzTheme="outline" nzType="delete" />
-        <nz-icon (click)="saveChanges(it.item.key)" class="save-icon" nzTheme="twotone" nzType="save" />
-      </ng-template>
-    </ng-template>
+    </dnd-list-input-source>
 
-    <ng-template #placeholder>
-      <p class="placeholder">Drop Items Here</p>
-    </ng-template>
-  </dnd-list-input-target>
+    <!-- drop list -->
+    <dnd-list-input-target class="dnd-placeholder" itemContainerClass="dnd-item" listContainerClass="dnd-container">
+      <ng-template #dragHandle>
+        <div class="drag-icon">
+          <nz-icon nzTheme="outline" nzType="drag" />
+        </div>
+      </ng-template>
+
+      <!-- Control Item Template -->
+      <ng-template #item let-it>
+        @if (isControl(it.item)) {
+          @if (it.item.uiSchema; as schema) {
+            <nz-collapse class="item-data">
+              <nz-collapse-panel 
+                (nzActiveChange)="openEditor(it.item)" 
+                [nzActive]="it.item.editor" 
+                [nzExtra]="extraTpl" 
+                [nzHeader]="titleTpl">
+                <nz-input-group nzAddOnBefore="Scope">
+                  <input 
+                    (ngModelChange)="updateUiSchema(it.item, 'scope', $event)" 
+                    [disabled]="true" 
+                    [ngModel]="schema.scope" 
+                    nz-input 
+                    type="text" />
+                </nz-input-group>
+                <nz-input-group nzAddOnBefore="Field Name">
+                  <input 
+                    (ngModelChange)="updateControlName(it.item, $event)" 
+                    [ngModel]="it.item.name" 
+                    nz-input 
+                    type="text" />
+                </nz-input-group>
+                <nz-input-group nzAddOnBefore="Label">
+                  <input 
+                    (ngModelChange)="updateUiSchema(it.item, 'label', $event)" 
+                    [ngModel]="schema.label" 
+                    nz-input 
+                    type="text" />
+                </nz-input-group>
+                <nz-input-group nzAddOnBefore="Placeholder">
+                  <input 
+                    (ngModelChange)="updateUiSchema(it.item, 'placeholder', $event)" 
+                    [ngModel]="schema.placeholder" 
+                    nz-input 
+                    type="text" />
+                </nz-input-group>
+                
+                <!-- Control-specific editors -->
+                @if (it.item.type === TYPES.TEXT && getControlFromTemp(it.item.key!)) {
+                  <text-renderer-editor 
+                    (controlChange)="updateControl($event)" 
+                    [control]="getControlFromTemp(it.item.key!)!">
+                  </text-renderer-editor>
+                }
+                @if (it.item.type === TYPES.TEXTAREA && getControlFromTemp(it.item.key!)) {
+                  <textarea-renderer-editor 
+                    (controlChange)="updateControl($event)" 
+                    [control]="getControlFromTemp(it.item.key!)!">
+                  </textarea-renderer-editor>
+                }
+                @if (it.item.type === TYPES.NUMBER && getControlFromTemp(it.item.key!)) {
+                  <number-renderer-editor 
+                    (controlChange)="updateControl($event)" 
+                    [control]="getControlFromTemp(it.item.key!)!">
+                  </number-renderer-editor>
+                }
+                @if (it.item.type === TYPES.BOOLEAN && getControlFromTemp(it.item.key!)) {
+                  <boolean-renderer-editor 
+                    (controlChange)="updateControl($event)" 
+                    [control]="getControlFromTemp(it.item.key!)!">
+                  </boolean-renderer-editor>
+                }
+                @if (it.item.type === TYPES.DATE_PICKER && getControlFromTemp(it.item.key!)) {
+                  <date-renderer-editor 
+                    (controlChange)="updateControl($event)" 
+                    [control]="getControlFromTemp(it.item.key!)!">
+                  </date-renderer-editor>
+                }
+                @if (it.item.type === TYPES.DATE_RANGE && getControlFromTemp(it.item.key!)) {
+                  <date-range-renderer-editor 
+                    (controlChange)="updateControl($event)" 
+                    [control]="getControlFromTemp(it.item.key!)!">
+                  </date-range-renderer-editor>
+                }
+                @if (it.item.type === TYPES.SELECT && getControlFromTemp(it.item.key!)) {
+                  <select-renderer-editor 
+                    (controlChange)="updateControl($event)" 
+                    [control]="getControlFromTemp(it.item.key!)!">
+                  </select-renderer-editor>
+                }
+                @if (it.item.type === TYPES.RADIO && getControlFromTemp(it.item.key!)) {
+                  <radio-renderer-editor 
+                    (controlChange)="updateControl($event)" 
+                    [control]="getControlFromTemp(it.item.key!)!">
+                  </radio-renderer-editor>
+                }
+                @if (it.item.type === TYPES.RANGE && getControlFromTemp(it.item.key!)) {
+                  <range-renderer-editor 
+                    (controlChange)="updateControl($event)" 
+                    [control]="getControlFromTemp(it.item.key!)!">
+                  </range-renderer-editor>
+                }
+                @if (it.item.type === TYPES.TOGGLE && getControlFromTemp(it.item.key!)) {
+                  <toggle-renderer-editor 
+                    (controlChange)="updateControl($event)" 
+                    [control]="getControlFromTemp(it.item.key!)!">
+                  </toggle-renderer-editor>
+                }
+                @if (it.item.type === TYPES.WYSIWYG && getControlFromTemp(it.item.key!)) {
+                  <wysiwyg-renderer-editor 
+                    (controlChange)="updateControl($event)" 
+                    [control]="getControlFromTemp(it.item.key!)!">
+                  </wysiwyg-renderer-editor>
+                }
+                @if (it.item.type === TYPES.CHECKBOX_GROUP && getControlFromTemp(it.item.key!)) {
+                  <checkbox-group-renderer-editor 
+                    (controlChange)="updateControl($event)" 
+                    [control]="getControlFromTemp(it.item.key!)!">
+                  </checkbox-group-renderer-editor>
+                }
+                @if (it.item.type === TYPES.MULTISELECT && getControlFromTemp(it.item.key!)) {
+                  <multiselect-renderer-editor 
+                    (controlChange)="updateControl($event)" 
+                    [control]="getControlFromTemp(it.item.key!)!">
+                  </multiselect-renderer-editor>
+                }
+                @if (it.item.type === TYPES.MENTION && getControlFromTemp(it.item.key!)) {
+                  <mention-renderer-editor 
+                    (controlChange)="updateControl($event)" 
+                    [control]="getControlFromTemp(it.item.key!)!">
+                  </mention-renderer-editor>
+                }
+                @if (it.item.type === TYPES.IMAGE && getControlFromTemp(it.item.key!)) {
+                  <image-renderer-editor 
+                    (controlChange)="updateControl($event)" 
+                    [control]="getControlFromTemp(it.item.key!)!">
+                  </image-renderer-editor>
+                }
+                @if (it.item.type === TYPES.GOOGLE_PLACES && getControlFromTemp(it.item.key!)) {
+                  <google-places-renderer-editor 
+                    (controlChange)="updateControl($event)" 
+                    [control]="getControlFromTemp(it.item.key!)!">
+                  </google-places-renderer-editor>
+                }
+                @if (it.item.type === TYPES.COUNTRY_ISO && getControlFromTemp(it.item.key!)) {
+                  <country-iso-renderer-editor 
+                    (controlChange)="updateControl($event)" 
+                    [control]="getControlFromTemp(it.item.key!)!">
+                  </country-iso-renderer-editor>
+                }
+              </nz-collapse-panel>
+            </nz-collapse>
+          }
+          <ng-template #titleTpl>
+            <nz-icon [nzType]="it.item.icon" class="type-icon" nzTheme="outline" />
+            <span>[{{ it.item.name }}] - {{ it.item.uiSchema.label }}</span>
+          </ng-template>
+          <ng-template #extraTpl>
+            <nz-icon (click)="removeField(it.item.key!)" class="remove-icon" nzTheme="outline" nzType="delete" />
+            <nz-icon (click)="saveChanges(it.item.key!)" class="save-icon" nzTheme="twotone" nzType="save" />
+          </ng-template>
+        }
+      </ng-template>
+
+      <!-- Layout Item Template -->
+      <ng-template #layout let-it>
+        @if (isLayout(it.item)) {
+          @if (it.item.uiSchema; as schema) {
+            <nz-collapse class="item-data layout-item">
+              <nz-collapse-panel 
+                (nzActiveChange)="openEditor(it.item)" 
+                [nzActive]="it.item.editor" 
+                [nzExtra]="layoutExtraTpl" 
+                [nzHeader]="layoutTitleTpl">
+                <nz-input-group nzAddOnBefore="Label">
+                  <input 
+                    (ngModelChange)="updateLayoutLabel(it.item, $event)" 
+                    [ngModel]="it.item.label || schema.label" 
+                    nz-input 
+                    type="text" />
+                </nz-input-group>
+                <div class="layout-info">
+                  <p><strong>Type:</strong> {{ it.item.type }}</p>
+                  <p><strong>Elements:</strong> {{ it.item.elements.length }}</p>
+                </div>
+                
+                <!-- Layout-specific editors -->
+                @if (it.item.type === LAYOUT_TYPES.VERTICAL_LAYOUT && getLayoutFromTemp(it.item.key!)) {
+                  <vertical-layout-editor 
+                    (layoutChange)="updateLayout($event)" 
+                    [layout]="getLayoutFromTemp(it.item.key!)!">
+                  </vertical-layout-editor>
+                }
+                @if (it.item.type === LAYOUT_TYPES.HORIZONTAL_LAYOUT && getLayoutFromTemp(it.item.key!)) {
+                  <horizontal-layout-editor 
+                    (layoutChange)="updateLayout($event)" 
+                    [layout]="getLayoutFromTemp(it.item.key!)!">
+                  </horizontal-layout-editor>
+                }
+                @if (it.item.type === LAYOUT_TYPES.GROUP && getLayoutFromTemp(it.item.key!)) {
+                  <group-layout-editor 
+                    (layoutChange)="updateLayout($event)" 
+                    [layout]="getLayoutFromTemp(it.item.key!)!">
+                  </group-layout-editor>
+                }
+                @if (it.item.type === LAYOUT_TYPES.CARD_GROUP && getLayoutFromTemp(it.item.key!)) {
+                  <card-group-layout-editor 
+                    (layoutChange)="updateLayout($event)" 
+                    [layout]="getLayoutFromTemp(it.item.key!)!">
+                  </card-group-layout-editor>
+                }
+                @if (it.item.type === LAYOUT_TYPES.CATEGORIZATION && getLayoutFromTemp(it.item.key!)) {
+                  <categorization-layout-editor 
+                    (layoutChange)="updateLayout($event)" 
+                    [layout]="getLayoutFromTemp(it.item.key!)!">
+                  </categorization-layout-editor>
+                }
+                @if (it.item.type === LAYOUT_TYPES.STEPPER && getLayoutFromTemp(it.item.key!)) {
+                  <stepper-layout-editor 
+                    (layoutChange)="updateLayout($event)" 
+                    [layout]="getLayoutFromTemp(it.item.key!)!">
+                  </stepper-layout-editor>
+                }
+                @if (it.item.type === LAYOUT_TYPES.ARRAY_LAYOUT && getLayoutFromTemp(it.item.key!)) {
+                  <array-layout-editor 
+                    (layoutChange)="updateLayout($event)" 
+                    [layout]="getLayoutFromTemp(it.item.key!)!">
+                  </array-layout-editor>
+                }
+              </nz-collapse-panel>
+            </nz-collapse>
+          }
+          <ng-template #layoutTitleTpl>
+            <nz-icon [nzType]="it.item.icon" class="type-icon" nzTheme="outline" />
+            <span>{{ it.item.label }} ({{ it.item.elements.length }} items)</span>
+          </ng-template>
+          <ng-template #layoutExtraTpl>
+            <nz-icon (click)="removeField(it.item.key!)" class="remove-icon" nzTheme="outline" nzType="delete" />
+            <nz-icon (click)="saveChanges(it.item.key!)" class="save-icon" nzTheme="twotone" nzType="save" />
+          </ng-template>
+        }
+      </ng-template>
+
+      <ng-template #placeholder>
+        <p class="placeholder">Drop Items Here</p>
+      </ng-template>
+    </dnd-list-input-target>
+  </div>
 </main>
 
 <aside>
@@ -61,7 +288,8 @@
         [(data)]="formData"
         [renderers]="renderers"
         [schema]="service.formSchema$ | async"
-        [uischema]="service.uiSchema$ | async"></jsonforms>
+        [uischema]="service.uiSchema$ | async">
+      </jsonforms>
     </nz-tab>
     <nz-tab nzTitle="JsonUiSchema">
       <pre>{{ service.uiSchema$ | async | json }}</pre>
@@ -73,7 +301,7 @@
       <pre>{{ formData | json }}</pre>
     </nz-tab>
     <nz-tab nzTitle="Fields">
-      <pre>{{ inputsTemp | json }}</pre>
+      <pre>{{ itemsTemp | json }}</pre>
     </nz-tab>
   </nz-tabs>
 </aside>
