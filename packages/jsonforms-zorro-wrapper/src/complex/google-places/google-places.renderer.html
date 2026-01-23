@@ -21,9 +21,12 @@
       [includedPrimaryTypes]="[AUTOCOMPLETE_CITY_PRIMARY_TYPE]"
       [countryIsoCode]="countryIsoCodes()"
       [nzAutocomplete]="auto" />
+      <span class="control-input">
+        {{form.value}}<span class="state-suffix">{{stateSuffix()}}</span>
+      </span> 
     <nz-autocomplete #auto (selectionChange)="onPlaceSelected($event)">
       @for (suggestion of autocomplete.suggestions(); track suggestion.placeId) {
-      <nz-auto-option [nzValue]="suggestion.placeId" [nzLabel]="suggestion.mainText">
+      <nz-auto-option [nzValue]="suggestion" [nzLabel]="suggestion.mainText">
         <strong>{{ suggestion.mainText }}</strong>
         <span class="city-secondary-text">{{ suggestion.secondaryText }}</span>
       </nz-auto-option>

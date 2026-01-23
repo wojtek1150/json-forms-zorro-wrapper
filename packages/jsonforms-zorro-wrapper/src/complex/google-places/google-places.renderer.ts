@@ -13,6 +13,7 @@ import { NzInputDirective } from 'ng-zorro-antd/input';
 import { NzAutocompleteComponent, NzAutocompleteOptionComponent, NzAutocompleteTriggerDirective } from 'ng-zorro-antd/auto-complete';
 import { AUTOCOMPLETE_CITY_PRIMARY_TYPE } from './google-places';
 import { GooglePlacesAutocompleteDirective } from './google-places-autocomplete.directive';
+import { GooglePlacesRendererUISchemaOptions } from '../../models/controls/google-places-renderer.models';
 
 @Component({
   selector: 'GooglePlacesRenderer',
@@ -33,10 +34,11 @@ import { GooglePlacesAutocompleteDirective } from './google-places-autocomplete.
     NzAutocompleteTriggerDirective,
   ],
 })
-export class GooglePlacesRenderer extends JsonFormsControl implements AfterViewInit {
+export class GooglePlacesRenderer extends JsonFormsControl<GooglePlacesRendererUISchemaOptions> implements AfterViewInit {
   private countryRestrictionField: string;
 
   readonly countryIsoCodes = signal<string[]>([]);
+  readonly stateSuffix = signal<string | undefined>(undefined);
 
   readonly AUTOCOMPLETE_CITY_PRIMARY_TYPE = AUTOCOMPLETE_CITY_PRIMARY_TYPE;
 
@@ -55,17 +57,25 @@ export class GooglePlacesRenderer extends JsonFormsControl implements AfterViewI
   override mapAdditionalProps(props): void {
     super.mapAdditionalProps(props);
     if (this.scopedSchema) {
-      this.countryRestrictionField = this.uischema.options?.countryRestrictionField
-        ? toDataPathSegments(this.uischema.options?.countryRestrictionField).join('.')
+      this.countryRestrictionField = this.controlOptions.countryRestrictionField
+        ? toDataPathSegments(this.controlOptions.countryRestrictionField).join('.')
         : null;
     }
   }
 
-  override onChange(event: string) {
+  override onChange(event: any) {
+    // Reset state suffix when input changes
+    this.stateSuffix.set(undefined);
+
     // Reset both fields if cleared
     if (!this.getEventValue(event)) {
       this.jsonFormsService.updateCore(Actions.update(this.propsPath, () => undefined));
-      this.jsonFormsService.updateCore(Actions.update(this.propsPath + 'PlaceId', () => undefined));
+      if (this.controlOptions.withPlaceId !== false) {
+        this.jsonFormsService.updateCore(Actions.update(this.propsPath + 'PlaceId', () => undefined));
+      }
+      if (this.controlOptions.withState) {
+        this.jsonFormsService.updateCore(Actions.update(this.propsPath + 'State', () => undefined));
+      }
     }
     return; // do nothing when not valid selection
   }
@@ -77,10 +87,15 @@ export class GooglePlacesRenderer extends JsonFormsControl implements AfterViewI
           throw new Error('Google maps library cannot be found');
         }
 
-        if (this.countryRestrictionField) {
+        if (this.countryRestrictionField || this.controlOptions.withState) {
           this.jsonFormsService.$formValue.pipe(takeUntil(this.destroy$), debounceTime(1_000)).subscribe(formData => {
-            const value = get(formData, this.countryRestrictionField);
-            this.countryIsoCodes.set(!value ? [] : typeof value === 'string' ? [value] : value);
+            if (this.countryRestrictionField) {
+              const value = get(formData, this.countryRestrictionField);
+              this.countryIsoCodes.set(!value ? [] : typeof value === 'string' ? [value] : value);
+            }
+            if (this.controlOptions.withState) {
+              this.stateSuffix.set(get(formData, this.propsPath + 'State'));
+            }
           });
         }
       }
@@ -88,8 +103,19 @@ export class GooglePlacesRenderer extends JsonFormsControl implements AfterViewI
   }
 
   onPlaceSelected(option: NzAutocompleteOptionComponent) {
-    this.jsonFormsService.updateCore(Actions.update(this.propsPath, () => option.nzLabel));
-    this.jsonFormsService.updateCore(Actions.update(this.propsPath + 'PlaceId', () => option.nzValue));
+    this.jsonFormsService.updateCore(Actions.update(this.propsPath, () => option.nzValue.mainText));
+    if (this.controlOptions.withPlaceId !== false) {
+      this.jsonFormsService.updateCore(Actions.update(this.propsPath + 'PlaceId', () => option.nzValue.placeId));
+    }
+    if (this.controlOptions.withState) {
+      this.jsonFormsService.updateCore(Actions.update(this.propsPath + 'State', () => this.getState(option)));
+      this.stateSuffix.set(this.getState(option));
+    }
+  }
+
+  private getState(option: NzAutocompleteOptionComponent): string | undefined {
+    const parts = option.nzValue.secondaryText?.split(', ');
+    return parts && parts.length > 1 ? parts[0] : undefined;
   }
 
   private googleLibNotFound(): boolean {
