@@ -91,6 +91,7 @@ export class GooglePlacesDocsComponent {
         options: {
           format: 'google-places',
           countryRestrictionField: '#/properties/scoped/properties/country',
+          withState: true,
         },
       },
     ],
@@ -102,8 +103,9 @@ export class GooglePlacesDocsComponent {
   };
 
   data1 = {
-    city: 'Washington, DC',
-    cityPlaceId: 'ChIJW-T2Wt7Gt4kRKl2I1CJFUsI',
+    city: 'LaFayette',
+    cityPlaceId: 'ChIJ8dmELpgf2okRSzXgknw8fxc',
+    cityState: 'NY',
     scoped: {
       country: 'us',
     },

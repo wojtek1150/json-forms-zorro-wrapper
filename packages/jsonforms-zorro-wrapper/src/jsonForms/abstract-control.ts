@@ -12,8 +12,7 @@ import { Config } from '../models/config';
 @Directive({})
 export abstract class JsonFormsAbstractControl<Props extends StatePropsOfControl, ControlOptions extends UiSchemaControlBaseOptions = UiSchemaControlBaseOptions>
   extends JsonFormsBaseRenderer<JFZControlElement<ControlOptions>>
-  implements OnInit, OnDestroy
-{
+  implements OnInit, OnDestroy {
   @Input() id: string;
   @Input() disabled: boolean;
   @Input() visible: boolean;
@@ -37,6 +36,7 @@ export abstract class JsonFormsAbstractControl<Props extends StatePropsOfControl
   propsPath: string;
   config: Config;
   instancePath: string;
+  controlOptions: ControlOptions;
 
   readonly destroy$ = new Subject<void>();
 
@@ -109,6 +109,7 @@ export abstract class JsonFormsAbstractControl<Props extends StatePropsOfControl
         this.rootSchema = rootSchema;
         this.instancePath = '/' + path.replace('.', '/');
         this.description = this.scopedSchema !== undefined ? this.scopedSchema.description : this.uischema.description || '';
+        this.controlOptions = this.uischema.options || {} as ControlOptions;
         this.id = props.id;
         this.required = required;
         if (this.form.value !== data) {

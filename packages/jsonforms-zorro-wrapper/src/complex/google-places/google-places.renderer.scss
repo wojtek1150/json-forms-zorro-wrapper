@@ -10,3 +10,18 @@ nz-form-item {
   margin-left: 5px;
   opacity: 0.5;
 }
+
+.control-input {
+  display: flex;
+  align-items: center;
+  margin-top: calc(-1.5715em - 5px); /* -1.5715em - line height of the input + padding + border */
+  z-index: 10;
+  position: relative;
+  left: 12px; /* 12px - padding + border of the input */
+  pointer-events: none;
+}
+
+.state-suffix {
+  margin-left: 5px;
+  opacity: 0.5;
+}
