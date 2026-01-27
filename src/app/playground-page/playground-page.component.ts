@@ -59,7 +59,6 @@ export class PlaygroundPageComponent {
 
   schemaCode = JSON.stringify(schema, null, 2);
   uischemaCode = JSON.stringify(uischema, null, 2);
-  formData = null;
   jsonformsConfig = jsonformsConfig;
   jsonformsConfigCode = JSON.stringify(jsonformsConfig, null, 2);
 

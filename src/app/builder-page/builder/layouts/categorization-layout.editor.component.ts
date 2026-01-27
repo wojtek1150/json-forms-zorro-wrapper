@@ -4,11 +4,11 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { FormsModule } from '@angular/forms';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
-import { CommonModule } from '@angular/common';
+
 import set from 'lodash-es/set';
 
 @Component({
-  imports: [NzInputModule, FormsModule, NzButtonModule, NzIconModule, CommonModule],
+  imports: [NzInputModule, FormsModule, NzButtonModule, NzIconModule],
   selector: 'categorization-layout-editor',
   template: `
     <h3>Categorization Layout Options</h3>

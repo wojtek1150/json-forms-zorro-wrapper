@@ -4,11 +4,11 @@ import { FormsModule } from '@angular/forms';
 import { JFZBuilderControl } from '../model';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
-import { CommonModule } from '@angular/common';
+
 import set from 'lodash-es/set';
 
 @Component({
-  imports: [NzInputModule, FormsModule, NzButtonModule, NzIconModule, CommonModule],
+  imports: [NzInputModule, FormsModule, NzButtonModule, NzIconModule],
   selector: 'select-renderer-editor',
   template: `
     <h3>Select Options</h3>
