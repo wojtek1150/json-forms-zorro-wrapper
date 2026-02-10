@@ -8,11 +8,12 @@
   }
   <DescriptionRenderer [scopedSchema]="scopedSchema" [uiSchema]="uischema"></DescriptionRenderer>
   <nz-form-control [nzErrorTip]="errorMessage" [nzHasFeedback]="showValidationStatus" [nzValidateStatus]="form.status | nzValidationStatus">
+    @let formValue = form.value?.mainText || form.value;
     <input
       (blur)="triggerValidation()"
       (input)="onChange($event)"
       [formControl]="form"
-      (ngModelChange)="autocomplete.refetchAutocompleteSuggestions(form.value)"
+      (ngModelChange)="autocomplete.refetchAutocompleteSuggestions(formValue)"
       [id]="id"
       [placeholder]="placeholder"
       nz-input
@@ -21,9 +22,7 @@
       [includedPrimaryTypes]="[AUTOCOMPLETE_CITY_PRIMARY_TYPE]"
       [countryIsoCode]="countryIsoCodes()"
       [nzAutocomplete]="auto" />
-      <span class="control-input">
-        {{form.value}}<span class="state-suffix">{{stateSuffix()}}</span>
-      </span> 
+    <span class="control-input"> {{formValue}}<span class="state-suffix">{{stateSuffix()}}</span> </span>
     <nz-autocomplete #auto (selectionChange)="onPlaceSelected($event)">
       @for (suggestion of autocomplete.suggestions(); track suggestion.placeId) {
       <nz-auto-option [nzValue]="suggestion" [nzLabel]="suggestion.mainText">
