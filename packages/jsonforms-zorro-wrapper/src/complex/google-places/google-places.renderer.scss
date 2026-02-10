@@ -2,6 +2,10 @@ nz-form-item {
   display: block;
 }
 
+nz-form-control {
+  position: relative;
+}
+
 .hidden {
   display: none;
 }
@@ -14,9 +18,9 @@ nz-form-item {
 .control-input {
   display: flex;
   align-items: center;
-  margin-top: calc(-1.5715em - 5px); /* -1.5715em - line height of the input + padding + border */
+  margin-top: var(----jsfw-control-input-margin-top, calc(-1.5715em - 5px)); /* -1.5715em - line height of the input + padding + border */
   z-index: 10;
-  position: relative;
+  position: absolute;
   left: 12px; /* 12px - padding + border of the input */
   pointer-events: none;
 }

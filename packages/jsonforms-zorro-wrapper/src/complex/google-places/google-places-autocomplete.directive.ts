@@ -13,8 +13,8 @@ export class GooglePlacesAutocompleteDirective {
 
   readonly suggestions = signal<AutocompleteSuggestion[]>([]);
 
-  async refetchAutocompleteSuggestions(value: string) {
-    if (!value) {
+  async refetchAutocompleteSuggestions(value: string | AutocompleteSuggestion | null) {
+    if (!value || typeof value !== 'string') {
       this.suggestions.set([]);
       return;
     }
