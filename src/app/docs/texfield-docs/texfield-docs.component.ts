@@ -33,6 +33,11 @@ export class TexfieldDocsComponent {
         label: 'First name',
         type: 'Control',
         scope: '#/properties/name',
+        messageBox: {
+          type: 'warning',
+          title: 'Warning',
+          content: 'This is a warning message that will be displayed after the control',
+        },
       },
     ],
   };

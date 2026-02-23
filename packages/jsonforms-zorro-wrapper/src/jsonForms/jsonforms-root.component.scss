@@ -57,3 +57,26 @@
     }
   }
 }
+
+:host ::ng-deep {
+  .message-box {
+    margin-top: var(--jsfw-message-box-margin-top, 1em);
+    animation: var(--jsfw-message-box-animation, messageBoxSlideIn 0.5s ease-out forwards);
+    z-index: -1;
+  }
+
+  @keyframes messageBoxSlideIn {
+    0% {
+      opacity: 0;
+      transform: translateY(-50%);
+    }
+    50% {
+      opacity: 0;
+      transform: translateY(-25%);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}

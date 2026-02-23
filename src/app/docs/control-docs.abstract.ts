@@ -5,8 +5,21 @@ import { Directive } from '@angular/core';
 export abstract class ControlDocsAbstract {
   renderers = ngZorroRenderers;
   data = {};
+  uiSchemas: Record<string, JFZVerticalLayout> = {};
+
   abstract schema: JsonSchema;
   abstract uiSchema: JFZVerticalLayout;
+
+  updateUiSchema(uiSchemaKey: string, $event: string): void {
+    const cachedUiSchema = this.uiSchemas[uiSchemaKey].elements[0];
+    try {
+      this.uiSchemas[uiSchemaKey].elements[0] = null;
+      this.uiSchemas[uiSchemaKey].elements[0] = JSON.parse($event);
+      this.data = { ...this.data }; // force rerender
+    } catch (e) {
+      this.uiSchemas[uiSchemaKey].elements[0] = cachedUiSchema;
+    }
+  }
 
   updateProperty(schemaToUpdate: string, $event: string): void {
     if (schemaToUpdate === 'data') {

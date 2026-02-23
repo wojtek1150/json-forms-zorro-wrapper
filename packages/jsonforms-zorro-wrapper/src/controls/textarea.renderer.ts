@@ -6,6 +6,7 @@ import { NzFormControlComponent, NzFormItemComponent, NzFormLabelComponent } fro
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NzValidationStatusPipe } from '../other/validation-status.pipe';
+import { NzAlertComponent } from 'ng-zorro-antd/alert';
 
 @Component({
   selector: 'TextAreaRenderer',
@@ -35,6 +36,15 @@ import { NzValidationStatusPipe } from '../other/validation-status.pipe';
           (input)="onChange($event)"
           (blur)="triggerValidation()"
         ></textarea>
+        @if (uischema.messageBox && form.dirty) {
+          <nz-alert
+            class="message-box"
+            [nzType]="uischema.messageBox.type"
+            [nzMessage]="uischema.messageBox.title"
+            [nzDescription]="uischema.messageBox.content"
+            [nzShowIcon]="true"
+          />
+        }
       </nz-form-control>
     </nz-form-item>
   `,
@@ -60,6 +70,7 @@ import { NzValidationStatusPipe } from '../other/validation-status.pipe';
     ReactiveFormsModule,
     NzValidationStatusPipe,
     NzAutosizeDirective,
+    NzAlertComponent,
   ],
 })
 export class TextAreaRenderer extends JsonFormsControl {

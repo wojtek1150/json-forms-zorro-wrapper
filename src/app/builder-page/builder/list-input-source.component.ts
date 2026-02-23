@@ -30,8 +30,8 @@ import { JFZBuilderItem } from './model';
                 $implicit: {
                   item,
                   index,
-                  isLast
-                }
+                  isLast,
+                },
               }"
             >
             </ng-template>
@@ -60,8 +60,8 @@ import { JFZBuilderItem } from './model';
                 $implicit: {
                   item,
                   index,
-                  isLast
-                }
+                  isLast,
+                },
               }"
             >
             </ng-template>

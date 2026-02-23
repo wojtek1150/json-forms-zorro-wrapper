@@ -7,6 +7,7 @@ import { NzFormControlComponent, NzFormItemComponent, NzFormLabelComponent } fro
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NzValidationStatusPipe } from '../other/validation-status.pipe';
+import { NzAlertComponent } from 'ng-zorro-antd/alert';
 import { DateControlUISchemaOptions } from '../models/controls/date-renderer.model';
 
 @Component({
@@ -38,6 +39,15 @@ import { DateControlUISchemaOptions } from '../models/controls/date-renderer.mod
           [nzDisabledTime]="disabledTime"
           (ngModelChange)="onChange($event)"
         ></nz-date-picker>
+        @if (uischema.messageBox && form.dirty) {
+          <nz-alert
+            class="message-box"
+            [nzType]="uischema.messageBox.type"
+            [nzMessage]="uischema.messageBox.title"
+            [nzDescription]="uischema.messageBox.content"
+            [nzShowIcon]="true"
+          />
+        }
       </nz-form-control>
     </nz-form-item>
   `,
@@ -66,6 +76,7 @@ import { DateControlUISchemaOptions } from '../models/controls/date-renderer.mod
     NzDatePickerComponent,
     ReactiveFormsModule,
     NzValidationStatusPipe,
+    NzAlertComponent,
   ],
 })
 export class DateControlRenderer extends JsonFormsControl<DateControlUISchemaOptions> {
@@ -202,23 +213,13 @@ export class DateControlRenderer extends JsonFormsControl<DateControlUISchemaOpt
       const disabledSeconds = (hour: number, minute: number) => {
         const seconds: number[] = [];
 
-        if (
-          minDate &&
-          isSameDay(current, minDate) &&
-          hour === minDate.getHours() &&
-          minute === minDate.getMinutes()
-        ) {
+        if (minDate && isSameDay(current, minDate) && hour === minDate.getHours() && minute === minDate.getMinutes()) {
           for (let s = 0; s < minDate.getSeconds(); s++) {
             seconds.push(s);
           }
         }
 
-        if (
-          maxDate &&
-          isSameDay(current, maxDate) &&
-          hour === maxDate.getHours() &&
-          minute === maxDate.getMinutes()
-        ) {
+        if (maxDate && isSameDay(current, maxDate) && hour === maxDate.getHours() && minute === maxDate.getMinutes()) {
           for (let s = maxDate.getSeconds() + 1; s < 60; s++) {
             seconds.push(s);
           }

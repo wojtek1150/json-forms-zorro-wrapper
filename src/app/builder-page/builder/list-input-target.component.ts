@@ -1,5 +1,16 @@
 import { CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop';
-import { ChangeDetectionStrategy, Component, ContentChild, EventEmitter, Input, Output, TemplateRef, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ContentChild,
+  EventEmitter,
+  Input,
+  Output,
+  TemplateRef,
+  OnInit,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { BuilderService } from './builder.service';
 import { JFZBuilderItem } from './model';
@@ -40,14 +51,14 @@ import { JFZBuilderItem } from './model';
               [ngTemplateOutletContext]="{
                 $implicit: {
                   item,
-                  isHovered: _mouserOverItemIndex === index
-                }
+                  isHovered: _mouserOverItemIndex === index,
+                },
               }"
             >
             </ng-template>
           </div>
         }
-        
+
         <!-- Layout Item with nested drop zone -->
         @if (service.isLayout(item)) {
           <div class="layout-wrapper">
@@ -71,14 +82,14 @@ import { JFZBuilderItem } from './model';
                   [ngTemplateOutletContext]="{
                     $implicit: {
                       item,
-                      isHovered: _mouserOverItemIndex === index
-                    }
+                      isHovered: _mouserOverItemIndex === index,
+                    },
                   }"
                 >
                 </ng-template>
               </div>
             </div>
-            
+
             <!-- Nested drop zone for layout elements - separate from draggable header -->
             <div class="layout-content">
               <dnd-list-input-target
@@ -118,7 +129,7 @@ import { JFZBuilderItem } from './model';
       @if (!_forcePreviewIconContainerHidden && displayItems.length < 1 && !parentLayoutKey) {
         <ng-template [ngTemplateOutlet]="placeholderRef || null"></ng-template>
       }
-      
+
       @if (parentLayoutKey && displayItems.length < 1) {
         <div class="nested-placeholder">
           <p>Drop items into this layout</p>

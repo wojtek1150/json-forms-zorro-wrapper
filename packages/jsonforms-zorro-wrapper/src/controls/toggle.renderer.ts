@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
 import { DescriptionRenderer, JsonFormsAngularService, JsonFormsControl } from '../jsonForms';
 import { Actions, and, isBooleanControl, optionIs, RankedTester, rankWith } from '../core';
 import { NzSwitchComponent } from 'ng-zorro-antd/switch';
+import { NzAlertComponent } from 'ng-zorro-antd/alert';
 import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
@@ -14,6 +15,15 @@ import { ReactiveFormsModule } from '@angular/forms';
         <span>{{ label }}</span>
       }
     </label>
+    @if (uischema.messageBox && form.dirty) {
+      <nz-alert
+        class="message-box"
+        [nzType]="uischema.messageBox.type"
+        [nzMessage]="uischema.messageBox.title"
+        [nzDescription]="uischema.messageBox.content"
+        [nzShowIcon]="true"
+      />
+    }
   `,
   styles: [
     `
@@ -34,7 +44,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     `,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [DescriptionRenderer, NzSwitchComponent, ReactiveFormsModule],
+  imports: [DescriptionRenderer, NzSwitchComponent, ReactiveFormsModule, NzAlertComponent],
 })
 export class ToggleControlRenderer extends JsonFormsControl {
   private selectedState: boolean;

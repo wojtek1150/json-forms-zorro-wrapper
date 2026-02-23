@@ -6,6 +6,7 @@ import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { NzOptionComponent, NzSelectComponent } from 'ng-zorro-antd/select';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NzValidationStatusPipe } from '../other/validation-status.pipe';
+import { NzAlertComponent } from 'ng-zorro-antd/alert';
 
 @Component({
   selector: 'SelectControlRenderer',
@@ -40,6 +41,15 @@ import { NzValidationStatusPipe } from '../other/validation-status.pipe';
               <nz-option [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
             }
           </nz-select>
+          @if (uischema.messageBox && form.dirty) {
+            <nz-alert
+              class="message-box"
+              [nzType]="uischema.messageBox.type"
+              [nzMessage]="uischema.messageBox.title"
+              [nzDescription]="uischema.messageBox.content"
+              [nzShowIcon]="true"
+            />
+          }
         </nz-form-control>
       </nz-form-item>
     }
@@ -66,6 +76,7 @@ import { NzValidationStatusPipe } from '../other/validation-status.pipe';
     ReactiveFormsModule,
     NzOptionComponent,
     NzValidationStatusPipe,
+    NzAlertComponent,
   ],
 })
 export class SelectControlRenderer extends JsonFormsControl {

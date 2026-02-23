@@ -13,24 +13,14 @@ import set from 'lodash-es/set';
   template: `
     <h3>Categorization Layout Options</h3>
     <nz-input-group nzAddOnBefore="Description">
-      <input
-        nz-input
-        [ngModel]="layout.uiSchema.description"
-        (ngModelChange)="updateDescription($event)"
-        placeholder="Categorization description"
-      />
+      <input nz-input [ngModel]="layout.uiSchema.description" (ngModelChange)="updateDescription($event)" placeholder="Categorization description" />
     </nz-input-group>
     <div class="categories-section">
       <h4>Categories</h4>
       @for (category of categories; track $index; let i = $index) {
         <div class="category-item">
           <nz-input-group>
-            <input
-              nz-input
-              [ngModel]="category.label"
-              (ngModelChange)="updateCategoryLabel(i, $event)"
-              placeholder="Category label"
-            />
+            <input nz-input [ngModel]="category.label" (ngModelChange)="updateCategoryLabel(i, $event)" placeholder="Category label" />
             <button nz-button nzType="text" nzDanger (click)="removeCategory(i)">
               <nz-icon nzType="delete" nzTheme="outline"></nz-icon>
             </button>

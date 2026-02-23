@@ -5,6 +5,7 @@ import { NzFormControlComponent, NzFormItemComponent, NzFormLabelComponent } fro
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { NzRadioComponent, NzRadioGroupComponent } from 'ng-zorro-antd/radio';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NzAlertComponent } from 'ng-zorro-antd/alert';
 
 @Component({
   selector: 'RadioControlRenderer',
@@ -26,6 +27,15 @@ import { ReactiveFormsModule } from '@angular/forms';
               <label nz-radio-button [nzValue]="option">{{ option }}</label>
             }
           </nz-radio-group>
+          @if (uischema.messageBox && form.dirty) {
+            <nz-alert
+              class="message-box"
+              [nzType]="uischema.messageBox.type"
+              [nzMessage]="uischema.messageBox.title"
+              [nzDescription]="uischema.messageBox.content"
+              [nzShowIcon]="true"
+            />
+          }
         </nz-form-control>
       </nz-form-item>
     }
@@ -51,6 +61,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     NzRadioGroupComponent,
     NzRadioComponent,
     ReactiveFormsModule,
+    NzAlertComponent,
   ],
 })
 export class RadioButtonControlRenderer extends JsonFormsControl {

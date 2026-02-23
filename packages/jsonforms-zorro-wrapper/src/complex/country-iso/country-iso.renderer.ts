@@ -4,6 +4,7 @@ import { Actions, and, hasType, optionIs, RankedTester, rankWith, schemaMatches,
 import { NzFormControlComponent, NzFormItemComponent, NzFormLabelComponent } from 'ng-zorro-antd/form';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { NzValidationStatusPipe } from '../../other/validation-status.pipe';
+import { NzAlertComponent } from 'ng-zorro-antd/alert';
 import { NzOptionComponent, NzSelectComponent } from 'ng-zorro-antd/select';
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -27,6 +28,7 @@ interface Country {
     NzSelectComponent,
     ReactiveFormsModule,
     NzOptionComponent,
+    NzAlertComponent,
   ],
 })
 export class CountryIsoControlRenderer extends JsonFormsControl {

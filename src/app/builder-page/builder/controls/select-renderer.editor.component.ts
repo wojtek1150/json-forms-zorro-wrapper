@@ -16,12 +16,7 @@ import set from 'lodash-es/set';
       @for (option of options; track $index; let i = $index) {
         <div class="option-item">
           <nz-input-group>
-            <input
-              nz-input
-              [ngModel]="option"
-              (ngModelChange)="updateOption(i, $event)"
-              placeholder="Option value"
-            />
+            <input nz-input [ngModel]="option" (ngModelChange)="updateOption(i, $event)" placeholder="Option value" />
             <button nz-button nzType="text" nzDanger (click)="removeOption(i)">
               <nz-icon nzType="delete" nzTheme="outline"></nz-icon>
             </button>

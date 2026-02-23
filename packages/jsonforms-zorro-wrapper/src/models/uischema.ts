@@ -15,7 +15,7 @@ export interface UiSchemaLayoutBaseOptions extends Record<string, any> {
    * If set displays submit button with given label
    */
   submitLabel?: string;
-};
+}
 
 export interface UiSchemaControlBaseOptions extends Record<string, any> {
   /**
@@ -59,6 +59,21 @@ export interface JFZElement<ControlOptions extends UiSchemaControlBaseOptions = 
    * @see Options.html
    */
   description?: string;
+
+  /**
+   * This object defines a message box displayed after the control.
+   * It will be displayed after the control and will be styled based on the type using nz-alert component.
+   *
+   * @property type can be 'info', 'success', 'warning', or 'error'. (info is default)
+   * @property title can be empty
+   * @property content is required and must be a string
+   * @see https://ng.ant.design/components/alert/en
+   */
+  messageBox?: {
+    type: 'info' | 'success' | 'warning' | 'error'; // info is default
+    title?: string; // default is empty
+    content: string;
+  };
 }
 
 /**

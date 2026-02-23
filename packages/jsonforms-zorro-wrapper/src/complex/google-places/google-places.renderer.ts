@@ -9,6 +9,7 @@ import { NzFormControlComponent, NzFormItemComponent, NzFormLabelComponent } fro
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NzValidationStatusPipe } from '../../other/validation-status.pipe';
+import { NzAlertComponent } from 'ng-zorro-antd/alert';
 import { NzInputDirective } from 'ng-zorro-antd/input';
 import { NzAutocompleteComponent, NzAutocompleteOptionComponent, NzAutocompleteTriggerDirective } from 'ng-zorro-antd/auto-complete';
 import { AUTOCOMPLETE_CITY_PRIMARY_TYPE } from './google-places';
@@ -32,6 +33,7 @@ import { GooglePlacesRendererUISchemaOptions } from '../../models/controls/googl
     NzAutocompleteOptionComponent,
     GooglePlacesAutocompleteDirective,
     NzAutocompleteTriggerDirective,
+    NzAlertComponent,
   ],
 })
 export class GooglePlacesRenderer extends JsonFormsControl<GooglePlacesRendererUISchemaOptions> implements AfterViewInit {

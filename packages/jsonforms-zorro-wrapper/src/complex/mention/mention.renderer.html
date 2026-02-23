@@ -30,6 +30,14 @@
       </nz-option>
       }
     </nz-select>
+    @if (uischema.messageBox && form.dirty) {
+    <nz-alert
+      class="message-box"
+      [nzType]="uischema.messageBox.type"
+      [nzMessage]="uischema.messageBox.title"
+      [nzDescription]="uischema.messageBox.content"
+      [nzShowIcon]="true" />
+    }
   </nz-form-control>
 </nz-form-item>
 }

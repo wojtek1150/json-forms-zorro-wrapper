@@ -6,6 +6,7 @@ import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { ContentChange, QuillEditorComponent } from 'ngx-quill';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NzValidationStatusPipe } from '../other/validation-status.pipe';
+import { NzAlertComponent } from 'ng-zorro-antd/alert';
 import { takeUntil } from 'rxjs';
 
 @Component({
@@ -33,6 +34,15 @@ import { takeUntil } from 'rxjs';
           [styles]="{ minHeight: '100px' }"
           (blur)="triggerValidation()"
         ></quill-editor>
+        @if (uischema.messageBox && form.dirty) {
+          <nz-alert
+            class="message-box"
+            [nzType]="uischema.messageBox.type"
+            [nzMessage]="uischema.messageBox.title"
+            [nzDescription]="uischema.messageBox.content"
+            [nzShowIcon]="true"
+          />
+        }
       </nz-form-control>
     </nz-form-item>
   `,
@@ -61,6 +71,7 @@ import { takeUntil } from 'rxjs';
     QuillEditorComponent,
     ReactiveFormsModule,
     NzValidationStatusPipe,
+    NzAlertComponent,
   ],
 })
 export class WysiwygRenderer extends JsonFormsControl {

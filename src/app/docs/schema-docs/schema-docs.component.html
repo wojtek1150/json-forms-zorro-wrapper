@@ -21,6 +21,45 @@
   </li>
 </ul>
 
+<h2>Generic UI schema options</h2>
+<p>Each control may have additional properties for customization.</p>
+
+<section>
+  <h3>MessageBox</h3>
+  <p>Message box is displayed below the control when the control is dirty and will be styled based on the type using nz-alert component.</p>
+
+  <jsonforms [data]="{ name: 'John Doe' }" [renderers]="renderers" [schema]="schema" [uischema]="uiSchemas.uiSchemaMessageBox"></jsonforms>
+  <nz-code-editor
+    (ngModelChange)="updateUiSchema('uiSchemaMessageBox', $event)"
+    [ngModel]="uiSchemas.uiSchemaMessageBox.elements[0] | editorFormatter"
+    [nzEditorOption]="{ language: 'json', automaticLayout: true }"
+    class="editor"></nz-code-editor>
+</section>
+
+<section>
+  <h3>Html</h3>
+  <p>Determines if description should be parsed as html. If true, the description will be parsed as html and displayed as html.</p>
+
+  <jsonforms [data]="{ name: 'John Doe' }" [renderers]="renderers" [schema]="schema" [uischema]="uiSchemas.uiSchemaHtml"></jsonforms>
+  <nz-code-editor
+    (ngModelChange)="updateUiSchema('uiSchemaHtml', $event)"
+    [ngModel]="uiSchemas.uiSchemaHtml.elements[0] | editorFormatter"
+    [nzEditorOption]="{ language: 'json', automaticLayout: true }"
+    class="editor"></nz-code-editor>
+</section>
+
+<section>
+  <h3>Show Validation Status</h3>
+  <p>Determines if validation status should be displayed. If true, the validation status will be displayed as an icon. (default is false)</p>
+
+  <jsonforms [data]="{ name: 'John Doe' }" [renderers]="renderers" [schema]="schema" [uischema]="uiSchemas.uiSchemaShowValidationStatus"></jsonforms>
+  <nz-code-editor
+    (ngModelChange)="updateUiSchema('uiSchemaShowValidationStatus', $event)"
+    [ngModel]="uiSchemas.uiSchemaShowValidationStatus.elements[0] | editorFormatter"
+    [nzEditorOption]="{ language: 'json', automaticLayout: true }"
+    class="editor"></nz-code-editor>
+</section>
+
 <h2>Ui Schema</h2>
 
 <h3>Control</h3>
@@ -105,6 +144,18 @@
     </tr>
   </thead>
   <tbody>
+    <tr>
+      <td>messageBox</td>
+      <td>Message box displayed after the control</td>
+      <td><code>MessageBox</code> <br />&#64;jsonforms/core/src/models/uischema</td>
+      <td>
+        <code> type: 'info' | 'success' | 'warning' | 'error'; </code>
+        <br />
+        <code> title?: string; </code>
+        <br />
+        <code>content: string;</code>
+      </td>
+    </tr>
     <tr>
       <td>html</td>
       <td>Determines if description should be parsed as html</td>
