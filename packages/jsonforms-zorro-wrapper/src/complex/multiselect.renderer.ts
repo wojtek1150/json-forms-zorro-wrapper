@@ -7,6 +7,7 @@ import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { NzOptionComponent, NzSelectComponent } from 'ng-zorro-antd/select';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NzValidationStatusPipe } from '../other/validation-status.pipe';
+import { NzAlertComponent } from 'ng-zorro-antd/alert';
 import { MultiselectExternalDictionaryItem } from '../models/config';
 import { toSignal } from '@angular/core/rxjs-interop';
 
@@ -24,7 +25,12 @@ import { toSignal } from '@angular/core/rxjs-interop';
           </nz-form-label>
         }
         <DescriptionRenderer [uiSchema]="uischema" [scopedSchema]="scopedSchema"></DescriptionRenderer>
-        <nz-form-control [nzHasFeedback]="showValidationStatus" [nzErrorTip]="errorMessage" [nzWarningTip]="warningHint()" [nzValidateStatus]="errorStatus | nzValidationStatus">
+        <nz-form-control
+          [nzHasFeedback]="showValidationStatus"
+          [nzErrorTip]="errorMessage"
+          [nzWarningTip]="warningHint()"
+          [nzValidateStatus]="errorStatus | nzValidationStatus"
+        >
           <nz-select
             nzMode="multiple"
             [id]="id"
@@ -54,6 +60,15 @@ import { toSignal } from '@angular/core/rxjs-interop';
               }
             </div>
           </ng-template>
+          @if (uischema.messageBox && form.dirty) {
+            <nz-alert
+              class="message-box"
+              [nzType]="uischema.messageBox.type"
+              [nzMessage]="uischema.messageBox.title"
+              [nzDescription]="uischema.messageBox.content"
+              [nzShowIcon]="true"
+            ></nz-alert>
+          }
         </nz-form-control>
       </nz-form-item>
     }
@@ -80,6 +95,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
     ReactiveFormsModule,
     NzValidationStatusPipe,
     NzOptionComponent,
+    NzAlertComponent,
   ],
 })
 export class MultiselectControlRenderer extends JsonFormsControl {

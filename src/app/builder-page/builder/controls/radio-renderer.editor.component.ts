@@ -5,9 +5,7 @@ import { JFZBuilderControl } from '../model';
 @Component({
   imports: [SelectRendererEditorComponent],
   selector: 'radio-renderer-editor',
-  template: `
-    <select-renderer-editor [control]="control" (controlChange)="controlChange.emit($event)"></select-renderer-editor>
-  `,
+  template: `<select-renderer-editor [control]="control" (controlChange)="controlChange.emit($event)"></select-renderer-editor>`,
   styles: [':host {display: block;}'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

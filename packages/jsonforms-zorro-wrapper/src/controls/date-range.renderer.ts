@@ -7,6 +7,7 @@ import { NzFormControlComponent, NzFormItemComponent, NzFormLabelComponent } fro
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NzValidationStatusPipe } from '../other/validation-status.pipe';
+import { NzAlertComponent } from 'ng-zorro-antd/alert';
 
 type DateRange = [Date | string, Date | string] | null;
 
@@ -38,6 +39,15 @@ type DateRange = [Date | string, Date | string] | null;
           [nzDisabledDate]="disabledDate"
           (ngModelChange)="onChange($event)"
         ></nz-range-picker>
+        @if (uischema.messageBox && form.dirty) {
+          <nz-alert
+            class="message-box"
+            [nzType]="uischema.messageBox.type"
+            [nzMessage]="uischema.messageBox.title"
+            [nzDescription]="uischema.messageBox.content"
+            [nzShowIcon]="true"
+          />
+        }
       </nz-form-control>
     </nz-form-item>
   `,
@@ -67,6 +77,7 @@ type DateRange = [Date | string, Date | string] | null;
     ReactiveFormsModule,
     NzValidationStatusPipe,
     NzDatePickerComponent,
+    NzAlertComponent,
   ],
 })
 export class DateRangeControlRenderer extends JsonFormsControl {

@@ -302,8 +302,8 @@ export class JsonFormsAngularService {
     additionalErrors: ErrorObject[] | typeof USE_STATE_VALUE,
   ): void {
     const newData = data === USE_STATE_VALUE ? this._state.core.data : data;
-    const newSchema = schema === USE_STATE_VALUE ? this._state.core.schema : schema ?? generateJsonSchema(newData);
-    const newUischema = uischema === USE_STATE_VALUE ? this._state.core.uischema : uischema ?? generateDefaultUISchema(newSchema);
+    const newSchema = schema === USE_STATE_VALUE ? this._state.core.schema : (schema ?? generateJsonSchema(newData));
+    const newUischema = uischema === USE_STATE_VALUE ? this._state.core.uischema : (uischema ?? generateDefaultUISchema(newSchema));
     const newAjv = ajv === USE_STATE_VALUE ? this._state.core.ajv : ajv;
     const newValidationMode = validationMode === USE_STATE_VALUE ? this._state.core.validationMode : validationMode;
     const newAdditionalErrors = additionalErrors === USE_STATE_VALUE ? this._state.core.additionalErrors : additionalErrors;

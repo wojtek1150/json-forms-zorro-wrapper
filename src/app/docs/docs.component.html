@@ -3,7 +3,12 @@
     <ul nz-menu nzMode="inline">
       <li nz-menu-group nzTitle="General">
         <ul>
-          <li nz-menu-item nzMatchRouter><a [routerLink]="['schema']">Schema</a></li>
+          <li nz-menu-item nzMatchRouter>
+            <a [routerLink]="['schema']" class="with-tag">
+              <span>Schema</span>
+              <nz-tag nzColor="blue">updated</nz-tag>
+            </a>
+          </li>
           <li nz-menu-item nzMatchRouter><a [routerLink]="['forms']">JsonForms component</a></li>
         </ul>
       </li>
@@ -13,8 +18,8 @@
           <li nz-menu-item nzMatchRouter><a [routerLink]="['date']">Date Picker</a></li>
           <li nz-menu-item nzMatchRouter><a [routerLink]="['date-range']">Date Range picker</a></li>
           <li nz-menu-item nzMatchRouter>
-            <a [routerLink]="['country-iso']" class="with-tag"
-              ><span>Country with ISO code</span>
+            <a [routerLink]="['country-iso']" class="with-tag">
+              <span>Country with ISO code</span>
               <nz-tag nzColor="success">20.1.0</nz-tag>
             </a>
           </li>
@@ -24,8 +29,8 @@
           <li nz-menu-item nzMatchRouter><a [routerLink]="['mention']">Mention</a></li>
           <li nz-menu-item nzMatchRouter><a [routerLink]="['number']">Number</a></li>
           <li nz-menu-item nzMatchRouter>
-            <a [routerLink]="['slider']" class="with-tag"
-              ><span>Slider</span>
+            <a [routerLink]="['slider']" class="with-tag">
+              <span>Slider</span>
               <nz-tag nzColor="success">20.2.0</nz-tag>
             </a>
           </li>

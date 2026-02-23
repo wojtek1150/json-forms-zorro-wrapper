@@ -6,6 +6,7 @@ import { NzFormControlComponent, NzFormItemComponent, NzFormLabelComponent } fro
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { NzCheckboxGroupComponent } from 'ng-zorro-antd/checkbox';
 import { NzValidationStatusPipe } from '../other/validation-status.pipe';
+import { NzAlertComponent } from 'ng-zorro-antd/alert';
 import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
@@ -24,6 +25,15 @@ import { ReactiveFormsModule } from '@angular/forms';
         <DescriptionRenderer [uiSchema]="uischema" [scopedSchema]="scopedSchema"></DescriptionRenderer>
         <nz-form-control [nzHasFeedback]="showValidationStatus" [nzErrorTip]="errorMessage" [nzValidateStatus]="form.status | nzValidationStatus">
           <nz-checkbox-group [nzOptions]="options" [formControl]="form" (ngModelChange)="onChange($event)"></nz-checkbox-group>
+          @if (uischema.messageBox && form.dirty) {
+            <nz-alert
+              class="message-box"
+              [nzType]="uischema.messageBox.type"
+              [nzMessage]="uischema.messageBox.title"
+              [nzDescription]="uischema.messageBox.content"
+              [nzShowIcon]="true"
+            ></nz-alert>
+          }
         </nz-form-control>
       </nz-form-item>
     }
@@ -49,6 +59,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     NzValidationStatusPipe,
     ReactiveFormsModule,
     NzCheckboxGroupComponent,
+    NzAlertComponent,
   ],
 })
 export class CheckboxGroupControlRenderer extends JsonFormsControl {

@@ -4,6 +4,7 @@ import { isBooleanControl, RankedTester, rankWith } from '../core';
 import { NzFormControlComponent, NzFormItemComponent } from 'ng-zorro-antd/form';
 import { NzCheckboxComponent } from 'ng-zorro-antd/checkbox';
 import { NzValidationStatusPipe } from '../other/validation-status.pipe';
+import { NzAlertComponent } from 'ng-zorro-antd/alert';
 import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
@@ -15,6 +16,15 @@ import { ReactiveFormsModule } from '@angular/forms';
         <label nz-checkbox [id]="id" [formControl]="form" (nzCheckedChange)="onChange($event)">
           <span>{{ label }}</span>
         </label>
+        @if (uischema.messageBox && form.dirty) {
+          <nz-alert
+            class="message-box"
+            [nzType]="uischema.messageBox.type"
+            [nzMessage]="uischema.messageBox.title"
+            [nzDescription]="uischema.messageBox.content"
+            [nzShowIcon]="true"
+          />
+        }
       </nz-form-control>
     </nz-form-item>
   `,
@@ -30,7 +40,15 @@ import { ReactiveFormsModule } from '@angular/forms';
     `,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [NzFormItemComponent, DescriptionRenderer, NzFormControlComponent, NzCheckboxComponent, NzValidationStatusPipe, ReactiveFormsModule],
+  imports: [
+    NzFormItemComponent,
+    DescriptionRenderer,
+    NzFormControlComponent,
+    NzCheckboxComponent,
+    NzValidationStatusPipe,
+    ReactiveFormsModule,
+    NzAlertComponent,
+  ],
 })
 export class BooleanControlRenderer extends JsonFormsControl {
   constructor(jsonformsService: JsonFormsAngularService, changeDetectorRef: ChangeDetectorRef) {

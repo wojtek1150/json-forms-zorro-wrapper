@@ -964,7 +964,7 @@ export const mapStateToLabelProps = (state: JsonFormsState, props: OwnPropsOfLab
   const text = uischema.text;
   const t = getTranslator()(state);
   const i18nKeyPrefix = getI18nKeyPrefixBySchema(undefined, uischema);
-  const i18nKey = i18nKeyPrefix ? `${i18nKeyPrefix}.text` : text ?? '';
+  const i18nKey = i18nKeyPrefix ? `${i18nKeyPrefix}.text` : (text ?? '');
   const i18nText = t(i18nKey, text, { uischema });
 
   return {

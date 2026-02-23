@@ -4,7 +4,8 @@ import {
   JFZHorizontalLayout,
   JFZGroupLayout,
   JFZCardGroupLayout,
-  JFZCategorizationSchema, JsonSchema7
+  JFZCategorizationSchema,
+  JsonSchema7,
 } from '@wojtek1150/jsonforms-zorro-wrapper';
 
 export enum JFZBuilderInputType {

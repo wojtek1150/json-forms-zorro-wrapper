@@ -6,6 +6,7 @@ import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { NzInputDirective } from 'ng-zorro-antd/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NzValidationStatusPipe } from '../other/validation-status.pipe';
+import { NzAlertComponent } from 'ng-zorro-antd/alert';
 
 @Component({
   selector: 'TextControlRenderer',
@@ -35,6 +36,15 @@ import { NzValidationStatusPipe } from '../other/validation-status.pipe';
           (input)="onChange($event)"
           (blur)="triggerValidation()"
         />
+        @if (uischema.messageBox && form.dirty) {
+          <nz-alert
+            class="message-box"
+            [nzType]="uischema.messageBox.type"
+            [nzMessage]="uischema.messageBox.title"
+            [nzDescription]="uischema.messageBox.content"
+            [nzShowIcon]="true"
+          />
+        }
       </nz-form-control>
     </nz-form-item>
   `,
@@ -59,6 +69,7 @@ import { NzValidationStatusPipe } from '../other/validation-status.pipe';
     NzInputDirective,
     ReactiveFormsModule,
     NzValidationStatusPipe,
+    NzAlertComponent,
   ],
 })
 export class TextControlRenderer extends JsonFormsControl {

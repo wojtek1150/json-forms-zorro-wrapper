@@ -33,12 +33,7 @@ import set from 'lodash-es/set';
       @for (step of steps; track $index; let i = $index) {
         <div class="step-item">
           <nz-input-group>
-            <input
-              nz-input
-              [ngModel]="step.label"
-              (ngModelChange)="updateStepLabel(i, $event)"
-              placeholder="Step label"
-            />
+            <input nz-input [ngModel]="step.label" (ngModelChange)="updateStepLabel(i, $event)" placeholder="Step label" />
             <button nz-button nzType="text" nzDanger (click)="removeStep(i)">
               <nz-icon nzType="delete" nzTheme="outline"></nz-icon>
             </button>

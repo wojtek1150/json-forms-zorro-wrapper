@@ -5,6 +5,7 @@ import { NzFormControlComponent, NzFormItemComponent, NzFormLabelComponent } fro
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { NzInputNumberComponent } from 'ng-zorro-antd/input-number';
 import { NzValidationStatusPipe } from '../other/validation-status.pipe';
+import { NzAlertComponent } from 'ng-zorro-antd/alert';
 import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
@@ -38,6 +39,15 @@ import { ReactiveFormsModule } from '@angular/forms';
           [nzFormatter]="formatValue"
           (blur)="triggerValidation()"
         ></nz-input-number>
+        @if (uischema.messageBox && form.dirty) {
+          <nz-alert
+            class="message-box"
+            [nzType]="uischema.messageBox.type"
+            [nzMessage]="uischema.messageBox.title"
+            [nzDescription]="uischema.messageBox.content"
+            [nzShowIcon]="true"
+          />
+        }
       </nz-form-control>
     </nz-form-item>
   `,
@@ -66,6 +76,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     NzInputNumberComponent,
     NzValidationStatusPipe,
     ReactiveFormsModule,
+    NzAlertComponent,
   ],
 })
 export class NumberControlRenderer extends JsonFormsControl {

@@ -10,12 +10,7 @@ import set from 'lodash-es/set';
   template: `
     <h3>Card Group Layout Options</h3>
     <nz-input-group nzAddOnBefore="Description">
-      <input
-        nz-input
-        [ngModel]="layout.uiSchema.description"
-        (ngModelChange)="updateDescription($event)"
-        placeholder="Card group description"
-      />
+      <input nz-input [ngModel]="layout.uiSchema.description" (ngModelChange)="updateDescription($event)" placeholder="Card group description" />
     </nz-input-group>
   `,
   styles: [':host {display: block;}'],

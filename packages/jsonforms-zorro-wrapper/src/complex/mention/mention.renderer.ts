@@ -4,6 +4,7 @@ import { Actions, and, hasOption, hasType, optionIs, RankedTester, rankWith, sch
 import { NzFormControlComponent, NzFormItemComponent, NzFormLabelComponent } from 'ng-zorro-antd/form';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { NzValidationStatusPipe } from '../../other/validation-status.pipe';
+import { NzAlertComponent } from 'ng-zorro-antd/alert';
 import { NzOptionComponent, NzSelectComponent } from 'ng-zorro-antd/select';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AvatarComponent } from '../../components/avatar.component';
@@ -30,6 +31,7 @@ interface Person {
     ReactiveFormsModule,
     NzOptionComponent,
     AvatarComponent,
+    NzAlertComponent,
   ],
 })
 export class MentionControlRenderer extends JsonFormsControl {

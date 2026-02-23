@@ -5,6 +5,7 @@ import { NzFormControlComponent, NzFormItemComponent, NzFormLabelComponent } fro
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { NzSliderComponent } from 'ng-zorro-antd/slider';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NzAlertComponent } from 'ng-zorro-antd/alert';
 
 @Component({
   selector: 'RangeControlRenderer',
@@ -29,6 +30,15 @@ import { ReactiveFormsModule } from '@angular/forms';
           [nzStep]="multipleOf"
           (ngModelChange)="onChange($event)"
         ></nz-slider>
+        @if (uischema.messageBox && form.dirty) {
+          <nz-alert
+            class="message-box"
+            [nzType]="uischema.messageBox.type"
+            [nzMessage]="uischema.messageBox.title"
+            [nzDescription]="uischema.messageBox.content"
+            [nzShowIcon]="true"
+          />
+        }
       </nz-form-control>
     </nz-form-item>
   `,
@@ -52,6 +62,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     NzFormControlComponent,
     NzSliderComponent,
     ReactiveFormsModule,
+    NzAlertComponent,
   ],
 })
 export class RangeControlRenderer extends JsonFormsControl {

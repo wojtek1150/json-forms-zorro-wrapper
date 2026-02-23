@@ -11,18 +11,10 @@ import set from 'lodash-es/set';
   template: `
     <h3>Range Options</h3>
     <nz-input-group nzAddOnBefore="Minimum">
-      <nz-input-number
-        [nzStep]="1"
-        [ngModel]="control.formSchema.minimum"
-        (ngModelChange)="updateSchema('minimum', $event)"
-      ></nz-input-number>
+      <nz-input-number [nzStep]="1" [ngModel]="control.formSchema.minimum" (ngModelChange)="updateSchema('minimum', $event)"></nz-input-number>
     </nz-input-group>
     <nz-input-group nzAddOnBefore="Maximum">
-      <nz-input-number
-        [nzStep]="1"
-        [ngModel]="control.formSchema.maximum"
-        (ngModelChange)="updateSchema('maximum', $event)"
-      ></nz-input-number>
+      <nz-input-number [nzStep]="1" [ngModel]="control.formSchema.maximum" (ngModelChange)="updateSchema('maximum', $event)"></nz-input-number>
     </nz-input-group>
     <nz-input-group nzAddOnBefore="Step">
       <nz-input-number

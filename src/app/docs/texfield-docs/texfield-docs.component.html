@@ -4,7 +4,7 @@
 <p>Ui Schema</p>
 <pre><code>{{uiSchema.elements[0] | json }}</code></pre>
 
-<jsonforms [renderers]="renderers" [schema]="schema" [uischema]="uiSchema"></jsonforms>
+<jsonforms [data]="{ name: 'John Doe' }" [renderers]="renderers" [schema]="schema" [uischema]="uiSchema"></jsonforms>
 
 <p>As textarea</p>
 <pre><code>{{uiSchemaArea.elements[0] | json }}</code></pre>

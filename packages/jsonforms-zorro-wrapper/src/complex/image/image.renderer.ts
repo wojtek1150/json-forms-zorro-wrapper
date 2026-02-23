@@ -8,6 +8,7 @@ import { JFZImageRendererService } from './image.renderer.service';
 import { NzFormControlComponent, NzFormItemComponent, NzFormLabelComponent } from 'ng-zorro-antd/form';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { NzValidationStatusPipe } from '../../other/validation-status.pipe';
+import { NzAlertComponent } from 'ng-zorro-antd/alert';
 
 @Component({
   selector: 'ImageUploadRenderer',
@@ -21,6 +22,7 @@ import { NzValidationStatusPipe } from '../../other/validation-status.pipe';
     NzIconDirective,
     DescriptionRenderer,
     NzUploadComponent,
+    NzAlertComponent,
   ],
 })
 export class ImageControlRenderer extends JsonFormsControl {

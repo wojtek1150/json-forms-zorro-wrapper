@@ -10,12 +10,7 @@ import set from 'lodash-es/set';
   template: `
     <h3>Array Layout Options</h3>
     <nz-input-group nzAddOnBefore="Description">
-      <input
-        nz-input
-        [ngModel]="layout.uiSchema.description"
-        (ngModelChange)="updateDescription($event)"
-        placeholder="Array layout description"
-      />
+      <input nz-input [ngModel]="layout.uiSchema.description" (ngModelChange)="updateDescription($event)" placeholder="Array layout description" />
     </nz-input-group>
     <p class="info-text">Array layouts allow users to add multiple items. Configure the item template by adding controls to this layout.</p>
   `,

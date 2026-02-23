@@ -23,7 +23,7 @@ export class BuilderService {
   // Source items (templates) - filter out disabled controls
   copyFromControls: JFZBuilderControl[] = jfzBuilderControls.filter(c => !c.disabled);
   copyFromLayouts: JFZBuilderLayout[] = [...jfzBuilderLayouts];
-  
+
   // Dropped items (root level)
   rootElements: JFZBuilderItem[] = [];
 
@@ -41,10 +41,10 @@ export class BuilderService {
   private history: HistoryState[] = [];
   private historyIndex: number = -1;
   private readonly MAX_HISTORY_SIZE = 50;
-  
+
   private _canUndo$ = new BehaviorSubject<boolean>(false);
   canUndo$ = this._canUndo$.asObservable();
-  
+
   private _canRedo$ = new BehaviorSubject<boolean>(false);
   canRedo$ = this._canRedo$.asObservable();
 
@@ -57,7 +57,7 @@ export class BuilderService {
   handleDropEvent(event: CdkDragDrop<JFZBuilderItem[]>, targetLayoutKey?: string): JFZBuilderItem | undefined {
     this.cleanupTemporaryItems();
     const { data } = event.item;
-    
+
     try {
       if (event.previousContainer === event.container) {
         // Reordering within same container
@@ -68,10 +68,8 @@ export class BuilderService {
       } else {
         // Dropping from source to target
         const item = this.createInstance(data, targetLayoutKey);
-        const targetArray = targetLayoutKey 
-          ? this.findLayoutElements(targetLayoutKey) 
-          : this.rootElements;
-        
+        const targetArray = targetLayoutKey ? this.findLayoutElements(targetLayoutKey) : this.rootElements;
+
         targetArray.splice(event.currentIndex, 0, item);
         this.saveHistory();
         this.updateSchemas();
@@ -89,7 +87,7 @@ export class BuilderService {
 
   private createInstance(item: JFZBuilderItem, parentLayoutKey?: string): JFZBuilderItem {
     const key = createId().replace(/-/g, '');
-    
+
     if (this.isControl(item)) {
       return this.createControlInstance(item, key, parentLayoutKey);
     } else {
@@ -100,7 +98,7 @@ export class BuilderService {
   private createControlInstance(template: JFZBuilderControl, key: string, parentLayoutKey?: string): JFZBuilderControl {
     const uniqueName = this.generateUniqueFieldName(template.name);
     const scope = `#/properties/${uniqueName}`;
-    
+
     return {
       ...template,
       key,
@@ -131,12 +129,12 @@ export class BuilderService {
   private generateUniqueFieldName(baseName: string): string {
     let counter = 1;
     let name = baseName;
-    
+
     while (this.fieldNameExists(name)) {
       name = `${baseName}${counter}`;
       counter++;
     }
-    
+
     return name;
   }
 
@@ -146,7 +144,7 @@ export class BuilderService {
 
   private getAllControls(): JFZBuilderControl[] {
     const controls: JFZBuilderControl[] = [];
-    
+
     const traverse = (items: JFZBuilderItem[]) => {
       items.forEach(item => {
         if (this.isControl(item)) {
@@ -156,7 +154,7 @@ export class BuilderService {
         }
       });
     };
-    
+
     traverse(this.rootElements);
     return controls;
   }
@@ -165,20 +163,16 @@ export class BuilderService {
 
   addItem(item: JFZBuilderItem, targetLayoutKey?: string): void {
     const instance = this.createInstance(item, targetLayoutKey);
-    const targetArray = targetLayoutKey 
-      ? this.findLayoutElements(targetLayoutKey) 
-      : this.rootElements;
-    
+    const targetArray = targetLayoutKey ? this.findLayoutElements(targetLayoutKey) : this.rootElements;
+
     targetArray.push(instance);
     this.saveHistory();
     this.updateSchemas();
   }
 
   removeItem(key: string, parentLayoutKey?: string): void {
-    const targetArray = parentLayoutKey 
-      ? this.findLayoutElements(parentLayoutKey) 
-      : this.rootElements;
-    
+    const targetArray = parentLayoutKey ? this.findLayoutElements(parentLayoutKey) : this.rootElements;
+
     const index = targetArray.findIndex(item => item.key === key);
     if (index !== -1) {
       targetArray.splice(index, 1);
@@ -188,19 +182,17 @@ export class BuilderService {
   }
 
   updateItem(key: string, updates: Partial<JFZBuilderItem>, parentLayoutKey?: string): void {
-    const targetArray = parentLayoutKey 
-      ? this.findLayoutElements(parentLayoutKey) 
-      : this.rootElements;
-    
+    const targetArray = parentLayoutKey ? this.findLayoutElements(parentLayoutKey) : this.rootElements;
+
     const item = targetArray.find(item => item.key === key);
     if (item) {
       Object.assign(item, updates);
-      
+
       // If name changed, update scope for controls
       if (this.isControl(item) && 'name' in updates && updates.name && updates.name !== item.name) {
         item.uiSchema.scope = `#/properties/${updates.name}`;
       }
-      
+
       this.saveHistory();
       this.updateSchemas();
     }
@@ -219,7 +211,7 @@ export class BuilderService {
       }
       return null;
     };
-    
+
     return traverse(this.rootElements);
   }
 
@@ -290,7 +282,7 @@ export class BuilderService {
 
   private toFormSchema(): void {
     const properties: Record<string, any> = {};
-    
+
     const traverse = (items: JFZBuilderItem[], parentPath: string = '') => {
       items.forEach(item => {
         if (this.isControl(item)) {
@@ -301,9 +293,9 @@ export class BuilderService {
         }
       });
     };
-    
+
     traverse(this.rootElements);
-    
+
     // Flatten nested properties to root level for JSON Forms
     const flattenedProperties: Record<string, any> = {};
     Object.keys(properties).forEach(key => {
@@ -316,7 +308,7 @@ export class BuilderService {
         flattenedProperties[rootKey] = properties[key];
       }
     });
-    
+
     this._formSchema$.next({ type: 'object', properties: flattenedProperties });
   }
 
@@ -351,21 +343,21 @@ export class BuilderService {
     if (this.historyIndex < this.history.length - 1) {
       this.history = this.history.slice(0, this.historyIndex + 1);
     }
-    
+
     const state: HistoryState = {
       rootElements: JSON.parse(JSON.stringify(this.rootElements)),
       timestamp: Date.now(),
     };
-    
+
     this.history.push(state);
-    
+
     // Limit history size
     if (this.history.length > this.MAX_HISTORY_SIZE) {
       this.history.shift();
     } else {
       this.historyIndex++;
     }
-    
+
     this.updateUndoRedoState();
   }
 
