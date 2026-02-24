@@ -1,7 +1,7 @@
 {
   "name": "@wojtek1150/jsonforms-zorro-wrapper",
   "author": "Wojciech Parys",
-  "version": "21.1.0",
+  "version": "21.1.2",
   "homepage": "https://wojtek1150.github.io/json-forms-zorro-wrapper/",
   "repository": {
     "type": "git",
@@ -19,16 +19,16 @@
     "angular"
   ],
   "peerDependencies": {
-    "@angular/animations": "21",
-    "@angular/common": "21",
-    "@angular/forms": "21",
-    "@angular/core": "21",
-    "@angular/platform-browser": "21",
+    "@angular/animations": "^21.0.0",
+    "@angular/common": "^21.0.0",
+    "@angular/forms": "^21.0.0",
+    "@angular/core": "^21.0.0",
+    "@angular/platform-browser": "^21.0.0",
     "ajv": "^8.17.1",
     "ajv-formats": "^3.0.1",
-    "ng-zorro-antd": "21",
-    "ngx-quill": "30",
-    "quill": "2.0.3",
+    "ng-zorro-antd": "^21.0.0",
+    "ngx-quill": "^30.0.0",
+    "quill": "2.0.2",
     "lodash-es": "^4.17"
   }
 }
