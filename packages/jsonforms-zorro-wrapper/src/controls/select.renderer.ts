@@ -37,7 +37,7 @@ import { NzAlertComponent } from 'ng-zorro-antd/alert';
             (ngModelChange)="onChange($event)"
             (blur)="triggerValidation()"
           >
-            @for (option of options; track option) {
+            @for (option of options; track option.value) {
               <nz-option [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
             }
           </nz-select>

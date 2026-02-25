@@ -4,23 +4,63 @@ import { Directive } from '@angular/core';
 @Directive({})
 export abstract class ControlDocsAbstract {
   renderers = ngZorroRenderers;
-  data = {};
-  uiSchemas: Record<string, JFZVerticalLayout> = {};
 
+  dataObjects: Record<string, any> = {};
+  schemaObjects: Record<string, JsonSchema> = {};
+  uiSchemaObjects: Record<string, JFZVerticalLayout> = {};
+
+  /**
+   * @deprecated Use dataObjects instead
+   */
+  data = {};
+
+  /**
+   * @deprecated Use schemaObjects instead
+   */
   abstract schema: JsonSchema;
+  /**
+   * @deprecated Use uiSchemaObjects instead
+   */
   abstract uiSchema: JFZVerticalLayout;
 
   updateUiSchema(uiSchemaKey: string, $event: string): void {
-    const cachedUiSchema = this.uiSchemas[uiSchemaKey].elements[0];
+    const cachedUiSchema = this.uiSchemaObjects[uiSchemaKey].elements[0];
     try {
-      this.uiSchemas[uiSchemaKey].elements[0] = null;
-      this.uiSchemas[uiSchemaKey].elements[0] = JSON.parse($event);
-      this.data = { ...this.data }; // force rerender
+      this.uiSchemaObjects[uiSchemaKey].elements[0] = null;
+      this.uiSchemaObjects[uiSchemaKey].elements[0] = JSON.parse($event);
+      this.dataObjects = { ...this.dataObjects }; // force rerender
     } catch (e) {
-      this.uiSchemas[uiSchemaKey].elements[0] = cachedUiSchema;
+      this.uiSchemaObjects[uiSchemaKey].elements[0] = cachedUiSchema;
     }
   }
 
+  updateSchema(schemaKey: string, $event: string): void {
+    const cachedSchema = this.schemaObjects[schemaKey];
+    try {
+      this.schemaObjects[schemaKey] = null;
+      this.schemaObjects[schemaKey] = {
+        ...cachedSchema,
+        properties: JSON.parse($event),
+      };
+      this.dataObjects = { ...this.dataObjects }; // force rerender
+    } catch (e) {
+      this.schemaObjects[schemaKey] = cachedSchema;
+    }
+  }
+
+  updateData(dataKey: string, $event: string): void {
+    const cachedData = this.dataObjects[dataKey];
+    try {
+      this.dataObjects[dataKey] = null;
+      this.dataObjects[dataKey] = JSON.parse($event);
+    } catch (e) {
+      this.dataObjects[dataKey] = cachedData;
+    }
+  }
+
+  /**
+   * @deprecated Use updateSchema, updateData or updateUiSchema instead
+   */
   updateProperty(schemaToUpdate: string, $event: string): void {
     if (schemaToUpdate === 'data') {
       const cachedData = this.data;

@@ -1,22 +1,26 @@
 <h1>WYSIWYG control</h1>
 <nz-code-editor
-  (ngModelChange)="updateProperty('schema', $event)"
-  [ngModel]="schema.properties | editorFormatter"
+  (ngModelChange)="updateSchema('schemaComment', $event)"
+  [ngModel]="schemaObjects.schemaComment.properties | editorFormatter"
   [nzEditorOption]="{ language: 'json', automaticLayout: true }"
   class="editor"></nz-code-editor>
 
 <p>Ui Schema</p>
 <nz-code-editor
-  (ngModelChange)="updateProperty('uiSchema', $event)"
-  [ngModel]="uiSchema.elements[0] | editorFormatter"
+  (ngModelChange)="updateUiSchema('uiSchemaComment', $event)"
+  [ngModel]="uiSchemaObjects.uiSchemaComment.elements[0] | editorFormatter"
   [nzEditorOption]="{ language: 'json', automaticLayout: true }"
   class="editor"></nz-code-editor>
 
 <div class="flex">
-  <jsonforms [(data)]="data" [renderers]="renderers" [schema]="schema" [uischema]="uiSchema"></jsonforms>
+  <jsonforms
+    [(data)]="dataObjects.dataComment"
+    [renderers]="renderers"
+    [schema]="schemaObjects.schemaComment"
+    [uischema]="uiSchemaObjects.uiSchemaComment"></jsonforms>
   <nz-code-editor
-    (ngModelChange)="updateProperty('data', $event)"
-    [ngModel]="data | editorFormatter"
+    (ngModelChange)="updateData('dataComment', $event)"
+    [ngModel]="dataObjects.dataComment | editorFormatter"
     [nzEditorOption]="{ language: 'json', automaticLayout: true }"
     class="editor"></nz-code-editor>
 </div>
@@ -26,25 +30,26 @@
 <h2>WYSIWYG control with only text validation</h2>
 <p>NOTE: Editor changes will be not applied</p>
 <nz-code-editor
-  [ngModel]="schemaComplex.properties | editorFormatter"
-  [nzEditorOption]="{ language: 'json', automaticLayout: true }"
-  class="editor"
-  disabled></nz-code-editor>
+  [ngModel]="schemaObjects.schemaComplex.properties | editorFormatter"
+  [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+  class="editor"></nz-code-editor>
 
 <p>Ui Schema</p>
 <nz-code-editor
-  [ngModel]="uiSchemaComplex.elements[0] | editorFormatter"
-  [nzEditorOption]="{ language: 'json', automaticLayout: true }"
-  class="editor"
-  disabled></nz-code-editor>
+  [ngModel]="uiSchemaObjects.uiSchemaComplex.elements[0] | editorFormatter"
+  [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+  class="editor"></nz-code-editor>
 
 <div class="flex">
-  <jsonforms [(data)]="dataComplex" [renderers]="renderers" [schema]="schemaComplex" [uischema]="uiSchemaComplex"></jsonforms>
+  <jsonforms
+    [(data)]="dataObjects.dataComplex"
+    [renderers]="renderers"
+    [schema]="schemaObjects.schemaComplex"
+    [uischema]="uiSchemaObjects.uiSchemaComplex"></jsonforms>
   <nz-code-editor
-    [ngModel]="dataComplex | editorFormatter"
-    [nzEditorOption]="{ language: 'json', automaticLayout: true }"
-    class="editor"
-    disabled></nz-code-editor>
+    [ngModel]="dataObjects.dataComplex | editorFormatter"
+    [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+    class="editor"></nz-code-editor>
 </div>
 
 <p>UiSchema Options</p>

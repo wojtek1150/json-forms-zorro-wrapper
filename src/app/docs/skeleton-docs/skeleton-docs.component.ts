@@ -1,19 +1,22 @@
 import { Component } from '@angular/core';
-import { JFZVerticalLayout, JsonFormsZorroModule, JsonSchema, ngZorroRenderers } from '@wojtek1150/jsonforms-zorro-wrapper';
+import { JFZVerticalLayout, JsonFormsZorroModule, JsonSchema } from '@wojtek1150/jsonforms-zorro-wrapper';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
 import { FormsModule } from '@angular/forms';
+import { ControlDocsAbstract } from '../control-docs.abstract';
 
 @Component({
   selector: 'app-skeleton-docs',
   templateUrl: './skeleton-docs.component.html',
   imports: [JsonFormsZorroModule, NzTableModule, NzSwitchModule, FormsModule],
 })
-export class SkeletonDocsComponent {
+export class SkeletonDocsComponent extends ControlDocsAbstract {
   showSkeleton = false;
-  renderers = ngZorroRenderers;
+  schema = null;
+  uiSchema = null;
 
-  schema: JsonSchema = {
+  override schemaObjects: Record<string, JsonSchema> = {
+    schemaSkeleton: {
     type: 'object',
     properties: {
       checkbox: {
@@ -56,9 +59,11 @@ export class SkeletonDocsComponent {
         type: 'string',
       },
     },
+  },
   };
 
-  uiSchema: JFZVerticalLayout = {
+  override uiSchemaObjects: Record<string, JFZVerticalLayout> = {
+    uiSchemaSkeleton: {
     type: 'VerticalLayout',
     options: {
       submitLabel: 'Save form',
@@ -165,5 +170,6 @@ export class SkeletonDocsComponent {
         },
       },
     ],
+  },
   };
 }

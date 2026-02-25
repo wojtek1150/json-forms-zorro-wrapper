@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Config, JFZVerticalLayout, JsonFormsZorroModule, JsonSchema } from '@wojtek1150/jsonforms-zorro-wrapper';
 import { NzTableModule } from 'ng-zorro-antd/table';
-import { JsonPipe } from '@angular/common';
 import { ControlDocsAbstract } from '../control-docs.abstract';
 import { EditorFormatterPipe } from '../../pipes/editor-formatter.pipe';
 import { NzCodeEditorModule } from 'ng-zorro-antd/code-editor';
@@ -10,10 +9,81 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-mention-docs',
   templateUrl: './mention-docs.component.html',
-  imports: [JsonFormsZorroModule, NzTableModule, JsonPipe, EditorFormatterPipe, NzCodeEditorModule, FormsModule],
+  imports: [JsonFormsZorroModule, NzTableModule, EditorFormatterPipe, NzCodeEditorModule, FormsModule],
 })
 export class MentionDocsComponent extends ControlDocsAbstract {
-  data2 = {};
+  schema = null;
+  uiSchema = null;
+
+  override dataObjects: Record<string, any> = {
+    dataMention: {},
+    dataMentionAll: {},
+  };
+
+  override schemaObjects: Record<string, JsonSchema> = {
+    schemaMention: {
+      type: 'object',
+      properties: {
+        mentionField: {
+          type: 'array',
+          minItems: 2,
+          maxItems: 4,
+          uniqueItems: true,
+          items: {
+            type: 'string',
+            enum: ['foo'],
+          },
+        },
+      },
+    },
+    schemaMentionAll: {
+      type: 'object',
+      properties: {
+        mentionField: {
+          type: 'array',
+          uniqueItems: true,
+          items: {
+            type: 'string',
+            enum: ['foo'],
+          },
+        },
+      },
+    },
+  };
+
+  override uiSchemaObjects: Record<string, JFZVerticalLayout> = {
+    uiSchemaMention: {
+      type: 'VerticalLayout',
+      elements: [
+        {
+          type: 'Control',
+          scope: '#/properties/mentionField',
+          label: 'User selection',
+          options: {
+            format: 'mention',
+            mentionKey: 'users',
+            returnValueKey: 'email',
+          },
+        },
+      ],
+    },
+    uiSchemaMentionAll: {
+      type: 'VerticalLayout',
+      elements: [
+        {
+          type: 'Control',
+          scope: '#/properties/mentionField',
+          label: 'User selection',
+          options: {
+            format: 'mention',
+            mentionKey: 'users',
+            returnValueKey: 'all',
+          },
+        },
+      ],
+    },
+  };
+
   jsonformsConfigExternal: Config = {
     mentionDictionary: {
       users: [
@@ -38,67 +108,5 @@ export class MentionDocsComponent extends ControlDocsAbstract {
         },
       ],
     },
-  };
-
-  schema: JsonSchema = {
-    type: 'object',
-    properties: {
-      mentionField: {
-        type: 'array',
-        minItems: 2,
-        maxItems: 4,
-        uniqueItems: true,
-        items: {
-          type: 'string',
-          enum: ['foo'],
-        },
-      },
-    },
-  };
-
-  uiSchema: JFZVerticalLayout = {
-    type: 'VerticalLayout',
-    elements: [
-      {
-        type: 'Control',
-        scope: '#/properties/mentionField',
-        label: 'User selection',
-        options: {
-          format: 'mention',
-          mentionKey: 'users',
-          returnValueKey: 'email',
-        },
-      },
-    ],
-  };
-
-  schema2: JsonSchema = {
-    type: 'object',
-    properties: {
-      mentionField: {
-        type: 'array',
-        uniqueItems: true,
-        items: {
-          type: 'string',
-          enum: ['foo'],
-        },
-      },
-    },
-  };
-
-  uiSchema2: JFZVerticalLayout = {
-    type: 'VerticalLayout',
-    elements: [
-      {
-        type: 'Control',
-        scope: '#/properties/mentionField',
-        label: 'User selection',
-        options: {
-          format: 'mention',
-          mentionKey: 'users',
-          returnValueKey: 'all',
-        },
-      },
-    ],
   };
 }

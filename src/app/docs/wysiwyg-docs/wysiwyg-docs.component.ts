@@ -23,73 +23,80 @@ import { ControlDocsAbstract } from '../control-docs.abstract';
   ],
 })
 export class WysiwygDocsComponent extends ControlDocsAbstract {
-  override data = {
-    comment: '<p>Enter comment here</p>',
-  };
-  dataComplex = {
-    personalData: {
-      description: '<p>Enter comment here: <b>with some ipsum</b></p>',
+  schema = null;
+  uiSchema = null;
+
+  override dataObjects: Record<string, any> = {
+    dataComment: {
+      comment: '<p>Enter comment here</p>',
     },
-  };
-
-  schema: JsonSchema = {
-    type: 'object',
-    properties: {
-      comment: {
-        type: 'string',
-      },
-    },
-  };
-
-  uiSchema: JFZVerticalLayout = {
-    type: 'VerticalLayout',
-    elements: [
-      {
-        label: 'Comment',
-        type: 'Control',
-        scope: '#/properties/comment',
-        options: {
-          wysiwyg: true,
-          formats: ['bold', 'italic', 'underline', 'link', 'list'],
-        },
-      },
-    ],
-  };
-
-  schemaComplex: JsonSchema = {
-    type: 'object',
-    properties: {
+    dataComplex: {
       personalData: {
-        type: 'object',
-        properties: {
-          description: {
-            minLength: 20,
-            maxLength: 2000,
-            type: 'string',
-          },
-          description_plain_text: {
-            minLength: 20,
-            maxLength: 2000,
-            type: 'string',
+        description: '<p>Enter comment here: <b>with some ipsum</b></p>',
+      },
+    },
+  };
+
+  override schemaObjects: Record<string, JsonSchema> = {
+    schemaComment: {
+      type: 'object',
+      properties: {
+        comment: {
+          type: 'string',
+        },
+      },
+    },
+    schemaComplex: {
+      type: 'object',
+      properties: {
+        personalData: {
+          type: 'object',
+          properties: {
+            description: {
+              minLength: 20,
+              maxLength: 2000,
+              type: 'string',
+            },
+            description_plain_text: {
+              minLength: 20,
+              maxLength: 2000,
+              type: 'string',
+            },
           },
         },
       },
     },
   };
 
-  uiSchemaComplex: JFZVerticalLayout = {
-    type: 'VerticalLayout',
-    elements: [
-      {
-        label: 'Description',
-        type: 'Control',
-        scope: '#/properties/personalData/properties/description',
-        options: {
-          wysiwyg: true,
-          withStringValidation: true,
-          formats: ['bold', 'italic', 'underline', 'link', 'list'],
+  override uiSchemaObjects: Record<string, JFZVerticalLayout> = {
+    uiSchemaComment: {
+      type: 'VerticalLayout',
+      elements: [
+        {
+          label: 'Comment',
+          type: 'Control',
+          scope: '#/properties/comment',
+          options: {
+            wysiwyg: true,
+            formats: ['bold', 'italic', 'underline', 'link', 'list'],
+          },
         },
-      },
-    ],
+      ],
+    },
+    uiSchemaComplex: {
+      type: 'VerticalLayout',
+      elements: [
+        {
+          label: 'Description',
+          type: 'Control',
+          scope: '#/properties/personalData/properties/description',
+          options: {
+            wysiwyg: true,
+            withStringValidation: true,
+            formats: ['bold', 'italic', 'underline', 'link', 'list'],
+          },
+        },
+      ],
+    },
   };
 }

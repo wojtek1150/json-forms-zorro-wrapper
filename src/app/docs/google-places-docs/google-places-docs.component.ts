@@ -1,13 +1,16 @@
 import { Component } from '@angular/core';
-import { JFZVerticalLayout, JsonFormsZorroModule, JsonSchema, ngZorroRenderers } from '@wojtek1150/jsonforms-zorro-wrapper';
+import { JFZVerticalLayout, JsonFormsZorroModule, JsonSchema } from '@wojtek1150/jsonforms-zorro-wrapper';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
-import { JsonPipe } from '@angular/common';
+import { NzCodeEditorModule } from 'ng-zorro-antd/code-editor';
+import { FormsModule } from '@angular/forms';
+import { ControlDocsAbstract } from '../control-docs.abstract';
+import { EditorFormatterPipe } from '../../pipes/editor-formatter.pipe';
 
 @Component({
   selector: 'app-google-places-docs',
   templateUrl: './google-places-docs.component.html',
-  imports: [JsonFormsZorroModule, NzTableModule, NzAlertModule, JsonPipe],
+  imports: [JsonFormsZorroModule, NzTableModule, NzAlertModule, NzCodeEditorModule, FormsModule, EditorFormatterPipe],
   styles: [
     `
       nz-alert {
@@ -29,85 +32,90 @@ import { JsonPipe } from '@angular/common';
     `,
   ],
 })
-export class GooglePlacesDocsComponent {
-  renderers = ngZorroRenderers;
+export class GooglePlacesDocsComponent extends ControlDocsAbstract {
+  schema = null;
+  uiSchema = null;
+
   readonly configuration = `{\n  provide: JZW_GOOGLE_PLACES_API_KEY,\n  useValue: 'YOUR_API_KEY',\n};`;
 
-  schema: JsonSchema = {
-    type: 'object',
-    properties: {
-      city: {
-        title: 'Google Places Autocomplete',
-        type: 'string',
+  override dataObjects: Record<string, any> = {
+    dataCity: {
+      city: 'Warsaw',
+      cityPlaceId: 'ChIJAZ-GmmbMHkcR_NPqiCq-8HI',
+    },
+    dataScoped: {
+      city: 'LaFayette',
+      cityPlaceId: 'ChIJ8dmELpgf2okRSzXgknw8fxc',
+      cityState: 'NY',
+      scoped: {
+        country: 'us',
       },
     },
   };
 
-  uiSchema: JFZVerticalLayout = {
-    type: 'VerticalLayout',
-    elements: [
-      {
-        label: '',
-        type: 'Control',
-        scope: '#/properties/city',
-        options: {
-          format: 'google-places',
+  override schemaObjects: Record<string, JsonSchema> = {
+    schemaCity: {
+      type: 'object',
+      properties: {
+        city: {
+          title: 'Google Places Autocomplete',
+          type: 'string',
         },
       },
-    ],
-  };
-
-  schema1: JsonSchema = {
-    type: 'object',
-    properties: {
-      scoped: {
-        type: 'object',
-        properties: {
-          country: {
-            title: 'Country',
-            type: 'string',
+    },
+    schemaScoped: {
+      type: 'object',
+      properties: {
+        scoped: {
+          type: 'object',
+          properties: {
+            country: {
+              title: 'Country',
+              type: 'string',
+            },
           },
         },
-      },
-      city: {
-        title: 'Google Places Autocomplete',
-        type: 'string',
+        city: {
+          title: 'Google Places Autocomplete',
+          type: 'string',
+        },
       },
     },
   };
 
-  uiSchema1: JFZVerticalLayout = {
-    type: 'VerticalLayout',
-    elements: [
-      {
-        label: 'Country',
-        type: 'Control',
-        scope: '#/properties/scoped/properties/country',
-      },
-      {
-        label: 'City',
-        type: 'Control',
-        scope: '#/properties/city',
-        options: {
-          format: 'google-places',
-          countryRestrictionField: '#/properties/scoped/properties/country',
-          withState: true,
+  override uiSchemaObjects: Record<string, JFZVerticalLayout> = {
+    uiSchemaCity: {
+      type: 'VerticalLayout',
+      elements: [
+        {
+          label: '',
+          type: 'Control',
+          scope: '#/properties/city',
+          options: {
+            format: 'google-places',
+          },
         },
-      },
-    ],
-  };
-
-  data = {
-    city: 'Warsaw',
-    cityPlaceId: 'ChIJAZ-GmmbMHkcR_NPqiCq-8HI',
-  };
-
-  data1 = {
-    city: 'LaFayette',
-    cityPlaceId: 'ChIJ8dmELpgf2okRSzXgknw8fxc',
-    cityState: 'NY',
-    scoped: {
-      country: 'us',
+      ],
+    },
+    uiSchemaScoped: {
+      type: 'VerticalLayout',
+      elements: [
+        {
+          label: 'Country',
+          type: 'Control',
+          scope: '#/properties/scoped/properties/country',
+        },
+        {
+          label: 'City',
+          type: 'Control',
+          scope: '#/properties/city',
+          options: {
+            format: 'google-places',
+            countryRestrictionField: '#/properties/scoped/properties/country',
+            withState: true,
+          },
+        },
+      ],
     },
   };
 }

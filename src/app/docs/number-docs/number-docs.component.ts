@@ -12,26 +12,37 @@ import { FormsModule } from '@angular/forms';
   imports: [JsonFormsZorroModule, NzTableModule, EditorFormatterPipe, NzCodeEditorModule, FormsModule],
 })
 export class NumberDocsComponent extends ControlDocsAbstract {
-  schema: JsonSchema = {
-    type: 'object',
-    properties: {
-      age: {
-        type: 'number',
-        minimum: 3,
-        maximum: 50,
-        multipleOf: 1,
+  schema = null;
+  uiSchema = null;
+
+  override dataObjects: Record<string, any> = {
+    dataAge: {},
+  };
+
+  override schemaObjects: Record<string, JsonSchema> = {
+    schemaAge: {
+      type: 'object',
+      properties: {
+        age: {
+          type: 'number',
+          minimum: 3,
+          maximum: 50,
+          multipleOf: 1,
+        },
       },
     },
   };
 
-  uiSchema: JFZVerticalLayout = {
-    type: 'VerticalLayout',
-    elements: [
-      {
-        label: 'Age',
-        type: 'Control',
-        scope: '#/properties/age',
-      },
-    ],
+  override uiSchemaObjects: Record<string, JFZVerticalLayout> = {
+    uiSchemaAge: {
+      type: 'VerticalLayout',
+      elements: [
+        {
+          label: 'Age',
+          type: 'Control',
+          scope: '#/properties/age',
+        },
+      ],
+    },
   };
 }

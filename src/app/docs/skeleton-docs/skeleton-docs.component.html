@@ -10,7 +10,11 @@
 </label>
 
 <hr />
-<jsonforms [loadingSkeleton]="showSkeleton" [renderers]="renderers" [schema]="schema" [uischema]="uiSchema"></jsonforms>
+<jsonforms
+  [loadingSkeleton]="showSkeleton"
+  [renderers]="renderers"
+  [schema]="schemaObjects.schemaSkeleton"
+  [uischema]="uiSchemaObjects.uiSchemaSkeleton"></jsonforms>
 
 <p>Theme options</p>
 <nz-table [nzTemplateMode]="true">

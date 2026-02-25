@@ -2,21 +2,25 @@
 
 <article>
   <p>Checkbox</p>
-  <jsonforms [(data)]="data" [renderers]="renderers" [schema]="schema" [uischema]="uiSchema"></jsonforms>
+  <jsonforms
+    [(data)]="dataObjects.dataCheckbox"
+    [renderers]="renderers"
+    [schema]="schemaObjects.schemaCheckbox"
+    [uischema]="uiSchemaObjects.uiSchemaCheckbox"></jsonforms>
 
   <div class="flex">
     <div>
       <p>Schema</p>
       <nz-code-editor
-        (ngModelChange)="updateProperty('schema', $event)"
-        [ngModel]="schema.properties | editorFormatter"
+        (ngModelChange)="updateSchema('schemaCheckbox', $event)"
+        [ngModel]="schemaObjects.schemaCheckbox.properties | editorFormatter"
         [nzEditorOption]="{ language: 'json', automaticLayout: true }"
         class="editor"></nz-code-editor>
 
       <p>Ui Schema</p>
       <nz-code-editor
-        (ngModelChange)="updateProperty('uiSchema', $event)"
-        [ngModel]="uiSchema.elements[0] | editorFormatter"
+        (ngModelChange)="updateUiSchema('uiSchemaCheckbox', $event)"
+        [ngModel]="uiSchemaObjects.uiSchemaCheckbox.elements[0] | editorFormatter"
         [nzEditorOption]="{ language: 'json', automaticLayout: true }"
         class="editor"></nz-code-editor>
     </div>
@@ -24,8 +28,8 @@
     <div>
       <p>Data</p>
       <nz-code-editor
-        (ngModelChange)="updateProperty('data', $event)"
-        [ngModel]="data | editorFormatter"
+        (ngModelChange)="updateData('dataCheckbox', $event)"
+        [ngModel]="dataObjects.dataCheckbox | editorFormatter"
         [nzEditorOption]="{ language: 'json', automaticLayout: true }"
         class="editor"></nz-code-editor>
     </div>
@@ -34,20 +38,33 @@
 
 <article>
   <p>Toggle</p>
-  <jsonforms [(data)]="data2" [renderers]="renderers" [schema]="schema2" [uischema]="uiSchema2"></jsonforms>
+  <jsonforms
+    [(data)]="dataObjects.dataToggle"
+    [renderers]="renderers"
+    [schema]="schemaObjects.schemaToggle"
+    [uischema]="uiSchemaObjects.uiSchemaToggle"></jsonforms>
 
   <div class="flex">
     <div>
       <p>Schema</p>
-      <pre><code>{{schema2.properties | json }}</code></pre>
+      <nz-code-editor
+        [ngModel]="schemaObjects.schemaToggle.properties | editorFormatter"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+        class="editor"></nz-code-editor>
     </div>
     <div>
       <p>Ui Schema</p>
-      <pre><code>{{uiSchema2.elements[0] | json }}</code></pre>
+      <nz-code-editor
+        [ngModel]="uiSchemaObjects.uiSchemaToggle.elements[0] | editorFormatter"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+        class="editor"></nz-code-editor>
     </div>
     <div>
       <p>Data</p>
-      <pre><code>{{data2 | json }}</code></pre>
+      <nz-code-editor
+        [ngModel]="dataObjects.dataToggle | editorFormatter"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+        class="editor"></nz-code-editor>
     </div>
   </div>
 </article>

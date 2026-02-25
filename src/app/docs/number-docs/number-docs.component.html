@@ -1,19 +1,23 @@
 <h1>Number control</h1>
-<jsonforms [(data)]="data" [renderers]="renderers" [schema]="schema" [uischema]="uiSchema"></jsonforms>
+<jsonforms
+  [(data)]="dataObjects.dataAge"
+  [renderers]="renderers"
+  [schema]="schemaObjects.schemaAge"
+  [uischema]="uiSchemaObjects.uiSchemaAge"></jsonforms>
 
 <div class="flex">
   <div>
     <p>Schema</p>
     <nz-code-editor
-      (ngModelChange)="updateProperty('schema', $event)"
-      [ngModel]="schema.properties | editorFormatter"
+      (ngModelChange)="updateSchema('schemaAge', $event)"
+      [ngModel]="schemaObjects.schemaAge.properties | editorFormatter"
       [nzEditorOption]="{ language: 'json', automaticLayout: true }"
       class="editor"></nz-code-editor>
 
     <p>Ui Schema</p>
     <nz-code-editor
-      (ngModelChange)="updateProperty('uiSchema', $event)"
-      [ngModel]="uiSchema.elements[0] | editorFormatter"
+      (ngModelChange)="updateUiSchema('uiSchemaAge', $event)"
+      [ngModel]="uiSchemaObjects.uiSchemaAge.elements[0] | editorFormatter"
       [nzEditorOption]="{ language: 'json', automaticLayout: true }"
       class="editor"></nz-code-editor>
   </div>
@@ -21,8 +25,8 @@
   <div>
     <p>Data</p>
     <nz-code-editor
-      (ngModelChange)="updateProperty('data', $event)"
-      [ngModel]="data | editorFormatter"
+      (ngModelChange)="updateData('dataAge', $event)"
+      [ngModel]="dataObjects.dataAge | editorFormatter"
       [nzEditorOption]="{ language: 'json', automaticLayout: true }"
       class="editor"></nz-code-editor>
   </div>

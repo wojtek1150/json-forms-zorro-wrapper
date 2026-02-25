@@ -28,10 +28,14 @@
   <h3>MessageBox</h3>
   <p>Message box is displayed below the control when the control is dirty and will be styled based on the type using nz-alert component.</p>
 
-  <jsonforms [data]="{ name: 'John Doe' }" [renderers]="renderers" [schema]="schema" [uischema]="uiSchemas.uiSchemaMessageBox"></jsonforms>
+  <jsonforms
+    [data]="{ name: 'John Doe' }"
+    [renderers]="renderers"
+    [schema]="schemaObjects.schemaName"
+    [uischema]="uiSchemaObjects.uiSchemaMessageBox"></jsonforms>
   <nz-code-editor
     (ngModelChange)="updateUiSchema('uiSchemaMessageBox', $event)"
-    [ngModel]="uiSchemas.uiSchemaMessageBox.elements[0] | editorFormatter"
+    [ngModel]="uiSchemaObjects.uiSchemaMessageBox.elements[0] | editorFormatter"
     [nzEditorOption]="{ language: 'json', automaticLayout: true }"
     class="editor"></nz-code-editor>
 </section>
@@ -40,10 +44,14 @@
   <h3>Html</h3>
   <p>Determines if description should be parsed as html. If true, the description will be parsed as html and displayed as html.</p>
 
-  <jsonforms [data]="{ name: 'John Doe' }" [renderers]="renderers" [schema]="schema" [uischema]="uiSchemas.uiSchemaHtml"></jsonforms>
+  <jsonforms
+    [data]="{ name: 'John Doe' }"
+    [renderers]="renderers"
+    [schema]="schemaObjects.schemaName"
+    [uischema]="uiSchemaObjects.uiSchemaHtml"></jsonforms>
   <nz-code-editor
     (ngModelChange)="updateUiSchema('uiSchemaHtml', $event)"
-    [ngModel]="uiSchemas.uiSchemaHtml.elements[0] | editorFormatter"
+    [ngModel]="uiSchemaObjects.uiSchemaHtml.elements[0] | editorFormatter"
     [nzEditorOption]="{ language: 'json', automaticLayout: true }"
     class="editor"></nz-code-editor>
 </section>
@@ -52,10 +60,14 @@
   <h3>Show Validation Status</h3>
   <p>Determines if validation status should be displayed. If true, the validation status will be displayed as an icon. (default is false)</p>
 
-  <jsonforms [data]="{ name: 'John Doe' }" [renderers]="renderers" [schema]="schema" [uischema]="uiSchemas.uiSchemaShowValidationStatus"></jsonforms>
+  <jsonforms
+    [data]="{ name: 'John Doe' }"
+    [renderers]="renderers"
+    [schema]="schemaObjects.schemaName"
+    [uischema]="uiSchemaObjects.uiSchemaShowValidationStatus"></jsonforms>
   <nz-code-editor
     (ngModelChange)="updateUiSchema('uiSchemaShowValidationStatus', $event)"
-    [ngModel]="uiSchemas.uiSchemaShowValidationStatus.elements[0] | editorFormatter"
+    [ngModel]="uiSchemaObjects.uiSchemaShowValidationStatus.elements[0] | editorFormatter"
     [nzEditorOption]="{ language: 'json', automaticLayout: true }"
     class="editor"></nz-code-editor>
 </section>
