@@ -3,19 +3,32 @@
 
 <article>
   <h2>Country ISO</h2>
-  <jsonforms [(data)]="data" [renderers]="renderers" [schema]="schema" [uischema]="uiSchema"></jsonforms>
+  <jsonforms
+    [(data)]="dataObjects.dataCountry"
+    [renderers]="renderers"
+    [schema]="schemaObjects.schemaCountry"
+    [uischema]="uiSchemaObjects.uiSchemaCountry"></jsonforms>
 
   <div class="flex">
     <div>
       <p>Schema</p>
-      <pre><code>{{schema.properties | json }}</code></pre>
+      <nz-code-editor
+        [ngModel]="schemaObjects.schemaCountry.properties | editorFormatter"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+        class="editor"></nz-code-editor>
       <p>Ui Schema</p>
-      <pre><code>{{uiSchema.elements[0] | json }}</code></pre>
+      <nz-code-editor
+        [ngModel]="uiSchemaObjects.uiSchemaCountry.elements[0] | editorFormatter"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+        class="editor"></nz-code-editor>
     </div>
 
     <div>
       <p>Data</p>
-      <pre><code>{{data | json }}</code></pre>
+      <nz-code-editor
+        [ngModel]="dataObjects.dataCountry | editorFormatter"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+        class="editor"></nz-code-editor>
     </div>
   </div>
 </article>

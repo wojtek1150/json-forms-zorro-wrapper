@@ -6,38 +6,113 @@
 
 <article>
   <p>Radio</p>
-  <jsonforms [(data)]="data" [renderers]="renderers" [schema]="schema" [uischema]="uiSchema"></jsonforms>
+  <jsonforms
+    [(data)]="dataObjects.dataStandard"
+    [renderers]="renderers"
+    [schema]="schemaObjects.standardSchema"
+    [uischema]="uiSchemaObjects.standardUiSchema"></jsonforms>
 
   <div class="flex">
     <div>
       <p>Schema</p>
-      <pre><code>{{schema.properties | json }}</code></pre>
+      <nz-code-editor
+        (ngModelChange)="updateSchema('standardSchema', $event)"
+        [ngModel]="schemaObjects.standardSchema.properties | editorFormatter"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
+        class="editor"></nz-code-editor>
     </div>
 
     <div>
       <p>Ui Schema</p>
-      <pre><code>{{uiSchema.elements[0] | json }}</code></pre>
+      <nz-code-editor
+        (ngModelChange)="updateUiSchema('standardUiSchema', $event)"
+        [ngModel]="uiSchemaObjects.standardUiSchema.elements[0] | editorFormatter"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
+        class="editor"></nz-code-editor>
+    </div>
+    <div>
       <p>Data</p>
-      <pre><code>{{data | json }}</code></pre>
+      <nz-code-editor
+        (ngModelChange)="updateData('dataStandard', $event)"
+        [ngModel]="dataObjects.dataStandard | editorFormatter"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
+        class="editor"></nz-code-editor>
     </div>
   </div>
 </article>
 
 <article>
   <p>Button style</p>
-  <jsonforms [(data)]="data1" [renderers]="renderers" [schema]="schema1" [uischema]="uiSchema1"></jsonforms>
+  <jsonforms
+    [(data)]="dataObjects.dataButton"
+    [renderers]="renderers"
+    [schema]="schemaObjects.buttonSchema"
+    [uischema]="uiSchemaObjects.buttonUiSchema"></jsonforms>
 
   <div class="flex">
     <div>
       <p>Schema</p>
-      <pre><code>{{schema1.properties | json }}</code></pre>
+      <nz-code-editor
+        (ngModelChange)="updateSchema('buttonSchema', $event)"
+        [ngModel]="schemaObjects.buttonSchema.properties | editorFormatter"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
+        class="editor"></nz-code-editor>
     </div>
 
     <div>
       <p>Ui Schema</p>
-      <pre><code>{{uiSchema1.elements[0] | json }}</code></pre>
+      <nz-code-editor
+        (ngModelChange)="updateUiSchema('buttonUiSchema', $event)"
+        [ngModel]="uiSchemaObjects.buttonUiSchema.elements[0] | editorFormatter"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
+        class="editor"></nz-code-editor>
+    </div>
+
+    <div>
       <p>Data</p>
-      <pre><code>{{data1 | json }}</code></pre>
+      <nz-code-editor
+        (ngModelChange)="updateData('dataButton', $event)"
+        [ngModel]="dataObjects.dataButton | editorFormatter"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
+        class="editor"></nz-code-editor>
+    </div>
+  </div>
+</article>
+
+<article>
+  <p>Using One-of</p>
+  <jsonforms
+    [(data)]="dataObjects.dataOneOf"
+    [renderers]="renderers"
+    [schema]="schemaObjects.oneOfSchema"
+    [uischema]="uiSchemaObjects.oneOfUiSchema"></jsonforms>
+
+  <div class="flex">
+    <div>
+      <p>Schema</p>
+      <nz-code-editor
+        (ngModelChange)="updateSchema('oneOfSchema', $event)"
+        [ngModel]="schemaObjects.oneOfSchema.properties | editorFormatter"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
+        class="editor"></nz-code-editor>
+    </div>
+
+    <div>
+      <p>Ui Schema</p>
+      <nz-code-editor
+        (ngModelChange)="updateUiSchema('oneOfUiSchema', $event)"
+        [ngModel]="uiSchemaObjects.oneOfUiSchema.elements[0] | editorFormatter"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
+        class="editor"></nz-code-editor>
+    </div>
+
+    <div>
+      <p>Data</p>
+      <nz-code-editor
+        (ngModelChange)="updateData('dataOneOf', $event)"
+        [ngModel]="dataObjects.dataOneOf | editorFormatter"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
+        class="editor"></nz-code-editor>
     </div>
   </div>
 </article>

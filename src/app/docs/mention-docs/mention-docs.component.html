@@ -7,21 +7,26 @@
 <article>
   <h2>String value</h2>
   <p>You can choose in uischema options the key Person object which you want to select. Default email is used</p>
-  <jsonforms [(data)]="data" [config]="jsonformsConfigExternal" [renderers]="renderers" [schema]="schema" [uischema]="uiSchema"></jsonforms>
+  <jsonforms
+    [(data)]="dataObjects.dataMention"
+    [config]="jsonformsConfigExternal"
+    [renderers]="renderers"
+    [schema]="schemaObjects.schemaMention"
+    [uischema]="uiSchemaObjects.uiSchemaMention"></jsonforms>
 
   <div class="flex">
     <div>
       <p>Schema</p>
       <nz-code-editor
-        (ngModelChange)="updateProperty('schema', $event)"
-        [ngModel]="schema.properties | editorFormatter"
+        (ngModelChange)="updateSchema('schemaMention', $event)"
+        [ngModel]="schemaObjects.schemaMention.properties | editorFormatter"
         [nzEditorOption]="{ language: 'json', automaticLayout: true }"
         class="editor"></nz-code-editor>
 
       <p>Ui Schema</p>
       <nz-code-editor
-        (ngModelChange)="updateProperty('uiSchema', $event)"
-        [ngModel]="uiSchema.elements[0] | editorFormatter"
+        (ngModelChange)="updateUiSchema('uiSchemaMention', $event)"
+        [ngModel]="uiSchemaObjects.uiSchemaMention.elements[0] | editorFormatter"
         [nzEditorOption]="{ language: 'json', automaticLayout: true }"
         class="editor"></nz-code-editor>
     </div>
@@ -29,8 +34,8 @@
     <div>
       <p>Data</p>
       <nz-code-editor
-        (ngModelChange)="updateProperty('data', $event)"
-        [ngModel]="data | editorFormatter"
+        (ngModelChange)="updateData('dataMention', $event)"
+        [ngModel]="dataObjects.dataMention | editorFormatter"
         [nzEditorOption]="{ language: 'json', automaticLayout: true }"
         class="editor"></nz-code-editor>
     </div>
@@ -40,22 +45,39 @@
 <article>
   <h2>Whole object</h2>
   <p>When you pass <code>all</code> as return key whole object will be used as a value of input</p>
-  <jsonforms [(data)]="data2" [config]="jsonformsConfigExternal" [renderers]="renderers" [schema]="schema2" [uischema]="uiSchema2"></jsonforms>
+  <jsonforms
+    [(data)]="dataObjects.dataMentionAll"
+    [config]="jsonformsConfigExternal"
+    [renderers]="renderers"
+    [schema]="schemaObjects.schemaMentionAll"
+    [uischema]="uiSchemaObjects.uiSchemaMentionAll"></jsonforms>
 
   <div class="flex">
     <div>
       <p>Schema</p>
-      <pre><code>{{schema2.properties | json }}</code></pre>
+      <nz-code-editor
+        [ngModel]="schemaObjects.schemaMentionAll.properties | editorFormatter"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+        class="editor"></nz-code-editor>
 
       <p>Ui Schema</p>
-      <pre><code>{{uiSchema2.elements[0] | json }}</code></pre>
+      <nz-code-editor
+        [ngModel]="uiSchemaObjects.uiSchemaMentionAll.elements[0] | editorFormatter"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+        class="editor"></nz-code-editor>
     </div>
 
     <div>
       <p>Config</p>
-      <pre><code>{{jsonformsConfigExternal | json }}</code></pre>
+      <nz-code-editor
+        [ngModel]="jsonformsConfigExternal | editorFormatter"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+        class="editor"></nz-code-editor>
       <p>Data</p>
-      <pre><code>{{data2 | json }}</code></pre>
+      <nz-code-editor
+        [ngModel]="dataObjects.dataMentionAll | editorFormatter"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+        class="editor"></nz-code-editor>
     </div>
   </div>
 </article>

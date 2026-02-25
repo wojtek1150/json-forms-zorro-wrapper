@@ -1,0 +1,1 @@
+import{Aa as e}from"./chunk-EEXEEPFN.js";var n=(()=>{class t{transform(r){return JSON.stringify(r,null,2)}static{this.\u0275fac=function(i){return new(i||t)}}static{this.\u0275pipe=e({name:"editorFormatter",type:t,pure:!0})}}return t})();export{n as a};

@@ -5,38 +5,67 @@
 </p>
 
 <p>Api key configuration</p>
-<pre><code>{{ configuration }}</code></pre>
+<nz-code-editor
+  [ngModel]="configuration"
+  [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+  class="editor"></nz-code-editor>
 
 <p>Form Schema</p>
-<pre><code>{{ schema.properties | json }}</code></pre>
+<nz-code-editor
+  [ngModel]="schemaObjects.schemaCity.properties | editorFormatter"
+  [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+  class="editor"></nz-code-editor>
 
 <p>Ui Schema</p>
-<pre><code>{{ uiSchema.elements[0] | json }}</code></pre>
+<nz-code-editor
+  [ngModel]="uiSchemaObjects.uiSchemaCity.elements[0] | editorFormatter"
+  [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+  class="editor"></nz-code-editor>
 
 <div class="flex">
   <div>
-    <jsonforms [(data)]="data" [renderers]="renderers" [schema]="schema" [uischema]="uiSchema"></jsonforms>
+    <jsonforms
+      [(data)]="dataObjects.dataCity"
+      [renderers]="renderers"
+      [schema]="schemaObjects.schemaCity"
+      [uischema]="uiSchemaObjects.uiSchemaCity"></jsonforms>
     <nz-alert nzMessage="This field requires google places api key to work. Here is how it will looks like:" nzShowIcon nzType="warning"></nz-alert>
     <img alt="" src="assets/images/places-demo.png" />
   </div>
-  <pre>{{ data | json }}</pre>
+  <nz-code-editor
+    [ngModel]="dataObjects.dataCity | editorFormatter"
+    [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+    class="editor"></nz-code-editor>
 </div>
 
 <hr />
 <p>With country restriction</p>
 <p>Form Schema</p>
-<pre><code>{{ schema1.properties | json }}</code></pre>
+<nz-code-editor
+  [ngModel]="schemaObjects.schemaScoped.properties | editorFormatter"
+  [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+  class="editor"></nz-code-editor>
 
 <p>Ui Schema</p>
-<pre><code>{{ uiSchema1.elements | json }}</code></pre>
+<nz-code-editor
+  [ngModel]="uiSchemaObjects.uiSchemaScoped.elements | editorFormatter"
+  [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+  class="editor"></nz-code-editor>
 
 <div class="flex">
   <div>
-    <jsonforms [(data)]="data1" [renderers]="renderers" [schema]="schema1" [uischema]="uiSchema1"></jsonforms>
+    <jsonforms
+      [(data)]="dataObjects.dataScoped"
+      [renderers]="renderers"
+      [schema]="schemaObjects.schemaScoped"
+      [uischema]="uiSchemaObjects.uiSchemaScoped"></jsonforms>
     <nz-alert nzMessage="This field requires google places api key to work. Here is how it will looks like:" nzShowIcon nzType="warning"></nz-alert>
     <img alt="" src="assets/images/places-demo.png" />
   </div>
-  <pre>{{ data1 | json }}</pre>
+  <nz-code-editor
+    [ngModel]="dataObjects.dataScoped | editorFormatter"
+    [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+    class="editor"></nz-code-editor>
 </div>
 
 <p>UiSchema Options</p>

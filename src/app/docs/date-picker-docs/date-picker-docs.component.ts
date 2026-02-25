@@ -12,81 +12,90 @@ import { ControlDocsAbstract } from '../control-docs.abstract';
   imports: [JsonFormsZorroModule, NzTableModule, NzCodeEditorModule, FormsModule, EditorFormatterPipe],
 })
 export class DatePickerDocsComponent extends ControlDocsAbstract {
-  schema: JsonSchema = {
-    type: 'object',
-    properties: {
-      date: {
-        type: 'string',
+  schema = null;
+  uiSchema = null;
+
+  override dataObjects: Record<string, any> = {
+    dataStandard: {},
+    dataGroup: {},
+  };
+
+  override schemaObjects: Record<string, JsonSchema> = {
+    schemaStandard: {
+      type: 'object',
+      properties: {
+        date: {
+          type: 'string',
+        },
       },
     },
-  };
-
-  uiSchema: JFZVerticalLayout = {
-    type: 'VerticalLayout',
-    elements: [
-      {
-        type: 'Control',
-        scope: '#/properties/date',
-        label: 'DatePicker',
-        options: {
-          format: 'date',
-          dateFormat: 'yyyy-MM-dd HH:mm',
-          saveFormat: "yyyy-MM-dd'T'HH:mm:ss",
-          showTime: true,
-          disablePastDates: true,
-          maxDate: this.getMaxDate().toISOString(),
-        } as DateControlUISchemaOptions,
-      },
-    ],
-  };
-
-  dataGroup = {};
-  schemaGroup: JsonSchema = {
-    type: 'object',
-    properties: {
-      endDate: {
-        type: 'string',
-        format: 'date-time',
-      },
-      date: {
-        type: 'string',
-        format: 'date-time',
-        formatMaximum: { $data: '1/endDate' },
-        errorMessage: {
-          formatMaximum: 'should be before the end date',
+    schemaGroup: {
+      type: 'object',
+      properties: {
+        endDate: {
+          type: 'string',
+          format: 'date-time',
+        },
+        date: {
+          type: 'string',
+          format: 'date-time',
+          formatMaximum: { $data: '1/endDate' },
+          errorMessage: {
+            formatMaximum: 'should be before the end date',
+          },
         },
       },
     },
   };
 
-  uiSchemaGroup: JFZVerticalLayout = {
-    type: 'VerticalLayout',
-    elements: [
-      {
-        type: 'Control',
-        scope: '#/properties/endDate',
-        label: 'End date',
-        options: {
-          format: 'date',
-          dateFormat: 'yyyy-MM-dd HH:mm',
-          saveFormat: "yyyy-MM-dd'T'HH:mm:ss",
-          showTime: false,
-          disablePastDates: true,
+  override uiSchemaObjects: Record<string, JFZVerticalLayout> = {
+    uiSchemaStandard: {
+      type: 'VerticalLayout',
+      elements: [
+        {
+          type: 'Control',
+          scope: '#/properties/date',
+          label: 'DatePicker',
+          options: {
+            format: 'date',
+            dateFormat: 'yyyy-MM-dd HH:mm',
+            saveFormat: "yyyy-MM-dd'T'HH:mm:ss",
+            showTime: true,
+            disablePastDates: true,
+            maxDate: this.getMaxDate().toISOString(),
+          } as DateControlUISchemaOptions,
         },
-      },
-      {
-        type: 'Control',
-        scope: '#/properties/date',
-        label: 'This date must be before the end date',
-        options: {
-          format: 'date',
-          dateFormat: 'yyyy-MM-dd HH:mm',
-          saveFormat: "yyyy-MM-dd'T'HH:mm:ss",
-          showTime: false,
-          disablePastDates: true,
+      ],
+    },
+    uiSchemaGroup: {
+      type: 'VerticalLayout',
+      elements: [
+        {
+          type: 'Control',
+          scope: '#/properties/endDate',
+          label: 'End date',
+          options: {
+            format: 'date',
+            dateFormat: 'yyyy-MM-dd HH:mm',
+            saveFormat: "yyyy-MM-dd'T'HH:mm:ss",
+            showTime: false,
+            disablePastDates: true,
+          },
         },
-      },
-    ],
+        {
+          type: 'Control',
+          scope: '#/properties/date',
+          label: 'This date must be before the end date',
+          options: {
+            format: 'date',
+            dateFormat: 'yyyy-MM-dd HH:mm',
+            saveFormat: "yyyy-MM-dd'T'HH:mm:ss",
+            showTime: false,
+            disablePastDates: true,
+          },
+        },
+      ],
+    },
   };
 
   private getMaxDate(): Date {

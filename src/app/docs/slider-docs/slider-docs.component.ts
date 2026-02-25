@@ -12,28 +12,39 @@ import { ControlDocsAbstract } from '../control-docs.abstract';
   imports: [JsonFormsZorroModule, NzTableModule, NzCodeEditorModule, FormsModule, EditorFormatterPipe],
 })
 export class SliderDocsComponent extends ControlDocsAbstract {
-  schema: JsonSchema = {
-    type: 'object',
-    properties: {
-      slider: {
-        type: 'number',
-        minimum: 1,
-        maximum: 10,
+  schema = null;
+  uiSchema = null;
+
+  override dataObjects: Record<string, any> = {
+    dataSlider: {},
+  };
+
+  override schemaObjects: Record<string, JsonSchema> = {
+    schemaSlider: {
+      type: 'object',
+      properties: {
+        slider: {
+          type: 'number',
+          minimum: 1,
+          maximum: 10,
+        },
       },
     },
   };
 
-  uiSchema: JFZVerticalLayout = {
-    type: 'VerticalLayout',
-    elements: [
-      {
-        type: 'Control',
-        scope: '#/properties/slider',
-        label: 'Slider',
-        options: {
-          slider: true,
+  override uiSchemaObjects: Record<string, JFZVerticalLayout> = {
+    uiSchemaSlider: {
+      type: 'VerticalLayout',
+      elements: [
+        {
+          type: 'Control',
+          scope: '#/properties/slider',
+          label: 'Slider',
+          options: {
+            slider: true,
+          },
         },
-      },
-    ],
+      ],
+    },
   };
 }

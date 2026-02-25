@@ -12,29 +12,40 @@ import { FormsModule } from '@angular/forms';
   imports: [JsonFormsZorroModule, NzTableModule, EditorFormatterPipe, NzCodeEditorModule, FormsModule],
 })
 export class DateRangePickerDocsComponent extends ControlDocsAbstract {
-  schema: JsonSchema = {
-    type: 'object',
-    properties: {
-      dateRange: {
-        type: 'array',
+  schema = null;
+  uiSchema = null;
+
+  override dataObjects: Record<string, any> = {
+    dataDateRange: {},
+  };
+
+  override schemaObjects: Record<string, JsonSchema> = {
+    schemaDateRange: {
+      type: 'object',
+      properties: {
+        dateRange: {
+          type: 'array',
+        },
       },
     },
   };
 
-  uiSchema: JFZVerticalLayout = {
-    type: 'VerticalLayout',
-    elements: [
-      {
-        type: 'Control',
-        scope: '#/properties/dateRange',
-        label: 'DatePicker',
-        options: {
-          format: 'dateRange',
-          dateFormat: 'yyyy-MM-dd HH:mm',
-          saveFormat: "yyyy-MM-dd'T'HH:mm:ss",
-          disablePastDates: true,
+  override uiSchemaObjects: Record<string, JFZVerticalLayout> = {
+    uiSchemaDateRange: {
+      type: 'VerticalLayout',
+      elements: [
+        {
+          type: 'Control',
+          scope: '#/properties/dateRange',
+          label: 'DatePicker',
+          options: {
+            format: 'dateRange',
+            dateFormat: 'yyyy-MM-dd HH:mm',
+            saveFormat: "yyyy-MM-dd'T'HH:mm:ss",
+            disablePastDates: true,
+          },
         },
-      },
-    ],
+      ],
+    },
   };
 }

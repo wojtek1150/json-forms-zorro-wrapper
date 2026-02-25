@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { DescriptionRenderer, JsonFormsAngularService, JsonFormsControl } from '../jsonForms';
-import { Actions, and, isEnumControl, optionIs, RankedTester, rankWith } from '../core';
+import { Actions, and, isEnumControl, isOneOfControl, optionIs, or, RankedTester, rankWith, StatePropsOfControl } from '../core';
 import { NzFormControlComponent, NzFormItemComponent, NzFormLabelComponent } from 'ng-zorro-antd/form';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { NzRadioComponent, NzRadioGroupComponent } from 'ng-zorro-antd/radio';
@@ -23,8 +23,8 @@ import { NzAlertComponent } from 'ng-zorro-antd/alert';
         <DescriptionRenderer [uiSchema]="uischema" [scopedSchema]="scopedSchema"></DescriptionRenderer>
         <nz-form-control [nzErrorTip]="errorMessage" [nzWarningTip]="warningHint()">
           <nz-radio-group [id]="id" [formControl]="form" (ngModelChange)="onChange($event)" nzButtonStyle="solid">
-            @for (option of scopedSchema.enum; track option) {
-              <label nz-radio-button [nzValue]="option">{{ option }}</label>
+            @for (option of options; track option.value) {
+              <label nz-radio-button [nzValue]="option.value" [nzLabel]="option.label">{{ option.label }}</label>
             }
           </nz-radio-group>
           @if (uischema.messageBox && form.dirty) {
@@ -65,13 +65,17 @@ import { NzAlertComponent } from 'ng-zorro-antd/alert';
   ],
 })
 export class RadioButtonControlRenderer extends JsonFormsControl {
+  options: {
+    label: string;
+    value: any;
+  }[];
   private selectedValue: string;
 
   constructor(jsonformsService: JsonFormsAngularService, changeDetectorRef: ChangeDetectorRef) {
     super(jsonformsService, changeDetectorRef);
   }
 
-  override getEventValue = (event: any) => event;
+  override getEventValue = (event: any) => event || undefined;
 
   override onChange(event: string) {
     if (this.selectedValue !== event) {
@@ -80,6 +84,15 @@ export class RadioButtonControlRenderer extends JsonFormsControl {
       this.triggerValidation();
     }
   }
+
+  override mapAdditionalProps(props: StatePropsOfControl) {
+    super.mapAdditionalProps(props);
+    if (this.scopedSchema.enum) {
+      this.options = this.scopedSchema.enum.map(option => ({ label: option, value: option }));
+    } else {
+      this.options = this.scopedSchema.oneOf.map(option => ({ label: option.title, value: option.const }));
+    }
+  }
 }
 
-export const RadioButtonControlRendererTester: RankedTester = rankWith(20, and(isEnumControl, optionIs('format', 'radio-button')));
+export const RadioButtonControlRendererTester: RankedTester = rankWith(20, and(or(isEnumControl, isOneOfControl), optionIs('format', 'radio-button')));

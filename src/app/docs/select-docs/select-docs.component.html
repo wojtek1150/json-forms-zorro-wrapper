@@ -3,19 +3,32 @@
 
 <article>
   <h2>Enum</h2>
-  <jsonforms [(data)]="data" [renderers]="renderers" [schema]="schema" [uischema]="uiSchema"></jsonforms>
+  <jsonforms
+    [(data)]="dataObjects.dataEnum"
+    [renderers]="renderers"
+    [schema]="schemaObjects.schemaEnum"
+    [uischema]="uiSchemaObjects.uiSchemaEnum"></jsonforms>
 
   <div class="flex">
     <div>
       <p>Schema</p>
-      <pre><code>{{schema.properties | json }}</code></pre>
+      <nz-code-editor
+        [ngModel]="schemaObjects.schemaEnum.properties | editorFormatter"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+        class="editor"></nz-code-editor>
     </div>
 
     <div>
       <p>Ui Schema</p>
-      <pre><code>{{uiSchema.elements[0] | json }}</code></pre>
+      <nz-code-editor
+        [ngModel]="uiSchemaObjects.uiSchemaEnum.elements[0] | editorFormatter"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+        class="editor"></nz-code-editor>
       <p>Data</p>
-      <pre><code>{{data | json }}</code></pre>
+      <nz-code-editor
+        [ngModel]="dataObjects.dataEnum | editorFormatter"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+        class="editor"></nz-code-editor>
     </div>
   </div>
 </article>
@@ -23,19 +36,32 @@
 <article>
   <h2>One of</h2>
   <p>With the use of oneOf, you can also add the title option. You can define an enum in your schema like this:</p>
-  <jsonforms [(data)]="dataOne" [renderers]="renderers" [schema]="schemaOne" [uischema]="uiSchemaOne"></jsonforms>
+  <jsonforms
+    [(data)]="dataObjects.dataOneOf"
+    [renderers]="renderers"
+    [schema]="schemaObjects.schemaOneOf"
+    [uischema]="uiSchemaObjects.uiSchemaOneOf"></jsonforms>
 
   <div class="flex">
     <div>
       <p>Schema</p>
-      <pre><code>{{schemaOne.properties | json }}</code></pre>
+      <nz-code-editor
+        [ngModel]="schemaObjects.schemaOneOf.properties | editorFormatter"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+        class="editor"></nz-code-editor>
     </div>
 
     <div>
       <p>Ui Schema</p>
-      <pre><code>{{uiSchemaOne.elements[0] | json }}</code></pre>
+      <nz-code-editor
+        [ngModel]="uiSchemaObjects.uiSchemaOneOf.elements[0] | editorFormatter"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+        class="editor"></nz-code-editor>
       <p>Data</p>
-      <pre><code>{{dataOne | json }}</code></pre>
+      <nz-code-editor
+        [ngModel]="dataObjects.dataOneOf | editorFormatter"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+        class="editor"></nz-code-editor>
     </div>
   </div>
 </article>

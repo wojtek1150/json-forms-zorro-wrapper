@@ -1,21 +1,25 @@
 <h1>Range control</h1>
 
 <article>
-  <jsonforms [(data)]="data" [renderers]="renderers" [schema]="schema" [uischema]="uiSchema"></jsonforms>
+  <jsonforms
+    [(data)]="dataObjects.dataSlider"
+    [renderers]="renderers"
+    [schema]="schemaObjects.schemaSlider"
+    [uischema]="uiSchemaObjects.uiSchemaSlider"></jsonforms>
 
   <div class="flex">
     <div>
       <p>Schema</p>
       <nz-code-editor
-        (ngModelChange)="updateProperty('schema', $event)"
-        [ngModel]="schema.properties | editorFormatter"
+        (ngModelChange)="updateSchema('schemaSlider', $event)"
+        [ngModel]="schemaObjects.schemaSlider.properties | editorFormatter"
         [nzEditorOption]="{ language: 'json', automaticLayout: true }"
         class="editor"></nz-code-editor>
 
       <p>Ui Schema</p>
       <nz-code-editor
-        (ngModelChange)="updateProperty('uiSchema', $event)"
-        [ngModel]="uiSchema.elements[0] | editorFormatter"
+        (ngModelChange)="updateUiSchema('uiSchemaSlider', $event)"
+        [ngModel]="uiSchemaObjects.uiSchemaSlider.elements[0] | editorFormatter"
         [nzEditorOption]="{ language: 'json', automaticLayout: true }"
         class="editor"></nz-code-editor>
     </div>
@@ -23,8 +27,8 @@
     <div>
       <p>Data</p>
       <nz-code-editor
-        (ngModelChange)="updateProperty('data', $event)"
-        [ngModel]="data | editorFormatter"
+        (ngModelChange)="updateData('dataSlider', $event)"
+        [ngModel]="dataObjects.dataSlider | editorFormatter"
         [nzEditorOption]="{ language: 'json', automaticLayout: true }"
         class="editor"></nz-code-editor>
     </div>

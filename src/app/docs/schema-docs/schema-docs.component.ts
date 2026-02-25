@@ -32,9 +32,21 @@ import { ControlDocsAbstract } from '../control-docs.abstract';
   imports: [JsonFormsZorroModule, NzTableModule, NzAlertComponent, NzCodeEditorModule, FormsModule, EditorFormatterPipe],
 })
 export class SchemaDocsComponent extends ControlDocsAbstract {
+  schema = null;
   uiSchema = null;
 
-  override uiSchemas: Record<string, JFZVerticalLayout> = {
+  override schemaObjects: Record<string, JsonSchema> = {
+    schemaName: {
+      type: 'object',
+      properties: {
+        name: {
+          type: 'string',
+        },
+      },
+    },
+  };
+
+  override uiSchemaObjects: Record<string, JFZVerticalLayout> = {
     uiSchemaMessageBox: {
       type: 'VerticalLayout',
       elements: [
@@ -86,14 +98,5 @@ export class SchemaDocsComponent extends ControlDocsAbstract {
 
   readonly STRING_TYPES = {
     RECORD: 'Record<string,any>',
-  };
-
-  schema: JsonSchema = {
-    type: 'object',
-    properties: {
-      name: {
-        type: 'string',
-      },
-    },
   };
 }

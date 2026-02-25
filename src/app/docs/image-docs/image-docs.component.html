@@ -1,19 +1,23 @@
 <h1>Upload Image control</h1>
-<jsonforms [(data)]="data" [renderers]="renderers" [schema]="schema" [uischema]="uiSchema"></jsonforms>
+<jsonforms
+  [(data)]="dataObjects.dataImage"
+  [renderers]="renderers"
+  [schema]="schemaObjects.schemaImage"
+  [uischema]="uiSchemaObjects.uiSchemaImage"></jsonforms>
 
 <div class="flex">
   <div>
     <p>Schema</p>
     <nz-code-editor
-      (ngModelChange)="updateProperty('schema', $event)"
-      [ngModel]="schema.properties | editorFormatter"
+      (ngModelChange)="updateSchema('schemaImage', $event)"
+      [ngModel]="schemaObjects.schemaImage.properties | editorFormatter"
       [nzEditorOption]="{ language: 'json', automaticLayout: true }"
       class="editor"></nz-code-editor>
 
     <p>Ui Schema</p>
     <nz-code-editor
-      (ngModelChange)="updateProperty('uiSchema', $event)"
-      [ngModel]="uiSchema.elements[0] | editorFormatter"
+      (ngModelChange)="updateUiSchema('uiSchemaImage', $event)"
+      [ngModel]="uiSchemaObjects.uiSchemaImage.elements[0] | editorFormatter"
       [nzEditorOption]="{ language: 'json', automaticLayout: true }"
       class="editor"></nz-code-editor>
   </div>
@@ -21,8 +25,8 @@
   <div>
     <p>Data</p>
     <nz-code-editor
-      (ngModelChange)="updateProperty('data', $event)"
-      [ngModel]="data | editorFormatter"
+      (ngModelChange)="updateData('dataImage', $event)"
+      [ngModel]="dataObjects.dataImage | editorFormatter"
       [nzEditorOption]="{ language: 'json', automaticLayout: true }"
       class="editor"></nz-code-editor>
   </div>

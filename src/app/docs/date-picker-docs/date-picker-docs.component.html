@@ -2,21 +2,25 @@
 
 <article>
   <p>A single date picker control</p>
-  <jsonforms [(data)]="data" [renderers]="renderers" [schema]="schema" [uischema]="uiSchema"></jsonforms>
+  <jsonforms
+    [(data)]="dataObjects.dataStandard"
+    [renderers]="renderers"
+    [schema]="schemaObjects.schemaStandard"
+    [uischema]="uiSchemaObjects.uiSchemaStandard"></jsonforms>
 
   <div class="flex">
     <div>
       <p>Schema</p>
       <nz-code-editor
-        (ngModelChange)="updateProperty('schema', $event)"
-        [ngModel]="schema.properties | editorFormatter"
+        (ngModelChange)="updateSchema('schemaStandard', $event)"
+        [ngModel]="schemaObjects.schemaStandard.properties | editorFormatter"
         [nzEditorOption]="{ language: 'json', automaticLayout: true }"
         class="editor"></nz-code-editor>
 
       <p>Ui Schema</p>
       <nz-code-editor
-        (ngModelChange)="updateProperty('uiSchema', $event)"
-        [ngModel]="uiSchema.elements[0] | editorFormatter"
+        (ngModelChange)="updateUiSchema('uiSchemaStandard', $event)"
+        [ngModel]="uiSchemaObjects.uiSchemaStandard.elements[0] | editorFormatter"
         [nzEditorOption]="{ language: 'json', automaticLayout: true }"
         class="editor"></nz-code-editor>
     </div>
@@ -24,8 +28,8 @@
     <div>
       <p>Data</p>
       <nz-code-editor
-        (ngModelChange)="updateProperty('data', $event)"
-        [ngModel]="data | editorFormatter"
+        (ngModelChange)="updateData('dataStandard', $event)"
+        [ngModel]="dataObjects.dataStandard | editorFormatter"
         [nzEditorOption]="{ language: 'json', automaticLayout: true }"
         class="editor"></nz-code-editor>
     </div>
@@ -34,21 +38,25 @@
 
 <article>
   <p>With AJV validators between 2 fields - used when next field depends of previous</p>
-  <jsonforms [(data)]="dataGroup" [renderers]="renderers" [schema]="schemaGroup" [uischema]="uiSchemaGroup"></jsonforms>
+  <jsonforms
+    [(data)]="dataObjects.dataGroup"
+    [renderers]="renderers"
+    [schema]="schemaObjects.schemaGroup"
+    [uischema]="uiSchemaObjects.uiSchemaGroup"></jsonforms>
 
   <div class="flex">
     <div>
       <p>Schema</p>
       <nz-code-editor
-        (ngModelChange)="updateProperty('schemaGroup', $event)"
-        [ngModel]="schemaGroup.properties | editorFormatter"
+        (ngModelChange)="updateSchema('schemaGroup', $event)"
+        [ngModel]="schemaObjects.schemaGroup.properties | editorFormatter"
         [nzEditorOption]="{ language: 'json', automaticLayout: true }"
         class="editor"></nz-code-editor>
 
       <p>Ui Schema</p>
       <nz-code-editor
-        (ngModelChange)="updateProperty('uiSchemaGroup', $event)"
-        [ngModel]="uiSchemaGroup.elements[0] | editorFormatter"
+        (ngModelChange)="updateUiSchema('uiSchemaGroup', $event)"
+        [ngModel]="uiSchemaObjects.uiSchemaGroup.elements[0] | editorFormatter"
         [nzEditorOption]="{ language: 'json', automaticLayout: true }"
         class="editor"></nz-code-editor>
     </div>
@@ -56,8 +64,8 @@
     <div>
       <p>Data</p>
       <nz-code-editor
-        (ngModelChange)="updateProperty('dataGroup', $event)"
-        [ngModel]="dataGroup | editorFormatter"
+        (ngModelChange)="updateData('dataGroup', $event)"
+        [ngModel]="dataObjects.dataGroup | editorFormatter"
         [nzEditorOption]="{ language: 'json', automaticLayout: true }"
         class="editor"></nz-code-editor>
     </div>
