@@ -32,6 +32,7 @@ import { takeUntil } from 'rxjs';
           [placeholder]="placeholder"
           (onContentChanged)="onChange($event)"
           [styles]="{ minHeight: '100px' }"
+          [class.ant-input-disabled]="form.disabled"
           (blur)="triggerValidation()"
         ></quill-editor>
         @if (uischema.messageBox && form.dirty) {
