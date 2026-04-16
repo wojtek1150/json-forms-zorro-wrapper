@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, computed, signal } from '@angular/core';
 import { DescriptionRenderer, JsonFormsAngularService, JsonFormsControl } from '../jsonForms';
 import { Actions, and, hasType, JsonSchema, optionIs, RankedTester, rankWith, schemaMatches, schemaSubPathMatches, uiTypeIs } from '../core';
-import { hasEnumItems, hasOneOfItems } from '../other/complex.helper';
+import { hasEnumItems, hasObjectEnumItems, hasOneOfItems } from '../other/complex.helper';
 import { NzFormControlComponent, NzFormItemComponent, NzFormLabelComponent } from 'ng-zorro-antd/form';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { NzOptionComponent, NzSelectComponent } from 'ng-zorro-antd/select';
@@ -10,6 +10,7 @@ import { NzValidationStatusPipe } from '../other/validation-status.pipe';
 import { NzAlertComponent } from 'ng-zorro-antd/alert';
 import { MultiselectExternalDictionaryItem } from '../models/config';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { isEqual } from 'lodash-es';
 
 @Component({
   selector: 'MultiselectControlRenderer',
@@ -39,6 +40,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
             [nzPlaceHolder]="placeholder"
             [nzCustomTemplate]="selectedValueTemplate"
             [nzAllowClear]="true"
+            [compareWith]="compareByValue"
             (ngModelChange)="onChange($event)"
             (blur)="triggerValidation()"
           >
@@ -100,6 +102,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 })
 export class MultiselectControlRenderer extends JsonFormsControl {
   readonly INFINITY = Infinity;
+  compareByValue = (first: any, second: any): boolean => isEqual(first, second);
 
   options = signal<MultiselectExternalDictionaryItem[]>([]);
   optionsEntities = computed(() =>
@@ -150,6 +153,10 @@ export class MultiselectControlRenderer extends JsonFormsControl {
     }
 
     const items = this.scopedSchema.items as JsonSchema;
+    if (hasObjectEnumItems(items)) {
+      const labelKey = this.uischema.options?.labelKey || 'label';
+      return items['enum'].map(item => ({ label: item[labelKey], value: item }));
+    }
     if (hasEnumItems(items)) {
       return items['enum'].map(label => ({ label, value: label }));
     }
@@ -168,7 +175,7 @@ export const MultiselectControlRendererTester: RankedTester = rankWith(
       optionIs('format', 'multiselect'),
       schemaMatches(schema => hasType(schema, 'array') && !Array.isArray(schema.items) && schema.uniqueItems === true),
       schemaSubPathMatches('items', schema => {
-        return hasOneOfItems(schema) || hasEnumItems(schema);
+        return hasOneOfItems(schema) || hasEnumItems(schema) || hasObjectEnumItems(schema);
       }),
     ),
   ),

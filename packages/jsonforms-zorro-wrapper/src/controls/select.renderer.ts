@@ -7,6 +7,7 @@ import { NzOptionComponent, NzSelectComponent } from 'ng-zorro-antd/select';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NzValidationStatusPipe } from '../other/validation-status.pipe';
 import { NzAlertComponent } from 'ng-zorro-antd/alert';
+import { isEqual } from 'lodash-es';
 
 @Component({
   selector: 'SelectControlRenderer',
@@ -34,6 +35,7 @@ import { NzAlertComponent } from 'ng-zorro-antd/alert';
             [id]="id"
             [formControl]="form"
             [nzPlaceHolder]="placeholder"
+            [compareWith]="compareByValue"
             (ngModelChange)="onChange($event)"
             (blur)="triggerValidation()"
           >
@@ -84,7 +86,7 @@ export class SelectControlRenderer extends JsonFormsControl {
     label: string;
     value: any;
   }[];
-  private selectedValue: string;
+  private selectedValue: any;
 
   constructor(jsonformsService: JsonFormsAngularService, changeDetectorRef: ChangeDetectorRef) {
     super(jsonformsService, changeDetectorRef);
@@ -92,8 +94,10 @@ export class SelectControlRenderer extends JsonFormsControl {
 
   override getEventValue = (event: any) => event || undefined;
 
-  override onChange(event: string) {
-    if (this.selectedValue !== event) {
+  compareByValue = (first: any, second: any): boolean => isEqual(first, second);
+
+  override onChange(event: any) {
+    if (!this.compareByValue(this.selectedValue, event)) {
       this.selectedValue = event;
       this.jsonFormsService.updateCore(Actions.update(this.propsPath, () => event));
       this.triggerValidation();
@@ -102,10 +106,25 @@ export class SelectControlRenderer extends JsonFormsControl {
 
   override mapAdditionalProps(props: StatePropsOfControl) {
     super.mapAdditionalProps(props);
-    if (this.scopedSchema.enum) {
-      this.options = this.scopedSchema.enum.map(option => ({ label: option, value: option }));
+    const dictionaryKey = this.uischema.options?.dictionaryKey;
+    if (dictionaryKey) {
+      this.options = this.config.selectExternalDictionary[dictionaryKey] || [];
+      return;
+    }
+
+    if (this.scopedSchema.type === 'object') {
+      const labelKey = this.uischema.options?.labelKey || 'label';
+      if (this.scopedSchema.enum) {
+        this.options = this.scopedSchema.enum.map(option => ({ label: option[labelKey], value: option }));
+      } else {
+        this.options = this.scopedSchema.oneOf.map(option => ({ label: option[labelKey], value: option.const }));
+      }
     } else {
-      this.options = this.scopedSchema.oneOf.map(option => ({ label: option.title, value: option.const }));
+      if (this.scopedSchema.enum) {
+        this.options = this.scopedSchema.enum.map(option => ({ label: option, value: option }));
+      } else {
+        this.options = this.scopedSchema.oneOf.map(option => ({ label: option.title, value: option.const }));
+      }
     }
   }
 }

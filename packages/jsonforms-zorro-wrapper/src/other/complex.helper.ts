@@ -10,6 +10,8 @@ export const hasOneOfItems = (schema: JsonSchema): boolean =>
 
 export const hasEnumItems = (schema: JsonSchema): boolean => schema.type === 'string' && schema.enum !== undefined;
 
+export const hasObjectEnumItems = (schema: JsonSchema): boolean => schema.type === 'object' && schema.enum !== undefined;
+
 export const hasOption =
   (optionName: string): Tester =>
   (uischema: UISchemaElement): boolean => {

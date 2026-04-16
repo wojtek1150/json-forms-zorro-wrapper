@@ -65,3 +65,81 @@
     </div>
   </div>
 </article>
+
+<article>
+  <h2>Enum as Object</h2>
+  <p>A select can store enum values as objects (draft 2012).</p>
+  <jsonforms
+    [(data)]="dataObjects.dataEnumObjects"
+    [renderers]="renderers"
+    [schema]="schemaObjects.schemaEnumObjects"
+    [uischema]="uiSchemaObjects.uiSchemaEnumObjects"></jsonforms>
+
+  <div class="flex">
+    <div>
+      <p>Schema</p>
+      <nz-code-editor
+        [ngModel]="schemaObjects.schemaEnumObjects.properties | editorFormatter"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+        class="editor"></nz-code-editor>
+    </div>
+
+    <div>
+      <p>Ui Schema</p>
+      <nz-code-editor
+        [ngModel]="uiSchemaObjects.uiSchemaEnumObjects.elements[0] | editorFormatter"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+        class="editor"></nz-code-editor>
+
+      <p>Data</p>
+      <nz-code-editor
+        [ngModel]="dataObjects.dataEnumObjects | editorFormatter"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+        class="editor"></nz-code-editor>
+    </div>
+  </div>
+</article>
+
+<article>
+  <h2>External dictionary</h2>
+  <p>Allow to use external dictionaries provided to the <code>config</code> param.</p>
+  <jsonforms
+    [(data)]="dataObjects.dataEnumObjectsExternal"
+    [config]="configObjects.jsonformsConfigExternal"
+    [renderers]="renderers"
+    [schema]="schemaObjects.schemaEnumObjectsExternal"
+    [uischema]="uiSchemaObjects.uiSchemaEnumObjectsExternal"></jsonforms>
+
+  <div class="flex">
+    <div>
+      <p>Schema</p>
+      <nz-code-editor
+        [ngModel]="schemaObjects.schemaEnumObjectsExternal.properties | editorFormatter"
+        (ngModelChange)="updateSchema('schemaEnumObjectsExternal', $event)"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: false }"
+        class="editor"></nz-code-editor>
+      <p>Config</p>
+      <nz-code-editor
+        [ngModel]="configObjects.jsonformsConfigExternal | editorFormatter"
+        (ngModelChange)="updateConfig('jsonformsConfigExternal', $event)"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: false }"
+        class="editor"></nz-code-editor>
+    </div>
+
+    <div>
+      <p>Ui Schema</p>
+      <nz-code-editor
+        [ngModel]="uiSchemaObjects.uiSchemaEnumObjectsExternal.elements[0] | editorFormatter"
+        (ngModelChange)="updateUiSchema('uiSchemaEnumObjectsExternal', $event)"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: false }"
+        class="editor"></nz-code-editor>
+
+      <p>Data</p>
+      <nz-code-editor
+        [ngModel]="dataObjects.dataEnumObjectsExternal | editorFormatter"
+        (ngModelChange)="updateData('dataEnumObjectsExternal', $event)"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: false }"
+        class="editor"></nz-code-editor>
+    </div>
+  </div>
+</article>

@@ -66,8 +66,8 @@ export class RadioDocsComponent extends ControlDocsAbstract {
           ],
         },
       },
-    }
-  }
+    },
+  };
 
   override uiSchemaObjects: Record<string, JFZVerticalLayout> = {
     standardUiSchema: {
