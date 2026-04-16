@@ -95,4 +95,7 @@ export class RadioButtonControlRenderer extends JsonFormsControl {
   }
 }
 
-export const RadioButtonControlRendererTester: RankedTester = rankWith(20, and(or(isEnumControl, isOneOfControl), optionIs('format', 'radio-button')));
+export const RadioButtonControlRendererTester: RankedTester = rankWith(
+  20,
+  and(or(isEnumControl, isOneOfControl), optionIs('format', 'radio-button')),
+);

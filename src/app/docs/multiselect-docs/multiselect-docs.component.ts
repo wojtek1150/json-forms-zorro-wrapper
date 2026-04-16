@@ -101,6 +101,39 @@ export class MultiselectDocsComponent extends ControlDocsAbstract {
         },
       },
     },
+    schemaEnumObjects: {
+      type: 'object',
+      properties: {
+        enumObjects: {
+          type: 'array',
+          minItems: 2,
+          maxItems: 4,
+          uniqueItems: true,
+          items: {
+            type: 'object',
+            enum: [
+              { name: 'Red Car', color: 'red' },
+              { name: 'Blue Car', color: 'blue' },
+            ],
+          },
+        },
+      },
+    },
+    schemaEnumObjectsExternal: {
+      type: 'object',
+      properties: {
+        enumObjectsExternal: {
+          type: 'array',
+          minItems: 2,
+          maxItems: 3,
+          uniqueItems: true,
+          items: {
+            type: 'object',
+            enum: ['Anything to trigger validation'],
+          },
+        },
+      },
+    },
   };
 
   override uiSchemaObjects: Record<string, JFZVerticalLayout> = {
@@ -155,6 +188,35 @@ export class MultiselectDocsComponent extends ControlDocsAbstract {
         },
       ],
     },
+    uiSchemaEnumObjects: {
+      type: 'VerticalLayout',
+      elements: [
+        {
+          label: 'Enum as object',
+          type: 'Control',
+          scope: '#/properties/enumObjects',
+          options: {
+            labelKey: 'name',
+            format: 'multiselect',
+          },
+        },
+      ],
+    },
+    uiSchemaEnumObjectsExternal: {
+      type: 'VerticalLayout',
+      elements: [
+        {
+          label: 'Enum as object',
+          type: 'Control',
+          scope: '#/properties/enumObjectsExternal',
+          options: {
+            labelKey: 'name',
+            format: 'multiselect',
+            dictionaryKey: 'enumObjectsExternal',
+          },
+        },
+      ],
+    },
   };
 
   jsonformsConfigExternal: Config = {
@@ -165,6 +227,10 @@ export class MultiselectDocsComponent extends ControlDocsAbstract {
         { label: 'tar', value: 'tar' },
         { label: 'some', value: 'some', unsupported: true, additionalLabel: 'inactive', additionalLabelColor: 'var(--ant-error-color)' },
         { label: 'value', value: 'value' },
+      ],
+      enumObjectsExternal: [
+        { label: 'Red Car', value: { name: 'Red Car', color: 'red' } },
+        { label: 'Blue Car', value: { name: 'Blue Car', color: 'blue' } },
       ],
     },
   };

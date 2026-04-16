@@ -1,6 +1,6 @@
 export type MultiselectExternalDictionaryItem = {
   label: string;
-  value: string;
+  value: any;
   unsupported?: boolean;
   additionalLabel?: string;
   additionalLabelColor?: string;
@@ -24,6 +24,7 @@ export interface Config {
   showRequiredAsterisk?: boolean;
   hideColon?: boolean;
   multiselectExternalDictionary?: Record<string, MultiselectExternalDictionaryItem[]>;
+  selectExternalDictionary?: Record<string, { label: string; value: any }[]>;
   mentionDictionary?: Record<string, MentionDictionaryItem[]>;
   fieldsWithWarningHint?: Record<string, string>;
   disabledDateFn?: Record<string, (current: Date) => boolean>;

@@ -30,6 +30,7 @@ import { cloneDeep } from 'lodash-es';
 import Ajv, { ErrorObject } from 'ajv';
 import { Injectable } from '@angular/core';
 import { JFZElement } from '../models/uischema';
+import { Config } from '../models/config';
 
 export const USE_STATE_VALUE = Symbol('Marker to use state value');
 
@@ -40,6 +41,7 @@ export class JsonFormsAngularService {
   private submit: BehaviorSubject<any>;
   private cancel: BehaviorSubject<void>;
   private stepChange: BehaviorSubject<{ step: number; data: null }>;
+  private baseSchema: JsonSchema;
 
   private _step = 0;
 
@@ -106,8 +108,10 @@ export class JsonFormsAngularService {
     this.stepChange = new BehaviorSubject({ step: this._step, data: null });
     const data = initialState.core.data;
     const schema = initialState.core.schema ?? generateJsonSchema(data);
+    this.baseSchema = schema;
     const uischema = initialState.core.uischema ?? generateDefaultUISchema(schema);
-    this.updateCore(Actions.init(this.updateDataWithPlainTextFields(data, uischema), schema, uischema));
+    const hydratedSchema = this.hydrateSchemaWithExternalDictionary(schema, uischema, this._state.config);
+    this.updateCore(Actions.init(this.updateDataWithPlainTextFields(data, uischema), hydratedSchema, uischema));
   }
 
   updateDataWithPlainTextFields(data: Object, uiSchema: UISchemaElement): Object {
@@ -226,13 +230,20 @@ export class JsonFormsAngularService {
   updateConfig<T extends SetConfigAction>(setConfigAction: T): T {
     const configState = configReducer(this._state.config, setConfigAction);
     this._state.config = configState;
+    const hydratedSchema = this.hydrateSchemaWithExternalDictionary(
+      this.baseSchema ?? this._state.core.schema,
+      this._state.core.uischema,
+      configState,
+    );
+    this._state.core = coreReducer(this._state.core, Actions.updateCore(this._state.core.data, hydratedSchema, this._state.core.uischema));
     this.updateSubject();
     return setConfigAction;
   }
 
   setUiSchema(uischema: UISchemaElement | undefined): void {
     const newUiSchema = uischema ?? generateDefaultUISchema(this._state.core.schema);
-    const coreState = coreReducer(this._state.core, Actions.updateCore(this._state.core.data, this._state.core.schema, newUiSchema));
+    const hydratedSchema = this.hydrateSchemaWithExternalDictionary(this.baseSchema ?? this._state.core.schema, newUiSchema, this._state.config);
+    const coreState = coreReducer(this._state.core, Actions.updateCore(this._state.core.data, hydratedSchema, newUiSchema));
     if (coreState !== this._state.core) {
       this._state.core = coreState;
       this.updateSubject();
@@ -240,10 +251,10 @@ export class JsonFormsAngularService {
   }
 
   setSchema(schema: JsonSchema | undefined): void {
-    const coreState = coreReducer(
-      this._state.core,
-      Actions.updateCore(this._state.core.data, schema ?? generateJsonSchema(this._state.core.data), this._state.core.uischema),
-    );
+    const schemaWithDefault = schema ?? generateJsonSchema(this._state.core.data);
+    this.baseSchema = schemaWithDefault;
+    const hydratedSchema = this.hydrateSchemaWithExternalDictionary(schemaWithDefault, this._state.core.uischema, this._state.config);
+    const coreState = coreReducer(this._state.core, Actions.updateCore(this._state.core.data, hydratedSchema, this._state.core.uischema));
     if (coreState !== this._state.core) {
       this._state.core = coreState;
       this.updateSubject();
@@ -302,17 +313,138 @@ export class JsonFormsAngularService {
     additionalErrors: ErrorObject[] | typeof USE_STATE_VALUE,
   ): void {
     const newData = data === USE_STATE_VALUE ? this._state.core.data : data;
-    const newSchema = schema === USE_STATE_VALUE ? this._state.core.schema : (schema ?? generateJsonSchema(newData));
+    const schemaProvided = schema !== USE_STATE_VALUE;
+    const newSchema = schemaProvided ? (schema ?? generateJsonSchema(newData)) : this._state.core.schema;
+    if (schemaProvided) {
+      this.baseSchema = newSchema;
+    }
     const newUischema = uischema === USE_STATE_VALUE ? this._state.core.uischema : (uischema ?? generateDefaultUISchema(newSchema));
+    const schemaForValidation =
+      schemaProvided || uischema !== USE_STATE_VALUE
+        ? this.hydrateSchemaWithExternalDictionary(this.baseSchema ?? newSchema, newUischema, this._state.config)
+        : newSchema;
     const newAjv = ajv === USE_STATE_VALUE ? this._state.core.ajv : ajv;
     const newValidationMode = validationMode === USE_STATE_VALUE ? this._state.core.validationMode : validationMode;
     const newAdditionalErrors = additionalErrors === USE_STATE_VALUE ? this._state.core.additionalErrors : additionalErrors;
     this.updateCore(
-      Actions.updateCore(newData, newSchema, newUischema, { ajv: newAjv, validationMode: newValidationMode, additionalErrors: newAdditionalErrors }),
+      Actions.updateCore(newData, schemaForValidation, newUischema, {
+        ajv: newAjv,
+        validationMode: newValidationMode,
+        additionalErrors: newAdditionalErrors,
+      }),
     );
   }
 
   private updateSubject(): void {
     this.state.next({ jsonforms: this._state });
+  }
+
+  private hydrateSchemaWithExternalDictionary(schema: JsonSchema, uiSchema: UISchemaElement, config: Config): JsonSchema {
+    if (!schema || !uiSchema || !config) {
+      return schema;
+    }
+
+    const controlsWithDictionary = this.collectControlsWithDictionary(uiSchema);
+    if (!controlsWithDictionary.length) {
+      return schema;
+    }
+
+    const hydratedSchema = cloneDeep(schema);
+
+    for (const control of controlsWithDictionary) {
+      const dictionaryItems = this.getDictionaryItems(control.dictionaryKey, control.format, config);
+      if (!dictionaryItems.length) {
+        continue;
+      }
+
+      const targetSchema = this.resolveScopeSchema(hydratedSchema, control.scope);
+      if (!targetSchema || Array.isArray(targetSchema)) {
+        continue;
+      }
+
+      if (control.format === 'multiselect' || targetSchema.type === 'array') {
+        if (!targetSchema.items || Array.isArray(targetSchema.items)) {
+          continue;
+        }
+        const itemSchema = targetSchema.items as JsonSchema;
+        itemSchema.enum = dictionaryItems.map(item => item.value);
+        if (itemSchema.oneOf) {
+          itemSchema.oneOf = dictionaryItems.map(item => ({ const: item.value, title: item.label }));
+        }
+      } else {
+        targetSchema.enum = dictionaryItems.map(item => item.value);
+        if (targetSchema.oneOf) {
+          targetSchema.oneOf = dictionaryItems.map(item => ({ const: item.value, title: item.label }));
+        }
+      }
+    }
+
+    return hydratedSchema;
+  }
+
+  private collectControlsWithDictionary(uiSchema: UISchemaElement): { scope: string; dictionaryKey: string; format?: string }[] {
+    const controls: { scope: string; dictionaryKey: string; format?: string }[] = [];
+    const queue: any[] = [uiSchema];
+
+    while (queue.length) {
+      const current = queue.shift();
+      if (!current || typeof current !== 'object') {
+        continue;
+      }
+
+      if (current.type === 'Control' && typeof current.scope === 'string') {
+        const dictionaryKey = current.options?.dictionaryKey;
+        if (typeof dictionaryKey === 'string' && dictionaryKey.length > 0) {
+          controls.push({
+            scope: current.scope,
+            dictionaryKey,
+            format: current.options?.format,
+          });
+        }
+      }
+
+      if (Array.isArray(current.elements)) {
+        queue.push(...current.elements);
+      }
+    }
+
+    return controls;
+  }
+
+  private resolveScopeSchema(rootSchema: JsonSchema, scope: string): JsonSchema | undefined {
+    if (!scope || !scope.startsWith('#/')) {
+      return undefined;
+    }
+
+    const schemaPath = scope.slice(2).split('/');
+    let current: any = rootSchema;
+
+    for (const segment of schemaPath) {
+      if (!segment) {
+        continue;
+      }
+
+      current = current?.[segment];
+      if (current === undefined) {
+        return undefined;
+      }
+    }
+
+    return current as JsonSchema;
+  }
+
+  private getDictionaryItems(dictionaryKey: string, format: string | undefined, config: Config): { label: string; value: any }[] {
+    const selectItems = (config.selectExternalDictionary?.[dictionaryKey] ?? []) as { label: string; value: any }[];
+    const multiselectItems = (config.multiselectExternalDictionary?.[dictionaryKey] ?? []) as { label: string; value: any }[];
+
+    if (format === 'multiselect') {
+      return multiselectItems.length ? multiselectItems : selectItems;
+    }
+
+    if (format === 'select') {
+      return selectItems.length ? selectItems : multiselectItems;
+    }
+
+    return selectItems.length ? selectItems : multiselectItems;
   }
 }

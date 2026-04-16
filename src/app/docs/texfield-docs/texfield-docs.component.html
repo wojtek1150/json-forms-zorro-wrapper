@@ -21,10 +21,7 @@
   [ngModel]="uiSchemaObjects.uiSchemaArea.elements[0] | editorFormatter"
   [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
   class="editor"></nz-code-editor>
-<jsonforms
-  [renderers]="renderers"
-  [schema]="schemaObjects.schemaName"
-  [uischema]="uiSchemaObjects.uiSchemaArea"></jsonforms>
+<jsonforms [renderers]="renderers" [schema]="schemaObjects.schemaName" [uischema]="uiSchemaObjects.uiSchemaArea"></jsonforms>
 
 <p>UiSchema Options</p>
 <nz-table [nzTemplateMode]="true">

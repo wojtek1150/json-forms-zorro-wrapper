@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { JFZVerticalLayout, JsonFormsZorroModule, JsonSchema } from '@wojtek1150/jsonforms-zorro-wrapper';
+import { Config, JFZVerticalLayout, JsonFormsZorroModule, JsonSchema } from '@wojtek1150/jsonforms-zorro-wrapper';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { ControlDocsAbstract } from '../control-docs.abstract';
 import { EditorFormatterPipe } from '../../pipes/editor-formatter.pipe';
@@ -18,6 +18,8 @@ export class SelectDocsComponent extends ControlDocsAbstract {
   override dataObjects: Record<string, any> = {
     dataEnum: {},
     dataOneOf: {},
+    dataEnumObjects: { selection: { name: 'Red Car', color: 'red' } },
+    dataEnumObjectsExternal: { enumObjectsExternal: { name: 'Blue Car', color: 'blue' } },
   };
 
   override schemaObjects: Record<string, JsonSchema> = {
@@ -29,6 +31,25 @@ export class SelectDocsComponent extends ControlDocsAbstract {
           enum: ['Never', 'Daily', 'Weekly', 'Monthly'],
         },
       },
+    },
+    schemaEnumObjects: {
+      type: 'object',
+      additionalProperties: false,
+      properties: {
+        selection: {
+          type: 'object',
+          additionalProperties: false,
+          properties: {
+            name: { type: 'string' },
+            color: { type: 'string' },
+          },
+          enum: [
+            { name: 'Red Car', color: 'red' },
+            { name: 'Blue Car', color: 'blue' },
+          ],
+        },
+      },
+      required: ['selection'],
     },
     schemaOneOf: {
       type: 'object',
@@ -56,6 +77,20 @@ export class SelectDocsComponent extends ControlDocsAbstract {
         },
       },
     },
+    schemaEnumObjectsExternal: {
+      type: 'object',
+      properties: {
+        enumObjectsExternal: {
+          type: 'object',
+          additionalProperties: false,
+          properties: {
+            name: { type: 'string' },
+            color: { type: 'string' },
+          },
+          enum: [{ name: 'foo', color: 'bar' }],
+        },
+      },
+    },
   };
 
   override uiSchemaObjects: Record<string, JFZVerticalLayout> = {
@@ -69,6 +104,19 @@ export class SelectDocsComponent extends ControlDocsAbstract {
         },
       ],
     },
+    uiSchemaEnumObjects: {
+      type: 'VerticalLayout',
+      elements: [
+        {
+          label: 'Enum as object',
+          type: 'Control',
+          scope: '#/properties/selection',
+          options: {
+            labelKey: 'name',
+          },
+        },
+      ],
+    },
     uiSchemaOneOf: {
       type: 'VerticalLayout',
       elements: [
@@ -78,6 +126,31 @@ export class SelectDocsComponent extends ControlDocsAbstract {
           scope: '#/properties/oneOf',
         },
       ],
+    },
+    uiSchemaEnumObjectsExternal: {
+      type: 'VerticalLayout',
+      elements: [
+        {
+          label: 'Enum as object',
+          type: 'Control',
+          scope: '#/properties/enumObjectsExternal',
+          options: {
+            format: 'select',
+            dictionaryKey: 'enumObjectsExternal',
+          },
+        },
+      ],
+    },
+  };
+
+  override configObjects: Record<string, Config> = {
+    jsonformsConfigExternal: {
+      selectExternalDictionary: {
+        enumObjectsExternal: [
+          { label: 'Red Car', value: { name: 'Red Car', color: 'red' } },
+          { label: 'Blue Car', value: { name: 'Blue Car', color: 'blue' } },
+        ],
+      },
     },
   };
 }

@@ -1,4 +1,4 @@
-import { JFZVerticalLayout, JsonSchema, ngZorroRenderers } from '@wojtek1150/jsonforms-zorro-wrapper';
+import { Config, JFZVerticalLayout, JsonSchema, ngZorroRenderers } from '@wojtek1150/jsonforms-zorro-wrapper';
 import { Directive } from '@angular/core';
 
 @Directive({})
@@ -8,6 +8,7 @@ export abstract class ControlDocsAbstract {
   dataObjects: Record<string, any> = {};
   schemaObjects: Record<string, JsonSchema> = {};
   uiSchemaObjects: Record<string, JFZVerticalLayout> = {};
+  configObjects: Record<string, Config> = {};
 
   /**
    * @deprecated Use dataObjects instead
@@ -55,6 +56,16 @@ export abstract class ControlDocsAbstract {
       this.dataObjects[dataKey] = JSON.parse($event);
     } catch (e) {
       this.dataObjects[dataKey] = cachedData;
+    }
+  }
+
+  updateConfig(configKey: string, $event: string): void {
+    const cachedConfig = this.configObjects[configKey];
+    try {
+      this.configObjects[configKey] = null;
+      this.configObjects[configKey] = JSON.parse($event);
+    } catch (e) {
+      this.configObjects[configKey] = cachedConfig;
     }
   }
 
