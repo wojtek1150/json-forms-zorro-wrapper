@@ -1,13 +1,15 @@
 <h1>Text control</h1>
 <nz-code-editor
   [ngModel]="schemaObjects.schemaName.properties | editorFormatter"
-  [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+  (ngModelChange)="updateSchema('schemaName', $event)"
+  [nzEditorOption]="{ language: 'json', automaticLayout: true }"
   class="editor"></nz-code-editor>
 
 <p>Ui Schema</p>
 <nz-code-editor
   [ngModel]="uiSchemaObjects.uiSchemaName.elements[0] | editorFormatter"
-  [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+  (ngModelChange)="updateUiSchema('uiSchemaName', $event)"
+  [nzEditorOption]="{ language: 'json', automaticLayout: true }"
   class="editor"></nz-code-editor>
 
 <jsonforms
@@ -19,7 +21,8 @@
 <p>As textarea</p>
 <nz-code-editor
   [ngModel]="uiSchemaObjects.uiSchemaArea.elements[0] | editorFormatter"
-  [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+  (ngModelChange)="updateUiSchema('uiSchemaArea', $event)"
+  [nzEditorOption]="{ language: 'json', automaticLayout: true }"
   class="editor"></nz-code-editor>
 <jsonforms [renderers]="renderers" [schema]="schemaObjects.schemaName" [uischema]="uiSchemaObjects.uiSchemaArea"></jsonforms>
 

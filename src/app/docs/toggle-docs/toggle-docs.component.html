@@ -48,22 +48,25 @@
     <div>
       <p>Schema</p>
       <nz-code-editor
+        (ngModelChange)="updateSchema('schemaToggle', $event)"
         [ngModel]="schemaObjects.schemaToggle.properties | editorFormatter"
-        [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
         class="editor"></nz-code-editor>
     </div>
     <div>
       <p>Ui Schema</p>
       <nz-code-editor
         [ngModel]="uiSchemaObjects.uiSchemaToggle.elements[0] | editorFormatter"
-        [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+        (ngModelChange)="updateUiSchema('uiSchemaToggle', $event)"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
         class="editor"></nz-code-editor>
     </div>
     <div>
       <p>Data</p>
       <nz-code-editor
         [ngModel]="dataObjects.dataToggle | editorFormatter"
-        [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+        (ngModelChange)="updateData('dataToggle', $event)"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
         class="editor"></nz-code-editor>
     </div>
   </div>

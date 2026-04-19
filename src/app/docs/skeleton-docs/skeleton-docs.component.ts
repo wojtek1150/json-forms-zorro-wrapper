@@ -12,8 +12,6 @@ import { ControlDocsAbstract } from '../control-docs.abstract';
 })
 export class SkeletonDocsComponent extends ControlDocsAbstract {
   showSkeleton = false;
-  schema = null;
-  uiSchema = null;
 
   override schemaObjects: Record<string, JsonSchema> = {
     schemaSkeleton: {

@@ -12,9 +12,6 @@ import { FormsModule } from '@angular/forms';
   imports: [JsonFormsZorroModule, NzTableModule, NzCodeEditorModule, FormsModule, EditorFormatterPipe],
 })
 export class TexfieldDocsComponent extends ControlDocsAbstract {
-  schema = null;
-  uiSchema = null;
-
   override schemaObjects: Record<string, JsonSchema> = {
     schemaName: {
       type: 'object',

@@ -12,9 +12,6 @@ import { FormsModule } from '@angular/forms';
   imports: [JsonFormsZorroModule, NzTableModule, NzCodeEditorModule, FormsModule, EditorFormatterPipe],
 })
 export class SelectDocsComponent extends ControlDocsAbstract {
-  schema = null;
-  uiSchema = null;
-
   override dataObjects: Record<string, any> = {
     dataEnum: {},
     dataOneOf: {},

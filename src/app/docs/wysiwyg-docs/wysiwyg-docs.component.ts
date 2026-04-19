@@ -23,9 +23,6 @@ import { ControlDocsAbstract } from '../control-docs.abstract';
   ],
 })
 export class WysiwygDocsComponent extends ControlDocsAbstract {
-  schema = null;
-  uiSchema = null;
-
   override dataObjects: Record<string, any> = {
     dataComment: {
       comment: '<p>Enter comment here</p>',

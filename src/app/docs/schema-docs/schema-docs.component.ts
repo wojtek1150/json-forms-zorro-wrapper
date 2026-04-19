@@ -32,9 +32,6 @@ import { ControlDocsAbstract } from '../control-docs.abstract';
   imports: [JsonFormsZorroModule, NzTableModule, NzAlertComponent, NzCodeEditorModule, FormsModule, EditorFormatterPipe],
 })
 export class SchemaDocsComponent extends ControlDocsAbstract {
-  schema = null;
-  uiSchema = null;
-
   override schemaObjects: Record<string, JsonSchema> = {
     schemaName: {
       type: 'object',

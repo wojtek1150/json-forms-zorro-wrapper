@@ -12,9 +12,6 @@ import { FormsModule } from '@angular/forms';
   imports: [JsonFormsZorroModule, NzTableModule, EditorFormatterPipe, NzCodeEditorModule, FormsModule],
 })
 export class NumberDocsComponent extends ControlDocsAbstract {
-  schema = null;
-  uiSchema = null;
-
   override dataObjects: Record<string, any> = {
     dataAge: {},
   };

@@ -9,7 +9,7 @@
   <p>You can choose in uischema options the key Person object which you want to select. Default email is used</p>
   <jsonforms
     [(data)]="dataObjects.dataMention"
-    [config]="jsonformsConfigExternal"
+    [config]="configObjects.jsonformsConfigExternal"
     [renderers]="renderers"
     [schema]="schemaObjects.schemaMention"
     [uischema]="uiSchemaObjects.uiSchemaMention"></jsonforms>
@@ -47,7 +47,7 @@
   <p>When you pass <code>all</code> as return key whole object will be used as a value of input</p>
   <jsonforms
     [(data)]="dataObjects.dataMentionAll"
-    [config]="jsonformsConfigExternal"
+    [config]="configObjects.jsonformsConfigExternal"
     [renderers]="renderers"
     [schema]="schemaObjects.schemaMentionAll"
     [uischema]="uiSchemaObjects.uiSchemaMentionAll"></jsonforms>
@@ -57,26 +57,30 @@
       <p>Schema</p>
       <nz-code-editor
         [ngModel]="schemaObjects.schemaMentionAll.properties | editorFormatter"
-        [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+        (ngModelChange)="updateSchema('schemaMentionAll', $event)"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
         class="editor"></nz-code-editor>
 
       <p>Ui Schema</p>
       <nz-code-editor
         [ngModel]="uiSchemaObjects.uiSchemaMentionAll.elements[0] | editorFormatter"
-        [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+        (ngModelChange)="updateUiSchema('uiSchemaMentionAll', $event)"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
         class="editor"></nz-code-editor>
     </div>
 
     <div>
       <p>Config</p>
       <nz-code-editor
-        [ngModel]="jsonformsConfigExternal | editorFormatter"
-        [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+        [ngModel]="configObjects.jsonformsConfigExternal | editorFormatter"
+        (ngModelChange)="updateConfig('jsonformsConfigExternal', $event)"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
         class="editor"></nz-code-editor>
       <p>Data</p>
       <nz-code-editor
         [ngModel]="dataObjects.dataMentionAll | editorFormatter"
-        [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+        (ngModelChange)="updateData('dataMentionAll', $event)"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
         class="editor"></nz-code-editor>
     </div>
   </div>

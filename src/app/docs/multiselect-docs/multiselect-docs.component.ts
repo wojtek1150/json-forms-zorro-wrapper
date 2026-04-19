@@ -13,9 +13,6 @@ import { EditorFormatterPipe } from '../../pipes/editor-formatter.pipe';
   imports: [JsonFormsZorroModule, NzTableModule, NzAlertModule, NzCodeEditorModule, FormsModule, EditorFormatterPipe],
 })
 export class MultiselectDocsComponent extends ControlDocsAbstract {
-  schema = null;
-  uiSchema = null;
-
   override dataObjects: Record<string, any> = {
     dataEnum: {},
     dataOneOf: {},

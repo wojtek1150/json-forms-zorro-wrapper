@@ -12,9 +12,6 @@ import { ControlDocsAbstract } from '../control-docs.abstract';
   imports: [JsonFormsZorroModule, NzTableModule, NzCodeEditorModule, FormsModule, EditorFormatterPipe],
 })
 export class SliderDocsComponent extends ControlDocsAbstract {
-  schema = null;
-  uiSchema = null;
-
   override dataObjects: Record<string, any> = {
     dataSlider: {},
   };

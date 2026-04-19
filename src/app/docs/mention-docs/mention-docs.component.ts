@@ -12,9 +12,6 @@ import { FormsModule } from '@angular/forms';
   imports: [JsonFormsZorroModule, NzTableModule, EditorFormatterPipe, NzCodeEditorModule, FormsModule],
 })
 export class MentionDocsComponent extends ControlDocsAbstract {
-  schema = null;
-  uiSchema = null;
-
   override dataObjects: Record<string, any> = {
     dataMention: {},
     dataMentionAll: {},
@@ -84,7 +81,8 @@ export class MentionDocsComponent extends ControlDocsAbstract {
     },
   };
 
-  jsonformsConfigExternal: Config = {
+  override configObjects: Record<string, Config> = {
+    jsonformsConfigExternal: {
     mentionDictionary: {
       users: [
         {
@@ -106,7 +104,8 @@ export class MentionDocsComponent extends ControlDocsAbstract {
           email: 'smith@gmail.com',
           avatar: 'https://i.pravatar.cc/400?img=52',
         },
-      ],
+        ],
+      },
     },
   };
 }

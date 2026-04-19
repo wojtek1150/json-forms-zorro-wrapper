@@ -13,13 +13,15 @@
 <p>Form Schema</p>
 <nz-code-editor
   [ngModel]="schemaObjects.schemaCity.properties | editorFormatter"
-  [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+  (ngModelChange)="updateSchema('schemaCity', $event)"
+  [nzEditorOption]="{ language: 'json', automaticLayout: true }"
   class="editor"></nz-code-editor>
 
 <p>Ui Schema</p>
 <nz-code-editor
   [ngModel]="uiSchemaObjects.uiSchemaCity.elements[0] | editorFormatter"
-  [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+  (ngModelChange)="updateUiSchema('uiSchemaCity', $event)"
+  [nzEditorOption]="{ language: 'json', automaticLayout: true }"
   class="editor"></nz-code-editor>
 
 <div class="flex">
@@ -34,7 +36,8 @@
   </div>
   <nz-code-editor
     [ngModel]="dataObjects.dataCity | editorFormatter"
-    [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+    (ngModelChange)="updateData('dataCity', $event)"
+    [nzEditorOption]="{ language: 'json', automaticLayout: true }"
     class="editor"></nz-code-editor>
 </div>
 
@@ -43,13 +46,15 @@
 <p>Form Schema</p>
 <nz-code-editor
   [ngModel]="schemaObjects.schemaScoped.properties | editorFormatter"
-  [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+  (ngModelChange)="updateSchema('schemaScoped', $event)"
+  [nzEditorOption]="{ language: 'json', automaticLayout: true }"
   class="editor"></nz-code-editor>
 
 <p>Ui Schema</p>
 <nz-code-editor
   [ngModel]="uiSchemaObjects.uiSchemaScoped.elements | editorFormatter"
-  [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+  (ngModelChange)="updateUiSchema('uiSchemaScoped', $event)"
+  [nzEditorOption]="{ language: 'json', automaticLayout: true }"
   class="editor"></nz-code-editor>
 
 <div class="flex">
@@ -64,7 +69,8 @@
   </div>
   <nz-code-editor
     [ngModel]="dataObjects.dataScoped | editorFormatter"
-    [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+    (ngModelChange)="updateData('dataScoped', $event)"
+    [nzEditorOption]="{ language: 'json', automaticLayout: true }"
     class="editor"></nz-code-editor>
 </div>
 

@@ -12,9 +12,6 @@ import { ControlDocsAbstract } from '../control-docs.abstract';
   imports: [JsonFormsZorroModule, NzTableModule, EditorFormatterPipe, NzCodeEditorModule, FormsModule],
 })
 export class ToggleDocsComponent extends ControlDocsAbstract {
-  schema = null;
-  uiSchema = null;
-
   override dataObjects: Record<string, any> = {
     dataCheckbox: { done: false },
     dataToggle: { done: false },
