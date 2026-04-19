@@ -13,9 +13,6 @@ import { FormsModule } from '@angular/forms';
   imports: [JsonFormsZorroModule, NzTableModule, RouterLink, EditorFormatterPipe, NzCodeEditorModule, FormsModule],
 })
 export class RadioDocsComponent extends ControlDocsAbstract {
-  schema = null;
-  uiSchema = null;
-
   override dataObjects: Record<string, any> = {
     dataStandard: { radio: 'Daily' },
     dataButton: { button: 'Daily' },

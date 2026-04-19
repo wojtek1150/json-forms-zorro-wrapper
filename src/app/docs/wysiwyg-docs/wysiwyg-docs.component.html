@@ -31,13 +31,15 @@
 <p>NOTE: Editor changes will be not applied</p>
 <nz-code-editor
   [ngModel]="schemaObjects.schemaComplex.properties | editorFormatter"
-  [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+  (ngModelChange)="updateSchema('schemaComplex', $event)"
+  [nzEditorOption]="{ language: 'json', automaticLayout: true }"
   class="editor"></nz-code-editor>
 
 <p>Ui Schema</p>
 <nz-code-editor
   [ngModel]="uiSchemaObjects.uiSchemaComplex.elements[0] | editorFormatter"
-  [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+  (ngModelChange)="updateUiSchema('uiSchemaComplex', $event)"
+  [nzEditorOption]="{ language: 'json', automaticLayout: true }"
   class="editor"></nz-code-editor>
 
 <div class="flex">
@@ -48,7 +50,8 @@
     [uischema]="uiSchemaObjects.uiSchemaComplex"></jsonforms>
   <nz-code-editor
     [ngModel]="dataObjects.dataComplex | editorFormatter"
-    [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+    (ngModelChange)="updateData('dataComplex', $event)"
+    [nzEditorOption]="{ language: 'json', automaticLayout: true }"
     class="editor"></nz-code-editor>
 </div>
 

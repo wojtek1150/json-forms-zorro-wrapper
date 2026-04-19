@@ -23,9 +23,6 @@ import { FormsModule } from '@angular/forms';
   ],
 })
 export class ImageDocsComponent extends ControlDocsAbstract {
-  schema = null;
-  uiSchema = null;
-
   override dataObjects: Record<string, any> = {
     dataImage: {
       image: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',

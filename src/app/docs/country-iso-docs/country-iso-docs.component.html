@@ -14,12 +14,14 @@
       <p>Schema</p>
       <nz-code-editor
         [ngModel]="schemaObjects.schemaCountry.properties | editorFormatter"
-        [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+        (ngModelChange)="updateSchema('schemaCountry', $event)"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
         class="editor"></nz-code-editor>
       <p>Ui Schema</p>
       <nz-code-editor
         [ngModel]="uiSchemaObjects.uiSchemaCountry.elements[0] | editorFormatter"
-        [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+        (ngModelChange)="updateUiSchema('uiSchemaCountry', $event)"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
         class="editor"></nz-code-editor>
     </div>
 
@@ -27,7 +29,8 @@
       <p>Data</p>
       <nz-code-editor
         [ngModel]="dataObjects.dataCountry | editorFormatter"
-        [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+        (ngModelChange)="updateData('dataCountry', $event)"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
         class="editor"></nz-code-editor>
     </div>
   </div>

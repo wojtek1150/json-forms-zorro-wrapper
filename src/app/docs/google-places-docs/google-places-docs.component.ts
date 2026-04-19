@@ -33,9 +33,6 @@ import { EditorFormatterPipe } from '../../pipes/editor-formatter.pipe';
   ],
 })
 export class GooglePlacesDocsComponent extends ControlDocsAbstract {
-  schema = null;
-  uiSchema = null;
-
   readonly configuration = `{\n  provide: JZW_GOOGLE_PLACES_API_KEY,\n  useValue: 'YOUR_API_KEY',\n};`;
 
   override dataObjects: Record<string, any> = {

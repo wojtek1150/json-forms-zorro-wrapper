@@ -10,19 +10,6 @@ export abstract class ControlDocsAbstract {
   uiSchemaObjects: Record<string, JFZVerticalLayout> = {};
   configObjects: Record<string, Config> = {};
 
-  /**
-   * @deprecated Use dataObjects instead
-   */
-  data = {};
-
-  /**
-   * @deprecated Use schemaObjects instead
-   */
-  abstract schema: JsonSchema;
-  /**
-   * @deprecated Use uiSchemaObjects instead
-   */
-  abstract uiSchema: JFZVerticalLayout;
 
   updateUiSchema(uiSchemaKey: string, $event: string): void {
     const cachedUiSchema = this.uiSchemaObjects[uiSchemaKey].elements[0];
@@ -66,42 +53,6 @@ export abstract class ControlDocsAbstract {
       this.configObjects[configKey] = JSON.parse($event);
     } catch (e) {
       this.configObjects[configKey] = cachedConfig;
-    }
-  }
-
-  /**
-   * @deprecated Use updateSchema, updateData or updateUiSchema instead
-   */
-  updateProperty(schemaToUpdate: string, $event: string): void {
-    if (schemaToUpdate === 'data') {
-      const cachedData = this.data;
-      try {
-        this.data = null;
-        this.data = JSON.parse($event);
-      } catch (e) {
-        this.data = cachedData;
-      }
-    } else if (schemaToUpdate === 'schema') {
-      const cachedSchema = this.schema;
-      try {
-        this.schema = null;
-        this.schema = {
-          ...cachedSchema,
-          properties: JSON.parse($event),
-        };
-        this.data = { ...this.data }; // force rerender
-      } catch (e) {
-        this.schema = cachedSchema;
-      }
-    } else {
-      const cachedUiSchema = this.uiSchema.elements[0];
-      try {
-        this.uiSchema.elements[0] = null;
-        this.uiSchema.elements[0] = JSON.parse($event);
-        this.data = { ...this.data }; // force rerender
-      } catch (e) {
-        this.uiSchema.elements[0] = cachedUiSchema;
-      }
     }
   }
 }

@@ -14,7 +14,8 @@
       <p>Schema</p>
       <nz-code-editor
         [ngModel]="schemaObjects.schemaEnum.properties | editorFormatter"
-        [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+        (ngModelChange)="updateSchema('schemaEnum', $event)"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
         class="editor"></nz-code-editor>
     </div>
 
@@ -22,12 +23,14 @@
       <p>Ui Schema</p>
       <nz-code-editor
         [ngModel]="uiSchemaObjects.uiSchemaEnum.elements[0] | editorFormatter"
-        [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+        (ngModelChange)="updateUiSchema('uiSchemaEnum', $event)"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
         class="editor"></nz-code-editor>
       <p>Data</p>
       <nz-code-editor
         [ngModel]="dataObjects.dataEnum | editorFormatter"
-        [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+        (ngModelChange)="updateData('dataEnum', $event)"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
         class="editor"></nz-code-editor>
     </div>
   </div>
@@ -47,7 +50,8 @@
       <p>Schema</p>
       <nz-code-editor
         [ngModel]="schemaObjects.schemaOneOf.properties | editorFormatter"
-        [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+        (ngModelChange)="updateSchema('schemaOneOf', $event)"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
         class="editor"></nz-code-editor>
     </div>
 
@@ -55,12 +59,14 @@
       <p>Ui Schema</p>
       <nz-code-editor
         [ngModel]="uiSchemaObjects.uiSchemaOneOf.elements[0] | editorFormatter"
-        [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+        (ngModelChange)="updateUiSchema('uiSchemaOneOf', $event)"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
         class="editor"></nz-code-editor>
       <p>Data</p>
       <nz-code-editor
         [ngModel]="dataObjects.dataOneOf | editorFormatter"
-        [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+        (ngModelChange)="updateData('dataOneOf', $event)"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
         class="editor"></nz-code-editor>
     </div>
   </div>
@@ -80,7 +86,8 @@
       <p>Schema</p>
       <nz-code-editor
         [ngModel]="schemaObjects.schemaCheckbox.properties | editorFormatter"
-        [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+        (ngModelChange)="updateSchema('schemaCheckbox', $event)"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
         class="editor"></nz-code-editor>
     </div>
 
@@ -88,12 +95,14 @@
       <p>Ui Schema</p>
       <nz-code-editor
         [ngModel]="uiSchemaObjects.uiSchemaCheckbox.elements[0] | editorFormatter"
-        [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+        (ngModelChange)="updateUiSchema('uiSchemaCheckbox', $event)"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
         class="editor"></nz-code-editor>
       <p>Data</p>
       <nz-code-editor
         [ngModel]="dataObjects.dataCheckbox | editorFormatter"
-        [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+        (ngModelChange)="updateData('dataCheckbox', $event)"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
         class="editor"></nz-code-editor>
     </div>
   </div>
@@ -112,7 +121,8 @@
       <p>Schema</p>
       <nz-code-editor
         [ngModel]="schemaObjects.schemaEnumObjects.properties | editorFormatter"
-        [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+        (ngModelChange)="updateSchema('schemaEnumObjects', $event)"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
         class="editor"></nz-code-editor>
     </div>
 
@@ -120,12 +130,14 @@
       <p>Ui Schema</p>
       <nz-code-editor
         [ngModel]="uiSchemaObjects.uiSchemaEnumObjects.elements[0] | editorFormatter"
-        [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+        (ngModelChange)="updateUiSchema('uiSchemaEnumObjects', $event)"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
         class="editor"></nz-code-editor>
       <p>Data</p>
       <nz-code-editor
         [ngModel]="dataObjects.dataEnumObjects | editorFormatter"
-        [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+        (ngModelChange)="updateData('dataEnumObjects', $event)"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
         class="editor"></nz-code-editor>
     </div>
   </div>
@@ -151,13 +163,15 @@
       <p>Schema</p>
       <nz-code-editor
         [ngModel]="schemaObjects.schemaExternal.properties | editorFormatter"
-        [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+        (ngModelChange)="updateSchema('schemaExternal', $event)"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
         class="editor"></nz-code-editor>
 
       <p>Ui Schema</p>
       <nz-code-editor
         [ngModel]="uiSchemaObjects.uiSchemaExternal.elements[0] | editorFormatter"
-        [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+        (ngModelChange)="updateUiSchema('uiSchemaExternal', $event)"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
         class="editor"></nz-code-editor>
     </div>
 
@@ -165,12 +179,14 @@
       <p>Config</p>
       <nz-code-editor
         [ngModel]="jsonformsConfigExternal | editorFormatter"
-        [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+        (ngModelChange)="updateConfig('jsonformsConfigExternal', $event)"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
         class="editor"></nz-code-editor>
       <p>Data</p>
       <nz-code-editor
         [ngModel]="dataObjects.dataExternal | editorFormatter"
-        [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+        (ngModelChange)="updateData('dataExternal', $event)"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
         class="editor"></nz-code-editor>
     </div>
   </div>
@@ -196,13 +212,15 @@
       <p>Schema</p>
       <nz-code-editor
         [ngModel]="schemaObjects.schemaEnumObjectsExternal.properties | editorFormatter"
-        [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+        (ngModelChange)="updateSchema('schemaEnumObjectsExternal', $event)"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
         class="editor"></nz-code-editor>
 
       <p>Ui Schema</p>
       <nz-code-editor
         [ngModel]="uiSchemaObjects.uiSchemaEnumObjectsExternal.elements[0] | editorFormatter"
-        [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+        (ngModelChange)="updateUiSchema('uiSchemaEnumObjectsExternal', $event)"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
         class="editor"></nz-code-editor>
     </div>
 
@@ -210,12 +228,14 @@
       <p>Config</p>
       <nz-code-editor
         [ngModel]="jsonformsConfigExternal | editorFormatter"
-        [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+        (ngModelChange)="updateConfig('jsonformsConfigExternal', $event)"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
         class="editor"></nz-code-editor>
       <p>Data</p>
       <nz-code-editor
         [ngModel]="dataObjects.dataEnumObjectsExternal | editorFormatter"
-        [nzEditorOption]="{ language: 'json', automaticLayout: true, readOnly: true }"
+        (ngModelChange)="updateData('dataEnumObjectsExternal', $event)"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
         class="editor"></nz-code-editor>
     </div>
   </div>
@@ -285,6 +305,12 @@
     <tr>
       <td>dictionaryKey</td>
       <td>Key for external options dictionary</td>
+      <td><code>string</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>labelKey</td>
+      <td>Object key from passed list to return as label when using enum object items</td>
       <td><code>string</code></td>
       <td>-</td>
     </tr>
