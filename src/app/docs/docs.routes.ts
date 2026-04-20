@@ -75,6 +75,27 @@ export const DOCS_ROUTES: Routes = [
         path: 'skeleton',
       },
       {
+        loadComponent: () => import('./layout-vertical-docs/layout-vertical-docs.component').then(c => c.LayoutVerticalDocsComponent),
+        path: 'layout-vertical',
+      },
+      {
+        loadComponent: () => import('./layout-horizontal-docs/layout-horizontal-docs.component').then(c => c.LayoutHorizontalDocsComponent),
+        path: 'layout-horizontal',
+      },
+      {
+        loadComponent: () => import('./layout-group-docs/layout-group-docs.component').then(c => c.LayoutGroupDocsComponent),
+        path: 'layout-group',
+      },
+      {
+        loadComponent: () => import('./layout-category-docs/layout-category-docs.component').then(c => c.LayoutCategoryDocsComponent),
+        path: 'layout-category',
+      },
+      {
+        loadComponent: () =>
+          import('./layout-categorization-docs/layout-categorization-docs.component').then(c => c.LayoutCategorizationDocsComponent),
+        path: 'layout-categorization',
+      },
+      {
         path: '**',
         redirectTo: 'schema',
       },

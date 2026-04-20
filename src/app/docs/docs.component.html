@@ -10,6 +10,10 @@
             </a>
           </li>
           <li nz-menu-item nzMatchRouter><a [routerLink]="['forms']">JsonForms component</a></li>
+        </ul>
+      </li>
+      <li nz-menu-group nzTitle="Presentation">
+        <ul>
           <li nz-menu-item nzMatchRouter>
             <a [routerLink]="['skeleton']" class="with-tag">
               <span>Skeleton</span>
@@ -48,16 +52,11 @@
       </li>
       <li nz-menu-group nzTitle="Layout types">
         <ul>
-          <li nz-menu-item nzDisabled>Categorization</li>
-          <li nz-menu-item nzDisabled>Vertical Layout</li>
-          <li nz-menu-item nzDisabled>Horizontal Layout</li>
-          <li nz-menu-item nzDisabled>Group</li>
-          <li nz-menu-item nzDisabled>Category</li>
-        </ul>
-      </li>
-      <li nz-menu-group nzTitle="Presentation">
-        <ul>
-          <li nz-menu-item nzMatchRouter><a [routerLink]="['skeleton']">Skeleton</a></li>
+          <li nz-menu-item nzMatchRouter><a [routerLink]="['layout-categorization']">Categorization</a></li>
+          <li nz-menu-item nzMatchRouter><a [routerLink]="['layout-vertical']">Vertical Layout</a></li>
+          <li nz-menu-item nzMatchRouter><a [routerLink]="['layout-horizontal']">Horizontal Layout</a></li>
+          <li nz-menu-item nzMatchRouter><a [routerLink]="['layout-group']">Group</a></li>
+          <li nz-menu-item nzMatchRouter><a [routerLink]="['layout-category']">Category</a></li>
         </ul>
       </li>
     </ul>

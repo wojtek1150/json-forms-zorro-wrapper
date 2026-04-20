@@ -1,0 +1,102 @@
+<h1>Horizontal Layout</h1>
+<p>A horizontal layout places controls from left to right inside one row.</p>
+
+<article>
+  <h2>Basic horizontal pair</h2>
+  <jsonforms
+    [(data)]="dataObjects.dataHorizontalBasic"
+    [renderers]="renderers"
+    [schema]="schemaObjects.schemaHorizontalBasic"
+    [uischema]="uiSchemaObjects.uiSchemaHorizontalBasic"></jsonforms>
+
+  <div class="flex">
+    <div>
+      <p>Schema</p>
+      <nz-code-editor
+        [ngModel]="schemaObjects.schemaHorizontalBasic.properties | editorFormatter"
+        (ngModelChange)="updateSchema('schemaHorizontalBasic', $event)"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
+        class="editor"></nz-code-editor>
+    </div>
+    <div>
+      <p>Ui Schema</p>
+      <nz-code-editor
+        [ngModel]="uiSchemaObjects.uiSchemaHorizontalBasic | editorFormatter"
+        (ngModelChange)="updateUiSchema('uiSchemaHorizontalBasic', $event)"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
+        class="editor"></nz-code-editor>
+      <p>Data</p>
+      <nz-code-editor
+        [ngModel]="dataObjects.dataHorizontalBasic | editorFormatter"
+        (ngModelChange)="updateData('dataHorizontalBasic', $event)"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
+        class="editor"></nz-code-editor>
+    </div>
+  </div>
+</article>
+
+<article>
+  <h2>Multiple horizontal rows</h2>
+  <jsonforms
+    [(data)]="dataObjects.dataHorizontalNested"
+    [renderers]="renderers"
+    [schema]="schemaObjects.schemaHorizontalNested"
+    [uischema]="uiSchemaObjects.uiSchemaHorizontalNested"></jsonforms>
+
+  <div class="flex">
+    <div>
+      <p>Schema</p>
+      <nz-code-editor
+        [ngModel]="schemaObjects.schemaHorizontalNested.properties | editorFormatter"
+        (ngModelChange)="updateSchema('schemaHorizontalNested', $event)"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
+        class="editor"></nz-code-editor>
+    </div>
+    <div>
+      <p>Ui Schema</p>
+      <nz-code-editor
+        [ngModel]="uiSchemaObjects.uiSchemaHorizontalNested | editorFormatter"
+        (ngModelChange)="updateUiSchema('uiSchemaHorizontalNested', $event)"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
+        class="editor"></nz-code-editor>
+      <p>Data</p>
+      <nz-code-editor
+        [ngModel]="dataObjects.dataHorizontalNested | editorFormatter"
+        (ngModelChange)="updateData('dataHorizontalNested', $event)"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
+        class="editor"></nz-code-editor>
+    </div>
+  </div>
+</article>
+
+<p>UiSchema properties</p>
+<nz-table [nzTemplateMode]="true">
+  <thead>
+    <tr>
+      <th>Property</th>
+      <th>Description</th>
+      <th>Type</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>label</code></td>
+      <td>Optional title rendered above the horizontal section</td>
+      <td><code>string</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><code>description</code></td>
+      <td>Optional description rendered under the title</td>
+      <td><code>string</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><code>elements</code></td>
+      <td>Controls or layouts rendered in one row</td>
+      <td><code>JFZControlElement[] | JFZLayout[]</code></td>
+      <td>[]</td>
+    </tr>
+  </tbody>
+</nz-table>

@@ -83,27 +83,27 @@ export class MentionDocsComponent extends ControlDocsAbstract {
 
   override configObjects: Record<string, Config> = {
     jsonformsConfigExternal: {
-    mentionDictionary: {
-      users: [
-        {
-          name: 'John Doe',
-          email: 'john.doe@gmail.com',
-          avatar: 'https://i.pravatar.cc/400?img=50',
-        },
-        {
-          name: 'Jane Doe',
-          email: 'jane.doe@gmail.com',
-          avatar: 'https://i.pravatar.cc/400?img=51',
-        },
-        {
-          name: 'Lucy Green',
-          email: 'lucy.green@gmail.com',
-        },
-        {
-          name: 'John Smith',
-          email: 'smith@gmail.com',
-          avatar: 'https://i.pravatar.cc/400?img=52',
-        },
+      mentionDictionary: {
+        users: [
+          {
+            name: 'John Doe',
+            email: 'john.doe@gmail.com',
+            avatar: 'https://i.pravatar.cc/400?img=50',
+          },
+          {
+            name: 'Jane Doe',
+            email: 'jane.doe@gmail.com',
+            avatar: 'https://i.pravatar.cc/400?img=51',
+          },
+          {
+            name: 'Lucy Green',
+            email: 'lucy.green@gmail.com',
+          },
+          {
+            name: 'John Smith',
+            email: 'smith@gmail.com',
+            avatar: 'https://i.pravatar.cc/400?img=52',
+          },
         ],
       },
     },

@@ -10,15 +10,16 @@ export abstract class ControlDocsAbstract {
   uiSchemaObjects: Record<string, JFZVerticalLayout> = {};
   configObjects: Record<string, Config> = {};
 
-
   updateUiSchema(uiSchemaKey: string, $event: string): void {
-    const cachedUiSchema = this.uiSchemaObjects[uiSchemaKey].elements[0];
+    const cachedUiSchema = this.uiSchemaObjects[uiSchemaKey];
     try {
-      this.uiSchemaObjects[uiSchemaKey].elements[0] = null;
-      this.uiSchemaObjects[uiSchemaKey].elements[0] = JSON.parse($event);
+      const parsed = JSON.parse($event);
+      this.uiSchemaObjects[uiSchemaKey] = null;
+      this.uiSchemaObjects[uiSchemaKey] =
+        parsed && typeof parsed === 'object' && parsed.type && Array.isArray(parsed.elements) ? parsed : { ...cachedUiSchema, elements: [parsed] };
       this.dataObjects = { ...this.dataObjects }; // force rerender
     } catch (e) {
-      this.uiSchemaObjects[uiSchemaKey].elements[0] = cachedUiSchema;
+      this.uiSchemaObjects[uiSchemaKey] = cachedUiSchema;
     }
   }
 

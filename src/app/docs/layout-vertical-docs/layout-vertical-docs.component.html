@@ -1,0 +1,102 @@
+<h1>Vertical Layout</h1>
+<p>A vertical layout renders elements from top to bottom.</p>
+
+<article>
+  <h2>Basic vertical order</h2>
+  <jsonforms
+    [(data)]="dataObjects.dataVerticalBasic"
+    [renderers]="renderers"
+    [schema]="schemaObjects.schemaVerticalBasic"
+    [uischema]="uiSchemaObjects.uiSchemaVerticalBasic"></jsonforms>
+
+  <div class="flex">
+    <div>
+      <p>Schema</p>
+      <nz-code-editor
+        [ngModel]="schemaObjects.schemaVerticalBasic.properties | editorFormatter"
+        (ngModelChange)="updateSchema('schemaVerticalBasic', $event)"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
+        class="editor"></nz-code-editor>
+    </div>
+    <div>
+      <p>Ui Schema</p>
+      <nz-code-editor
+        [ngModel]="uiSchemaObjects.uiSchemaVerticalBasic | editorFormatter"
+        (ngModelChange)="updateUiSchema('uiSchemaVerticalBasic', $event)"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
+        class="editor"></nz-code-editor>
+      <p>Data</p>
+      <nz-code-editor
+        [ngModel]="dataObjects.dataVerticalBasic | editorFormatter"
+        (ngModelChange)="updateData('dataVerticalBasic', $event)"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
+        class="editor"></nz-code-editor>
+    </div>
+  </div>
+</article>
+
+<article>
+  <h2>Nested vertical layout</h2>
+  <jsonforms
+    [(data)]="dataObjects.dataVerticalNested"
+    [renderers]="renderers"
+    [schema]="schemaObjects.schemaVerticalNested"
+    [uischema]="uiSchemaObjects.uiSchemaVerticalNested"></jsonforms>
+
+  <div class="flex">
+    <div>
+      <p>Schema</p>
+      <nz-code-editor
+        [ngModel]="schemaObjects.schemaVerticalNested.properties | editorFormatter"
+        (ngModelChange)="updateSchema('schemaVerticalNested', $event)"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
+        class="editor"></nz-code-editor>
+    </div>
+    <div>
+      <p>Ui Schema</p>
+      <nz-code-editor
+        [ngModel]="uiSchemaObjects.uiSchemaVerticalNested | editorFormatter"
+        (ngModelChange)="updateUiSchema('uiSchemaVerticalNested', $event)"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
+        class="editor"></nz-code-editor>
+      <p>Data</p>
+      <nz-code-editor
+        [ngModel]="dataObjects.dataVerticalNested | editorFormatter"
+        (ngModelChange)="updateData('dataVerticalNested', $event)"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
+        class="editor"></nz-code-editor>
+    </div>
+  </div>
+</article>
+
+<p>UiSchema properties</p>
+<nz-table [nzTemplateMode]="true">
+  <thead>
+    <tr>
+      <th>Property</th>
+      <th>Description</th>
+      <th>Type</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>label</code></td>
+      <td>Optional section title rendered for the layout</td>
+      <td><code>string</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><code>description</code></td>
+      <td>Optional text displayed below the label</td>
+      <td><code>string</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><code>elements</code></td>
+      <td>Controls or nested layouts rendered top to bottom</td>
+      <td><code>JFZControlElement[] | JFZLayout[]</code></td>
+      <td>[]</td>
+    </tr>
+  </tbody>
+</nz-table>

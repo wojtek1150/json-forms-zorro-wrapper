@@ -20,10 +20,19 @@
 
 nz-sider {
   overflow: auto;
-  height: 100%;
+  top:65px; 
+  bottom: 0;
   position: fixed;
   left: 0;
   background: #fff;
+  padding: 10px 0 40px;
+  display: flex;
+  flex-direction: column;
+
+  ::ng-deep .ant-layout-sider-children{
+    flex:1 ;
+    height: auto
+  }
 }
 
 nz-content {
