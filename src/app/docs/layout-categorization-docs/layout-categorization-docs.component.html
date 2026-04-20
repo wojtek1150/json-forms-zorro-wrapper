@@ -1,0 +1,108 @@
+<h1>Categorization Layout</h1>
+<p>Categorization groups form content into tabs or stepper-based sections.</p>
+
+<article>
+  <h2>Tabs variant</h2>
+  <jsonforms
+    [(data)]="dataObjects.dataCategorizationTabs"
+    [renderers]="renderers"
+    [schema]="schemaObjects.schemaCategorizationTabs"
+    [uischema]="uiSchemaObjects.uiSchemaCategorizationTabs"></jsonforms>
+
+  <div class="flex">
+    <div>
+      <p>Schema</p>
+      <nz-code-editor
+        [ngModel]="schemaObjects.schemaCategorizationTabs.properties | editorFormatter"
+        (ngModelChange)="updateSchema('schemaCategorizationTabs', $event)"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
+        class="editor"></nz-code-editor>
+    </div>
+    <div>
+      <p>Ui Schema</p>
+      <nz-code-editor
+        [ngModel]="uiSchemaObjects.uiSchemaCategorizationTabs | editorFormatter"
+        (ngModelChange)="updateUiSchema('uiSchemaCategorizationTabs', $event)"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
+        class="editor"></nz-code-editor>
+      <p>Data</p>
+      <nz-code-editor
+        [ngModel]="dataObjects.dataCategorizationTabs | editorFormatter"
+        (ngModelChange)="updateData('dataCategorizationTabs', $event)"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
+        class="editor"></nz-code-editor>
+    </div>
+  </div>
+</article>
+
+<article>
+  <h2>Stepper variant</h2>
+  <jsonforms
+    [(data)]="dataObjects.dataCategorizationStepper"
+    [renderers]="renderers"
+    [schema]="schemaObjects.schemaCategorizationStepper"
+    [uischema]="uiSchemaObjects.uiSchemaCategorizationStepper"></jsonforms>
+
+  <div class="flex">
+    <div>
+      <p>Schema</p>
+      <nz-code-editor
+        [ngModel]="schemaObjects.schemaCategorizationStepper.properties | editorFormatter"
+        (ngModelChange)="updateSchema('schemaCategorizationStepper', $event)"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
+        class="editor"></nz-code-editor>
+    </div>
+    <div>
+      <p>Ui Schema</p>
+      <nz-code-editor
+        [ngModel]="uiSchemaObjects.uiSchemaCategorizationStepper | editorFormatter"
+        (ngModelChange)="updateUiSchema('uiSchemaCategorizationStepper', $event)"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
+        class="editor"></nz-code-editor>
+      <p>Data</p>
+      <nz-code-editor
+        [ngModel]="dataObjects.dataCategorizationStepper | editorFormatter"
+        (ngModelChange)="updateData('dataCategorizationStepper', $event)"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
+        class="editor"></nz-code-editor>
+    </div>
+  </div>
+</article>
+
+<p>UiSchema options</p>
+<nz-table [nzTemplateMode]="true">
+  <thead>
+    <tr>
+      <th>Property</th>
+      <th>Description</th>
+      <th>Type</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>variant</code></td>
+      <td>Choose layout mode (`stepper` enables step-based UI)</td>
+      <td><code>'stepper'</code></td>
+      <td>tabs</td>
+    </tr>
+    <tr>
+      <td><code>showNavButtons</code></td>
+      <td>Show Previous/Next buttons for the stepper variant</td>
+      <td><code>boolean</code></td>
+      <td><code>false</code></td>
+    </tr>
+    <tr>
+      <td><code>nextLabel</code></td>
+      <td>Custom label for the next button in stepper mode</td>
+      <td><code>string</code></td>
+      <td><code>Next</code></td>
+    </tr>
+    <tr>
+      <td><code>previousLabel</code></td>
+      <td>Custom label for the previous button in stepper mode</td>
+      <td><code>string</code></td>
+      <td><code>Previous</code></td>
+    </tr>
+  </tbody>
+</nz-table>

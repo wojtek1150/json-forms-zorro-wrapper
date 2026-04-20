@@ -1,0 +1,102 @@
+<h1>Category Layout</h1>
+<p>A category defines one tab or step section inside a categorization layout.</p>
+
+<article>
+  <h2>Single category in tabs</h2>
+  <jsonforms
+    [(data)]="dataObjects.dataCategorySingle"
+    [renderers]="renderers"
+    [schema]="schemaObjects.schemaCategorySingle"
+    [uischema]="uiSchemaObjects.uiSchemaCategorySingle"></jsonforms>
+
+  <div class="flex">
+    <div>
+      <p>Schema</p>
+      <nz-code-editor
+        [ngModel]="schemaObjects.schemaCategorySingle.properties | editorFormatter"
+        (ngModelChange)="updateSchema('schemaCategorySingle', $event)"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
+        class="editor"></nz-code-editor>
+    </div>
+    <div>
+      <p>Ui Schema</p>
+      <nz-code-editor
+        [ngModel]="uiSchemaObjects.uiSchemaCategorySingle | editorFormatter"
+        (ngModelChange)="updateUiSchema('uiSchemaCategorySingle', $event)"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
+        class="editor"></nz-code-editor>
+      <p>Data</p>
+      <nz-code-editor
+        [ngModel]="dataObjects.dataCategorySingle | editorFormatter"
+        (ngModelChange)="updateData('dataCategorySingle', $event)"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
+        class="editor"></nz-code-editor>
+    </div>
+  </div>
+</article>
+
+<article>
+  <h2>Categories with nested layouts</h2>
+  <jsonforms
+    [(data)]="dataObjects.dataCategoryWithGroup"
+    [renderers]="renderers"
+    [schema]="schemaObjects.schemaCategoryWithGroup"
+    [uischema]="uiSchemaObjects.uiSchemaCategoryWithGroup"></jsonforms>
+
+  <div class="flex">
+    <div>
+      <p>Schema</p>
+      <nz-code-editor
+        [ngModel]="schemaObjects.schemaCategoryWithGroup.properties | editorFormatter"
+        (ngModelChange)="updateSchema('schemaCategoryWithGroup', $event)"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
+        class="editor"></nz-code-editor>
+    </div>
+    <div>
+      <p>Ui Schema</p>
+      <nz-code-editor
+        [ngModel]="uiSchemaObjects.uiSchemaCategoryWithGroup | editorFormatter"
+        (ngModelChange)="updateUiSchema('uiSchemaCategoryWithGroup', $event)"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
+        class="editor"></nz-code-editor>
+      <p>Data</p>
+      <nz-code-editor
+        [ngModel]="dataObjects.dataCategoryWithGroup | editorFormatter"
+        (ngModelChange)="updateData('dataCategoryWithGroup', $event)"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
+        class="editor"></nz-code-editor>
+    </div>
+  </div>
+</article>
+
+<p>UiSchema properties</p>
+<nz-table [nzTemplateMode]="true">
+  <thead>
+    <tr>
+      <th>Property</th>
+      <th>Description</th>
+      <th>Type</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>label</code></td>
+      <td>Label shown on the tab/step header</td>
+      <td><code>string</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><code>description</code></td>
+      <td>Optional supporting text for the category</td>
+      <td><code>string</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><code>elements</code></td>
+      <td>Layouts and controls rendered when the category is active</td>
+      <td><code>JFZGroupLayout[] | JFZLayout[]</code></td>
+      <td>[]</td>
+    </tr>
+  </tbody>
+</nz-table>

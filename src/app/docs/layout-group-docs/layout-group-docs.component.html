@@ -1,0 +1,102 @@
+<h1>Group Layout</h1>
+<p>A group behaves like a vertical layout with a visible section label.</p>
+
+<article>
+  <h2>Basic group</h2>
+  <jsonforms
+    [(data)]="dataObjects.dataGroupBasic"
+    [renderers]="renderers"
+    [schema]="schemaObjects.schemaGroupBasic"
+    [uischema]="uiSchemaObjects.uiSchemaGroupBasic"></jsonforms>
+
+  <div class="flex">
+    <div>
+      <p>Schema</p>
+      <nz-code-editor
+        [ngModel]="schemaObjects.schemaGroupBasic.properties | editorFormatter"
+        (ngModelChange)="updateSchema('schemaGroupBasic', $event)"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
+        class="editor"></nz-code-editor>
+    </div>
+    <div>
+      <p>Ui Schema</p>
+      <nz-code-editor
+        [ngModel]="uiSchemaObjects.uiSchemaGroupBasic | editorFormatter"
+        (ngModelChange)="updateUiSchema('uiSchemaGroupBasic', $event)"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
+        class="editor"></nz-code-editor>
+      <p>Data</p>
+      <nz-code-editor
+        [ngModel]="dataObjects.dataGroupBasic | editorFormatter"
+        (ngModelChange)="updateData('dataGroupBasic', $event)"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
+        class="editor"></nz-code-editor>
+    </div>
+  </div>
+</article>
+
+<article>
+  <h2>Group with nested horizontal layout</h2>
+  <jsonforms
+    [(data)]="dataObjects.dataGroupNested"
+    [renderers]="renderers"
+    [schema]="schemaObjects.schemaGroupNested"
+    [uischema]="uiSchemaObjects.uiSchemaGroupNested"></jsonforms>
+
+  <div class="flex">
+    <div>
+      <p>Schema</p>
+      <nz-code-editor
+        [ngModel]="schemaObjects.schemaGroupNested.properties | editorFormatter"
+        (ngModelChange)="updateSchema('schemaGroupNested', $event)"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
+        class="editor"></nz-code-editor>
+    </div>
+    <div>
+      <p>Ui Schema</p>
+      <nz-code-editor
+        [ngModel]="uiSchemaObjects.uiSchemaGroupNested | editorFormatter"
+        (ngModelChange)="updateUiSchema('uiSchemaGroupNested', $event)"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
+        class="editor"></nz-code-editor>
+      <p>Data</p>
+      <nz-code-editor
+        [ngModel]="dataObjects.dataGroupNested | editorFormatter"
+        (ngModelChange)="updateData('dataGroupNested', $event)"
+        [nzEditorOption]="{ language: 'json', automaticLayout: true }"
+        class="editor"></nz-code-editor>
+    </div>
+  </div>
+</article>
+
+<p>UiSchema properties</p>
+<nz-table [nzTemplateMode]="true">
+  <thead>
+    <tr>
+      <th>Property</th>
+      <th>Description</th>
+      <th>Type</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>label</code></td>
+      <td>Section title rendered above grouped elements</td>
+      <td><code>string</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><code>description</code></td>
+      <td>Optional explanatory text for the section</td>
+      <td><code>string</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><code>elements</code></td>
+      <td>List of controls or nested layouts inside the group</td>
+      <td><code>JFZControlElement[] | JFZLayout[]</code></td>
+      <td>[]</td>
+    </tr>
+  </tbody>
+</nz-table>
