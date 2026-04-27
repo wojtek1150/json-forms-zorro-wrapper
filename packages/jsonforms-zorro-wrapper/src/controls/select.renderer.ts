@@ -92,20 +92,23 @@ export class SelectControlRenderer extends JsonFormsControl {
     super(jsonformsService, changeDetectorRef);
   }
 
-  override getEventValue = (event: any) => event || undefined;
+  override getEventValue = (event: any) => event ?? undefined;
 
   compareByValue = (first: any, second: any): boolean => isEqual(first, second);
 
   override onChange(event: any) {
-    if (!this.compareByValue(this.selectedValue, event)) {
-      this.selectedValue = event;
-      this.jsonFormsService.updateCore(Actions.update(this.propsPath, () => event));
+    const nextValue = this.getEventValue(event);
+    if (!this.compareByValue(this.selectedValue, nextValue)) {
+      this.selectedValue = nextValue;
+      this.jsonFormsService.updateCore(Actions.update(this.propsPath, () => nextValue));
       this.triggerValidation();
     }
   }
 
   override mapAdditionalProps(props: StatePropsOfControl) {
     super.mapAdditionalProps(props);
+    this.selectedValue = this.data;
+    
     const dictionaryKey = this.uischema.options?.dictionaryKey;
     if (dictionaryKey) {
       this.options = this.config.selectExternalDictionary[dictionaryKey] || [];
