@@ -46,7 +46,6 @@ export class SelectDocsComponent extends ControlDocsAbstract {
           ],
         },
       },
-      required: ['selection'],
     },
     schemaOneOf: {
       type: 'object',
