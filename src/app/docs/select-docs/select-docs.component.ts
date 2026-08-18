@@ -145,6 +145,19 @@ export class SelectDocsComponent extends ControlDocsAbstract {
         enumObjectsExternal: [
           { label: 'Red Car', value: { name: 'Red Car', color: 'red' } },
           { label: 'Blue Car', value: { name: 'Blue Car', color: 'blue' } },
+          {
+            label: 'Black Car',
+            value: { name: 'Black Car', color: 'black' },
+            unsupported: true,
+            additionalLabel: 'inactive',
+            additionalLabelColor: 'var(--ant-error-color)',
+          },
+          {
+            label: 'Green Car',
+            value: { name: 'Green Car', color: 'green' },
+            additionalLabel: 'recommended',
+            additionalLabelColor: 'var(--ant-primary-color)',
+          },
         ],
       },
     },
