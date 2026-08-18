@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, computed, signal } from '@angular/core';
 import { DescriptionRenderer, JsonFormsAngularService, JsonFormsControl } from '../jsonForms';
 import { Actions, isEnumControl, isOneOfControl, or, RankedTester, rankWith, StatePropsOfControl } from '../core';
 import { NzFormControlComponent, NzFormItemComponent, NzFormLabelComponent } from 'ng-zorro-antd/form';
@@ -8,6 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NzValidationStatusPipe } from '../other/validation-status.pipe';
 import { NzAlertComponent } from 'ng-zorro-antd/alert';
 import { isEqual } from 'lodash-es';
+import { SelectExternalDictionaryItem } from '../models/config';
 
 @Component({
   selector: 'SelectControlRenderer',
@@ -38,11 +39,26 @@ import { isEqual } from 'lodash-es';
             [compareWith]="compareByValue"
             (ngModelChange)="onChange($event)"
             (blur)="triggerValidation()"
+            [nzCustomTemplate]="selectedValueTemplate"
           >
-            @for (option of options; track option.value) {
-              <nz-option [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
+            @for (option of options(); track option.value) {
+              <nz-option nzCustomContent [nzLabel]="option.label" [nzValue]="option.value">
+                {{ option.label }}
+                @if (option.additionalLabel) {
+                  <span [style.color]="option.additionalLabelColor">{{ option.additionalLabel }}</span>
+                }
+              </nz-option>
             }
           </nz-select>
+
+          <ng-template #selectedValueTemplate let-selected>
+            {{ selected.nzLabel }}
+            @let option = optionsEntities()[selected.nzLabel];
+            @if (option.additionalLabel) {
+              <span [style.color]="option.additionalLabelColor">{{ option.additionalLabel }}</span>
+            }
+          </ng-template>
+
           @if (uischema.messageBox && form.dirty) {
             <nz-alert
               class="message-box"
@@ -82,11 +98,15 @@ import { isEqual } from 'lodash-es';
   ],
 })
 export class SelectControlRenderer extends JsonFormsControl {
-  options: {
-    label: string;
-    value: any;
-  }[];
-  private selectedValue: any;
+  options = signal<SelectExternalDictionaryItem[]>([]);
+  optionsEntities = computed(() =>
+    this.options().reduce((acc, option) => {
+      acc[option.label] = option;
+      return acc;
+    }, {}),
+  );
+  value = signal<string | undefined>(undefined);
+  hasUnsupportedValueSelected = computed(() => this.options().find(el => this.compareByValue(el.value, this.value()))?.unsupported);
 
   constructor(jsonformsService: JsonFormsAngularService, changeDetectorRef: ChangeDetectorRef) {
     super(jsonformsService, changeDetectorRef);
@@ -96,10 +116,26 @@ export class SelectControlRenderer extends JsonFormsControl {
 
   compareByValue = (first: any, second: any): boolean => isEqual(first, second);
 
+  override get errorStatus(): string {
+    return this.hasUnsupportedValueSelected() ? 'INVALID' : super.errorStatus;
+  }
+
+  override get errorMessage(): string | null {
+    if (this.hasUnsupportedValueSelected()) {
+      return this.scopedSchema['unsupportedValueErrorMessage'] || 'This field cannot contain unsupported value';
+    }
+
+    if (this.scopedSchema['errorMessage']) {
+      return this.scopedSchema['errorMessage'];
+    }
+
+    return this.error;
+  }
+
   override onChange(event: any) {
     const nextValue = this.getEventValue(event);
-    if (!this.compareByValue(this.selectedValue, nextValue)) {
-      this.selectedValue = nextValue;
+    if (!this.compareByValue(this.value(), nextValue)) {
+      this.value.set(nextValue);
       this.jsonFormsService.updateCore(Actions.update(this.propsPath, () => nextValue));
       this.triggerValidation();
     }
@@ -107,26 +143,26 @@ export class SelectControlRenderer extends JsonFormsControl {
 
   override mapAdditionalProps(props: StatePropsOfControl) {
     super.mapAdditionalProps(props);
-    this.selectedValue = this.data;
-    
+    this.value.set(this.data);
+
     const dictionaryKey = this.uischema.options?.dictionaryKey;
     if (dictionaryKey) {
-      this.options = this.config.selectExternalDictionary[dictionaryKey] || [];
+      this.options.set(this.config.selectExternalDictionary[dictionaryKey] || []);
       return;
     }
 
     if (this.scopedSchema.type === 'object') {
       const labelKey = this.uischema.options?.labelKey || 'label';
       if (this.scopedSchema.enum) {
-        this.options = this.scopedSchema.enum.map(option => ({ label: option[labelKey], value: option }));
+        this.options.set(this.scopedSchema.enum.map(option => ({ label: option[labelKey], value: option })));
       } else {
-        this.options = this.scopedSchema.oneOf.map(option => ({ label: option[labelKey], value: option.const }));
+        this.options.set(this.scopedSchema.oneOf.map(option => ({ label: option[labelKey], value: option.const })));
       }
     } else {
       if (this.scopedSchema.enum) {
-        this.options = this.scopedSchema.enum.map(option => ({ label: option, value: option }));
+        this.options.set(this.scopedSchema.enum.map(option => ({ label: option, value: option })));
       } else {
-        this.options = this.scopedSchema.oneOf.map(option => ({ label: option.title, value: option.const }));
+        this.options.set(this.scopedSchema.oneOf.map(option => ({ label: option.title, value: option.const })));
       }
     }
   }
